@@ -1,0 +1,169 @@
+@charset "utf-8";
+
+/* ----------------
+    Main Styles  */
+
+html {
+	background: -webkit-radial-gradient(black 15%, transparent 16%) 0 0,
+				-webkit-radial-gradient(black 15%, transparent 16%) 8px 8px,
+				-webkit-radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+				-webkit-radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+	background:    -moz-radial-gradient(black 15%, transparent 16%) 0 0,
+				   -moz-radial-gradient(black 15%, transparent 16%) 8px 8px,
+				   -moz-radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+				   -moz-radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+	background:     -ms-radial-gradient(black 15%, transparent 16%) 0 0,
+				    -ms-radial-gradient(black 15%, transparent 16%) 8px 8px,
+				    -ms-radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+				    -ms-radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+	background:      -o-radial-gradient(black 15%, transparent 16%) 0 0,
+				     -o-radial-gradient(black 15%, transparent 16%) 8px 8px,
+				     -o-radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+				     -o-radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+	background:         radial-gradient(black 15%, transparent 16%) 0 0,
+				        radial-gradient(black 15%, transparent 16%) 8px 8px,
+				        radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+				        radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+	background-color: #282828;
+	background-size: 16px 16px;
+	height: 100%;
+}
+
+body {
+	position: relative;
+	height: 100%;
+	margin: 0px;
+	font: 12px/18px "HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif;
+	background-image: -webkit-radial-gradient(50% 50%, rgba(0,0,0,0), black);
+	background-image:    -moz-radial-gradient(50% 50%, rgba(0,0,0,0), black);
+	background-image:     -ms-radial-gradient(50% 50%, rgba(0,0,0,0), black);
+	background-image:      -o-radial-gradient(50% 50%, rgba(0,0,0,0), black);
+	background-image:         radial-gradient(50% 50%, rgba(0,0,0,0), black);
+}
+
+
+
+/* ------------------
+    Design Styles  */
+
+header {
+	position: absolute;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 34px;
+	margin: 0px;
+	z-index: 1;
+	box-shadow: 0px 5px rgba(0,0,0,0.8);
+	background: -webkit-linear-gradient(top, rgba(60, 60, 60, 0.8), rgba(20, 20, 20, 0.8));
+	background:    -moz-linear-gradient(top, rgba(60, 60, 60, 0.8), rgba(20, 20, 20, 0.8));
+	background:     -ms-linear-gradient(top, rgba(60, 60, 60, 0.8), rgba(20, 20, 20, 0.8));
+	background:      -o-linear-gradient(top, rgba(60, 60, 60, 0.8), rgba(20, 20, 20, 0.8));
+	background:         linear-gradient(top, rgba(60, 60, 60, 0.8), rgba(20, 20, 20, 0.8));
+	border-left: 8px solid #900;
+	-webkit-transition: all .5s;
+	   -moz-transition: all .5s;
+	     -o-transition: all .5s;
+	        transition: all .5s;
+}
+header.expand {
+	height: 80px;
+}
+
+iframe {
+	width: 100%;
+	height: 100%;
+	border: none;
+	margin-bottom: -5px;
+}
+
+
+
+/* ------------------
+    header Styles  */
+
+header h1 {
+	display: inline-block;
+	margin: 0px;
+	padding: 8px;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	color: white;
+	font-size: 18px;
+	font-weight: normal;
+	text-shadow: 3px 3px 3px black;
+	text-transform: capitalize;
+}
+header p {
+	display: inline-block;
+	margin: 0px;
+	color: #999;
+	font-size: 0.8em;
+	font-style: italic;
+	-webkit-transition: opacity .5s;
+	   -moz-transition: opacity .5s;
+	     -o-transition: opacity .5s;
+	        transition: opacity .5s;
+}
+	#select { 
+		position: relative;
+		left: -115px;
+		opacity: 0;
+	}
+	
+	header.expand #expand { opacity: 0; }
+	header.expand #select { opacity: 1; }
+	
+
+
+/* --------------------
+    Nav Menu Styles  */
+
+#nav { list-style: none; margin: 5px; }
+#nav li { display: inline-block; }
+#nav a {
+	position: relative;
+	margin: 2px 3px;
+	padding: 6px 12px 5px;
+	font-family: Georgia, Times, "Times New Roman", serif;
+	text-transform: uppercase;
+	text-decoration: none;
+	font-weight: 800;
+	font-size: 10px;
+	letter-spacing: 1px;
+	line-height: 18px;
+	color: #BBB;
+	opacity: 0;
+	-webkit-transition: opacity .5s;
+	   -moz-transition: opacity .5s;
+	     -o-transition: opacity .5s;
+	        transition: opacity .5s;
+}
+	header.expand #nav a { opacity: 1; }
+	#nav a:hover { color: white; }
+	
+	#nav a::after {
+		content: "//";
+		position: absolute;
+		top: 1px;
+		right: -8px;
+		width: 10px;
+		height: 20px;
+		font-size: 18px;
+		letter-spacing: -4px;
+		color: #646464;
+	}
+	#nav li:first-child a::before {
+		content: "//";
+		position: absolute;
+		top: 1px;
+		left: -8px;
+		width: 10px;
+		height: 20px;
+		font-size: 18px;
+		letter-spacing: -4px;
+		color: #646464;
+	}
+	
+	#nav li.selected a { color: white; }
