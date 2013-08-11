@@ -1,0 +1,550 @@
+@charset "utf-8";
+
+/* ---------------
+    Animations  */
+
+@keyframes fade {
+	from { opacity: 0; }
+	to   { opacity: 1; }
+}
+	@-webkit-keyframes fade {
+		from { opacity: 0; }
+		to   { opacity: 1; }
+	}
+	@-moz-keyframes fade {
+		from { opacity: 0; }
+		to   { opacity: 1; }
+	}
+	@-ms-keyframes fade {
+		from { opacity: 0; }
+		to   { opacity: 1; }
+	}
+	@-o-keyframes fade {
+		from { opacity: 0; }
+		to   { opacity: 1; }
+	}
+
+
+
+/* ---------------
+    Game Fonts  */
+
+@font-face {
+	font-family: 'Gill Sans MT Ext Condensed Bold';
+	font-style: normal;
+	font-weight: normal;
+	src: local('Gill Sans MT Ext Condensed Bold'), url('../fonts/glsnecb.ttf') format('truetype');
+}
+
+
+
+/* ----------------
+    Main Styles  */
+
+html, body {
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background-color: transparent;
+}
+html, body, input {
+	color: #000000;
+	font-family: "Gill Sans MT Ext Condensed Bold";
+	font-size: 28px;
+	color: #000000;
+	text-shadow: #333333 1px 1px 1px;
+}
+
+a {
+	color: #333333;
+	text-shadow: #666666 1px 1px 1px;
+	text-decoration: none;
+	outline: none;
+}
+a:hover {
+	color: #000000;
+	text-shadow: #333333 1px 1px 1px;
+}
+
+input {
+	color: #333333;
+	text-shadow: #666666 1px 1px 1px;
+}
+
+
+
+/* ----------------
+    Game Design  */
+
+#container {
+	position: absolute;
+	top: 50%;
+	bottom: 50%;
+	left: 50%;
+	right: 50%;
+	width: 250px;
+	height: 360px;
+	margin-top: -182px;
+	margin-left: -127px;
+	border: 2px solid #121212;
+	box-shadow: inset 10px 0px #272727, inset -10px 0px #272727,
+				inset 0px 10px #272727, inset 0px -10px #BEBEBE;
+	background-color: white;
+	z-index: 3;
+}
+
+.zoom {
+	position: absolute;
+	top: 45px;
+	right: 10px;
+	padding: 10px 5px;
+	background-color: #333;
+	border-radius: 50%;
+	font: 12px Georgia, "Times New Roman", Times, serif;
+	font-weight: bold;
+	color: rgb(200,200,200);
+	text-shadow: 1px 1px #000;
+}
+	.zoom:hover { 
+		background-color: #999;
+		color: #000;
+		text-shadow: 1px 1px #ccc;
+	}
+
+
+
+/* ----------------
+    Show / Hide  */
+
+.game .board { cursor: none; }
+.game .messages { display: none; }
+.game .board .ship,
+.game .board .ball,
+.game .board .tail div,
+.game .bricks { display: block; }
+
+.mainScreen .main, .paused .pause,
+.gameOver .restart, .gameOverSave .input,
+.gameOverSave .restart, .highScores .high,
+.help .help { display: block; }
+
+
+
+/* -------------------
+    Messages Panel  */
+
+.messages {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+	right: 0px;
+	cursor: pointer;
+	z-index: 100;
+}
+	.messages .bg {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		bottom: 0px;
+		right: 0px;
+		background-color: #000000;
+		opacity: 0.2;
+	}
+	.messages .text {
+		position: absolute;
+		top: 40px;
+		left: 0px;
+		right: 0px;
+		height: 80px;
+		background-color: #000000;
+		opacity: 0.8;
+	}
+	
+	.messages .text h2 {
+		position: absolute;
+		top: 2px;
+		left: 0px;
+		right: 0px;
+		margin: 0px;
+		font-size: 55px;
+		font-variant: small-caps;
+		font-weight: normal;
+		text-align: center;
+		color: #FFFFFF;
+	}
+	.messages .text p {
+		position: absolute;
+		top: 47px;
+		left: 0px;
+		right: 0px;
+		text-align: center;
+		color: #FFFFFF;
+		font: 10px Verdana, Arial, Helvetica, sans-serif;
+		line-height: 14pt;
+	}
+
+
+
+/* -------------------------
+    Mains Screen / Pause  */
+
+.main  { display: none; }
+.main ul { top: 150px; }
+.pause {
+	display: none;
+	top: 160px;
+}
+
+.main ul, .pause {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	text-align: center;
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+	.main li:nth-last-child(2) { padding-top: 20px; }
+	.main li:last-child { padding-left: 45px; }
+
+
+
+/* --------------
+    Game Over  */
+
+.input {
+	display: none;
+	position: absolute;
+	top: 180px;
+	left: 0px;
+	right: 0px;
+	text-align: center;
+}
+	.input input {
+		width: 110px;
+		padding-left: 5px;
+		border: 2px solid #333333;
+		background: none;
+		border-radius: 5px;
+	}
+	.input input:focus { outline: none; }
+	.input input::-webkit-input-placeholder { 
+		color: #666;
+		text-shadow: none;
+	}
+	.input input:-moz-placeholder {
+		color: #666;
+		text-shadow: none;
+	}
+
+.restart {
+	display: none;
+	position: absolute;
+	top: 250px;
+	left: 0px;
+	right: 0px;
+	text-align: center;
+}
+
+
+
+/* ----------------
+    High Scores  */
+
+.high { display: none; }
+.high .links {
+	position: absolute;
+	bottom: 22px;
+	left: 0px;
+	right: 0px;
+	height: 20px;
+	text-align: center;
+}
+	.high .links ul {
+		margin: 0px;
+		padding: 0px;
+		list-style: none;
+	}
+	.high .links li {
+		display: inline-block;
+		padding-right: 6px;
+		padding-left: 6px;
+	}
+
+.scores {
+	position: absolute;
+	top: 125px;
+	left: 40px;
+	right: 40px;
+	bottom: 45px;
+}
+.high .highScore {
+	float: left;
+	clear: both;
+	width: 100%;
+}
+	.high .highScore .name { float: left; }
+	.high .highScore .score { float: right; }
+
+.none {
+	position: absolute;
+	display: none;
+	top: 190px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	text-align: center;
+}
+
+
+
+/* ---------
+    Help  */
+
+.help { display: none; }
+	.help ol {
+		font-size: 21px;
+		margin-top: 125px;
+		text-shadow: none;
+		margin-right: 15px;
+	}
+	.help a {
+		position: absolute;
+		top: 315px;
+		left: 200px;
+	}
+
+
+
+/* -----------------
+    Audio Button  */
+
+.audio {
+	position: absolute;
+	bottom: 20px;
+	left: 80px;
+	cursor: pointer;
+}
+.audio .triangle {
+	position: absolute;
+	bottom: 2px;
+	left: 2px;
+	border: 10px solid transparent;
+	border-right-color: #333;
+}
+	.audio .triangle:after {
+		content: "";
+		position: absolute;
+		top: -8px;
+		left: -12px;
+		border: 10px solid transparent;
+		border-right-color: #666;
+		z-index: -1;
+	}
+	.audio:hover .triangle       { border-right-color: #000; }
+	.audio:hover .triangle:after { border-right-color: #333; }
+
+.audio .box {
+	position: absolute;
+	bottom: 9px;
+	left: 11px;
+	height: 6px;
+	width: 5px;
+	background-color: #333;
+}
+	.audio .box:after {
+		content: "";
+		position: absolute;
+		top: 2px;
+		left: -2px;
+		height: 6px;
+		width: 5px;
+		background-color: #666;
+		z-index: -1;
+	}
+	.audio:hover .box       { background-color: #000; }
+	.audio:hover .box:after { background-color: #333; }
+
+.waves {
+	position: absolute;
+	bottom: 0px;
+	left: 20px;
+}
+	.waves div {
+		position: absolute;
+		left: 0px;
+		background-color: #333;
+		border-radius: 0 200px 200px 0;
+	}
+	.waves div:nth-child(1) {
+		bottom: 3px;
+		width:  18px;
+		height: 18px;
+	}
+	.waves div:nth-child(2) {
+		bottom: 5px;
+		width:  14px;
+		height: 14px;
+	}
+	.waves div:nth-child(3) {
+		bottom: 7px;
+		width:  10px;
+		height: 10px;
+	}
+	.waves div:nth-child(4) {
+		bottom: 9px;
+		width:  6px;
+		height: 6px;
+	}
+	
+	.audio:hover .waves div { 
+		background-color: #000;
+	}
+	.waves div:before {
+		content: "";
+		position: absolute;
+		left: 0px;
+		bottom: 0px;
+		right: 1px;
+		top: 0px;
+		background-color: #CCC;
+		border-radius: 0 200px 200px 0;
+	}
+
+
+
+/* -----------------
+    Board Design  */
+
+.count {
+	position: absolute;
+	top: 40px;
+	left: 10px;
+	right: 10px;
+	color: rgba(0,0,0,0.2);
+	font-size: 250px;
+	text-align: center;
+	line-height: normal;
+	text-shadow: none;
+}
+.bricks {
+	display: none;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	bottom: 10px;
+	right: 10px;
+}
+	.bricks.fade {
+		-webkit-animation: fade 1s;
+		   -moz-animation: fade 1s;
+		    -ms-animation: fade 1s;
+		     -o-animation: fade 1s;
+		        animation: fade 1s;
+	}
+	.bricks div {
+		position: absolute;
+		height: 25px;
+		width: 46px;
+		box-shadow: inset 0px 0px 0px 15px #121212;
+		border: 4px solid transparent;
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-webkit-transition: all .3s;
+		   -moz-transition: all .3s;
+		    -ms-transition: all .3s;
+		     -o-transition: all .3s;
+		        transition: all .3s;
+	}
+
+.board {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	bottom: 10px;
+	right: 10px;
+}
+	.ship {
+		position: absolute;
+		display: none;
+		width: 50px;
+		height: 15px;
+		background-color: #121212;
+		border-radius: 5px;
+	}
+	
+	.ball, .tail div {
+		position: absolute;
+		display: none;
+		border-radius: 100px;
+		width: 30px;
+		height: 30px;
+		box-shadow: inset 0px 0px 0px 15px #121212;
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+	}
+	
+	.tail div:nth-child(1) {
+		border: 1px solid transparent;
+		opacity: 0.95;
+	}
+	.tail div:nth-child(2) {
+		border: 2px solid transparent;
+		opacity: 0.90;
+	}
+	.tail div:nth-child(3) {
+		border: 3px solid transparent;
+		opacity: 0.85;
+	}
+	.tail div:nth-child(4) {
+		border: 4px solid transparent;
+		opacity: 0.80;
+	}
+	.tail div:nth-child(5) {
+		border: 5px solid transparent;
+		opacity: 0.75;
+	}
+	.tail div:nth-child(6) {
+		border: 6px solid transparent;
+		opacity: 0.70;
+	}
+	.tail div:nth-child(7) {
+		border: 7px solid transparent;
+		opacity: 0.65;
+	}
+	.tail div:nth-child(8) {
+		border: 8px solid transparent;
+		opacity: 0.6;
+	}
+	.tail div:nth-child(9) {
+		border: 9px solid transparent;
+		opacity: 0.55;
+	}
+	.tail div:nth-child(10) {
+		border: 10px solid transparent;
+		opacity: 0.5;
+	}
+	.tail div:nth-child(11) {
+		border: 11px solid transparent;
+		opacity: 0.45;
+	}
+	.tail div:nth-child(12) {
+		border: 12px solid transparent;
+		opacity: 0.4;
+	}
+	.tail div:nth-child(13) {
+		border: 13px solid transparent;
+		opacity: 0.3;
+	}
+	.tail div:nth-child(14) {
+		border: 14px solid transparent;
+		opacity: 0.2;
+	}
+	.tail div:nth-child(15) {
+		border: 14px solid transparent;
+		opacity: 0.1;
+	}
