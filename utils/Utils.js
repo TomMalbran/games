@@ -7,14 +7,14 @@ var Utils = (function () {
 		/**
 		 * Request Animation Frame shim
 		 * @param {function} callback
+		 * @return {string} ID value
 		 */
 		requestAnimationFrame: function (callback) {
 			var f = window.requestAnimationFrame       ||
 					window.webkitRequestAnimationFrame ||
 					window.mozRequestAnimationFrame    ||
-					window.msRequestAnimationFrame     ||
 					window.oRequestAnimationFrame      ||
-					function (callback, element) {
+					function (callback) {
 						window.setTimeout(callback, 1000 / 60);
 					};
 			return f(callback);
@@ -28,7 +28,6 @@ var Utils = (function () {
 			var f = window.cancelRequestAnimationFrame       ||
 					window.webkitCancelRequestAnimationFrame ||
 					window.mozCancelRequestAnimationFrame    ||
-					window.msCancelRequestAnimationFrame     ||
 					window.oCancelRequestAnimationFrame      ||
 					function (id) { clearTimeout(id); };
 			return f(id);
@@ -138,6 +137,7 @@ var Utils = (function () {
 		/**
 		 * Returns the position of an Element in the document
 		 * @param {DOM} element
+		 * @return {{top: number, left: number}}
 		 */
 		getPosition: function (element) {
 			var posTop = 0, posLeft = 0;
@@ -169,19 +169,21 @@ var Utils = (function () {
 	
 		/**
 		 * Returns the Mouse Position
+		 * @param {Event} event
+		 * @return {{top: number, left: number}}
 		 */
-		getMousePos: function (e) {
+		getMousePos: function (event) {
 			var posTop = 0, posLeft = 0;
 			
-			if (!e) {
-				e = window.event;
+			if (!event) {
+				event = window.event;
 			}
-			if (e.pageX) {
-				posTop  = e.pageY;
-				posLeft = e.pageX;
-			} else if (e.clientX) {
-				posTop  = e.clientY + (document.documentElement.scrollTop  || document.body.scrollTop);
-				posLeft = e.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft);
+			if (event.pageX) {
+				posTop  = event.pageY;
+				posLeft = event.pageX;
+			} else if (event.clientX) {
+				posTop  = event.clientY + (document.documentElement.scrollTop  || document.body.scrollTop);
+				posLeft = event.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft);
 			}
 			return { top: posTop, left: posLeft };
 		},
