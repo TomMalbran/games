@@ -76,6 +76,28 @@ input {
 
 
 
+/* ------------------
+    Modes Display  */
+
+.playing .board    { cursor: none;   }
+.playing .messages { display: none;  }
+.playing .board .ship,
+.playing .board .ball,
+.playing .board .tail div,
+.playing .bricks   { display: block; }
+
+.mainScreen   .main,
+.paused       .pause,
+.gameOver     .restart,
+.gameOverSave .input,
+.gameOverSave .restart,
+.highScores   .high,
+.help         .controls {
+	display: block;
+}
+
+
+
 /* ----------------
     Game Design  */
 
@@ -113,23 +135,6 @@ input {
 		color: #000;
 		text-shadow: 1px 1px #ccc;
 	}
-
-
-
-/* ----------------
-    Show / Hide  */
-
-.game .board { cursor: none; }
-.game .messages { display: none; }
-.game .board .ship,
-.game .board .ball,
-.game .board .tail div,
-.game .bricks { display: block; }
-
-.mainScreen .main, .paused .pause,
-.gameOver .restart, .gameOverSave .input,
-.gameOverSave .restart, .highScores .high,
-.help .help { display: block; }
 
 
 
@@ -302,21 +307,21 @@ input {
 
 
 
-/* ---------
-    Help  */
+/* ------------------
+    Help Controls  */
 
-.help { display: none; }
-	.help ol {
-		font-size: 21px;
-		margin-top: 125px;
-		text-shadow: none;
-		margin-right: 15px;
-	}
-	.help a {
-		position: absolute;
-		top: 315px;
-		left: 200px;
-	}
+.controls { display: none; }
+.controls ol {
+	font-size: 21px;
+	margin-top: 125px;
+	text-shadow: none;
+	margin-right: 15px;
+}
+.controls a {
+	position: absolute;
+	top: 315px;
+	left: 200px;
+}
 
 
 

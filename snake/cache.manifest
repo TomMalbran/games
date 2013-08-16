@@ -1,0 +1,16 @@
+CACHE MANIFEST
+# rev 3
+
+/source/style.css
+/source/game.js
+../subs.js
+
+/fonts/bauhs93.ttf
+/fonts/equilibrium.ttf
+
+/audio/eat.mp3
+/audio/eat.ogg
+/audio/end.mp3
+/audio/end.ogg
+/audio/start.mp3
+/audio/start.ogg

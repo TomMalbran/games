@@ -5,57 +5,58 @@
 	"use strict";
 	
 	var board, ship, ball, tail, bricks, sound, scores, zoom,
-		animation, startedTime, timeNow, keyPressed, shortcuts,
 		container, header, paragrath, counter,
+		animation, startTime, keyPressed, shortcuts,
 		messages = {
 			mainScreen:   [ "Bounce",     "Select a game"      ],
 			paused:       [ "Paused",     "Continue the game?" ],
 			gameOver:     [ "GameOver",   "Select an option"   ],
 			gameOverSave: [ "GameOver",   "Write your name"    ],
 			highScores:   [ "HighScores", "Select a game"      ],
-			help:         [ "Help",       "Game controlls"     ]
+			help:         [ "Help",       "Game controls"      ]
 		},
-		sounds       = [ "bounce", "brick", "end" ],
-		fastKeys     = [ 37, 65, 39, 68 ],
-		animSpeed    = 1,						/** @const The animation speed				*/
-		speedInc     = 0.05,					/** @const By how much the speed increases	*/
-		minSpeed     = 4,						/** @const Minimum random speed				*/
-		maxSpeed     = 8,						/** @const Maximum random speed				*/
-		minAngle     = 30,						/** @const Minimum random angle				*/
-		maxAngle     = 75,						/** @const Maximum random angle				*/
-		minShipWidth = 30,						/** @const Minimum width of the ship		*/
-		shipDecrease = 10,						/** @const Amount of pixels to decrease the width of the ship	*/
-		brickHeight  = 25,						/** @const Brick Height						*/
-		brickWidth   = 46,						/** @const Brick Width						*/
-		bottomBricks = 196,						/** @const Brick Height * Vertical Bricks	*/
-		horizBricks  = 5,						/** @const Amount of horizontal bricks		*/
-		vertBricks   = 4,						/** @const Amount of vertical bricks		*/
-		tailsAmount  = 15,						/** @const Amount of tails					*/
-		tailDistance = 8,						/** @const Distance between each tail		*/
-		maxScores    = 5,						/** @const Maximum scores displayed			*/
-		gameDisplay  = "mainScreen",
-		gameMode     = "speed",
-		gameScore    = 0,
-		hasStarted   = false;
+		soundFiles    = [ "bounce", "brick", "end" ],
+		fastKeys      = [ 37, 65, 39, 68 ],
+		speedInc      = 0.05,					/** @const By how much the speed increases		*/
+		minSpeed      = 4,						/** @const Minimum random speed					*/
+		maxSpeed      = 8,						/** @const Maximum random speed					*/
+		minAngle      = 30,						/** @const Minimum random angle					*/
+		maxAngle      = 75,						/** @const Maximum random angle					*/
+		minShipWidth  = 30,						/** @const Minimum width of the ship			*/
+		shipDecrease  = 10,						/** @const Amount of pixels to decrease the width of the ship	*/
+		brickHeight   = 25,						/** @const Brick Height							*/
+		brickWidth    = 46,						/** @const Brick Width							*/
+		bottomBricks  = 196,					/** @const Brick Height * Vertical Bricks		*/
+		horizBricks   = 5,						/** @const Amount of horizontal bricks			*/
+		vertBricks    = 4,						/** @const Amount of vertical bricks			*/
+		tailsAmount   = 15,						/** @const Amount of tails						*/
+		tailDistance  = 8,						/** @const Distance between each tail			*/
+		maxScores     = 5,						/** @const Maximum scores displayed				*/
+		soundStorage  = "bounce.sound",			/** @const The name of the Sound Storage		*/
+		scoresStorage = "bounce.hs.",			/** @const The name of the High Scores Storage	*/
+		zoomStorage   = "bounce.zoom",			/** @const The name of the Zoom Storage			*/
+		gameDisplay   = "mainScreen",
+		gameMode      = "speed",
+		gameScore     = 0,
+		hasStarted    = false;
 
 
 	/**
 	 * Modes and Display Functions
 	 */
-	function isSpeedMode() {  return gameMode    === "speed";  }
-	function isRandomMode() { return gameMode    === "random"; }
-	function isBricksMode() { return gameMode    === "bricks"; }
-	function isPaused() {     return gameDisplay === "pause";  }
-	function isPlaying() {    return gameDisplay === "game";   }
+	function isSpeedMode() {  return gameMode    === "speed";   }
+	function isRandomMode() { return gameMode    === "random";  }
+	function isBricksMode() { return gameMode    === "bricks";  }
+	function isPaused() {     return gameDisplay === "paused";  }
+	function isPlaying() {    return gameDisplay === "playing"; }
 	
 	
 	/**
 	 * Key Press Event
-	 * @param {number} keyCode
-	 * @param {?$.Event} event
+	 * @param {number} key
+	 * @param {?Event} event
 	 */
-	function pressKey(keyCode, event) {
-		var key;
+	function pressKey(key, event) {
 		if (scores.isFocused()) {
 			if (key === 13) {
 				scores.save();
@@ -64,25 +65,25 @@
 			if (!isPlaying()) {
 				event.preventDefault();
 			}
-				
-			if ([69, 49, 97].indexOf(keyCode) > -1) {			// E / 1
+			
+			if ([69, 49, 97].indexOf(key) > -1) {			// E / 1
 				key = "E";
-			} else if ([82, 50, 98].indexOf(keyCode) > -1) {	// R / 2
+			} else if ([82, 50, 98].indexOf(key) > -1) {	// R / 2
 				key = "R";
-			} else if ([75, 51, 99].indexOf(keyCode) > -1) {	// K / 3
+			} else if ([75, 51, 99].indexOf(key) > -1) {	// K / 3
 				key = "C";
-			} else if ([8, 66, 78].indexOf(keyCode) > -1) {		// Backspace / B / N
+			} else if ([8, 66, 78].indexOf(key) > -1) {		// Backspace / B / N
 				key = "B";
-			} else if ([13, 32, 79].indexOf(keyCode) > -1) {	// Enter / Space / O
+			} else if ([13, 32, 79].indexOf(key) > -1) {	// Enter / Space / O
 				key = "O";
-			} else if ([80, 67].indexOf(keyCode) > -1) {		// P / C
+			} else if ([80, 67].indexOf(key) > -1) {		// P / C
 				key = "P";
-			} else if ([37, 65].indexOf(keyCode) > -1) {		// Left  / A
+			} else if ([37, 65].indexOf(key) > -1) {		// Left  / A
 				key = "A";
-			} else if ([39, 68].indexOf(keyCode) > -1) {		// Right / D
+			} else if ([39, 68].indexOf(key) > -1) {		// Right / D
 				key = "D";
 			} else {
-				key = String.fromCharCode(keyCode);
+				key = String.fromCharCode(key);
 			}
 			
 			if (shortcuts[gameDisplay][key]) {
@@ -96,7 +97,7 @@
 	 * @param {$.Event} event
 	 */
 	function onKeyDown(event) {
-		if (isPlaying() && fastKeys.indexOf(event.keyCode) > -10) {
+		if (isPlaying() && fastKeys.indexOf(event.keyCode) > -1) {
 			if (keyPressed === null) {
 				keyPressed = event.keyCode;
 			} else {
@@ -128,19 +129,20 @@
 	 * Request an animation frame
 	 */
 	function requestAnimation() {
-		startedTime   = new Date().getTime();
-		animation     = Utils.requestAnimationFrame(function () {
-			timeNow   = new Date().getTime() - startedTime;
-			animSpeed = timeNow / 16;
-			if (animSpeed < 0) {
-				animSpeed = 0;
+		startTime = new Date().getTime();
+		animation = Utils.requestAnimationFrame(function () {
+			var time  = new Date().getTime() - startTime,
+				speed = time / 16;
+			
+			if (speed < 0) {
+				speed = 0;
 			}
-			if (animSpeed > 5) {
+			if (speed > 5) {
 				return requestAnimation();
 			}
 			
 			if (hasStarted) {
-				ball.move();
+				ball.move(speed);
 			}
 			onKeyHold();
 			
@@ -179,7 +181,7 @@
 	 * Hide the messages
 	 */
 	function hideMessage() {
-		container.className = "game";
+		container.className = "playing";
 	}
 	
 	
@@ -236,7 +238,7 @@
 	 * Unpauses the game
 	 */
 	function endPause() {
-		gameDisplay = "game";
+		gameDisplay = "playing";
 		showGame();
 		
 		if (hasStarted) {
@@ -486,13 +488,14 @@
 	
 	/**
 	 * Move after starting
+	 * @param {number} speed - The animation speed
 	 */
-	Ball.prototype.move = function () {
+	Ball.prototype.move = function (speed) {
 		var movey = this.angle / 90, crash;
 		
 		tail.move(this.top, this.left);
-		this.top  += this.speed * this.dirTop * movey * animSpeed;
-		this.left += this.speed * this.dirLeft * (1 - movey) * animSpeed;
+		this.top  += this.speed * this.dirTop * movey * speed;
+		this.left += this.speed * this.dirLeft * (1 - movey) * speed;
 		
 		this.setTop();
 		this.setLeft();
@@ -928,35 +931,11 @@
 	
 	
 	/**
-	 * Starts a new game
-	 * @param {string} mode
-	 */
-	function newGame(mode) {
-		gameDisplay = "game";
-		gameMode    = mode;
-		gameScore   = -1;
-		hasStarted  = false;
-		
-		hideMessage();
-		increaseScore();
-		showGame();
-		
-		board.start();
-		ship   = new Ship();
-		ball   = new Ball();
-		tail   = new Tail();
-		bricks = new Bricks();
-		
-		requestAnimation();
-	}
-	
-	
-	/**
 	 * @constructor
 	 * Sound Controller
 	 */
 	function Sound() {
-		this.data   = new Storage("bounce");
+		this.data   = new Storage(soundStorage);
 		this.audio  = document.querySelector(".audio");
 		this.waves  = document.querySelector(".waves");
 		this.format = Utils.supportsOGG() ? ".ogg" : (Utils.supportsMP3() ? ".mp3" : null);
@@ -976,7 +955,7 @@
 	Sound.prototype.setSounds = function () {
 		var audio, self = this;
 		
-		sounds.forEach(function (sound) {
+		soundFiles.forEach(function (sound) {
 			self[sound] = function () {
 				audio = new Audio("audio/" + sound + self.format);
 				if (self.format && !self.mute) {
@@ -1022,7 +1001,7 @@
 	
 	/**
 	 * @constructor
-	 * Game High Scores
+	 * The Game High Scores
 	 */
 	function HighScores() {
 		this.input  = document.querySelector(".input input");
@@ -1042,7 +1021,7 @@
 	 */
 	HighScores.prototype.create = function (mode) {
 		this.mode  = mode;
-		this.data  = new Storage("bounce.hs." + this.mode);
+		this.data  = new Storage(scoresStorage + this.mode);
 		this.total = this.data.get("total") || 0;
 	};
 	
@@ -1053,11 +1032,9 @@
 	HighScores.prototype.show = function (mode) {
 		this.scores.innerHTML = "";
 		this.create(mode);
+		this.showHideNone(this.total === 0);
 		
-		if (this.total === 0) {
-			this.showNone();
-		} else {
-			this.hideNone();
+		if (this.total > 0) {
 			this.displayScores();
 		}
 	};
@@ -1080,7 +1057,7 @@
 	};
 	
 	/**
-	 * Try to save a score, when possible
+	 * Tries to save a score, when possible
 	 */
 	HighScores.prototype.save = function () {
 		if (this.input.value && Utils.supportsStorage()) {
@@ -1097,7 +1074,10 @@
 	 */
 	HighScores.prototype.saveData = function () {
 		var i, hs, data = [], saved = false, self = this,
-			actual = { name: this.input.value, score: gameScore };
+			actual = {
+				name:  this.input.value,
+				score: gameScore
+			};
 		
 		for (i = 1; i <= this.total; i += 1) {
 			hs = this.data.get(i);
@@ -1105,11 +1085,11 @@
 				data[data.length] = actual;
 				saved = true;
 			}
-			if (data.length < this.amount) {
+			if (data.length < maxScores) {
 				data[data.length] = hs;
 			}
 		}
-		if (!saved && data.length < this.amount) {
+		if (!saved && data.length < maxScores) {
 			data[data.length] = actual;
 		}
 		
@@ -1120,15 +1100,23 @@
 	};
 	
 	/**
-	 * Subs Functions
+	 * Shows or hides the no results element
 	 */
-	HighScores.prototype.showNone = function () { this.none.style.display = "block"; };
-	HighScores.prototype.hideNone = function () { this.none.style.display = "none";  };
+	HighScores.prototype.showHideNone = function (show) {
+		this.none.style.display = show ? "block" : "none";
+	};
 	
+	/**
+	 * Sets the input value and focus it
+	 */
 	HighScores.prototype.setInput = function () {
 		this.input.value = "";
 		this.input.focus();
 	};
+	
+	/**
+	 * Returns true if the input is focus
+	 */
 	HighScores.prototype.isFocused = function () {
 		return this.input.focused;
 	};
@@ -1141,7 +1129,7 @@
 	 */
 	function Zoom() {
 		this.element = document.querySelector(".zoom");
-		this.name    = "bounce.zoom";
+		this.name    = zoomStorage;
 		this.values  = [ "1.0", "1.2", "1.4", "1.6", "1.8", "2.0" ];
 		this.current = 0;
 		this.style   = null;
@@ -1211,6 +1199,29 @@
 	
 	
 	/**
+	 * Starts a new game
+	 * @param {string} mode
+	 */
+	function newGame(mode) {
+		gameDisplay = "playing";
+		gameMode    = mode;
+		gameScore   = -1;
+		hasStarted  = false;
+		
+		hideMessage();
+		increaseScore();
+		showGame();
+		
+		board.start();
+		ship   = new Ship();
+		ball   = new Ball();
+		tail   = new Tail();
+		bricks = new Bricks();
+		
+		requestAnimation();
+	}
+	
+	/**
 	 * Creates the shortcuts functions
 	 */
 	function createShortcuts() {
@@ -1224,7 +1235,7 @@
 				H: function () { showHelp();            },
 				M: function () { sound.toggle();        }
 			},
-			pause: {
+			paused: {
 				P: function () { endPause();            },
 				B: function () { finishGame();          }
 			},
@@ -1244,7 +1255,7 @@
 			help: {
 				B: function () { showMainScreen();      }
 			},
-			game: {
+			playing: {
 				A: function () { ship.keyMove(-1);      },
 				D: function () { ship.keyMove(1);       },
 				O: function () { startGame();           },
@@ -1270,14 +1281,11 @@
 			}
 			
 			switch (element.dataset.action) {
-			case "speed":
-				newGame("speed");
+			case "play":
+				newGame(element.dataset.mode);
 				break;
-			case "random":
-				newGame("random");
-				break;
-			case "bricks":
-				newGame("bricks");
+			case "mainScreen":
+				showMainScreen();
 				break;
 			case "highScores":
 				showHighScores();
@@ -1291,20 +1299,11 @@
 			case "finishGame":
 				finishGame();
 				break;
-			case "mainScreen":
-				showMainScreen();
-				break;
 			case "save":
 				scores.save();
 				break;
-			case "speedScores":
-				scores.show("speed");
-				break;
-			case "randomScores":
-				scores.show("random");
-				break;
-			case "bricksScores":
-				scores.show("bricks");
+			case "showScores":
+				scores.show(element.dataset.mode);
 				break;
 			case "sound":
 				sound.toggle();
@@ -1325,6 +1324,7 @@
 	function main() {
 		initDomListeners();
 		createShortcuts();
+		
 		board  = new Board();
 		sound  = new Sound();
 		scores = new HighScores();
