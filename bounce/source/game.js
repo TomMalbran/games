@@ -17,24 +17,24 @@
 		},
 		soundFiles    = [ "bounce", "brick", "end" ],
 		fastKeys      = [ 37, 65, 39, 68 ],
-		speedInc      = 0.05,					/** @const By how much the speed increases		*/
-		minSpeed      = 4,						/** @const Minimum random speed					*/
-		maxSpeed      = 8,						/** @const Maximum random speed					*/
-		minAngle      = 30,						/** @const Minimum random angle					*/
-		maxAngle      = 75,						/** @const Maximum random angle					*/
-		minShipWidth  = 30,						/** @const Minimum width of the ship			*/
-		shipDecrease  = 10,						/** @const Amount of pixels to decrease the width of the ship	*/
-		brickHeight   = 25,						/** @const Brick Height							*/
-		brickWidth    = 46,						/** @const Brick Width							*/
-		bottomBricks  = 196,					/** @const Brick Height * Vertical Bricks		*/
-		horizBricks   = 5,						/** @const Amount of horizontal bricks			*/
-		vertBricks    = 4,						/** @const Amount of vertical bricks			*/
-		tailsAmount   = 15,						/** @const Amount of tails						*/
-		tailDistance  = 8,						/** @const Distance between each tail			*/
-		maxScores     = 5,						/** @const Maximum scores displayed				*/
-		soundStorage  = "bounce.sound",			/** @const The name of the Sound Storage		*/
-		scoresStorage = "bounce.hs.",			/** @const The name of the High Scores Storage	*/
-		zoomStorage   = "bounce.zoom",			/** @const The name of the Zoom Storage			*/
+		speedInc      = 0.05,                   /** @const By how much the speed increases                    */
+		minSpeed      = 4,                      /** @const Minimum random speed of the ball                   */
+		maxSpeed      = 8,                      /** @const Maximum random speed of the ball                   */
+		minAngle      = 30,                     /** @const Minimum random angle of exit from the ship         */
+		maxAngle      = 75,                     /** @const Maximum random angle of exit from the ship         */
+		minShipWidth  = 30,                     /** @const Minimum width of the ship                          */
+		shipDecrease  = 10,                     /** @const Amount of pixels to decrease the width of the ship */
+		brickHeight   = 25,                     /** @const Brick Height                                       */
+		brickWidth    = 46,                     /** @const Brick Width                                        */
+		bottomBricks  = 196,                    /** @const Brick Height * Vertical Bricks                     */
+		horizBricks   = 5,                      /** @const Amount of horizontal bricks                        */
+		vertBricks    = 4,                      /** @const Amount of vertical bricks                          */
+		tailsAmount   = 15,                     /** @const Amount of balls in the tail                        */
+		tailDistance  = 8,                      /** @const Distance between each tail                         */
+		maxScores     = 5,                      /** @const Maximum scores displayed                           */
+		soundStorage  = "bounce.sound",         /** @const The name of the Sound Storage                      */
+		scoresStorage = "bounce.hs.",           /** @const The name of the High Scores Storage                */
+		zoomStorage   = "bounce.zoom",          /** @const The name of the Zoom Storage                       */
 		gameDisplay   = "mainScreen",
 		gameMode      = "speed",
 		gameScore     = 0,
@@ -66,21 +66,21 @@
 				event.preventDefault();
 			}
 			
-			if ([69, 49, 97].indexOf(key) > -1) {			// E / 1
+			if ([69, 49, 97].indexOf(key) > -1) {           // E / 1
 				key = "E";
-			} else if ([82, 50, 98].indexOf(key) > -1) {	// R / 2
+			} else if ([82, 50, 98].indexOf(key) > -1) {    // R / 2
 				key = "R";
-			} else if ([75, 51, 99].indexOf(key) > -1) {	// K / 3
+			} else if ([75, 51, 99].indexOf(key) > -1) {    // K / 3
 				key = "C";
-			} else if ([8, 66, 78].indexOf(key) > -1) {		// Backspace / B / N
+			} else if ([8, 66, 78].indexOf(key) > -1) {     // Backspace / B / N
 				key = "B";
-			} else if ([13, 32, 79].indexOf(key) > -1) {	// Enter / Space / O
+			} else if ([13, 32, 79].indexOf(key) > -1) {    // Enter / Space / O
 				key = "O";
-			} else if ([80, 67].indexOf(key) > -1) {		// P / C
+			} else if ([80, 67].indexOf(key) > -1) {        // P / C
 				key = "P";
-			} else if ([37, 65].indexOf(key) > -1) {		// Left  / A
+			} else if ([37, 65].indexOf(key) > -1) {        // Left  / A
 				key = "A";
-			} else if ([39, 68].indexOf(key) > -1) {		// Right / D
+			} else if ([39, 68].indexOf(key) > -1) {        // Right / D
 				key = "D";
 			} else {
 				key = String.fromCharCode(key);
