@@ -1,20 +1,19 @@
 @charset "utf-8";
 
-
 /* ---------------
     Game Fonts  */
 
 @font-face {
-	font-family: 'Equilibrium';
+	font-family: "Equilibrium";
 	font-style: normal;
 	font-weight: normal;
-	src: local('Equilibrium'), url('../fonts/equilibrium.ttf') format('TrueType');
+	src: local("Equilibrium"), url("../fonts/equilibrium.ttf") format("TrueType");
 }
 @font-face {
-	font-family: 'Bauhaus 93';
+	font-family: "Bauhaus 93";
 	font-style: normal;
 	font-weight: normal;
-	src: local('Bauhaus 93'), url('../fonts/bauhs93.ttf') format('truetype');
+	src: local("Bauhaus 93"), url("../fonts/bauhs93.ttf") format("truetype");
 }
 
 
@@ -519,45 +518,24 @@ a:hover {
 /* ----------------
     Food Design  */
 
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg);    }
+	20%  { -webkit-transform: rotate(360deg);  }
+	50%  { -webkit-transform: rotate(720deg);  }
+	to   { -webkit-transform: rotate(1080deg); }
+}
 @keyframes spin {
     from { transform: rotate(0deg);    }
 	20%  { transform: rotate(360deg);  }
 	50%  { transform: rotate(720deg);  }
 	to   { transform: rotate(1080deg); }
 }
-	@-webkit-keyframes spin {
-	    from { -webkit-transform: rotate(0deg);    }
-		20%  { -webkit-transform: rotate(360deg);  }
-		50%  { -webkit-transform: rotate(720deg);  }
-		to   { -webkit-transform: rotate(1080deg); }
-	}
-	@-moz-keyframes spin {
-	    from { -moz-transform: rotate(0deg);    }
-		20%  { -moz-transform: rotate(360deg);  }
-		50%  { -moz-transform: rotate(720deg);  }
-		to   { -moz-transform: rotate(1080deg); }
-	}
-	@-ms-keyframes spin {
-	    from { -ms-transform: rotate(0deg);    }
-		20%  { -ms-transform: rotate(360deg);  }
-		50%  { -ms-transform: rotate(720deg);  }
-		to   { -ms-transform: rotate(1080deg); }
-	}
-	@-o-keyframes spin {
-	    from { -o-transform: rotate(0deg);    }
-		20%  { -o-transform: rotate(360deg);  }
-		50%  { -o-transform: rotate(720deg);  }
-		to   { -o-transform: rotate(1080deg); }
-	}
+
 
 .spin {
 	-webkit-animation: spin 5s linear;
-	   -moz-animation: spin 5s linear;
-	    -ms-animation: spin 5s linear;
-	     -o-animation: spin 5s linear;
 		    animation: spin 5s linear;
 }
-
 
 .food {
 	position: absolute;

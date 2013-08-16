@@ -1,39 +1,13 @@
 @charset "utf-8";
 
 /* ---------------
-    Animations  */
-
-@keyframes fade {
-	from { opacity: 0; }
-	to   { opacity: 1; }
-}
-	@-webkit-keyframes fade {
-		from { opacity: 0; }
-		to   { opacity: 1; }
-	}
-	@-moz-keyframes fade {
-		from { opacity: 0; }
-		to   { opacity: 1; }
-	}
-	@-ms-keyframes fade {
-		from { opacity: 0; }
-		to   { opacity: 1; }
-	}
-	@-o-keyframes fade {
-		from { opacity: 0; }
-		to   { opacity: 1; }
-	}
-
-
-
-/* ---------------
     Game Fonts  */
 
 @font-face {
-	font-family: 'Gill Sans MT Ext Condensed Bold';
+	font-family: "Gill Sans MT Ext Condensed Bold";
 	font-style: normal;
 	font-weight: normal;
-	src: local('Gill Sans MT Ext Condensed Bold'), url('../fonts/glsnecb.ttf') format('truetype');
+	src: local("Gill Sans MT Ext Condensed Bold"), url("../fonts/glsnecb.ttf") format("truetype");
 }
 
 
@@ -425,6 +399,15 @@ input {
 /* -----------------
     Board Design  */
 
+@-webkit-keyframes fade {
+	from { opacity: 0; }
+	to   { opacity: 1; }
+}
+@keyframes fade {
+	from { opacity: 0; }
+	to   { opacity: 1; }
+}
+
 .count {
 	position: absolute;
 	top: 40px;
@@ -446,9 +429,6 @@ input {
 }
 	.bricks.fade {
 		-webkit-animation: fade 1s;
-		   -moz-animation: fade 1s;
-		    -ms-animation: fade 1s;
-		     -o-animation: fade 1s;
 		        animation: fade 1s;
 	}
 	.bricks div {
@@ -459,11 +439,7 @@ input {
 		border: 4px solid transparent;
 		box-sizing: border-box;
 		-moz-box-sizing: border-box;
-		-webkit-transition: all .3s;
-		   -moz-transition: all .3s;
-		    -ms-transition: all .3s;
-		     -o-transition: all .3s;
-		        transition: all .3s;
+		transition: all .3s;
 	}
 
 .board {
