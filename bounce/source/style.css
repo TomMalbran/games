@@ -266,8 +266,8 @@ input {
 	clear: both;
 	width: 100%;
 }
-	.high .highScore .name { float: left; }
-	.high .highScore .score { float: right; }
+	.hsName { float: left; }
+	.hsScore { float: right; }
 
 .none {
 	position: absolute;

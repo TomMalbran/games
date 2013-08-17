@@ -338,8 +338,8 @@ a:hover {
 	clear: both;
 	width: 100%;
 }
-	.high .name  { float: left;  }
-	.high .score { float: right; }
+	.hsName  { float: left;  }
+	.hsScore { float: right; }
 
 .none {
 	position: absolute;

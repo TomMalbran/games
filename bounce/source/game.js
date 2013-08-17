@@ -15,30 +15,35 @@
 			highScores:   [ "HighScores", "Select a game"      ],
 			help:         [ "Help",       "Game controls"      ]
 		},
-		soundFiles    = [ "bounce", "brick", "end" ],
-		fastKeys      = [ 37, 65, 39, 68 ],
-		speedInc      = 0.05,                   /** @const By how much the speed increases                    */
-		minSpeed      = 4,                      /** @const Minimum random speed of the ball                   */
-		maxSpeed      = 8,                      /** @const Maximum random speed of the ball                   */
-		minAngle      = 30,                     /** @const Minimum random angle of exit from the ship         */
-		maxAngle      = 75,                     /** @const Maximum random angle of exit from the ship         */
-		minShipWidth  = 30,                     /** @const Minimum width of the ship                          */
-		shipDecrease  = 10,                     /** @const Amount of pixels to decrease the width of the ship */
-		brickHeight   = 25,                     /** @const Brick Height                                       */
-		brickWidth    = 46,                     /** @const Brick Width                                        */
-		bottomBricks  = 196,                    /** @const Brick Height * Vertical Bricks                     */
-		horizBricks   = 5,                      /** @const Amount of horizontal bricks                        */
-		vertBricks    = 4,                      /** @const Amount of vertical bricks                          */
-		tailsAmount   = 15,                     /** @const Amount of balls in the tail                        */
-		tailDistance  = 8,                      /** @const Distance between each tail                         */
-		maxScores     = 5,                      /** @const Maximum scores displayed                           */
-		soundStorage  = "bounce.sound",         /** @const The name of the Sound Storage                      */
-		scoresStorage = "bounce.hs.",           /** @const The name of the High Scores Storage                */
-		zoomStorage   = "bounce.zoom",          /** @const The name of the Zoom Storage                       */
-		gameDisplay   = "mainScreen",
-		gameMode      = "speed",
-		gameScore     = 0,
-		hasStarted    = false;
+		soundFiles      = [ "bounce", "brick", "end" ],
+		fastKeys        = [ 37, 65, 39, 68 ],
+		boardBorder     = 10,                     /** @const The width of the board border                      */
+		speedInc        = 0.05,                   /** @const By how much the speed increases                    */
+		minSpeed        = 4,                      /** @const Minimum random speed of the ball                   */
+		maxSpeed        = 8,                      /** @const Maximum random speed of the ball                   */
+		minAngle        = 25,                     /** @const Minimum random angle of exit from the ship         */
+		maxAngle        = 75,                     /** @const Maximum random angle of exit from the ship         */
+		minShipWidth    = 30,                     /** @const Minimum width of the ship                          */
+		shipBricksWidth = 120,                    /** @const Width of the ship in Bricks mode                   */
+		shipNormalWidth = 50,                     /** @const Width of the ship in Speed or Random mode          */
+		shipDecrease    = 10,                     /** @const Amount of pixels to decrease the width of the ship */
+		shipExtraWdith  = 10,                     /** @const Extra width on the ship where the ball can bounce  */
+		shipKeyMovement = 10,                     /** @const Amount of pixels a ship is moved                   */
+		brickHeight     = 25,                     /** @const Brick Height                                       */
+		brickWidth      = 46,                     /** @const Brick Width                                        */
+		bottomBricks    = 196,                    /** @const Brick Height * Vertical Bricks                     */
+		horizBricks     = 5,                      /** @const Amount of horizontal bricks                        */
+		vertBricks      = 4,                      /** @const Amount of vertical bricks                          */
+		tailsAmount     = 15,                     /** @const Amount of balls in the tail                        */
+		tailDistance    = 8,                      /** @const Distance between each tail                         */
+		maxScores       = 5,                      /** @const Maximum scores displayed                           */
+		soundStorage    = "bounce.sound",         /** @const The name of the Sound Storage                      */
+		scoresStorage   = "bounce.hs.",           /** @const The name of the High Scores Storage                */
+		zoomStorage     = "bounce.zoom",          /** @const The name of the Zoom Storage                       */
+		gameDisplay     = "mainScreen",
+		gameMode        = "speed",
+		gameScore       = 0,
+		hasStarted      = false;
 
 
 	/**
@@ -284,7 +289,6 @@
 		this.width    = this.element.offsetWidth;
 		this.height   = this.element.offsetHeight;
 		this.position = Utils.getPosition(this.element);
-		this.border   = 10;
 		
 		this.element.addEventListener("click", function (e) {
 			if (!hasStarted) {
@@ -314,14 +318,28 @@
 	};
 	
 	/**
-	 * Sub Functions
+	 * Returns the width of the board
+	 * @return {number}
 	 */
-	Board.prototype.getElement = function () { return this.element;       };
-	Board.prototype.getWidth   = function () { return this.width;         };
-	Board.prototype.getHeight  = function () { return this.height;        };
-	Board.prototype.getBorder  = function () { return this.border;        };
-	Board.prototype.getTop     = function () { return this.position.top;  };
-	Board.prototype.getLeft    = function () { return this.position.left; };
+	Board.prototype.getWidth = function () {
+		return this.width;
+	};
+	
+	/**
+	 * Returns the width of the board
+	 * @return {number}
+	 */
+	Board.prototype.getHeight  = function () {
+		return this.height;
+	};
+	
+	/**
+	 * Returns the left position of the board
+	 * @return {number}
+	 */
+	Board.prototype.getLeft = function () {
+		return this.position.left;
+	};
 	
 	
 	
@@ -330,14 +348,13 @@
 	 * Ship Manager
 	 */
 	function Ship() {
-		this.element = board.getElement().getElementsByClassName("ship")[0];
-		this.width   = isBricksMode() ? 120 : 50;
+		this.element = document.querySelector(".ship");
+		this.width   = isBricksMode() ? shipBricksWidth : shipNormalWidth;
 		this.top     = board.getHeight() - this.element.offsetHeight - 5;
 		this.left    = (board.getWidth() - this.element.offsetWidth) / 2;
 		
 		this.setWidth();
-		this.setTop();
-		this.setLeft();
+		this.setPosition();
 	}
 	
 	/**
@@ -367,8 +384,8 @@
 	Ship.prototype.mouseMove = function (e) {
 		var mouseLeft  = Utils.getMousePos(e).left,
 			shipHalth  = this.width / 2,
-			boardLeft  = board.getLeft() - board.getBorder(),
-			boardRight = board.getLeft() + board.getWidth() + board.getBorder(),
+			boardLeft  = board.getLeft() - boardBorder,
+			boardRight = board.getLeft() + board.getWidth() + boardBorder,
 			leftSide   = board.getLeft() + shipHalth,
 			rightSide  = board.getLeft() + board.getWidth() - shipHalth,
 			shipLeft   = 0;
@@ -387,7 +404,7 @@
 	 * Move the Ship using the keyboard
 	 */
 	Ship.prototype.keyMove = function (direction) {
-		var left  = this.left + 10 * direction,
+		var left  = this.left + shipKeyMovement * direction,
 			maxim = board.getWidth() - this.width;
 		
 		if (left < 0) {
@@ -437,11 +454,23 @@
 	};
 	
 	/**
-	 * Sub Functions
+	 * Returns the position of the Ship
+	 * @return {{top: number, left: number}}
 	 */
-	Ship.prototype.getTop   = function () { return this.top;   };
-	Ship.prototype.getLeft  = function () { return this.left;  };
-	Ship.prototype.getWidth = function () { return this.width; };
+	Ship.prototype.getPosition = function () {
+		return {
+			top:  this.top,
+			left: this.left - shipExtraWdith / 2
+		};
+	};
+	
+	/**
+	 * Returns the width of the Ship
+	 * @return {number}
+	 */
+	Ship.prototype.getWidth = function () {
+		return this.width + shipExtraWdith;
+	};
 	
 	
 	
@@ -450,7 +479,7 @@
 	 * Ball Manager
 	 */
 	function Ball() {
-		this.element = board.getElement().querySelector(".ball");
+		this.element = document.querySelector(".ball");
 		this.angle   = Utils.rand(50, 70);
 		this.dirTop  = -1;
 		this.dirLeft = -1;
@@ -467,16 +496,16 @@
 	 * Set the top start position
 	 */
 	Ball.prototype.setStartTop = function () {
-		this.top = Math.round(ship.getTop() - this.size);
-		this.setTop();
+		this.top = Math.round(ship.getPosition().top - this.size);
+		this.setPosition();
 	};
 	
 	/**
 	 * Set the left start position
 	 */
 	Ball.prototype.setStartLeft = function () {
-		this.left = Math.round(ship.getLeft() + (ship.getWidth() - this.size) / 2);
-		this.setLeft();
+		this.left = Math.round(ship.getPosition().left + (ship.getWidth() - this.size) / 2);
+		this.setPosition();
 	};
 	
 	/**
@@ -497,8 +526,7 @@
 		this.top  += this.speed * this.dirTop * movey * speed;
 		this.left += this.speed * this.dirLeft * (1 - movey) * speed;
 		
-		this.setTop();
-		this.setLeft();
+		this.setPosition();
 		
 		if (isBricksMode() && bricks.crash()) {
 			sound.brick();
@@ -602,18 +630,18 @@
 	 * Change the angle
 	 */
 	Ball.prototype.changeAngle = function () {
-		var pos   = this.left + this.size / 2 - ship.getLeft() + 5,
-			width = ship.getWidth() + 10;
+		var pos   = this.left + this.size / 2 - ship.getPosition().left,
+			width = ship.getWidth();
 		
 		this.angle = Math.floor(pos * 180 / width);
 		if (this.angle > 90) {
 			this.angle = 180 - this.angle;
 		}
-		if (this.angle > 75) {
-			this.angle = 75;
+		if (this.angle > maxAngle) {
+			this.angle = maxAngle;
 		}
-		if (this.angle < 20) {
-			this.angle = 20;
+		if (this.angle < minAngle) {
+			this.angle = minAngle;
 		}
 		
 		if (this.dirLeft === 1 && pos < width / 2) {
@@ -643,25 +671,54 @@
 	 * @return {boolean}
 	 */
 	Ball.prototype.onShip = function () {
-		var sTop   = ship.getTop(),
-			sLeft  = ship.getLeft() - 5,
-			sWidth = ship.getWidth() + 10,
+		var pos    = ship.getPosition(),
+			sTop   = pos.top,
+			sLeft  = pos.left,
+			sWidth = ship.getWidth(),
 			bLeft  = this.left + this.size / 2;
 		
 		return (this.top + this.size >= sTop && bLeft >= sLeft && bLeft <= sLeft + sWidth);
 	};
 	
 	/**
-	 * Sub functions
+	 * Sets the position of the Ball element
 	 */
-	Ball.prototype.setTop     = function () { this.element.style.top  = this.top + "px";  };
-	Ball.prototype.setLeft	  = function () { this.element.style.left = this.left + "px"; };
-	Ball.prototype.setDirTop  = function (dir) { this.dirTop = dir;  };
-	Ball.prototype.setDirLeft = function (dir) { this.dirLeft = dir; };
+	Ball.prototype.setPosition = function () {
+		this.element.style.top  = this.top  + "px";
+		this.element.style.left = this.left + "px";
+	};
 	
-	Ball.prototype.getSize    = function () { return this.size; };
-	Ball.prototype.getTop     = function () { return this.top;  };
-	Ball.prototype.getLeft    = function () { return this.left; };
+	/**
+	 * Returns the position of the ball
+	 * @return {{top: number, left: number}}
+	 */
+	Ball.prototype.getPosition = function () {
+		return { top: this.top, left: this.left };
+	};
+	
+	/**
+	 * Sets the top direction of the ball
+	 * @param {number} dir
+	 */
+	Ball.prototype.setDirTop = function (dir) {
+		this.dirTop  = dir;
+	};
+	
+	/**
+	 * Sets the left direction of the ball
+	 * @param {number} dir
+	 */
+	Ball.prototype.setDirTop = function (dir) {
+		this.dirLeft = dir;
+	};
+	
+	/**
+	 * Returns the size of the ball
+	 * @return {number}
+	 */
+	Ball.prototype.getSize = function () {
+		return this.size;
+	};
 	
 	
 	
@@ -673,6 +730,7 @@
 		this.elements = [];
 		
 		var container = document.querySelector(".tail"), i, div;
+		container.innerHTML = "";
 		for (i = 0; i < tailsAmount; i += 1) {
 			div = document.createElement("DIV");
 			container.appendChild(div);
@@ -691,12 +749,10 @@
 	 * Sets the initial positions of the tails elements
 	 */
 	Tail.prototype.start = function () {
-		var top  = ball.getTop(),
-			left = ball.getLeft();
-		
+		var pos = ball.getPosition();
 		this.elements.forEach(function (data) {
-			data.top  = top;
-			data.left = left;
+			data.top  = pos.top;
+			data.left = pos.left;
 		});
 		this.setPosition();
 	};
@@ -802,7 +858,7 @@
 	Bricks.prototype.crash = function () {
 		var self = this;
 		
-		if (ball.getTop() > bottomBricks) {
+		if (ball.getPosition().top > bottomBricks) {
 			return false;
 		} else {
 			return this.elements.some(function (element, index) {
@@ -822,10 +878,8 @@
 	 * @return {boolean} True if the ball crashed the bottom part of the brick
 	 */
 	Bricks.prototype.bottomCrash = function (element) {
-		var top  = ball.getTop(),
-			left = ball.getLeft() + ball.getSize() / 2;
-		
-		if (this.pointInElement(top, left, element)) {
+		var pos = ball.getPosition();
+		if (this.pointInElement(pos.top, pos.left + ball.getSize() / 2, element)) {
 			ball.setDirTop(1);
 			return true;
 		}
@@ -838,8 +892,9 @@
 	 * @return {boolean} True if the ball crashed the left part of the brick
 	 */
 	Bricks.prototype.leftCrash = function (element) {
-		var top  = ball.getTop()  + ball.getSize() / 2,
-			left = ball.getLeft() + ball.getSize();
+		var pos  = ball.getPosition(),
+			top  = pos.top  + ball.getSize() / 2,
+			left = pos.left + ball.getSize();
 		
 		if (this.pointInElement(top, left, element)) {
 			ball.setDirLeft(-1);
@@ -854,10 +909,8 @@
 	 * @return {boolean} True if the ball crashed the right part of the brick
 	 */
 	Bricks.prototype.rightCrash = function (element) {
-		var top  = ball.getTop() + ball.getSize() / 2,
-			left = ball.getLeft();
-		
-		if (this.pointInElement(top, left, element)) {
+		var pos = ball.getPosition();
+		if (this.pointInElement(pos.top + ball.getSize() / 2, pos.left, element)) {
 			ball.setDirLeft(-1);
 			return true;
 		}
@@ -870,8 +923,9 @@
 	 * @return {boolean} True if the ball crashed the top part of the brick
 	 */
 	Bricks.prototype.topCrash = function (element) {
-		var top  = ball.getTop()  + ball.getSize(),
-			left = ball.getLeft() + ball.getSize() / 2;
+		var pos  = ball.getPosition(),
+			top  = pos.top  + ball.getSize(),
+			left = pos.left + ball.getSize() / 2;
 		
 		if (this.pointInElement(top, left, element)) {
 			ball.setDirTop(-1);
@@ -1049,8 +1103,8 @@
 			data = this.data.get(i);
 			div	 = document.createElement("DIV");
 			div.className = "highScore";
-			div.innerHTML = "<div class='name'>" + data.name + "</div>" +
-							"<div class='score'>" + Utils.formatNumber(data.score, ",") + "</div>";
+			div.innerHTML = "<div class='hsName'>" + data.name + "</div>" +
+							"<div class='hsScore'>" + Utils.formatNumber(data.score, ",") + "</div>";
 			
 			this.scores.appendChild(div);
 		}
@@ -1082,20 +1136,20 @@
 		for (i = 1; i <= this.total; i += 1) {
 			hs = this.data.get(i);
 			if (!saved && hs.score < actual.score) {
-				data[data.length] = actual;
+				data.push(actual);
 				saved = true;
 			}
-			if (data.length < maxScores) {
-				data[data.length] = hs;
+			if (data.length <= maxScores) {
+				data.push(hs);
 			}
 		}
-		if (!saved && data.length < maxScores) {
-			data[data.length] = actual;
+		if (!saved && data.length <= maxScores) {
+			data.push(actual);
 		}
 		
 		this.data.set("total", data.length);
-		data.forEach(function (element) {
-			self.data.set(i + 1, element);
+		data.forEach(function (element, index) {
+			self.data.set(index + 1, element);
 		});
 	};
 	

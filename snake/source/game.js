@@ -560,6 +560,8 @@
 		this.dirLeft   = dirLeft !== undefined ? dirLeft : 0;
 		this.newDir    = false;
 		
+		this.container.innerHTML = "";
+		
 		if (links) {
 			var self = this;
 			links.forEach(function (link) {
@@ -574,9 +576,7 @@
 	Snake.prototype.move = function () {
 		var pos = this.getPosition();
 		
-		if (this.queue.size() < 3) {
-			this.newLink(pos.top, pos.left);
-		} else if (board.crashed(pos.top, pos.left)) {
+		if (board.crashed(pos.top, pos.left)) {
 			sound.end();
 			gameOver();
 		} else if (board.ate(pos.top, pos.left)) {
@@ -584,6 +584,8 @@
 			this.newLink(pos.top, pos.left);
 			increaseScore(food.getTimer());
 			food.add();
+		} else if (this.queue.size() < 3) {
+			this.newLink(pos.top, pos.left);
 		} else {
 			this.moveLink(pos.top, pos.left);
 		}
@@ -801,7 +803,7 @@
 	 * @return {number}
 	 */
 	Food.prototype.getTimer = function () {
-		return this.time;
+		return Math.round(this.time / 10);
 	};
 	
 	
@@ -1025,7 +1027,7 @@
 		this.scores = document.querySelector(".scores");
 		this.none   = document.querySelector(".none");
 		this.level  = "";
-		this.data   = {};
+		this.data   = null;
 		this.total  = 0;
 		
 		this.input.onfocus = function () { this.focused = true;  };
@@ -1065,8 +1067,8 @@
 			data = this.data.get(i);
 			div	 = document.createElement("DIV");
 			div.className = "highScore";
-			div.innerHTML = "<div class='name'>" + data.name + "</div>" +
-							"<div class='score'>" + Utils.formatNumber(data.score, ",") + "</div>";
+			div.innerHTML = "<div class='hsName'>" + data.name + "</div>" +
+							"<div class='hsScore'>" + Utils.formatNumber(data.score, ",") + "</div>";
 			
 			this.scores.appendChild(div);
 		}
@@ -1077,10 +1079,10 @@
 	 */
 	HighScores.prototype.save = function () {
 		if (this.input.value && Utils.supportsStorage()) {
-			this.create(snake.getLevel());
+			this.create(gameLevel);
 			this.saveData();
 			
-			snake.highScores();
+			showHighScores();
 			this.show(this.level);
 		}
 	};
@@ -1098,20 +1100,20 @@
 		for (i = 1; i <= this.total; i += 1) {
 			hs = this.data.get(i);
 			if (!saved && hs.score < actual.score) {
-				data[data.length] = actual;
+				data.push(actual);
 				saved = true;
 			}
-			if (data.length < maxScores) {
-				data[data.length] = hs;
+			if (data.length <= maxScores) {
+				data.push(hs);
 			}
 		}
-		if (!saved && data.length < maxScores) {
-			data[data.length] = actual;
+		if (!saved && data.length <= maxScores) {
+			data.push(actual);
 		}
 		
 		this.data.set("total", data.length);
-		data.forEach(function (element) {
-			self.data.set(i + 1, element);
+		data.forEach(function (element, index) {
+			self.data.set(index + 1, element);
 		});
 	};
 	
