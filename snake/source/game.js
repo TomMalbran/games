@@ -8,13 +8,12 @@
 		container, navigator, header, paragrath, starter, scorer, timer, leveler,
 		animation, startTime, gameTimer, gameCount, gameScore, shortcuts,
 		messages = {
-			mainScreen:   [ "Snake",      "Select a level"     ],
-			paused:       [ "Pause",      "Continue the game?" ],
-			continuing:   [ "Continue",   "Continue the game?" ],
-			gameOver:     [ "GameOver",   "Select an option"   ],
-			gameOverSave: [ "GameOver",   "Write your name"    ],
-			highScores:   [ "HighScores", "Select a level"     ],
-			help:         [ "Help",       "Game controlls"     ]
+			mainScreen: [ "Snake",      "Select a level"     ],
+			paused:     [ "Pause",      "Continue the game?" ],
+			continuing: [ "Continue",   "Continue the game?" ],
+			gameOver:   [ "GameOver",   "Write your name"    ],
+			highScores: [ "HighScores", "Select a level"     ],
+			help:       [ "Help",       "Game controlls"     ]
 		},
 		soundFiles      = [ "start", "eat", "end" ],
 		levelNames      = [ "Easy", "Medium", "Hard", "Super" ],
@@ -270,7 +269,7 @@
 	 * Game Over
 	 */
 	function gameOver() {
-		gameDisplay = Utils.supportsStorage() ? "gameOverSave" : "gameOver";
+		gameDisplay = "gameOver";
 		
 		showMessage();
 		cancelAnimation();
@@ -954,11 +953,11 @@
 	 * Sound Controller
 	 */
 	function Sound() {
-		this.data   = new Storage(soundStorage);
+		this.data   = new Storage(soundStorage, true);
 		this.audio  = document.querySelector(".audio");
 		this.waves  = document.querySelector(".waves");
 		this.format = Utils.supportsOGG() ? ".ogg" : (Utils.supportsMP3() ? ".mp3" : null);
-		this.mute   = this.getMute();
+		this.mute   = this.data.get();
 		
 		if (this.format) {
 			this.setSounds();
@@ -988,25 +987,9 @@
 	 * Mute/Unmute the sound
 	 */
 	Sound.prototype.toggle = function () {
-		this.setMute(!this.mute);
+		this.mute = !this.mute;
 		this.setDisplay();
-	};
-	
-	/**
-	 * Returns true if the sound is mute
-	 * @return {boolean}
-	 */
-	Sound.prototype.getMute = function () {
-		return this.data.get("sound");
-	};
-	
-	/**
-	 * Sets and saves the mute option
-	 * @param {boolean} mute
-	 */
-	Sound.prototype.setMute = function (mute) {
-		this.mute = mute;
-		this.data.set("sound", this.mute);
+		this.data.set(this.mute);
 	};
 	
 	/**
@@ -1078,7 +1061,7 @@
 	 * Tries to save a score, when possible
 	 */
 	HighScores.prototype.save = function () {
-		if (this.input.value && Utils.supportsStorage()) {
+		if (this.input.value) {
 			this.create(gameLevel);
 			this.saveData();
 			
@@ -1096,7 +1079,7 @@
 				name:  this.input.value,
 				score: gameScore
 			};
-				
+		
 		for (i = 1; i <= this.total; i += 1) {
 			hs = this.data.get(i);
 			if (!saved && hs.score < actual.score) {
@@ -1147,14 +1130,14 @@
 	 * Game Zoom
 	 */
 	function Zoom() {
+		this.data    = new Storage(zoomStorage, true);
 		this.element = document.querySelector(".zoom");
-		this.name    = zoomStorage;
 		this.values  = [ "1.0", "1.2", "1.4", "1.6", "1.8", "2.0" ];
 		this.current = 0;
 		this.style   = null;
 		
-		if (Utils.supportsStorage() && window.localStorage[this.name]) {
-			this.current = parseInt(window.localStorage[this.name], 10);
+		if (this.data.get()) {
+			this.current = this.data.get();
 			if (this.current > 0) {
 				this.setContent();
 				this.setStyle();
@@ -1173,9 +1156,7 @@
 		this.setContent();
 		this.setStyle();
 		
-		if (Utils.supportsStorage()) {
-			window.localStorage[this.name] = this.current;
-		}
+		this.data.set(this.current);
 	};
 	
 	/**
@@ -1285,9 +1266,6 @@
 				B: function () { finishGame();       }
 			},
 			gameOver: {
-				B: function () { endGameOver(false); }
-			},
-			gameOverSave: {
 				O: function () { endGameOver(true);  },
 				B: function () { endGameOver(false); }
 			},
@@ -1325,7 +1303,7 @@
 		timer     = document.querySelector(".time");
 		leveler   = document.querySelector(".level");
 		
-		container.addEventListener("click", function (e) {
+		document.body.addEventListener("click", function (e) {
 			var element = e.target;
 			while (element.parentElement && !element.dataset.action) {
 				element = element.parentElement;

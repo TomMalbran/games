@@ -106,7 +106,7 @@ var Utils = (function () {
 		
 		/**
 		 * Cross-browser CSS3 Transform property
-		 * @param {DOM} element
+		 * @param {DOMElement} element
 		 * @param {string} transform
 		 */
 		setTransform: function (element, transform) {
@@ -121,7 +121,7 @@ var Utils = (function () {
 		
 		/**
 		 * Cross-browser CSS3 Transform-Origin property
-		 * @param {DOM} element
+		 * @param {DOMElement} element
 		 * @param {string} origin
 		 */
 		setOrigin: function (element, origin) {
@@ -137,7 +137,7 @@ var Utils = (function () {
 	
 		/**
 		 * Returns the position of an Element in the document
-		 * @param {DOM} element
+		 * @param {DOMElement} element
 		 */
 		getPosition: function (element) {
 			var posTop = 0, posLeft = 0;
@@ -158,8 +158,19 @@ var Utils = (function () {
 		},
 		
 		/**
+		 * Sets the position of the given element or elements
+		 * @param {DOMElement} element
+		 * @param {number} top
+		 * @param {number} lefet
+		 */
+		setPosition: function (element, top, left) {
+			element.style.top  = top  + "px";
+			element.style.left = left + "px";
+		},
+		
+		/**
 		 * Removes the Element from the DOM
-		 * @param {DOM} element
+		 * @param {DOMElement} element
 		 */
 		removeElement: function (element) {
 			var parent = element.parentNode;
@@ -169,19 +180,20 @@ var Utils = (function () {
 	
 		/**
 		 * Returns the Mouse Position
+		 * @param {Event} event
 		 */
-		getMousePos: function (e) {
+		getMousePos: function (event) {
 			var posTop = 0, posLeft = 0;
 			
-			if (!e) {
-				e = window.event;
+			if (!event) {
+				event = window.event;
 			}
-			if (e.pageX) {
-				posTop  = e.pageY;
-				posLeft = e.pageX;
-			} else if (e.clientX) {
-				posTop  = e.clientY + (document.documentElement.scrollTop  || document.body.scrollTop);
-				posLeft = e.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft);
+			if (event.pageX) {
+				posTop  = event.pageY;
+				posLeft = event.pageX;
+			} else if (event.clientX) {
+				posTop  = event.clientY + (document.documentElement.scrollTop  || document.body.scrollTop);
+				posLeft = event.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft);
 			}
 			return { top: posTop, left: posLeft };
 		},

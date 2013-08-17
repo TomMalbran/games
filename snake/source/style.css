@@ -57,31 +57,28 @@ a:hover {
 	display: none;
 }
 
-.mainScreen   .main,
-.paused       .pause,
-.continuing   .pause,
-.gameOver     .restart,
-.gameOverSave .input,
-.gameOverSave .restart,
-.highScores   .high,
-.help         .controls { 
+.mainScreen .main,
+.paused     .pause,
+.continuing .pause,
+.gameOver   .restart,
+.gameOver   .input,
+.highScores .high,
+.help       .controls {
 	display: block;
 }
 
-.starting     .game,
-.playing      .game,
-.paused       .game,
-.gameOverSave .game,
-.gameOver     .game {
+.starting .game,
+.playing  .game,
+.paused   .game,
+.gameOver .game {
 	display: block;
 }
 
 .starting .food { display: none; }
 
-.paused       .game,
-.continuing   .game,
-.gameOverSave .game,
-.gameOver     .game {
+.paused     .game,
+.continuing .game,
+.gameOver   .game {
 	opacity: .5;
 }
 

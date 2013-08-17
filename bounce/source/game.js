@@ -8,12 +8,11 @@
 		container, header, paragrath, counter,
 		animation, startTime, keyPressed, shortcuts,
 		messages = {
-			mainScreen:   [ "Bounce",     "Select a game"      ],
-			paused:       [ "Paused",     "Continue the game?" ],
-			gameOver:     [ "GameOver",   "Select an option"   ],
-			gameOverSave: [ "GameOver",   "Write your name"    ],
-			highScores:   [ "HighScores", "Select a game"      ],
-			help:         [ "Help",       "Game controls"      ]
+			mainScreen: [ "Bounce",     "Select a game"      ],
+			paused:     [ "Paused",     "Continue the game?" ],
+			gameOver:   [ "GameOver",   "Write your name"    ],
+			highScores: [ "HighScores", "Select a game"      ],
+			help:       [ "Help",       "Game controls"      ]
 		},
 		soundFiles      = [ "bounce", "brick", "end" ],
 		fastKeys        = [ 37, 65, 39, 68 ],
@@ -255,7 +254,7 @@
 	 * Game Over
 	 */
 	function gameOver() {
-		gameDisplay = Utils.supportsStorage() ? "gameOverSave" : "gameOver";
+		gameDisplay = "gameOver";
 		hideGame();
 		scores.setInput();
 		board.end();
@@ -354,7 +353,7 @@
 		this.left    = (board.getWidth() - this.element.offsetWidth) / 2;
 		
 		this.setWidth();
-		this.setPosition();
+		Utils.setPosition(this.element, this.top, this.left);
 	}
 	
 	/**
@@ -497,7 +496,7 @@
 	 */
 	Ball.prototype.setStartTop = function () {
 		this.top = Math.round(ship.getPosition().top - this.size);
-		this.setPosition();
+		Utils.setPosition(this.element, this.top, this.left);
 	};
 	
 	/**
@@ -505,7 +504,7 @@
 	 */
 	Ball.prototype.setStartLeft = function () {
 		this.left = Math.round(ship.getPosition().left + (ship.getWidth() - this.size) / 2);
-		this.setPosition();
+		Utils.setPosition(this.element, this.top, this.left);
 	};
 	
 	/**
@@ -526,7 +525,7 @@
 		this.top  += this.speed * this.dirTop * movey * speed;
 		this.left += this.speed * this.dirLeft * (1 - movey) * speed;
 		
-		this.setPosition();
+		Utils.setPosition(this.element, this.top, this.left);
 		
 		if (isBricksMode() && bricks.crash()) {
 			sound.brick();
@@ -681,14 +680,6 @@
 	};
 	
 	/**
-	 * Sets the position of the Ball element
-	 */
-	Ball.prototype.setPosition = function () {
-		this.element.style.top  = this.top  + "px";
-		this.element.style.left = this.left + "px";
-	};
-	
-	/**
 	 * Returns the position of the ball
 	 * @return {{top: number, left: number}}
 	 */
@@ -708,7 +699,7 @@
 	 * Sets the left direction of the ball
 	 * @param {number} dir
 	 */
-	Ball.prototype.setDirTop = function (dir) {
+	Ball.prototype.setDirLeft = function (dir) {
 		this.dirLeft = dir;
 	};
 	
@@ -989,11 +980,11 @@
 	 * Sound Controller
 	 */
 	function Sound() {
-		this.data   = new Storage(soundStorage);
+		this.data   = new Storage(soundStorage, true);
 		this.audio  = document.querySelector(".audio");
 		this.waves  = document.querySelector(".waves");
 		this.format = Utils.supportsOGG() ? ".ogg" : (Utils.supportsMP3() ? ".mp3" : null);
-		this.mute   = this.getMute();
+		this.mute   = this.data.get();
 		
 		if (this.format) {
 			this.setSounds();
@@ -1023,25 +1014,9 @@
 	 * Mute/Unmute the sound
 	 */
 	Sound.prototype.toggle = function () {
-		this.setMute(!this.mute);
+		this.mute = !this.mute;
 		this.setDisplay();
-	};
-	
-	/**
-	 * Returns true if the sound is mute
-	 * @return {boolean}
-	 */
-	Sound.prototype.getMute = function () {
-		return this.data.get("sound");
-	};
-	
-	/**
-	 * Sets and saves the mute option
-	 * @param {boolean} mute
-	 */
-	Sound.prototype.setMute = function (mute) {
-		this.mute = mute;
-		this.data.set("sound", this.mute);
+		this.data.set(this.mute);
 	};
 	
 	/**
@@ -1114,7 +1089,7 @@
 	 * Tries to save a score, when possible
 	 */
 	HighScores.prototype.save = function () {
-		if (this.input.value && Utils.supportsStorage()) {
+		if (this.input.value) {
 			this.create(gameMode);
 			this.saveData();
 			
@@ -1182,14 +1157,14 @@
 	 * Game Zoom
 	 */
 	function Zoom() {
+		this.data    = new Storage(zoomStorage, true);
 		this.element = document.querySelector(".zoom");
-		this.name    = zoomStorage;
 		this.values  = [ "1.0", "1.2", "1.4", "1.6", "1.8", "2.0" ];
 		this.current = 0;
 		this.style   = null;
 		
-		if (Utils.supportsStorage() && window.localStorage[this.name]) {
-			this.current = parseInt(window.localStorage[this.name], 10);
+		if (this.data.get()) {
+			this.current = this.data.get();
 			if (this.current > 0) {
 				this.setContent();
 				this.setStyle();
@@ -1208,9 +1183,7 @@
 		this.setContent();
 		this.setStyle();
 		
-		if (Utils.supportsStorage()) {
-			window.localStorage[this.name] = this.current;
-		}
+		this.data.set(this.current);
 	};
 	
 	/**
@@ -1294,9 +1267,6 @@
 				B: function () { finishGame();          }
 			},
 			gameOver: {
-				B: function () { showMainScreen();      }
-			},
-			gameOverSave: {
 				O: function () { scores.save();         },
 				B: function () { showMainScreen();      }
 			},

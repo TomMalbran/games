@@ -60,13 +60,12 @@ input {
 .playing .board .tail div,
 .playing .bricks   { display: block; }
 
-.mainScreen   .main,
-.paused       .pause,
-.gameOver     .restart,
-.gameOverSave .input,
-.gameOverSave .restart,
-.highScores   .high,
-.help         .controls {
+.mainScreen .main,
+.paused     .pause,
+.gameOver   .input,
+.gameOver   .restart,
+.highScores .high,
+.help       .controls {
 	display: block;
 }
 

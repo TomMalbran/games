@@ -35,11 +35,13 @@ var Storage = (function () {
 	 * @constructor
 	 * Creates a new storage
 	 * @param {string} name  The name of the storage
-	 * @param {function(): boolean} func  A function to determine if you can save data or not
+	 * @param {boolean=} single  True to have a storage for a single value
+	 * @param {function(): boolean=} func  A function to determine if you can save data or not
 	 */
-	function Storage(name, func) {
+	function Storage(name, single, func) {
 		this.name     = name;
-		this.canSave  = func || function () { return true; };
+		this.single   = single || false;
+		this.canSave  = func   || function () { return true; };
 		this.supports = supportsStorage();
 	}
 	
@@ -51,6 +53,7 @@ var Storage = (function () {
 		 */
 		get: function (name) {
 			var content = null;
+            
 			if (this.supports && window.localStorage[this.getName(name)]) {
 				content = window.localStorage[this.getName(name)];
 				if (content === "true" || content === "false") {
@@ -66,18 +69,22 @@ var Storage = (function () {
 		
 		/**
 		 * Saves the given data as a JSON object
-		 * @param {string} name
+		 * @param {(boolean|number|string|Object)} name  If this is a single value Storage use this param for the value
 		 * @param {(boolean|number|string|Object)} value
 		 */
 		set: function (name, value) {
 			if (this.supports && this.canSave()) {
+				if (this.single) {
+					value = name;
+					name  = "";
+				}
 				window.localStorage[this.getName(name)] = JSON.stringify(value);
 			}
 		},
 		
 		/**
 		 * Removes the data with the given name
-		 * @param {string} name
+		 * @param {string=} name
 		 */
 		remove: function (name) {
 			if (this.supports && this.canSave()) {
@@ -88,11 +95,11 @@ var Storage = (function () {
 		
 		/**
 		 * Returns the key for the given name
-		 * @param {string} name
+		 * @param {string=} name
 		 * @return {string}
 		 */
 		getName: function (name) {
-			return this.name + "." + name;
+			return this.name + (name ? "." + name : "");
 		},
 		
 		/**
