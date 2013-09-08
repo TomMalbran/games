@@ -1,4 +1,8 @@
-HTML5 Games
-=====
+# HTML5 Games
 
-A collection of old style simple and addictive HTML5 games.
+A collection of old style addictive games writen in JavaScript, HTML and CSS.
+
+
+## Play
+
+Go [play](http://tommalbran.github.io/games/) and have fun :)
