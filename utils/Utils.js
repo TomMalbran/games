@@ -43,32 +43,6 @@ var Utils = (function () {
 			return window.localStorage !== "undefined" && window.localStorage !== null;
 		},
 		
-		/**
-		 * Returns true if the browser supports Audio
-		 * @return {boolean}
-		 */
-		supportsAudio: function () {
-			return !!document.createElement("audio").canPlayType;
-		},
-		
-		/**
-		 * Returns true if the browser supports MP3 Audio
-		 * @return {boolean}
-		 */
-		supportsMP3: function () {
-			var a = document.createElement("audio");
-			return !!(a.canPlayType && a.canPlayType("audio/mpeg;").replace(/no/, ""));
-		},
-		
-		/**
-		 * Returns true if the browser supports OGG Audio
-		 * @return {boolean}
-		 */
-		supportsOGG: function () {
-			var a = document.createElement("audio");
-			return !!(a.canPlayType && a.canPlayType("audio/ogg; codecs='vorbis'").replace(/no/, ""));
-		},
-		
 		
 		/**
 		 * Returns a random value between from and to
@@ -133,7 +107,37 @@ var Utils = (function () {
 				return false;
 			});
 		},
-	
+		
+		/**
+		 * Cross-browser add CSS3 Event Listener
+		 * @param {DOMElement} element
+		 * @param {string} type
+		 * @param {function} callback
+		 */
+		addEventListener: function (element, type, callback) {
+			["webkit", "moz", "MS", "o", ""].forEach(function (prefix) {
+				if (!prefix) {
+					type = type.toLowerCase();
+				}
+				element.addEventListener(prefix + type, callback, false);
+			});
+		},
+		
+		/**
+		 * Cross-browser remove CSS3 Event Listener
+		 * @param {DOMElement} element
+		 * @param {string} type
+		 * @param {function} callback
+		 */
+		removeEventListener: function (element, type, callback) {
+			["webkit", "moz", "MS", "o", ""].forEach(function (prefix) {
+				if (!prefix) {
+					type = type.toLowerCase();
+				}
+				element.removeEventListener(prefix + type, callback, false);
+			});
+		},
+		
 	
 		/**
 		 * Returns the position of an Element in the document

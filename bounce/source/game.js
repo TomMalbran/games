@@ -1,11 +1,11 @@
 /*jslint browser: true */
-/*global Utils, Storage, Audio */
+/*global Utils, Storage, Sounds */
 
 (function () {
 	"use strict";
 	
 	var board, ship, ball, tail, bricks, sound, scores, zoom,
-		container, header, paragrath, counter,
+		container, header, paragraph, counter,
 		animation, startTime, keyPressed, shortcuts,
 		messages = {
 			mainScreen: [ "Bounce",     "Select a game"      ],
@@ -178,7 +178,7 @@
 	function showMessage() {
 		container.className = gameDisplay;
 		header.innerHTML    = messages[gameDisplay][0];
-		paragrath.innerHTML = messages[gameDisplay][1];
+		paragraph.innerHTML = messages[gameDisplay][1];
 	}
 	
 	/**
@@ -977,59 +977,6 @@
 	
 	/**
 	 * @constructor
-	 * Sound Controller
-	 */
-	function Sound() {
-		this.data   = new Storage(soundStorage, true);
-		this.audio  = document.querySelector(".audio");
-		this.waves  = document.querySelector(".waves");
-		this.format = Utils.supportsOGG() ? ".ogg" : (Utils.supportsMP3() ? ".mp3" : null);
-		this.mute   = this.data.get();
-		
-		if (this.format) {
-			this.setSounds();
-			this.setDisplay();
-		} else {
-			this.audio.style.display = "none";
-		}
-	}
-	
-	/**
-	 * Create all the Sound Functions
-	 */
-	Sound.prototype.setSounds = function () {
-		var audio, self = this;
-		
-		soundFiles.forEach(function (sound) {
-			self[sound] = function () {
-				audio = new Audio("audio/" + sound + self.format);
-				if (self.format && !self.mute) {
-					audio.play();
-				}
-			};
-		});
-	};
-	
-	/**
-	 * Mute/Unmute the sound
-	 */
-	Sound.prototype.toggle = function () {
-		this.mute = !this.mute;
-		this.setDisplay();
-		this.data.set(this.mute);
-	};
-	
-	/**
-	 * Sets the display of the sound waves
-	 */
-	Sound.prototype.setDisplay = function () {
-		this.waves.style.display = this.mute ? "none" : "block";
-	};
-	
-	
-	
-	/**
-	 * @constructor
 	 * The Game High Scores
 	 */
 	function HighScores() {
@@ -1295,7 +1242,7 @@
 	function initDomListeners() {
 		container = document.querySelector("#container");
 		header    = document.querySelector(".messages h2");
-		paragrath = document.querySelector(".messages p");
+		paragraph = document.querySelector(".messages p");
 		counter   = document.querySelector(".count");
 		
 		document.body.addEventListener("click", function (e) {
@@ -1350,7 +1297,7 @@
 		createShortcuts();
 		
 		board  = new Board();
-		sound  = new Sound();
+		sound  = new Sounds(soundFiles, soundStorage, true);
 		scores = new HighScores();
 		zoom   = new Zoom();
 	}

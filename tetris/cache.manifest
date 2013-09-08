@@ -1,0 +1,24 @@
+CACHE MANIFEST
+# rev 1
+
+/source/style.css
+/source/game.js
+../utils/Utils.js
+../utils/Storage.js
+../utils/Sounds.js
+
+/fonts/agencyb.ttf
+/fonts/agencyr.ttf
+
+/audio/crash.mp3
+/audio/crash.ogg
+/audio/drop.mp3
+/audio/drop.ogg
+/audio/end.mp3
+/audio/end.ogg
+/audio/line.mp3
+/audio/line.ogg
+/audio/pause.mp3
+/audio/pause.ogg
+/audio/rotate.mp3
+/audio/rotate.ogg

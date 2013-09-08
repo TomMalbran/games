@@ -1,0 +1,609 @@
+@charset "utf-8";
+
+
+/* ---------------
+    Game Fonts  */
+
+@font-face {
+	font-family: 'Agency FB';
+	font-style: normal;
+	font-weight: bold;
+	src: local('Agency FB Negrita'), url('../fonts/agencyb.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Agency FB';
+	font-style: normal;
+	font-weight: normal;
+	src: local('Agency FB'), url('../fonts/agencyr.ttf') format('truetype');
+}
+
+
+
+/* ----------------
+    Main Styles  */
+
+html, body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background-color: transparent;
+}
+html, body, input {
+	color: #677799;
+	font-family: "Agency FB";
+	font-size: 25px;
+	font-weight: bold;
+}
+
+a {
+	position: relative;
+	color: #677799;
+	text-decoration: none;
+	outline: none;
+}
+a:hover {
+	color: black;
+}
+	a:before {
+		content: "";
+		position: absolute;
+		top: 16px;
+		left: -16px;
+		display: inline-block;
+		width: 10px;
+		height: 10px;
+		border-radius: 2px;
+		background-color: #677799;
+	}
+	a:hover:before {
+		background-color: black;
+	}
+
+
+
+/* ----------------
+    Game Design  */
+
+#container {
+	position: absolute;
+	top: 50%;
+	bottom: 50%;
+	left: 50%;
+	right: 50%;
+	width: 316px;
+	height: 416px;
+	margin-top: -208px;
+	margin-left: -158px;
+}
+.leftSide {
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	right: 102px;
+	bottom: 2px;
+	border: 6px solid #677799;
+	box-shadow: 0 0 0 2px #121212;
+	background: linear-gradient(135deg, #BBCCE3 25%, #A2B8D5 25%, #A2B8D5 50%, #BBCCE3 50%, #BBCCE3 75%, #A2B8D5 75%);
+	background-size: 4px 4px;
+}
+.rightSide {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 102px;
+	bottom: 0;
+}
+
+.zoom {
+	position: absolute;
+	top: 45px;
+	right: 10px;
+	padding: 10px 5px;
+	background-color: #333;
+	border-radius: 50%;
+	font: 12px Georgia, "Times New Roman", Times, serif;
+	font-weight: bold;
+	color: rgb(200, 200, 200);
+	text-shadow: 1px 1px black;
+}
+	.zoom:hover { 
+		background-color: #999;
+		color: black;
+		text-shadow: 1px 1px #ccc;
+	}
+	.zoom:before { display: none; }
+
+
+
+/* ----------------
+    Show / Hide  */
+
+.playing .messages { display: none; }
+.playing .pauser,
+.paused  .pauser { display: block; }
+
+.playing    #next,
+.mainScreen #next,
+.playing    .board,
+.mainScreen .board {
+	display: block;
+}
+
+.mainScreen .levels,
+.paused     .pause,
+.gameOver   .input,
+.gameOver   .restart,
+.highScores .high,
+.help       .help {
+	display: block;
+}
+
+
+
+/* -------------------
+    Messages Panel  */
+
+.messages {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+	.messages .text {
+		position: absolute;
+		top: 40px;
+		left: 0;
+		right: 0;
+		height: 80px;
+		background-color: black;
+		opacity: 0.8;
+	}
+	.messages .text h2 {
+		position: absolute;
+		top: 10px;
+		left: 0;
+		right: 0;
+		margin: 0;
+		font-size: 49px;
+		line-height: 50px;
+		text-align: center;
+		color: white;
+	}
+	.messages .text p {
+		position: absolute;
+		top: 50px;
+		left: 0;
+		right: 0;
+		text-align: center;
+		color: white;
+		font: 10px Verdana, Arial, Helvetica, sans-serif;
+		line-height: 14pt;
+	}
+
+
+
+/* ------------------------
+    Main Screen / Pause  */
+
+.levels {
+	display: none;
+	position: absolute;
+	top: 200px;
+	left: 35px;
+	right: 35px;
+	height: 70px;
+	background-color: #DAEDFC;
+	border: 4px solid #677799;
+	text-align: center;
+	color: #677799;
+	font-size: 25px;
+}
+	.levels .left,
+	.levels .right {
+		position: absolute;
+		bottom: 10px;
+		width: 0;
+		font-size: 0;
+		line-height: 0%;
+		border-color: transparent;
+		border-style: solid;
+		border-width: 10px;
+		cursor: pointer;
+	}
+	.levels .left {
+		left: 5px;
+		border-right-color: #677799;
+	}
+	.levels .right {
+		right: 5px;
+		border-left-color: #677799;
+	}
+	.levels .left:hover  { border-right-color: black; }
+	.levels .right:hover { border-left-color:  black; }
+
+
+.levels ul, .pause {
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	font-size: 25px;
+	line-height: 27px;
+}
+	.levels ul { top: 80px;  }
+	.pause     { top: 265px; display: none; }
+	
+	.levels li,
+	.pause  li {
+		list-style-type: none;
+		padding: 2px;
+	}
+
+
+
+/* --------------
+    Game Over  */
+
+.input {
+	display: none;
+	position: absolute;
+	top: 150px;
+	right: 0;
+	left: 0;
+	text-align: center;
+}
+	.input p {
+		margin: 0;
+		padding-left: 37px;
+		text-align: left;
+	}
+	.input input {
+		margin: 5px 20px 0 0;
+		padding-left: 2px;
+		width: 110px;
+		background-color: #DAEDFC;
+		border: 4px solid #677799;
+	}
+	.input input:focus { outline: none; }
+
+.restart {
+	display: none;
+	position: absolute;
+	top: 260px;
+	left: 60px;
+}
+
+
+
+/* ----------------
+    High Scores  */
+
+.high { display: none; }
+.scores {
+	position: absolute;
+	top: 130px;
+	bottom: 40px;
+	left: 0;
+	right: 0;
+	text-align: center;
+	font-size: 18px;
+}
+	.scores .titles,
+	.scores .scores,
+	.help   .titles,
+	.help   .scores {
+		float: left;
+		clear: both;
+	}
+	.scores .titles { color: black; }
+	
+	.scores .left,
+	.scores .right,
+	.help   .left,
+	.help   .right {
+		float: left;
+		width: 90px;
+	}
+	.scores .left,   .help .left   { text-align: right; }
+	.scores .right,  .help .right  { text-align:  left; }
+	.scores .middle, .help .middle {
+		float: left;
+		width: 20px;
+		text-align: center;
+	}
+
+	.none {
+		display: none;
+		position: absolute;
+		top: 180px;
+		left: 0;
+		right: 0;
+		text-align: center;
+		color: black;
+	}
+	.high .restore {
+		position: absolute;
+		left: 26px;
+		bottom: 2px;
+	}
+	.high .back {
+		position: absolute;
+		right: 8px;
+		bottom: 2px;
+	}
+
+
+
+/* ---------
+    Help  */
+
+.help {
+	display: none;
+	position: absolute;
+	top: 130px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+	.help div,
+	.help p {
+		color: black;
+		font-weight: normal;
+		font-size: 17px;
+		line-height: 19px;
+	}
+	.help p {
+		float: left;
+		clear: both;
+		margin: 10px;
+	}
+	.help .back {
+		position: absolute;
+		right: 10px;
+		bottom: 2px;
+	}
+
+
+
+/* ------------------
+    Scores Design  */
+
+.next, .level, .score, .lines {
+	position: absolute;	
+	left: 0;
+	right: 0;
+	height: 70px;
+}
+.next  { top: 25px; height: 100px; }
+.level { top: 125px; }
+.score { top: 195px; }
+.lines { top: 265px; }
+
+	.content {
+		position: absolute;
+		top: 29px;
+		left: 0;
+		right: 2px;
+		bottom: 2px;
+		padding-right: 5px;
+		background-color: #DAEDFC;
+		border: 4px solid #677799;
+		border-left: none;
+		text-align: right;
+		box-shadow: 2px 0 #121212, 0 -2px #121212, 0 2px #121212, 2px 2px #121212, 2px -2px #121212;
+	}
+	.title {
+		position: absolute;
+		top: 3px;
+		left: 10px;
+		color: #677799;
+	}
+
+#next {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+.pauser {
+	display: none;
+	position: absolute;
+	top: 340px;
+	left: 55px;
+}
+
+
+
+/* -----------------
+    Audio Button  */
+
+.audio {
+	position: absolute;
+	top: 370px;
+	left: -5px;
+	cursor: pointer;
+}
+.audio .triangle {
+	position: absolute;
+	bottom: 2px;
+	left: 2px;
+	border: 10px solid transparent;
+	border-right-color: #677799;
+}
+	.audio:hover .triangle { border-right-color: black; }
+	
+.audio .box {
+	position: absolute;
+	bottom: 9px;
+	left: 11px;
+	height: 6px;
+	width: 5px;
+	background-color: #677799;
+}
+	.audio:hover .box { background-color: black; }
+
+
+.waves {
+	position: absolute;
+	bottom: 0;
+	left: 20px;
+}
+	.waves div {
+		position: absolute;
+		left: 0;
+		background-color: #677799;
+		border-radius: 0 200px 200px 0;
+	}
+	.waves div:nth-child(1) {
+		bottom: 3px;
+		width:  18px;
+		height: 18px;
+	}
+	.waves div:nth-child(2) {
+		bottom: 5px;
+		width:  14px;
+		height: 14px;
+	}
+	.waves div:nth-child(3) {
+		bottom: 7px;
+		width:  10px;
+		height: 10px;
+	}
+	.waves div:nth-child(4) {
+		bottom: 9px;
+		width:  6px;
+		height: 6px;
+	}
+	
+	.audio:hover .waves div { 
+		background-color: black;
+	}
+	.waves div:before {
+		content: "";
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		right: 1px;
+		top: 0;
+		background-color: #1F1F1F;
+		border-radius: 0 200px 200px 0;
+	}
+
+
+
+/* -----------------
+    Board Design  */
+
+@-webkit-keyframes wink {
+	0%    { opacity: 1; }
+	50%   { opacity: 1; }
+	50.1% { opacity: 0; }
+	100%  { opacity: 0; }
+}
+
+@keyframes wink {
+	0%    { opacity: 1; }
+	50%   { opacity: 1; }
+	50.1% { opacity: 0; }
+	100%  { opacity: 0; }
+}
+
+
+.board {
+	display: none;
+	position: absolute;
+	top: -1px;
+	left: -1px;
+	bottom: -1px;
+	right: -1px;
+	overflow: hidden;
+}
+.winker, .field {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+	.winker div {
+		display: none;
+		position: absolute;
+		left: -2px;
+		right: 0;
+		height: 18px;
+		background-image: linear-gradient(to left, rgba(250, 250, 250, 0.8) 18px, black 18px);
+		background-size: 20px 20px;
+		border: 2px solid black;
+	}
+	.winker .wink {
+		display: block;
+		-webkit-animation: wink 150ms 3 linear;
+		        animation: wink 150ms 3 linear;
+	}
+
+#piece, #ghost {
+	position: absolute;
+}
+
+
+
+/* ------------------
+    Pieces Design  */
+
+.field div,
+#piece div,
+#ghost div,
+#next  div {
+	position: absolute;
+	width: 22px;
+	height: 22px;
+}
+
+	.piece0 div, .cell0 { /* I */
+		box-shadow: inset 0 0 0 2px black, inset 4px -4px #CC6602, inset -4px 4px #FF9935;
+		background-color: #FF6301;
+	}
+	.piece1 div, .cell1 { /* J */
+		box-shadow: inset 0 0 0 2px black, inset 4px -4px #9900CD, inset -4px 4px #CD66FF;
+		background-color: #CC00FF;
+	}
+	.piece2 div, .cell2 { /* L */
+		box-shadow: inset 0 0 0 2px black, inset 4px -4px #0000CC, inset -4px 4px #6367FE;
+		background-color: #0000FE;
+	}
+	.piece3 div, .cell3 { /* O */
+		box-shadow: inset 0 0 0 2px black, inset 4px -4px #CC0001, inset -4px 4px #FF6666;
+		background-color: #FE0000;
+	}
+	.piece4 div, .cell4 { /* S */
+		box-shadow: inset 0 0 0 2px black, inset 4px -4px #3499C7, inset -4px 4px #99FFFF;
+		background-color: #64CDFA;
+	}
+	.piece5 div, .cell5 { /* T */
+		box-shadow: inset 0 0 0 2px black, inset 4px -4px #FCCE00, inset -4px 4px #FEFF99;
+		background-color: #FFFD04;
+	}
+	.piece6 div, .cell6 { /* Z */
+		box-shadow: inset 0 0 0 2px black, inset 4px -4px #01CC00, inset -4px 4px #66FF66;
+		background-color: #00FF00;
+	}
+	
+	#ghost div {
+		box-shadow: inset 0 0 0 2px black, inset 4px -4px #464646, inset -4px 4px #666 !important; 
+		background-color: #505050 !important;
+	}
+
+
+.r0, .r1, .r2, .r3 { display: none; }
+.rot0 .r0, .rot1 .r1,
+.rot2 .r2, .rot3 .r3 { display: block; }	
+
+.tetriminos { display: none; }

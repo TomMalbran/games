@@ -1,11 +1,12 @@
 CACHE MANIFEST
-# rev 1
+# rev 2
 
 /source/style.css
 /source/game.js
 ../utils/Utils.js
 ../utils/Queue.js
 ../utils/Storage.js
+../utils/Sounds.js
 
 /fonts/bauhs93.ttf
 /fonts/equilibrium.ttf

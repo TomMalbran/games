@@ -1,16 +1,17 @@
 CACHE MANIFEST
-# rev 1
+# rev 2
 
 /source/style.css
 /source/game.js
 ../utils/Utils.js
 ../utils/Storage.js
+../utils/Sounds.js
 
 /fonts/glsnecb.ttf
 
 /audio/bounce.mp3
 /audio/bounce.ogg
-/audio/brick.ogg
+/audio/brick.mp3
 /audio/brick.ogg
 /audio/end.mp3
 /audio/end.ogg

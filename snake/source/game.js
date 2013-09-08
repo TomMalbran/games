@@ -1,11 +1,11 @@
 /*jslint browser: true */
-/*global Utils, Storage, Queue, Audio */
+/*global Utils, Storage, Queue, Sounds */
 
 (function () {
 	"use strict";
 	
-	var demo, sound, board, snake, food, scores, instance, zoom,
-		container, navigator, header, paragrath, starter, scorer, timer, leveler,
+	var demo, board, sound, snake, food, scores, instance, zoom,
+		container, navigator, header, paragraph, starter, scorer, timer, leveler,
 		animation, startTime, gameTimer, gameCount, gameScore, shortcuts,
 		messages = {
 			mainScreen: [ "Snake",      "Select a level"     ],
@@ -222,7 +222,7 @@
 	function showMessage() {
 		setContainerClass();
 		header.innerHTML    = messages[gameDisplay][0];
-		paragrath.innerHTML = messages[gameDisplay][1];
+		paragraph.innerHTML = messages[gameDisplay][1];
 	}
 	
 	/**
@@ -948,59 +948,6 @@
 	
 	
 	
-	/**
-	 * @constructor
-	 * Sound Controller
-	 */
-	function Sound() {
-		this.data   = new Storage(soundStorage, true);
-		this.audio  = document.querySelector(".audio");
-		this.waves  = document.querySelector(".waves");
-		this.format = Utils.supportsOGG() ? ".ogg" : (Utils.supportsMP3() ? ".mp3" : null);
-		this.mute   = this.data.get();
-		
-		if (this.format) {
-			this.setSounds();
-			this.setDisplay();
-		} else {
-			this.audio.style.display = "none";
-		}
-	}
-	
-	/**
-	 * Create all the Sound Functions
-	 */
-	Sound.prototype.setSounds = function () {
-		var audio, self = this;
-		
-		soundFiles.forEach(function (sound) {
-			self[sound] = function () {
-				audio = new Audio("audio/" + sound + self.format);
-				if (self.format && !self.mute) {
-					audio.play();
-				}
-			};
-		});
-	};
-	
-	/**
-	 * Mute/Unmute the sound
-	 */
-	Sound.prototype.toggle = function () {
-		this.mute = !this.mute;
-		this.setDisplay();
-		this.data.set(this.mute);
-	};
-	
-	/**
-	 * Sets the display of the sound waves
-	 */
-	Sound.prototype.setDisplay = function () {
-		this.waves.style.display = this.mute ? "none" : "block";
-	};
-	
-	
-	
     /**
 	 * @constructor
 	 * The Game High Scores
@@ -1297,7 +1244,7 @@
 		container = document.querySelector("#container");
 		navigator = document.querySelector(".main ul");
 		header    = document.querySelector(".messages h2");
-		paragrath = document.querySelector(".messages p");
+		paragraph = document.querySelector(".messages p");
 		starter   = document.querySelector(".start");
 		scorer    = document.querySelector(".score");
 		timer     = document.querySelector(".time");
@@ -1337,11 +1284,11 @@
 			case "newGame":
 				endGameOver(false);
 				break;
-			case "sound":
-				sound.toggle();
-				break;
 			case "showScores":
 				scores.show(element.dataset.level);
+				break;
+			case "sound":
+				sound.toggle();
 				break;
 			case "zoom":
 				zoom.change();
@@ -1380,10 +1327,11 @@
 		
 		demo     = new Demo();
 		instance = new Instance();
-		sound    = new Sound();
+		sound    = new Sounds(soundFiles, soundStorage, true);
 		scores   = new HighScores();
 		zoom     = new Zoom();
 	}
+	
 	
 	// Load the game
 	window.addEventListener("load", function () { main(); }, false);

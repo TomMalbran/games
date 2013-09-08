@@ -31,7 +31,7 @@ html, body {
 	background-color: transparent;
 }
 html, body, input {
-	color: #000000;
+	color: black;
 	text-shadow: #333333 1px 1px 1px;
 	font: 18px/24px "Bauhaus 93";
 }
@@ -43,7 +43,7 @@ a {
 	outline: none;
 }
 a:hover {
-	color: #000000;
+	color: black;
 	text-shadow: #333333 1px 1px 1px;
 }
 
@@ -188,7 +188,7 @@ a:hover {
 	left: 0;
 	right: 0;
 	height: 80px;
-	background-color: #000000;
+	background-color: black;
 	opacity: 0.8;
 }
 	.messages .text h2 {
@@ -464,7 +464,7 @@ a:hover {
 	}
 	
 	.audio:hover .waves div { 
-		background-color: #000000;
+		background-color: black;
 	}
 	.waves div:before {
 		content: "";
@@ -495,7 +495,7 @@ a:hover {
 		left: 2px;
 		bottom: 2px;
 		right: 0;
-		background-color: #000000;
+		background-color: black;
 		border-radius: 4px;
 		z-index: 2;
 	}
@@ -558,11 +558,11 @@ a:hover {
 		z-index: 1;
 	}
 
-	.foodBody div  {
+	.foodBody div {
 		position: absolute;
-		background-color: #000000;
+		background-color: black;
 	}
-	.foodShadow div  {
+	.foodShadow div {
 		position: absolute;
 		background-color: #7C9774;
 	}

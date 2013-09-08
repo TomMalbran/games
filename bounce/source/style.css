@@ -16,36 +16,36 @@
     Main Styles  */
 
 html, body {
-	margin: 0px;
-	padding: 0px;
-	border: 0px;
+	margin: 0;
+	padding: 0;
+	border: 0;
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
 	background-color: transparent;
 }
 html, body, input {
-	color: #000000;
+	color: black;
 	font-family: "Gill Sans MT Ext Condensed Bold";
 	font-size: 28px;
-	color: #000000;
-	text-shadow: #333333 1px 1px 1px;
+	color: black;
+	text-shadow: #333 1px 1px 1px;
 }
 
 a {
-	color: #333333;
-	text-shadow: #666666 1px 1px 1px;
+	color: #333;
+	text-shadow: #666 1px 1px 1px;
 	text-decoration: none;
 	outline: none;
 }
 a:hover {
-	color: #000000;
-	text-shadow: #333333 1px 1px 1px;
+	color: black;
+	text-shadow: #333 1px 1px 1px;
 }
 
 input {
-	color: #333333;
-	text-shadow: #666666 1px 1px 1px;
+	color: #333;
+	text-shadow: #666 1px 1px 1px;
 }
 
 
@@ -85,8 +85,8 @@ input {
 	margin-top: -182px;
 	margin-left: -127px;
 	border: 2px solid #121212;
-	box-shadow: inset 10px 0px #272727, inset -10px 0px #272727,
-				inset 0px 10px #272727, inset 0px -10px #BEBEBE;
+	box-shadow: inset 10px 0 #272727, inset -10px 0 #272727,
+				inset 0 10px #272727, inset 0 -10px #BEBEBE;
 	background-color: white;
 	z-index: 3;
 }
@@ -100,12 +100,12 @@ input {
 	border-radius: 50%;
 	font: 12px Georgia, "Times New Roman", Times, serif;
 	font-weight: bold;
-	color: rgb(200,200,200);
-	text-shadow: 1px 1px #000;
+	color: rgb(200, 200, 200);
+	text-shadow: 1px 1px black;
 }
 	.zoom:hover { 
 		background-color: #999;
-		color: #000;
+		color: black;
 		text-shadow: 1px 1px #ccc;
 	}
 
@@ -116,51 +116,51 @@ input {
 
 .messages {
 	position: absolute;
-	top: 0px;
-	left: 0px;
-	bottom: 0px;
-	right: 0px;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
 	cursor: pointer;
 	z-index: 100;
 }
 	.messages .bg {
 		position: absolute;
-		top: 0px;
-		left: 0px;
-		bottom: 0px;
-		right: 0px;
-		background-color: #000000;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		background-color: black;
 		opacity: 0.2;
 	}
 	.messages .text {
 		position: absolute;
 		top: 40px;
-		left: 0px;
-		right: 0px;
+		left: 0;
+		right: 0;
 		height: 80px;
-		background-color: #000000;
+		background-color: black;
 		opacity: 0.8;
 	}
 	
 	.messages .text h2 {
 		position: absolute;
 		top: 2px;
-		left: 0px;
-		right: 0px;
-		margin: 0px;
+		left: 0;
+		right: 0;
+		margin: 0;
 		font-size: 55px;
 		font-variant: small-caps;
 		font-weight: normal;
 		text-align: center;
-		color: #FFFFFF;
+		color: white;
 	}
 	.messages .text p {
 		position: absolute;
 		top: 47px;
-		left: 0px;
-		right: 0px;
+		left: 0;
+		right: 0;
 		text-align: center;
-		color: #FFFFFF;
+		color: white;
 		font: 10px Verdana, Arial, Helvetica, sans-serif;
 		line-height: 14pt;
 	}
@@ -179,11 +179,11 @@ input {
 
 .main ul, .pause {
 	position: absolute;
-	left: 0px;
-	right: 0px;
+	left: 0;
+	right: 0;
 	text-align: center;
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 	list-style: none;
 }
 	.main li:nth-last-child(2) { padding-top: 20px; }
@@ -198,14 +198,14 @@ input {
 	display: none;
 	position: absolute;
 	top: 180px;
-	left: 0px;
-	right: 0px;
+	left: 0;
+	right: 0;
 	text-align: center;
 }
 	.input input {
 		width: 110px;
 		padding-left: 5px;
-		border: 2px solid #333333;
+		border: 2px solid #333;
 		background: none;
 		border-radius: 5px;
 	}
@@ -223,8 +223,8 @@ input {
 	display: none;
 	position: absolute;
 	top: 250px;
-	left: 0px;
-	right: 0px;
+	left: 0;
+	right: 0;
 	text-align: center;
 }
 
@@ -237,14 +237,14 @@ input {
 .high .links {
 	position: absolute;
 	bottom: 22px;
-	left: 0px;
-	right: 0px;
+	left: 0;
+	right: 0;
 	height: 20px;
 	text-align: center;
 }
 	.high .links ul {
-		margin: 0px;
-		padding: 0px;
+		margin: 0;
+		padding: 0;
 		list-style: none;
 	}
 	.high .links li {
@@ -272,9 +272,9 @@ input {
 	position: absolute;
 	display: none;
 	top: 190px;
-	left: 0px;
-	right: 0px;
-	bottom: 0px;
+	left: 0;
+	right: 0;
+	bottom: 0;
 	text-align: center;
 }
 
@@ -323,7 +323,7 @@ input {
 		border-right-color: #666;
 		z-index: -1;
 	}
-	.audio:hover .triangle       { border-right-color: #000; }
+	.audio:hover .triangle       { border-right-color: black; }
 	.audio:hover .triangle:after { border-right-color: #333; }
 
 .audio .box {
@@ -344,17 +344,17 @@ input {
 		background-color: #666;
 		z-index: -1;
 	}
-	.audio:hover .box       { background-color: #000; }
+	.audio:hover .box       { background-color: black; }
 	.audio:hover .box:after { background-color: #333; }
 
 .waves {
 	position: absolute;
-	bottom: 0px;
+	bottom: 0;
 	left: 20px;
 }
 	.waves div {
 		position: absolute;
-		left: 0px;
+		left: 0;
 		background-color: #333;
 		border-radius: 0 200px 200px 0;
 	}
@@ -380,15 +380,15 @@ input {
 	}
 	
 	.audio:hover .waves div { 
-		background-color: #000;
+		background-color: black;
 	}
 	.waves div:before {
 		content: "";
 		position: absolute;
-		left: 0px;
-		bottom: 0px;
+		left: 0;
+		bottom: 0;
 		right: 1px;
-		top: 0px;
+		top: 0;
 		background-color: #CCC;
 		border-radius: 0 200px 200px 0;
 	}
@@ -434,7 +434,7 @@ input {
 		position: absolute;
 		height: 25px;
 		width: 46px;
-		box-shadow: inset 0px 0px 0px 15px #121212;
+		box-shadow: inset 0 0 0 15px #121212;
 		border: 4px solid transparent;
 		box-sizing: border-box;
 		-moz-box-sizing: border-box;
@@ -463,7 +463,7 @@ input {
 		border-radius: 100px;
 		width: 30px;
 		height: 30px;
-		box-shadow: inset 0px 0px 0px 15px #121212;
+		box-shadow: inset 0 0 0 15px #121212;
 		box-sizing: border-box;
 		-moz-box-sizing: border-box;
 	}
