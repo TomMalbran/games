@@ -138,7 +138,19 @@ var Utils = (function () {
 			});
 		},
 		
-	
+        
+        getDefaultFontSize: function (pa) {
+            var who = document.createElement("div"), fs;
+            pa = pa || document.body;
+            who.style.cssText = "display:inline-block; padding:0; line-height:1; position:absolute; visibility:hidden; font-size:1em";
+            
+            who.appendChild(document.createTextNode("M"));
+            pa.appendChild(who);
+            fs = who.offsetHeight;
+            pa.removeChild(who);
+            return fs;
+        },
+        
 		/**
 		 * Returns the position of an Element in the document
 		 * @param {DOMElement} element

@@ -5,16 +5,16 @@
     Game Fonts  */
 
 @font-face {
-	font-family: 'Agency FB';
+	font-family: "Agency FB";
 	font-style: normal;
 	font-weight: bold;
-	src: local('Agency FB Negrita'), url('../fonts/agencyb.ttf') format('truetype');
+	src: local("Agency FB Negrita"), url("../fonts/agencyb.ttf") format("truetype");
 }
 @font-face {
-	font-family: 'Agency FB';
+	font-family: "Agency FB";
 	font-style: normal;
 	font-weight: normal;
-	src: local('Agency FB'), url('../fonts/agencyr.ttf') format('truetype');
+	src: local("Agency FB"), url("../fonts/agencyr.ttf") format("truetype");
 }
 
 
@@ -30,11 +30,11 @@ html, body {
 	height: 100%;
 	overflow: hidden;
 	background-color: transparent;
+    font-size: 10px;
 }
 html, body, input {
 	color: #677799;
 	font-family: "Agency FB";
-	font-size: 25px;
 	font-weight: bold;
 }
 
@@ -50,12 +50,12 @@ a:hover {
 	a:before {
 		content: "";
 		position: absolute;
-		top: 16px;
-		left: -16px;
+		top: 0.64em;
+		left: -0.64em;
 		display: inline-block;
-		width: 10px;
-		height: 10px;
-		border-radius: 2px;
+		width: 0.4em;
+		height: 0.4em;
+		border-radius: 0.08em;
 		background-color: #677799;
 	}
 	a:hover:before {
@@ -73,19 +73,19 @@ a:hover {
 	bottom: 50%;
 	left: 50%;
 	right: 50%;
-	width: 316px;
-	height: 416px;
-	margin-top: -208px;
-	margin-left: -158px;
+	width: 31.6em;
+	height: 41.6em;
+	margin-top: -20.8em;
+	margin-left: -15.8em;
 }
 .leftSide {
 	position: absolute;
-	top: 2px;
-	left: 2px;
-	right: 102px;
-	bottom: 2px;
-	border: 6px solid #677799;
-	box-shadow: 0 0 0 2px #121212;
+	top: 0.2em;
+	left: 0.2em;
+	right: 10.2em;
+	bottom: 0.2em;
+	border: 0.6em solid #677799;
+	box-shadow: 0 0 0 0.2em #121212;
 	background: linear-gradient(135deg, #BBCCE3 25%, #A2B8D5 25%, #A2B8D5 50%, #BBCCE3 50%, #BBCCE3 75%, #A2B8D5 75%);
 	background-size: 4px 4px;
 }
@@ -93,28 +93,9 @@ a:hover {
 	position: absolute;
 	top: 0;
 	right: 0;
-	width: 102px;
+	width: 10.2em;
 	bottom: 0;
 }
-
-.zoom {
-	position: absolute;
-	top: 45px;
-	right: 10px;
-	padding: 10px 5px;
-	background-color: #333;
-	border-radius: 50%;
-	font: 12px Georgia, "Times New Roman", Times, serif;
-	font-weight: bold;
-	color: rgb(200, 200, 200);
-	text-shadow: 1px 1px black;
-}
-	.zoom:hover { 
-		background-color: #999;
-		color: black;
-		text-shadow: 1px 1px #ccc;
-	}
-	.zoom:before { display: none; }
 
 
 
@@ -135,9 +116,8 @@ a:hover {
 .mainScreen .levels,
 .paused     .pause,
 .gameOver   .input,
-.gameOver   .restart,
 .highScores .high,
-.help       .help {
+.help       .controls {
 	display: block;
 }
 
@@ -155,33 +135,33 @@ a:hover {
 }
 	.messages .text {
 		position: absolute;
-		top: 40px;
+		top: 4em;
 		left: 0;
 		right: 0;
-		height: 80px;
+		height: 8em;
 		background-color: black;
 		opacity: 0.8;
 	}
 	.messages .text h2 {
 		position: absolute;
-		top: 10px;
+		top: 0.2em;
 		left: 0;
 		right: 0;
 		margin: 0;
-		font-size: 49px;
-		line-height: 50px;
+		font-size: 5em;
+		line-height: 1em;
 		text-align: center;
 		color: white;
 	}
 	.messages .text p {
 		position: absolute;
-		top: 50px;
+		top: 5em;
 		left: 0;
 		right: 0;
 		text-align: center;
 		color: white;
-		font: 10px Verdana, Arial, Helvetica, sans-serif;
-		line-height: 14pt;
+		font: 1em Verdana, Arial, Helvetica, sans-serif;
+		line-height: 1.5em;
 	}
 
 
@@ -192,34 +172,33 @@ a:hover {
 .levels {
 	display: none;
 	position: absolute;
-	top: 200px;
-	left: 35px;
-	right: 35px;
-	height: 70px;
+	top: 8em;
+	left: 1.5em;
+	right: 1.5em;
+	height: 2.7em;
 	background-color: #DAEDFC;
-	border: 4px solid #677799;
+	border: 0.16em solid #677799;
 	text-align: center;
 	color: #677799;
-	font-size: 25px;
+	font-size: 2.5em;
 }
 	.levels .left,
 	.levels .right {
 		position: absolute;
-		bottom: 10px;
+		bottom: 1em;
 		width: 0;
-		font-size: 0;
-		line-height: 0%;
 		border-color: transparent;
 		border-style: solid;
-		border-width: 10px;
+		border-width: 1em;
 		cursor: pointer;
+        font-size: 0.4em;
 	}
 	.levels .left {
-		left: 5px;
+		left: 0.5em;
 		border-right-color: #677799;
 	}
 	.levels .right {
-		right: 5px;
+		right: 0.5em;
 		border-left-color: #677799;
 	}
 	.levels .left:hover  { border-right-color: black; }
@@ -233,16 +212,19 @@ a:hover {
 	margin: 0;
 	padding: 0;
 	text-align: center;
-	font-size: 25px;
-	line-height: 27px;
+	line-height: 1.2em;
 }
-	.levels ul { top: 80px;  }
-	.pause     { top: 265px; display: none; }
+	.levels ul { top: 3em;  }
+	.pause {
+        font-size: 2.5em;
+        display: none;
+        top: 8em;
+    }
 	
 	.levels li,
 	.pause  li {
 		list-style-type: none;
-		padding: 2px;
+		padding: 0.08em;
 	}
 
 
@@ -253,30 +235,31 @@ a:hover {
 .input {
 	display: none;
 	position: absolute;
-	top: 150px;
+	top: 6em;
 	right: 0;
 	left: 0;
 	text-align: center;
+    font-size: 2.5em;
 }
 	.input p {
 		margin: 0;
-		padding-left: 37px;
+		padding-left: 1.5em;
 		text-align: left;
 	}
 	.input input {
-		margin: 5px 20px 0 0;
-		padding-left: 2px;
-		width: 110px;
+		margin: 0.2em 1em 0 0;
+		padding-left: 0.2em;
+		width: 4.5em;
 		background-color: #DAEDFC;
-		border: 4px solid #677799;
+		border: 0.16em solid #677799;
+        font-size: 1em;
 	}
 	.input input:focus { outline: none; }
 
 .restart {
-	display: none;
 	position: absolute;
-	top: 260px;
-	left: 60px;
+	top: 4em;
+    left: 2.5em;
 }
 
 
@@ -287,12 +270,12 @@ a:hover {
 .high { display: none; }
 .scores {
 	position: absolute;
-	top: 130px;
-	bottom: 40px;
+	top: 7.3em;
+	bottom: 0;
 	left: 0;
 	right: 0;
 	text-align: center;
-	font-size: 18px;
+	font-size: 1.7em;
 }
 	.scores .titles,
 	.scores .scores,
@@ -308,34 +291,37 @@ a:hover {
 	.help   .left,
 	.help   .right {
 		float: left;
-		width: 90px;
+		width: 5.2em;
 	}
 	.scores .left,   .help .left   { text-align: right; }
 	.scores .right,  .help .right  { text-align:  left; }
 	.scores .middle, .help .middle {
 		float: left;
-		width: 20px;
+		width: 1.3em;
 		text-align: center;
 	}
 
 	.none {
 		display: none;
 		position: absolute;
-		top: 180px;
+		top: 8em;
 		left: 0;
 		right: 0;
 		text-align: center;
 		color: black;
+        font-size: 2.5em;
 	}
 	.high .restore {
 		position: absolute;
-		left: 26px;
-		bottom: 2px;
+		left: 1em;
+		bottom: 0.2em;
+        font-size: 2.5em;
 	}
 	.high .back {
 		position: absolute;
-		right: 8px;
-		bottom: 2px;
+		right: 0.5em;
+		bottom: 0.2em;
+        font-size: 2.5em;
 	}
 
 
@@ -343,30 +329,31 @@ a:hover {
 /* ---------
     Help  */
 
-.help {
+.controls {
 	display: none;
 	position: absolute;
-	top: 130px;
+	top: 13em;
 	bottom: 0;
 	left: 0;
 	right: 0;
 }
-	.help div,
-	.help p {
+	.controls div,
+	.controls p {
 		color: black;
 		font-weight: normal;
-		font-size: 17px;
-		line-height: 19px;
+		font-size: 1.7em;
+		line-height: 1.1em;
 	}
-	.help p {
+	.controls p {
 		float: left;
 		clear: both;
-		margin: 10px;
+		margin: 0.5em 1em 0 1em;
 	}
-	.help .back {
+	.controls .back {
 		position: absolute;
-		right: 10px;
-		bottom: 2px;
+		right: 1em;
+		bottom: 0.2em;
+        font-size: 2.5em;
 	}
 
 
@@ -378,31 +365,33 @@ a:hover {
 	position: absolute;	
 	left: 0;
 	right: 0;
-	height: 70px;
+	height: 2.7em;
+    font-size: 2.5em;
 }
-.next  { top: 25px; height: 100px; }
-.level { top: 125px; }
-.score { top: 195px; }
-.lines { top: 265px; }
+.next  { top: 0.5em; height: 4em; }
+.level { top: 5em;  }
+.score { top: 8em;  }
+.lines { top: 11em; }
 
 	.content {
 		position: absolute;
-		top: 29px;
+		top: 0.9em;
 		left: 0;
-		right: 2px;
-		bottom: 2px;
-		padding-right: 5px;
+		right: 0.08em;
+		bottom: 0.08em;
+		padding-right: 0.2em;
 		background-color: #DAEDFC;
-		border: 4px solid #677799;
+		border: 0.16em solid #677799;
 		border-left: none;
 		text-align: right;
-		box-shadow: 2px 0 #121212, 0 -2px #121212, 0 2px #121212, 2px 2px #121212, 2px -2px #121212;
+		box-shadow: 0.08em 0 #121212, 0 -0.08em #121212, 0 0.08em #121212, 0.08em 0.08em #121212, 0.08em -0.08em #121212;
 	}
 	.title {
 		position: absolute;
-		top: 3px;
-		left: 10px;
+		top: 0;
+		left: 0.5em;
 		color: #677799;
+        line-height: 1em;
 	}
 
 #next {
@@ -412,12 +401,14 @@ a:hover {
 	left: 0;
 	right: 0;
 	bottom: 0;
+    font-size: 0.4em;
 }
 .pauser {
-	display: none;
+	display: block;
 	position: absolute;
-	top: 340px;
-	left: 55px;
+	top: 14.3em;
+	left: 2.3em;
+    font-size: 2.5em;
 }
 
 
@@ -427,25 +418,25 @@ a:hover {
 
 .audio {
 	position: absolute;
-	top: 370px;
-	left: -5px;
+	top: 39em;
+	left: -0.5em;
 	cursor: pointer;
 }
 .audio .triangle {
 	position: absolute;
-	bottom: 2px;
-	left: 2px;
-	border: 10px solid transparent;
+	bottom: 0.2em;
+	left: 0.2em;
+	border: 1em solid transparent;
 	border-right-color: #677799;
 }
 	.audio:hover .triangle { border-right-color: black; }
 	
 .audio .box {
 	position: absolute;
-	bottom: 9px;
-	left: 11px;
-	height: 6px;
-	width: 5px;
+	bottom: 0.9em;
+	left: 1.1em;
+	height: 0.6em;
+	width: 0.5em;
 	background-color: #677799;
 }
 	.audio:hover .box { background-color: black; }
@@ -454,33 +445,33 @@ a:hover {
 .waves {
 	position: absolute;
 	bottom: 0;
-	left: 20px;
+	left: 2em;
 }
 	.waves div {
 		position: absolute;
 		left: 0;
 		background-color: #677799;
-		border-radius: 0 200px 200px 0;
+		border-radius: 0 20em 20em 0;
 	}
 	.waves div:nth-child(1) {
-		bottom: 3px;
-		width:  18px;
-		height: 18px;
+		bottom: 0.3em;
+		width:  1.8em;
+		height: 1.8em;
 	}
 	.waves div:nth-child(2) {
-		bottom: 5px;
-		width:  14px;
-		height: 14px;
+		bottom: 0.5em;
+		width:  1.4em;
+		height: 1.4em;
 	}
 	.waves div:nth-child(3) {
-		bottom: 7px;
-		width:  10px;
-		height: 10px;
+		bottom: 0.7em;
+		width:  1.0em;
+		height: 1.0em;
 	}
 	.waves div:nth-child(4) {
-		bottom: 9px;
-		width:  6px;
-		height: 6px;
+		bottom: 0.9em;
+		width:  0.6em;
+		height: 0.6em;
 	}
 	
 	.audio:hover .waves div { 
@@ -491,10 +482,10 @@ a:hover {
 		position: absolute;
 		left: 0;
 		bottom: 0;
-		right: 1px;
+		right: 0.1em;
 		top: 0;
 		background-color: #1F1F1F;
-		border-radius: 0 200px 200px 0;
+		border-radius: 0 20em 20em 0;
 	}
 
 
@@ -520,10 +511,10 @@ a:hover {
 .board {
 	display: none;
 	position: absolute;
-	top: -1px;
-	left: -1px;
-	bottom: -1px;
-	right: -1px;
+	top: -0.1em;
+	left: -0.1em;
+	bottom: -0.1em;
+	right: -0.1em;
 	overflow: hidden;
 }
 .winker, .field {
@@ -536,12 +527,12 @@ a:hover {
 	.winker div {
 		display: none;
 		position: absolute;
-		left: -2px;
+		left: -0.2em;
 		right: 0;
-		height: 18px;
-		background-image: linear-gradient(to left, rgba(250, 250, 250, 0.8) 18px, black 18px);
-		background-size: 20px 20px;
-		border: 2px solid black;
+		height: 1.8em;
+		background-image: linear-gradient(to left, rgba(250, 250, 250, 0.8) 1.8em, black 1.8em);
+		background-size: 2em 2em;
+		border: 0.2em solid black;
 	}
 	.winker .wink {
 		display: block;
@@ -563,41 +554,41 @@ a:hover {
 #ghost div,
 #next  div {
 	position: absolute;
-	width: 22px;
-	height: 22px;
+	width: 2.2em;
+	height: 2.2em;
 }
 
 	.piece0 div, .cell0 { /* I */
-		box-shadow: inset 0 0 0 2px black, inset 4px -4px #CC6602, inset -4px 4px #FF9935;
+		box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #CC6602, inset -0.4em 0.4em #FF9935;
 		background-color: #FF6301;
 	}
 	.piece1 div, .cell1 { /* J */
-		box-shadow: inset 0 0 0 2px black, inset 4px -4px #9900CD, inset -4px 4px #CD66FF;
+		box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #9900CD, inset -0.4em 0.4em #CD66FF;
 		background-color: #CC00FF;
 	}
 	.piece2 div, .cell2 { /* L */
-		box-shadow: inset 0 0 0 2px black, inset 4px -4px #0000CC, inset -4px 4px #6367FE;
+		box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #0000CC, inset -0.4em 0.4em #6367FE;
 		background-color: #0000FE;
 	}
 	.piece3 div, .cell3 { /* O */
-		box-shadow: inset 0 0 0 2px black, inset 4px -4px #CC0001, inset -4px 4px #FF6666;
+		box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #CC0001, inset -0.4em 0.4em #FF6666;
 		background-color: #FE0000;
 	}
 	.piece4 div, .cell4 { /* S */
-		box-shadow: inset 0 0 0 2px black, inset 4px -4px #3499C7, inset -4px 4px #99FFFF;
+		box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #3499C7, inset -0.4em 0.4em #99FFFF;
 		background-color: #64CDFA;
 	}
 	.piece5 div, .cell5 { /* T */
-		box-shadow: inset 0 0 0 2px black, inset 4px -4px #FCCE00, inset -4px 4px #FEFF99;
+		box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #FCCE00, inset -0.4em 0.4em #FEFF99;
 		background-color: #FFFD04;
 	}
 	.piece6 div, .cell6 { /* Z */
-		box-shadow: inset 0 0 0 2px black, inset 4px -4px #01CC00, inset -4px 4px #66FF66;
+		box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #01CC00, inset -0.4em 0.4em #66FF66;
 		background-color: #00FF00;
 	}
 	
 	#ghost div {
-		box-shadow: inset 0 0 0 2px black, inset 4px -4px #464646, inset -4px 4px #666 !important; 
+		box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #464646, inset -0.4em 0.4em #666 !important; 
 		background-color: #505050 !important;
 	}
 

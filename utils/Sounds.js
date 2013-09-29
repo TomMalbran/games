@@ -1,9 +1,6 @@
 /*jslint browser: true */
 /*global Storage, Audio */
 
-/**
- * Creates a new Storage. A storage uses local storage capabilities to save JSON data
- */
 var Sounds = (function () {
 	"use strict";
 	

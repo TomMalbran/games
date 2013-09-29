@@ -4,9 +4,8 @@
 (function () {
 	"use strict";
     
-    var board, sound, scorer, scores, actualTetrimino, nextTetrimino, zoom,
+    var board, sound, scorer, scores, actualTetrimino, nextTetrimino,
 		container, header, paragraph, leveler, fielder, winker, tetriminer, nexter, piecer, ghoster,
-		boardHeight, boardWidth, matrixCols, matrixRows, nexterWidth, nexterHeight,
 		animation, startTime, gameTimer, gameCount, keyPressed, shortcuts,
 		messages = {
 			mainScreen: [ "Tetris",     "Select the starting level" ],
@@ -90,8 +89,12 @@
 		],
 		soundFiles        = [ "pause", "crash", "drop", "line", "rotate", "end" ],
 		fastKeys          = [ 37, 65, 40, 83, 39, 68 ],
-		tetriminoSize     = 20,
-		tetriminoBorder   = 2,
+        matrixCols        = 12,
+        matrixRows        = 23,
+        nexterWidth       = 9.6,
+        nexterHeight      = 6.3,
+        tetriminoSize     = 2,
+        tetriminoBorder   = 0.2,
 		tetriminoMaxRot   = 3,
 		tetriminoSequence = [ 0, 1, 2, 3, 4, 5, 6 ],
 		tetriminoPointer  = 0,
@@ -99,9 +102,9 @@
 		timeInterval      = 50,
 		linesPerLevel     = 10,
 		maxInitialLevel   = 10,
-		maxScores         = 10,
+		maxScores         = 9,
 		soundStorage      = "tetris.sound",
-		scoresStorage     = "tetris.hs.",
+		scoresStorage     = "tetris.hs",
 		zoomStorage       = "tetris.zoom",
 		gameDisplay       = "mainScreen",
 		gameLevel         = 1;
@@ -604,7 +607,7 @@
 	 * @return {string}
 	 */
 	Board.prototype.getTop = function (top) {
-		return ((top - 2) * tetriminoSize) + "px";
+		return ((top - 2) * tetriminoSize) + "em";
 	};
 	
 	/**
@@ -613,7 +616,7 @@
 	 * @return {string}
 	 */
 	Board.prototype.getLeft = function (left) {
-		return (left * tetriminoSize) + "px";
+		return (left * tetriminoSize) + "em";
 	};
 	
 	
@@ -633,8 +636,8 @@
 		
 		nexter.className  = "piece" + this.type + " rot0";
 		nexter.innerHTML  = tetriminer[this.type].innerHTML;
-		nexter.style.top  = (nexterHeight - this.data.rows * tetriminoSize - tetriminoBorder) / 2 + "px";
-		nexter.style.left = (nexterWidth  - this.data.cols * tetriminoSize - tetriminoBorder) / 2 + "px";
+		nexter.style.top  = (nexterHeight - this.data.rows * tetriminoSize - tetriminoBorder) / 2 + "em";
+		nexter.style.left = (nexterWidth  - this.data.cols * tetriminoSize - tetriminoBorder) / 2 + "em";
 		
 		this.setCubePositions();
 	}
@@ -669,8 +672,8 @@
 		var i, elements = nexter.querySelectorAll("div");
 		
 		for (i = 0; i < elements.length; i += 1) {
-			elements[i].style.top  = (elements[i].dataset.top  * tetriminoSize) + "px";
-			elements[i].style.left = (elements[i].dataset.left * tetriminoSize) + "px";
+			elements[i].style.top  = (elements[i].dataset.top  * tetriminoSize) + "em";
+			elements[i].style.left = (elements[i].dataset.left * tetriminoSize) + "em";
 		}
 	};
 	
@@ -1064,11 +1067,11 @@
 				data.push(actual);
 				saved = true;
 			}
-			if (data.length <= maxScores) {
+			if (data.length < maxScores) {
 				data.push(hs);
 			}
 		}
-		if (!saved && data.length <= maxScores) {
+		if (!saved && data.length < maxScores) {
 			data.push(actual);
 		}
 		
@@ -1111,79 +1114,6 @@
 	 */
 	HighScores.prototype.isFocused = function () {
 		return this.input.focused;
-	};
-	
-	
-	
-	/**
-	 * @constructor
-	 * Game Zoom
-	 */
-	function Zoom() {
-		this.data    = new Storage(zoomStorage, true);
-		this.element = document.querySelector(".zoom");
-		this.values  = [ "1.0", "1.2", "1.4", "1.6", "1.8", "2.0" ];
-		this.current = 0;
-		this.style   = null;
-		
-		if (this.data.get()) {
-			this.current = this.data.get();
-			if (this.current > 0) {
-				this.setContent();
-				this.setStyle();
-			}
-		}
-	}
-	
-	/**
-	 * Change the zoom
-	 */
-	Zoom.prototype.change = function () {
-		this.current += 1;
-		if (this.current === this.values.length) {
-			this.current = 0;
-		}
-		this.setContent();
-		this.setStyle();
-		
-		this.data.set(this.current);
-	};
-	
-	/**
-	 * Set the new zoom value
-	 */
-	Zoom.prototype.setContent = function () {
-		this.element.innerHTML = "x" + this.values[this.current];
-	};
-	
-	/**
-	 * Set the style for the zoom in the current style or in a new one
-	 */
-	Zoom.prototype.setStyle = function () {
-		if (this.style) {
-			this.style.innerHTML = this.current === 0 ? "" : this.getStyle();
-		} else {
-			var head = document.querySelector("head");
-			
-			this.style = document.createElement("style");
-			this.style.id = "sZoom";
-			this.style.innerHTML = this.getStyle();
-			head.appendChild(this.style);
-		}
-	};
-	
-	/**
-	 * Creates the style as a transform for each prefix
-	 */
-	Zoom.prototype.getStyle = function () {
-		var prefix  = ["-webkit-", "-o-", ""],
-			content = "body > *:not(.zoom) {",
-			self    = this;
-		
-		prefix.forEach(function (prefix) {
-			content += prefix + "transform: scale(" + self.values[self.current] + ");";
-		});
-		return content + " }";
 	};
 	
 	
@@ -1263,13 +1193,6 @@
 		piecer     = document.querySelector("#piece");
 		ghoster    = document.querySelector("#ghost");
 		
-		boardHeight  = document.querySelector(".board").offsetHeight;
-		boardWidth   = document.querySelector(".board").offsetWidth;
-		matrixCols   = ((boardWidth  - tetriminoBorder) / tetriminoSize) + 2;
-		matrixRows   = ((boardHeight - tetriminoBorder) / tetriminoSize) + 3;
-		nexterWidth  = nexter.offsetWidth;
-		nexterHeight = nexter.offsetHeight;
-		
 		document.body.addEventListener("click", function (e) {
 			var element = e.target;
 			while (element.parentElement && !element.dataset.action) {
@@ -1313,9 +1236,6 @@
 			case "sound":
 				sound.toggle();
 				break;
-			case "zoom":
-				zoom.change();
-				break;
 			}
 		});
 		
@@ -1332,7 +1252,6 @@
 		
 		sound  = new Sounds(soundFiles, soundStorage, true);
 		scores = new HighScores();
-		zoom   = new Zoom();
 	}
     
     
