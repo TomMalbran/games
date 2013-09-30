@@ -1,62 +1,62 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<meta charset="utf-8" />
-	<title>HTML5 Games</title>
-	<link rel="stylesheet" href="style.css" />
+    <meta charset="utf-8" />
+    <title>HTML5 Games</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-	<header>
-		<h1 id="title">Bounce</h1>
-		<p id="expand">Expand for more games.</p>
-		<p id="select">Select a game.</p>
-		<ul id="nav">
-			<li><a href="#bounce" data-game="bounce">Bounce</a></li>
-			<li><a href="#snake" data-game="snake">Snake</a></li>
-			<li><a href="#tetris" data-game="tetris">Tetris</a></li>
-			<li><a href="#defender" data-game="defender">Defender</a></li>
-			<li><a href="#pacman" data-game="pacman">Pacman</a></li>
-		</ul>
-	</header>
-	<iframe id="machine"></iframe>
-	
-	<script>
-		function play(game) {
-			"use strict";
-			
-			var i, li = document.getElementById("nav").getElementsByTagName("li");
-			for (i = 0; i < li.length; i += 1) {
-				if (li[i].children[0].getAttribute("data-game") === game) {
-					li[i].className = "selected";
-				} else {
-					li[i].className = "";
-				}
-			}
-			document.getElementById("title").innerHTML = game;
-			document.getElementById("machine").src = game + "/index.html";
-			document.title = "HTML5 Games: " + game.substring(0, 1).toUpperCase() + game.substring(1);
-		}
-		
-		function loader() {
-			"use strict";
-			var header = document.querySelector("header");
-			play(location.hash.substring(1) || "bounce");
-			
-			header.addEventListener("mouseover", function (e) {
-				header.classList.add("expand");
-			});
-			header.addEventListener("mouseout", function (e) {
-				header.classList.remove("expand");
-			});
-			document.querySelector("#nav").addEventListener("click", function (e) {
-				play(e.target.dataset.game);
-			});
-		}
-		
-		window.addEventListener("load", function () {
-			"use strict";
-			loader();
-		}, false);
-	</script>
+    <header>
+        <h1 id="title">Bounce</h1>
+        <p id="expand">Expand for more games.</p>
+        <p id="select">Select a game.</p>
+        <ul id="nav">
+            <li><a href="#bounce" data-game="bounce">Bounce</a></li>
+            <li><a href="#snake" data-game="snake">Snake</a></li>
+            <li><a href="#tetris" data-game="tetris">Tetris</a></li>
+            <li><a href="#defender" data-game="defender">Defender</a></li>
+            <li><a href="#pacman" data-game="pacman">Pacman</a></li>
+        </ul>
+    </header>
+    <iframe id="machine"></iframe>
+    
+    <script>
+        function play(game) {
+            "use strict";
+            
+            var i, li = document.getElementById("nav").getElementsByTagName("li");
+            for (i = 0; i < li.length; i += 1) {
+                if (li[i].children[0].getAttribute("data-game") === game) {
+                    li[i].className = "selected";
+                } else {
+                    li[i].className = "";
+                }
+            }
+            document.getElementById("title").innerHTML = game;
+            document.getElementById("machine").src = game + "/index.html";
+            document.title = "HTML5 Games: " + game.substring(0, 1).toUpperCase() + game.substring(1);
+        }
+        
+        function loader() {
+            "use strict";
+            var header = document.querySelector("header");
+            play(location.hash.substring(1) || "bounce");
+            
+            header.addEventListener("mouseover", function (e) {
+                header.classList.add("expand");
+            });
+            header.addEventListener("mouseout", function (e) {
+                header.classList.remove("expand");
+            });
+            document.querySelector("#nav").addEventListener("click", function (e) {
+                play(e.target.dataset.game);
+            });
+        }
+        
+        window.addEventListener("load", function () {
+            "use strict";
+            loader();
+        }, false);
+    </script>
 </body>
 </html>

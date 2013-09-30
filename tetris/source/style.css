@@ -5,16 +5,16 @@
     Game Fonts  */
 
 @font-face {
-	font-family: "Agency FB";
-	font-style: normal;
-	font-weight: bold;
-	src: local("Agency FB Negrita"), url("../fonts/agencyb.ttf") format("truetype");
+    font-family: "Agency FB";
+    font-style: normal;
+    font-weight: bold;
+    src: local("Agency FB Negrita"), url("../fonts/agencyb.ttf") format("truetype");
 }
 @font-face {
-	font-family: "Agency FB";
-	font-style: normal;
-	font-weight: normal;
-	src: local("Agency FB"), url("../fonts/agencyr.ttf") format("truetype");
+    font-family: "Agency FB";
+    font-style: normal;
+    font-weight: normal;
+    src: local("Agency FB"), url("../fonts/agencyr.ttf") format("truetype");
 }
 
 
@@ -23,44 +23,44 @@
     Main Styles  */
 
 html, body {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	background-color: transparent;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: transparent;
     font-size: 10px;
 }
 html, body, input {
-	color: #677799;
-	font-family: "Agency FB";
-	font-weight: bold;
+    color: #677799;
+    font-family: "Agency FB";
+    font-weight: bold;
 }
 
 a {
-	position: relative;
-	color: #677799;
-	text-decoration: none;
-	outline: none;
+    position: relative;
+    color: #677799;
+    text-decoration: none;
+    outline: none;
 }
 a:hover {
-	color: black;
+    color: black;
 }
-	a:before {
-		content: "";
-		position: absolute;
-		top: 0.64em;
-		left: -0.64em;
-		display: inline-block;
-		width: 0.4em;
-		height: 0.4em;
-		border-radius: 0.08em;
-		background-color: #677799;
-	}
-	a:hover:before {
-		background-color: black;
-	}
+    a:before {
+        content: "";
+        position: absolute;
+        top: 0.64em;
+        left: -0.64em;
+        display: inline-block;
+        width: 0.4em;
+        height: 0.4em;
+        border-radius: 0.08em;
+        background-color: #677799;
+    }
+    a:hover:before {
+        background-color: black;
+    }
 
 
 
@@ -68,33 +68,33 @@ a:hover {
     Game Design  */
 
 #container {
-	position: absolute;
-	top: 50%;
-	bottom: 50%;
-	left: 50%;
-	right: 50%;
-	width: 31.6em;
-	height: 41.6em;
-	margin-top: -20.8em;
-	margin-left: -15.8em;
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    left: 50%;
+    right: 50%;
+    width: 31.6em;
+    height: 41.6em;
+    margin-top: -20.8em;
+    margin-left: -15.8em;
 }
 .leftSide {
-	position: absolute;
-	top: 0.2em;
-	left: 0.2em;
-	right: 10.2em;
-	bottom: 0.2em;
-	border: 0.6em solid #677799;
-	box-shadow: 0 0 0 0.2em #121212;
-	background: linear-gradient(135deg, #BBCCE3 25%, #A2B8D5 25%, #A2B8D5 50%, #BBCCE3 50%, #BBCCE3 75%, #A2B8D5 75%);
-	background-size: 4px 4px;
+    position: absolute;
+    top: 0.2em;
+    left: 0.2em;
+    right: 10.2em;
+    bottom: 0.2em;
+    border: 0.6em solid #677799;
+    box-shadow: 0 0 0 0.2em #121212;
+    background: linear-gradient(135deg, #BBCCE3 25%, #A2B8D5 25%, #A2B8D5 50%, #BBCCE3 50%, #BBCCE3 75%, #A2B8D5 75%);
+    background-size: 4px 4px;
 }
 .rightSide {
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 10.2em;
-	bottom: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10.2em;
+    bottom: 0;
 }
 
 
@@ -110,7 +110,7 @@ a:hover {
 .mainScreen #next,
 .playing    .board,
 .mainScreen .board {
-	display: block;
+    display: block;
 }
 
 .mainScreen .levels,
@@ -118,7 +118,7 @@ a:hover {
 .gameOver   .input,
 .highScores .high,
 .help       .controls {
-	display: block;
+    display: block;
 }
 
 
@@ -127,42 +127,42 @@ a:hover {
     Messages Panel  */
 
 .messages {
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }
-	.messages .text {
-		position: absolute;
-		top: 4em;
-		left: 0;
-		right: 0;
-		height: 8em;
-		background-color: black;
-		opacity: 0.8;
-	}
-	.messages .text h2 {
-		position: absolute;
-		top: 0.2em;
-		left: 0;
-		right: 0;
-		margin: 0;
-		font-size: 5em;
-		line-height: 1em;
-		text-align: center;
-		color: white;
-	}
-	.messages .text p {
-		position: absolute;
-		top: 5em;
-		left: 0;
-		right: 0;
-		text-align: center;
-		color: white;
-		font: 1em Verdana, Arial, Helvetica, sans-serif;
-		line-height: 1.5em;
-	}
+    .messages .text {
+        position: absolute;
+        top: 4em;
+        left: 0;
+        right: 0;
+        height: 8em;
+        background-color: black;
+        opacity: 0.8;
+    }
+    .messages .text h2 {
+        position: absolute;
+        top: 0.2em;
+        left: 0;
+        right: 0;
+        margin: 0;
+        font-size: 5em;
+        line-height: 1em;
+        text-align: center;
+        color: white;
+    }
+    .messages .text p {
+        position: absolute;
+        top: 5em;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: white;
+        font: 1em Verdana, Arial, Helvetica, sans-serif;
+        line-height: 1.5em;
+    }
 
 
 
@@ -170,62 +170,62 @@ a:hover {
     Main Screen / Pause  */
 
 .levels {
-	display: none;
-	position: absolute;
-	top: 8em;
-	left: 1.5em;
-	right: 1.5em;
-	height: 2.7em;
-	background-color: #DAEDFC;
-	border: 0.16em solid #677799;
-	text-align: center;
-	color: #677799;
-	font-size: 2.5em;
+    display: none;
+    position: absolute;
+    top: 8em;
+    left: 1.5em;
+    right: 1.5em;
+    height: 2.7em;
+    background-color: #DAEDFC;
+    border: 0.16em solid #677799;
+    text-align: center;
+    color: #677799;
+    font-size: 2.5em;
 }
-	.levels .left,
-	.levels .right {
-		position: absolute;
-		bottom: 1em;
-		width: 0;
-		border-color: transparent;
-		border-style: solid;
-		border-width: 1em;
-		cursor: pointer;
+    .levels .left,
+    .levels .right {
+        position: absolute;
+        bottom: 1em;
+        width: 0;
+        border-color: transparent;
+        border-style: solid;
+        border-width: 1em;
+        cursor: pointer;
         font-size: 0.4em;
-	}
-	.levels .left {
-		left: 0.5em;
-		border-right-color: #677799;
-	}
-	.levels .right {
-		right: 0.5em;
-		border-left-color: #677799;
-	}
-	.levels .left:hover  { border-right-color: black; }
-	.levels .right:hover { border-left-color:  black; }
+    }
+    .levels .left {
+        left: 0.5em;
+        border-right-color: #677799;
+    }
+    .levels .right {
+        right: 0.5em;
+        border-left-color: #677799;
+    }
+    .levels .left:hover  { border-right-color: black; }
+    .levels .right:hover { border-left-color:  black; }
 
 
 .levels ul, .pause {
-	position: absolute;
-	left: 0;
-	right: 0;
-	margin: 0;
-	padding: 0;
-	text-align: center;
-	line-height: 1.2em;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    line-height: 1.2em;
 }
-	.levels ul { top: 3em;  }
-	.pause {
+    .levels ul { top: 3em;  }
+    .pause {
         font-size: 2.5em;
         display: none;
         top: 8em;
     }
-	
-	.levels li,
-	.pause  li {
-		list-style-type: none;
-		padding: 0.08em;
-	}
+    
+    .levels li,
+    .pause  li {
+        list-style-type: none;
+        padding: 0.08em;
+    }
 
 
 
@@ -233,32 +233,32 @@ a:hover {
     Game Over  */
 
 .input {
-	display: none;
-	position: absolute;
-	top: 6em;
-	right: 0;
-	left: 0;
-	text-align: center;
+    display: none;
+    position: absolute;
+    top: 6em;
+    right: 0;
+    left: 0;
+    text-align: center;
     font-size: 2.5em;
 }
-	.input p {
-		margin: 0;
-		padding-left: 1.5em;
-		text-align: left;
-	}
-	.input input {
-		margin: 0.2em 1em 0 0;
-		padding-left: 0.2em;
-		width: 4.5em;
-		background-color: #DAEDFC;
-		border: 0.16em solid #677799;
+    .input p {
+        margin: 0;
+        padding-left: 1.5em;
+        text-align: left;
+    }
+    .input input {
+        margin: 0.2em 1em 0 0;
+        padding-left: 0.2em;
+        width: 4.5em;
+        background-color: #DAEDFC;
+        border: 0.16em solid #677799;
         font-size: 1em;
-	}
-	.input input:focus { outline: none; }
+    }
+    .input input:focus { outline: none; }
 
 .restart {
-	position: absolute;
-	top: 4em;
+    position: absolute;
+    top: 4em;
     left: 2.5em;
 }
 
@@ -269,60 +269,60 @@ a:hover {
 
 .high { display: none; }
 .scores {
-	position: absolute;
-	top: 7.3em;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	text-align: center;
-	font-size: 1.7em;
+    position: absolute;
+    top: 7.3em;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 1.7em;
 }
-	.scores .titles,
-	.scores .scores,
-	.help   .titles,
-	.help   .scores {
-		float: left;
-		clear: both;
-	}
-	.scores .titles { color: black; }
-	
-	.scores .left,
-	.scores .right,
-	.help   .left,
-	.help   .right {
-		float: left;
-		width: 5.2em;
-	}
-	.scores .left,   .help .left   { text-align: right; }
-	.scores .right,  .help .right  { text-align:  left; }
-	.scores .middle, .help .middle {
-		float: left;
-		width: 1.3em;
-		text-align: center;
-	}
+    .scores .titles,
+    .scores .scores,
+    .help   .titles,
+    .help   .scores {
+        float: left;
+        clear: both;
+    }
+    .scores .titles { color: black; }
+    
+    .scores .left,
+    .scores .right,
+    .help   .left,
+    .help   .right {
+        float: left;
+        width: 5.2em;
+    }
+    .scores .left,   .help .left   { text-align: right; }
+    .scores .right,  .help .right  { text-align:  left; }
+    .scores .middle, .help .middle {
+        float: left;
+        width: 1.3em;
+        text-align: center;
+    }
 
-	.none {
-		display: none;
-		position: absolute;
-		top: 8em;
-		left: 0;
-		right: 0;
-		text-align: center;
-		color: black;
+    .none {
+        display: none;
+        position: absolute;
+        top: 8em;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: black;
         font-size: 2.5em;
-	}
-	.high .restore {
-		position: absolute;
-		left: 1em;
-		bottom: 0.2em;
+    }
+    .high .restore {
+        position: absolute;
+        left: 1em;
+        bottom: 0.2em;
         font-size: 2.5em;
-	}
-	.high .back {
-		position: absolute;
-		right: 0.5em;
-		bottom: 0.2em;
+    }
+    .high .back {
+        position: absolute;
+        right: 0.5em;
+        bottom: 0.2em;
         font-size: 2.5em;
-	}
+    }
 
 
 
@@ -330,31 +330,31 @@ a:hover {
     Help  */
 
 .controls {
-	display: none;
-	position: absolute;
-	top: 13em;
-	bottom: 0;
-	left: 0;
-	right: 0;
+    display: none;
+    position: absolute;
+    top: 13em;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
-	.controls div,
-	.controls p {
-		color: black;
-		font-weight: normal;
-		font-size: 1.7em;
-		line-height: 1.1em;
-	}
-	.controls p {
-		float: left;
-		clear: both;
-		margin: 0.5em 1em 0 1em;
-	}
-	.controls .back {
-		position: absolute;
-		right: 1em;
-		bottom: 0.2em;
+    .controls div,
+    .controls p {
+        color: black;
+        font-weight: normal;
+        font-size: 1.7em;
+        line-height: 1.1em;
+    }
+    .controls p {
+        float: left;
+        clear: both;
+        margin: 0.5em 1em 0 1em;
+    }
+    .controls .back {
+        position: absolute;
+        right: 1em;
+        bottom: 0.2em;
         font-size: 2.5em;
-	}
+    }
 
 
 
@@ -362,10 +362,10 @@ a:hover {
     Scores Design  */
 
 .next, .level, .score, .lines {
-	position: absolute;	
-	left: 0;
-	right: 0;
-	height: 2.7em;
+    position: absolute; 
+    left: 0;
+    right: 0;
+    height: 2.7em;
     font-size: 2.5em;
 }
 .next  { top: 0.5em; height: 4em; }
@@ -373,41 +373,41 @@ a:hover {
 .score { top: 8em;  }
 .lines { top: 11em; }
 
-	.content {
-		position: absolute;
-		top: 0.9em;
-		left: 0;
-		right: 0.08em;
-		bottom: 0.08em;
-		padding-right: 0.2em;
-		background-color: #DAEDFC;
-		border: 0.16em solid #677799;
-		border-left: none;
-		text-align: right;
-		box-shadow: 0.08em 0 #121212, 0 -0.08em #121212, 0 0.08em #121212, 0.08em 0.08em #121212, 0.08em -0.08em #121212;
-	}
-	.title {
-		position: absolute;
-		top: 0;
-		left: 0.5em;
-		color: #677799;
+    .content {
+        position: absolute;
+        top: 0.9em;
+        left: 0;
+        right: 0.08em;
+        bottom: 0.08em;
+        padding-right: 0.2em;
+        background-color: #DAEDFC;
+        border: 0.16em solid #677799;
+        border-left: none;
+        text-align: right;
+        box-shadow: 0.08em 0 #121212, 0 -0.08em #121212, 0 0.08em #121212, 0.08em 0.08em #121212, 0.08em -0.08em #121212;
+    }
+    .title {
+        position: absolute;
+        top: 0;
+        left: 0.5em;
+        color: #677799;
         line-height: 1em;
-	}
+    }
 
 #next {
-	display: none;
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     font-size: 0.4em;
 }
 .pauser {
-	display: block;
-	position: absolute;
-	top: 14.3em;
-	left: 2.3em;
+    display: block;
+    position: absolute;
+    top: 14.3em;
+    left: 2.3em;
     font-size: 2.5em;
 }
 
@@ -417,76 +417,76 @@ a:hover {
     Audio Button  */
 
 .audio {
-	position: absolute;
-	top: 39em;
-	left: -0.5em;
-	cursor: pointer;
+    position: absolute;
+    top: 39em;
+    left: -0.5em;
+    cursor: pointer;
 }
 .audio .triangle {
-	position: absolute;
-	bottom: 0.2em;
-	left: 0.2em;
-	border: 1em solid transparent;
-	border-right-color: #677799;
+    position: absolute;
+    bottom: 0.2em;
+    left: 0.2em;
+    border: 1em solid transparent;
+    border-right-color: #677799;
 }
-	.audio:hover .triangle { border-right-color: black; }
-	
+    .audio:hover .triangle { border-right-color: black; }
+    
 .audio .box {
-	position: absolute;
-	bottom: 0.9em;
-	left: 1.1em;
-	height: 0.6em;
-	width: 0.5em;
-	background-color: #677799;
+    position: absolute;
+    bottom: 0.9em;
+    left: 1.1em;
+    height: 0.6em;
+    width: 0.5em;
+    background-color: #677799;
 }
-	.audio:hover .box { background-color: black; }
+    .audio:hover .box { background-color: black; }
 
 
 .waves {
-	position: absolute;
-	bottom: 0;
-	left: 2em;
+    position: absolute;
+    bottom: 0;
+    left: 2em;
 }
-	.waves div {
-		position: absolute;
-		left: 0;
-		background-color: #677799;
-		border-radius: 0 20em 20em 0;
-	}
-	.waves div:nth-child(1) {
-		bottom: 0.3em;
-		width:  1.8em;
-		height: 1.8em;
-	}
-	.waves div:nth-child(2) {
-		bottom: 0.5em;
-		width:  1.4em;
-		height: 1.4em;
-	}
-	.waves div:nth-child(3) {
-		bottom: 0.7em;
-		width:  1.0em;
-		height: 1.0em;
-	}
-	.waves div:nth-child(4) {
-		bottom: 0.9em;
-		width:  0.6em;
-		height: 0.6em;
-	}
-	
-	.audio:hover .waves div { 
-		background-color: black;
-	}
-	.waves div:before {
-		content: "";
-		position: absolute;
-		left: 0;
-		bottom: 0;
-		right: 0.1em;
-		top: 0;
-		background-color: #1F1F1F;
-		border-radius: 0 20em 20em 0;
-	}
+    .waves div {
+        position: absolute;
+        left: 0;
+        background-color: #677799;
+        border-radius: 0 20em 20em 0;
+    }
+    .waves div:nth-child(1) {
+        bottom: 0.3em;
+        width:  1.8em;
+        height: 1.8em;
+    }
+    .waves div:nth-child(2) {
+        bottom: 0.5em;
+        width:  1.4em;
+        height: 1.4em;
+    }
+    .waves div:nth-child(3) {
+        bottom: 0.7em;
+        width:  1.0em;
+        height: 1.0em;
+    }
+    .waves div:nth-child(4) {
+        bottom: 0.9em;
+        width:  0.6em;
+        height: 0.6em;
+    }
+    
+    .audio:hover .waves div { 
+        background-color: black;
+    }
+    .waves div:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: 0.1em;
+        top: 0;
+        background-color: #1F1F1F;
+        border-radius: 0 20em 20em 0;
+    }
 
 
 
@@ -494,54 +494,54 @@ a:hover {
     Board Design  */
 
 @-webkit-keyframes wink {
-	0%    { opacity: 1; }
-	50%   { opacity: 1; }
-	50.1% { opacity: 0; }
-	100%  { opacity: 0; }
+    0%    { opacity: 1; }
+    50%   { opacity: 1; }
+    50.1% { opacity: 0; }
+    100%  { opacity: 0; }
 }
 
 @keyframes wink {
-	0%    { opacity: 1; }
-	50%   { opacity: 1; }
-	50.1% { opacity: 0; }
-	100%  { opacity: 0; }
+    0%    { opacity: 1; }
+    50%   { opacity: 1; }
+    50.1% { opacity: 0; }
+    100%  { opacity: 0; }
 }
 
 
 .board {
-	display: none;
-	position: absolute;
-	top: -0.1em;
-	left: -0.1em;
-	bottom: -0.1em;
-	right: -0.1em;
-	overflow: hidden;
+    display: none;
+    position: absolute;
+    top: -0.1em;
+    left: -0.1em;
+    bottom: -0.1em;
+    right: -0.1em;
+    overflow: hidden;
 }
 .winker, .field {
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }
-	.winker div {
-		display: none;
-		position: absolute;
-		left: -0.2em;
-		right: 0;
-		height: 1.8em;
-		background-image: linear-gradient(to left, rgba(250, 250, 250, 0.8) 1.8em, black 1.8em);
-		background-size: 2em 2em;
-		border: 0.2em solid black;
-	}
-	.winker .wink {
-		display: block;
-		-webkit-animation: wink 150ms 3 linear;
-		        animation: wink 150ms 3 linear;
-	}
+    .winker div {
+        display: none;
+        position: absolute;
+        left: -0.2em;
+        right: 0;
+        height: 1.8em;
+        background-image: linear-gradient(to left, rgba(250, 250, 250, 0.8) 1.8em, black 1.8em);
+        background-size: 2em 2em;
+        border: 0.2em solid black;
+    }
+    .winker .wink {
+        display: block;
+        -webkit-animation: wink 150ms 3 linear;
+                animation: wink 150ms 3 linear;
+    }
 
 #piece, #ghost {
-	position: absolute;
+    position: absolute;
 }
 
 
@@ -553,48 +553,48 @@ a:hover {
 #piece div,
 #ghost div,
 #next  div {
-	position: absolute;
-	width: 2.2em;
-	height: 2.2em;
+    position: absolute;
+    width: 2.2em;
+    height: 2.2em;
 }
 
-	.piece0 div, .cell0 { /* I */
-		box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #CC6602, inset -0.4em 0.4em #FF9935;
-		background-color: #FF6301;
-	}
-	.piece1 div, .cell1 { /* J */
-		box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #9900CD, inset -0.4em 0.4em #CD66FF;
-		background-color: #CC00FF;
-	}
-	.piece2 div, .cell2 { /* L */
-		box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #0000CC, inset -0.4em 0.4em #6367FE;
-		background-color: #0000FE;
-	}
-	.piece3 div, .cell3 { /* O */
-		box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #CC0001, inset -0.4em 0.4em #FF6666;
-		background-color: #FE0000;
-	}
-	.piece4 div, .cell4 { /* S */
-		box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #3499C7, inset -0.4em 0.4em #99FFFF;
-		background-color: #64CDFA;
-	}
-	.piece5 div, .cell5 { /* T */
-		box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #FCCE00, inset -0.4em 0.4em #FEFF99;
-		background-color: #FFFD04;
-	}
-	.piece6 div, .cell6 { /* Z */
-		box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #01CC00, inset -0.4em 0.4em #66FF66;
-		background-color: #00FF00;
-	}
-	
-	#ghost div {
-		box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #464646, inset -0.4em 0.4em #666 !important; 
-		background-color: #505050 !important;
-	}
+    .piece0 div, .cell0 { /* I */
+        box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #CC6602, inset -0.4em 0.4em #FF9935;
+        background-color: #FF6301;
+    }
+    .piece1 div, .cell1 { /* J */
+        box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #9900CD, inset -0.4em 0.4em #CD66FF;
+        background-color: #CC00FF;
+    }
+    .piece2 div, .cell2 { /* L */
+        box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #0000CC, inset -0.4em 0.4em #6367FE;
+        background-color: #0000FE;
+    }
+    .piece3 div, .cell3 { /* O */
+        box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #CC0001, inset -0.4em 0.4em #FF6666;
+        background-color: #FE0000;
+    }
+    .piece4 div, .cell4 { /* S */
+        box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #3499C7, inset -0.4em 0.4em #99FFFF;
+        background-color: #64CDFA;
+    }
+    .piece5 div, .cell5 { /* T */
+        box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #FCCE00, inset -0.4em 0.4em #FEFF99;
+        background-color: #FFFD04;
+    }
+    .piece6 div, .cell6 { /* Z */
+        box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #01CC00, inset -0.4em 0.4em #66FF66;
+        background-color: #00FF00;
+    }
+    
+    #ghost div {
+        box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #464646, inset -0.4em 0.4em #666 !important; 
+        background-color: #505050 !important;
+    }
 
 
 .r0, .r1, .r2, .r3 { display: none; }
 .rot0 .r0, .rot1 .r1,
-.rot2 .r2, .rot3 .r3 { display: block; }	
+.rot2 .r2, .rot3 .r3 { display: block; }    
 
 .tetriminos { display: none; }

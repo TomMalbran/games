@@ -4,16 +4,16 @@
     Game Fonts  */
 
 @font-face {
-	font-family: "Equilibrium";
-	font-style: normal;
-	font-weight: normal;
-	src: local("Equilibrium"), url("../fonts/equilibrium.ttf") format("TrueType");
+    font-family: "Equilibrium";
+    font-style: normal;
+    font-weight: normal;
+    src: local("Equilibrium"), url("../fonts/equilibrium.ttf") format("TrueType");
 }
 @font-face {
-	font-family: "Bauhaus 93";
-	font-style: normal;
-	font-weight: normal;
-	src: local("Bauhaus 93"), url("../fonts/bauhs93.ttf") format("truetype");
+    font-family: "Bauhaus 93";
+    font-style: normal;
+    font-weight: normal;
+    src: local("Bauhaus 93"), url("../fonts/bauhs93.ttf") format("truetype");
 }
 
 
@@ -22,29 +22,29 @@
     Main Styles  */
 
 html, body {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	background-color: transparent;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: transparent;
 }
 html, body, input {
-	color: black;
-	text-shadow: #333333 1px 1px 1px;
-	font: 18px/24px "Bauhaus 93";
+    color: black;
+    text-shadow: #333333 1px 1px 1px;
+    font: 18px/24px "Bauhaus 93";
 }
 
 a {
-	color: #333333;
-	text-shadow: #666666 1px 1px 1px;
-	text-decoration: none;
-	outline: none;
+    color: #333333;
+    text-shadow: #666666 1px 1px 1px;
+    text-decoration: none;
+    outline: none;
 }
 a:hover {
-	color: black;
-	text-shadow: #333333 1px 1px 1px;
+    color: black;
+    text-shadow: #333333 1px 1px 1px;
 }
 
 
@@ -54,7 +54,7 @@ a:hover {
 
 .starting .messages,
 .playing  .messages {
-	display: none;
+    display: none;
 }
 
 .mainScreen .main,
@@ -64,14 +64,14 @@ a:hover {
 .gameOver   .input,
 .highScores .high,
 .help       .controls {
-	display: block;
+    display: block;
 }
 
 .starting .game,
 .playing  .game,
 .paused   .game,
 .gameOver .game {
-	display: block;
+    display: block;
 }
 
 .starting .food { display: none; }
@@ -79,7 +79,7 @@ a:hover {
 .paused     .game,
 .continuing .game,
 .gameOver   .game {
-	opacity: .5;
+    opacity: .5;
 }
 
 
@@ -87,87 +87,87 @@ a:hover {
     Game Design  */
 
 #container {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	right: 50%;
-	bottom: 50%;
-	margin-left: -185px;
-	margin-top: -150px;
-	width: 370px;
-	height: 300px;
-	background-color: #AACC99;
-	background-image: linear-gradient(110deg, #AACC99 25%, #b7d3a8 25%, #b7d3a8 50%, #AACC99 50%, #AACC99);
-	border-radius: 10px;
-	box-shadow: 0 0 0 10px #272727, 0 0 0 12px #121212;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: 50%;
+    bottom: 50%;
+    margin-left: -185px;
+    margin-top: -150px;
+    width: 370px;
+    height: 300px;
+    background-color: #AACC99;
+    background-image: linear-gradient(110deg, #AACC99 25%, #b7d3a8 25%, #b7d3a8 50%, #AACC99 50%, #AACC99);
+    border-radius: 10px;
+    box-shadow: 0 0 0 10px #272727, 0 0 0 12px #121212;
 }
 
 .zoom {
-	position: absolute;
-	top: 45px;
-	right: 10px;
-	padding: 10px 5px;
-	background-color: #333;
-	border-radius: 50%;
-	font: 12px Georgia, "Times New Roman", Times, serif;
-	font-weight: bold;
-	color: rgb(200, 200, 200);
-	text-shadow: 1px 1px #000;
+    position: absolute;
+    top: 45px;
+    right: 10px;
+    padding: 10px 5px;
+    background-color: #333;
+    border-radius: 50%;
+    font: 12px Georgia, "Times New Roman", Times, serif;
+    font-weight: bold;
+    color: rgb(200, 200, 200);
+    text-shadow: 1px 1px #000;
 }
-	.zoom:hover { 
-		background-color: #999;
-		color: #000;
-		text-shadow: 1px 1px #ccc;
-	}
+    .zoom:hover { 
+        background-color: #999;
+        color: #000;
+        text-shadow: 1px 1px #ccc;
+    }
 
 
 .board {
-	position: absolute;
-	top: 18px;
-	left: 18px;
-	bottom: 38px;
-	right: 18px;
-	border: 1px solid #333333;
-	box-shadow: inset -2px 2px 0 #7C9774, -2px 2px 0 #7C9774;
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    bottom: 38px;
+    right: 18px;
+    border: 1px solid #333333;
+    box-shadow: inset -2px 2px 0 #7C9774, -2px 2px 0 #7C9774;
 }
 
 
 .game {
-	position: absolute;
-	display: none;
-	top: 18px;
-	left: 18px;
-	bottom: 0;
-	right: 18px;
+    position: absolute;
+    display: none;
+    top: 18px;
+    left: 18px;
+    bottom: 0;
+    right: 18px;
 }
 .start {
-	position: absolute;
-	top: 113px;
-	left: 0;
-	right: 0;
-	text-align: center;
-	font-size: 100px;
-	text-shadow: 1px 1px 1px black, -1px -1px 1px black, 4px 4px 1px #333333;
+    position: absolute;
+    top: 113px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 100px;
+    text-shadow: 1px 1px 1px black, -1px -1px 1px black, 4px 4px 1px #333333;
 }
 
 .snake {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .score, .time, .level {
-	position: absolute;
-	bottom: 10px;
-	left: 5px;
-	right: 5px;
-	height: 20px;
+    position: absolute;
+    bottom: 10px;
+    left: 5px;
+    right: 5px;
+    height: 20px;
 }
-	.score { text-align: left;   }
-	.time  { text-align: center; }
-	.level { text-align: right;  }
+    .score { text-align: left;   }
+    .time  { text-align: center; }
+    .level { text-align: right;  }
 
 
 
@@ -175,42 +175,42 @@ a:hover {
     Messages Panel  */
 
 .messages {
-	position: absolute;
-	top: -12px;
-	left: -12px;
-	bottom: -12px;
-	right: -12px;
-	z-index: 5;
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    bottom: -12px;
+    right: -12px;
+    z-index: 5;
 }
 .messages .text {
-	position: absolute;
-	top: 50px;
-	left: 0;
-	right: 0;
-	height: 80px;
-	background-color: black;
-	opacity: 0.8;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background-color: black;
+    opacity: 0.8;
 }
-	.messages .text h2 {
-		position: absolute;
-		top: 8px;
-		left: 0;
-		right: 0;
-		margin: 0;
-		font: 65px Equilibrium;
-		text-align: center;
-		text-transform: lowercase;
-		color: #FFFFFF;
-	}
-	.messages .text p {
-		position: absolute;
-		top: 48px;
-		left: 0;
-		right: 0;
-		font: 10px/14px Verdana, Arial, Helvetica, sans-serif;
-		text-align: center;
-		color: #FFFFFF;
-	}
+    .messages .text h2 {
+        position: absolute;
+        top: 8px;
+        left: 0;
+        right: 0;
+        margin: 0;
+        font: 65px Equilibrium;
+        text-align: center;
+        text-transform: lowercase;
+        color: #FFFFFF;
+    }
+    .messages .text p {
+        position: absolute;
+        top: 48px;
+        left: 0;
+        right: 0;
+        font: 10px/14px Verdana, Arial, Helvetica, sans-serif;
+        text-align: center;
+        color: #FFFFFF;
+    }
 
 
 
@@ -219,35 +219,35 @@ a:hover {
 
 .main { display: none; }
 .demo {
-	position: absolute;
-	top: 145px;
-	left: 40px;
-	height: 75px;
-	width: 45px;
+    position: absolute;
+    top: 145px;
+    left: 40px;
+    height: 75px;
+    width: 45px;
 }
 .main ul {
-	position: absolute;
-	top: 225px;
-	left: 20px;
-	right: 20px;
-	margin: 0;
-	padding: 0;
-	font-size: 21px;
-	text-align: center;
-	list-style: none;
+    position: absolute;
+    top: 225px;
+    left: 20px;
+    right: 20px;
+    margin: 0;
+    padding: 0;
+    font-size: 21px;
+    text-align: center;
+    list-style: none;
 }
-	.main li {
-		display: inline-block;
-		width: 80px;
-	}
-	.main li:nth-last-child(-n+3) {
-		position: absolute;
-		top: 58px;
-		width: auto;
-	}
-	.main li:nth-last-child(3)    { left: 5px;  }
-	.main li:nth-last-child(-n+2) { right: 5px; }
-	
+    .main li {
+        display: inline-block;
+        width: 80px;
+    }
+    .main li:nth-last-child(-n+3) {
+        position: absolute;
+        top: 58px;
+        width: auto;
+    }
+    .main li:nth-last-child(3)    { left: 5px;  }
+    .main li:nth-last-child(-n+2) { right: 5px; }
+    
 .main.help li:nth-last-child(1),
 .main.continue li:nth-last-child(2) { display: none; }
 
@@ -257,49 +257,49 @@ a:hover {
     Game Over  */
 
 .input {
-	display: none;
-	position: absolute;
-	top: 150px;
-	left: 20px;
-	right: 20px;
-	text-align: center;
+    display: none;
+    position: absolute;
+    top: 150px;
+    left: 20px;
+    right: 20px;
+    text-align: center;
 }
-	.input input {
-		position: absolute;
-		top: 0;
-		left: 90px;
-		width: 120px;
-		background: none;
-		border: 2px solid #333333;
-		border-radius: 5px;
-		box-shadow: inset -2px 2px 0 #7C9774, -2px 2px 0 #7C9774;
-		z-index: 2;
-	}
-	.input input:focus { outline: none; }
-	.input input::-webkit-input-placeholder { 
-		padding-top: 1px;
-		color: #999;
-		text-shadow: #CCC 1px 1px 1px;
-	}
-	.input input:-moz-placeholder {
-		padding-top: 1px;
-		color: #999;
-		text-shadow: #CCC 1px 1px 1px;
-	}
-	
-	.input a {
-		position: absolute;
-		top: 9px;
-		left: 225px;
-	}
+    .input input {
+        position: absolute;
+        top: 0;
+        left: 90px;
+        width: 120px;
+        background: none;
+        border: 2px solid #333333;
+        border-radius: 5px;
+        box-shadow: inset -2px 2px 0 #7C9774, -2px 2px 0 #7C9774;
+        z-index: 2;
+    }
+    .input input:focus { outline: none; }
+    .input input::-webkit-input-placeholder { 
+        padding-top: 1px;
+        color: #999;
+        text-shadow: #CCC 1px 1px 1px;
+    }
+    .input input:-moz-placeholder {
+        padding-top: 1px;
+        color: #999;
+        text-shadow: #CCC 1px 1px 1px;
+    }
+    
+    .input a {
+        position: absolute;
+        top: 9px;
+        left: 225px;
+    }
 
 .restart {
-	display: none;
-	position: absolute;
-	top: 210px;
-	left: 20px;
-	right: 20px;
-	text-align: center;
+    display: none;
+    position: absolute;
+    top: 210px;
+    left: 20px;
+    right: 20px;
+    text-align: center;
 }
 
 
@@ -309,43 +309,43 @@ a:hover {
 
 .high { display: none; }
 .high ul {
-	position: absolute;
-	bottom: 22px;
-	left: 30px;
-	right: 0;
-	height: 20px;
-	margin: 0;
-	padding: 0;
-	list-style: none;
+    position: absolute;
+    bottom: 22px;
+    left: 30px;
+    right: 0;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
-	.high li {
-		display: inline-block;
-		padding-right: 22px;
-	}
+    .high li {
+        display: inline-block;
+        padding-right: 22px;
+    }
 
 .scores {
-	position: absolute;
-	top: 130px;
-	left: 60px;
-	right: 60px;
-	bottom: 45px;
+    position: absolute;
+    top: 130px;
+    left: 60px;
+    right: 60px;
+    bottom: 45px;
 }
 .high .highScore {
-	float: left;
-	clear: both;
-	width: 100%;
+    float: left;
+    clear: both;
+    width: 100%;
 }
-	.hsName  { float: left;  }
-	.hsScore { float: right; }
+    .hsName  { float: left;  }
+    .hsScore { float: right; }
 
 .none {
-	position: absolute;
-	display: none;
-	top: 150px;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	text-align: center;
+    position: absolute;
+    display: none;
+    top: 150px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
 }
 
 
@@ -354,30 +354,30 @@ a:hover {
     Pause / Help  */
 
 .pause {
-	display: none;
-	position: absolute;
-	top: 180px;
-	left: 0;
-	right: 0;
-	margin: 0;
-	padding: 0;
-	text-align: center;
-	list-style: none;
+    display: none;
+    position: absolute;
+    top: 180px;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    list-style: none;
 }
-	.pause li {
-		display: inline;
-		padding: 0 10px;
-	}
+    .pause li {
+        display: inline;
+        padding: 0 10px;
+    }
 
 
 .controls { display: none; }
 .controls ol {
-	margin: 130px 30px 5px 25px;
-	font-size: 17px;
+    margin: 130px 30px 5px 25px;
+    font-size: 17px;
 }
 .controls a {
-	padding-left: 310px;
-	font-size: 21px;
+    padding-left: 310px;
+    font-size: 21px;
 }
 
 
@@ -386,96 +386,96 @@ a:hover {
     Audio Button  */
 
 .audio {
-	position: absolute;
-	bottom: 18px;
-	left: 180px;
-	cursor: pointer;
+    position: absolute;
+    bottom: 18px;
+    left: 180px;
+    cursor: pointer;
 }
 .audio .triangle {
-	position: absolute;
-	bottom: 2px;
-	left: 2px;
-	border: 10px solid transparent;
-	border-right-color: #333;
+    position: absolute;
+    bottom: 2px;
+    left: 2px;
+    border: 10px solid transparent;
+    border-right-color: #333;
 }
-	.audio .triangle:after {
-		content: "";
-		position: absolute;
-		top: -8px;
-		left: -12px;
-		border: 10px solid transparent;
-		border-right-color: #666;
-		z-index: -1;
-	}
-	.audio:hover .triangle       { border-right-color: #000; }
-	.audio:hover .triangle:after { border-right-color: #333; }
+    .audio .triangle:after {
+        content: "";
+        position: absolute;
+        top: -8px;
+        left: -12px;
+        border: 10px solid transparent;
+        border-right-color: #666;
+        z-index: -1;
+    }
+    .audio:hover .triangle       { border-right-color: #000; }
+    .audio:hover .triangle:after { border-right-color: #333; }
 
 .audio .box {
-	position: absolute;
-	bottom: 9px;
-	left: 11px;
-	height: 6px;
-	width: 5px;
-	background-color: #333;
+    position: absolute;
+    bottom: 9px;
+    left: 11px;
+    height: 6px;
+    width: 5px;
+    background-color: #333;
 }
-	.audio .box:after {
-		content: "";
-		position: absolute;
-		top: 2px;
-		left: -2px;
-		height: 6px;
-		width: 5px;
-		background-color: #666;
-		z-index: -1;
-	}
-	.audio:hover .box       { background-color: #000; }
-	.audio:hover .box:after { background-color: #333; }
+    .audio .box:after {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: -2px;
+        height: 6px;
+        width: 5px;
+        background-color: #666;
+        z-index: -1;
+    }
+    .audio:hover .box       { background-color: #000; }
+    .audio:hover .box:after { background-color: #333; }
 
 .waves {
-	position: absolute;
-	bottom: 0;
-	left: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 20px;
 }
-	.waves div {
-		position: absolute;
-		left: 0;
-		background-color: #333333;
-		border-radius: 0 200px 200px 0;
-	}
-	.waves div:nth-child(1) {
-		bottom: 3px;
-		width:  18px;
-		height: 18px;
-	}
-	.waves div:nth-child(2) {
-		bottom: 5px;
-		width:  14px;
-		height: 14px;
-	}
-	.waves div:nth-child(3) {
-		bottom: 7px;
-		width:  10px;
-		height: 10px;
-	}
-	.waves div:nth-child(4) {
-		bottom: 9px;
-		width:  6px;
-		height: 6px;
-	}
-	
-	.audio:hover .waves div { 
-		background-color: black;
-	}
-	.waves div:before {
-		content: "";
-		position: absolute;
-		left: 0;
-		bottom: 0;
-		right: 1px;
-		top: 0;
-		background-color: #AACC99;
-		border-radius: 0 200px 200px 0;
-	}
+    .waves div {
+        position: absolute;
+        left: 0;
+        background-color: #333333;
+        border-radius: 0 200px 200px 0;
+    }
+    .waves div:nth-child(1) {
+        bottom: 3px;
+        width:  18px;
+        height: 18px;
+    }
+    .waves div:nth-child(2) {
+        bottom: 5px;
+        width:  14px;
+        height: 14px;
+    }
+    .waves div:nth-child(3) {
+        bottom: 7px;
+        width:  10px;
+        height: 10px;
+    }
+    .waves div:nth-child(4) {
+        bottom: 9px;
+        width:  6px;
+        height: 6px;
+    }
+    
+    .audio:hover .waves div { 
+        background-color: black;
+    }
+    .waves div:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: 1px;
+        top: 0;
+        background-color: #AACC99;
+        border-radius: 0 200px 200px 0;
+    }
 
 
 
@@ -483,32 +483,32 @@ a:hover {
     Snake Design  */
 
 .link {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 17px;
-	height: 17px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 17px;
+    height: 17px;
 }
-	.snakeBody {
-		position: absolute;
-		top: 0;
-		left: 2px;
-		bottom: 2px;
-		right: 0;
-		background-color: black;
-		border-radius: 4px;
-		z-index: 2;
-	}
-	.snakeShadow {
-		position: absolute;
-		top: 2px;
-		left: 0;
-		bottom: 0;
-		right: 2px;
-		background-color: #7C9774;
-		border-radius: 4px;
-		z-index: 1;
-	}
+    .snakeBody {
+        position: absolute;
+        top: 0;
+        left: 2px;
+        bottom: 2px;
+        right: 0;
+        background-color: black;
+        border-radius: 4px;
+        z-index: 2;
+    }
+    .snakeShadow {
+        position: absolute;
+        top: 2px;
+        left: 0;
+        bottom: 0;
+        right: 2px;
+        background-color: #7C9774;
+        border-radius: 4px;
+        z-index: 1;
+    }
 
 
 
@@ -517,85 +517,85 @@ a:hover {
 
 @-webkit-keyframes spin {
     from { -webkit-transform: rotate(0deg);    }
-	20%  { -webkit-transform: rotate(360deg);  }
-	50%  { -webkit-transform: rotate(720deg);  }
-	to   { -webkit-transform: rotate(1080deg); }
+    20%  { -webkit-transform: rotate(360deg);  }
+    50%  { -webkit-transform: rotate(720deg);  }
+    to   { -webkit-transform: rotate(1080deg); }
 }
 @keyframes spin {
     from { transform: rotate(0deg);    }
-	20%  { transform: rotate(360deg);  }
-	50%  { transform: rotate(720deg);  }
-	to   { transform: rotate(1080deg); }
+    20%  { transform: rotate(360deg);  }
+    50%  { transform: rotate(720deg);  }
+    to   { transform: rotate(1080deg); }
 }
 
 
 .spin {
-	-webkit-animation: spin 5s linear;
-		    animation: spin 5s linear;
+    -webkit-animation: spin 5s linear;
+            animation: spin 5s linear;
 }
 
 .food {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 17px;
-	height: 17px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 17px;
+    height: 17px;
 }
-	.foodBody {
-		position: absolute;
-		top: 0;
-		left: 2px;
-		width: 15px;
-		height: 15px;
-		z-index: 2;
-	}
-	.foodShadow {
-		position: absolute;
-		top: 2px;
-		left: 0;
-		width: 15px;
-		height: 15px;
-		z-index: 1;
-	}
+    .foodBody {
+        position: absolute;
+        top: 0;
+        left: 2px;
+        width: 15px;
+        height: 15px;
+        z-index: 2;
+    }
+    .foodShadow {
+        position: absolute;
+        top: 2px;
+        left: 0;
+        width: 15px;
+        height: 15px;
+        z-index: 1;
+    }
 
-	.foodBody div {
-		position: absolute;
-		background-color: black;
-	}
-	.foodShadow div {
-		position: absolute;
-		background-color: #7C9774;
-	}
-	
-	.foodBody div:nth-child(1),
-	.foodShadow div:nth-child(1) {
-		top: 0;
-		left: 4px;
-		width: 7px;
-		height: 6px;
-		border-radius: 3px 3px 0 0;
-	}
-	.foodBody div:nth-child(2),
-	.foodShadow div:nth-child(2) {
-		top: 4px;
-		right: 0;
-		width: 6px;
-		height: 7px;
-		border-radius: 0 3px 3px 0;
-	}
-	.foodBody div:nth-child(3),
-	.foodShadow div:nth-child(3) {
-		bottom: 0;
-		left: 4px;
-		width: 7px;
-		height: 6px;
-		border-radius: 0 0 3px 3px;
-	}
-	.foodBody div:nth-child(4),
-	.foodShadow div:nth-child(4) {
-		top: 4px;
-		left: 0;
-		width: 6px;
-		height: 7px;
-		border-radius: 3px 0 0 3px;
-	}
+    .foodBody div {
+        position: absolute;
+        background-color: black;
+    }
+    .foodShadow div {
+        position: absolute;
+        background-color: #7C9774;
+    }
+    
+    .foodBody div:nth-child(1),
+    .foodShadow div:nth-child(1) {
+        top: 0;
+        left: 4px;
+        width: 7px;
+        height: 6px;
+        border-radius: 3px 3px 0 0;
+    }
+    .foodBody div:nth-child(2),
+    .foodShadow div:nth-child(2) {
+        top: 4px;
+        right: 0;
+        width: 6px;
+        height: 7px;
+        border-radius: 0 3px 3px 0;
+    }
+    .foodBody div:nth-child(3),
+    .foodShadow div:nth-child(3) {
+        bottom: 0;
+        left: 4px;
+        width: 7px;
+        height: 6px;
+        border-radius: 0 0 3px 3px;
+    }
+    .foodBody div:nth-child(4),
+    .foodShadow div:nth-child(4) {
+        top: 4px;
+        left: 0;
+        width: 6px;
+        height: 7px;
+        border-radius: 3px 0 0 3px;
+    }
