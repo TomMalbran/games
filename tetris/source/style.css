@@ -1,6 +1,5 @@
 @charset "utf-8";
 
-
 /* ---------------
     Game Fonts  */
 
@@ -30,7 +29,7 @@ html, body {
     height: 100%;
     overflow: hidden;
     background-color: transparent;
-    font-size: 10px;
+    font-size: 15px;
 }
 html, body, input {
     color: #677799;
@@ -160,7 +159,7 @@ a:hover {
         right: 0;
         text-align: center;
         color: white;
-        font: 1em Verdana, Arial, Helvetica, sans-serif;
+        font-family: Verdana, Arial, Helvetica, sans-serif;
         line-height: 1.5em;
     }
 

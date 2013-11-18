@@ -4,16 +4,16 @@
 (function () {
     "use strict";
     
-    var demo, board, sound, snake, food, scores, instance, zoom,
+    var demo, board, sound, snake, food, scores, instance,
         container, navigator, header, paragraph, starter, scorer, timer, leveler,
         animation, startTime, gameTimer, gameCount, gameScore, shortcuts,
         messages = {
-            mainScreen: [ "Snake",      "Select a level"     ],
-            paused:     [ "Pause",      "Continue the game?" ],
-            continuing: [ "Continue",   "Continue the game?" ],
-            gameOver:   [ "GameOver",   "Write your name"    ],
-            highScores: [ "HighScores", "Select a level"     ],
-            help:       [ "Help",       "Game controlls"     ]
+            mainScreen : [ "Snake",      "Select a level"     ],
+            paused     : [ "Pause",      "Continue the game?" ],
+            continuing : [ "Continue",   "Continue the game?" ],
+            gameOver   : [ "GameOver",   "Write your name"    ],
+            highScores : [ "HighScores", "Select a level"     ],
+            help       : [ "Help",       "Game controlls"     ]
         },
         soundFiles      = [ "start", "eat", "end" ],
         levelNames      = [ "Easy", "Medium", "Hard", "Super" ],
@@ -24,10 +24,10 @@
         matrixRows      = 18,                       /** @const The amount of rows in the matrix             */
         matrixColumns   = 24,                       /** @const The amount of columns in the matrix          */
         totalCells      = 354,                      /** @const The total amount of cells in the board       */
-        cellSize        = 15,                       /** @const The fisical size of a board cell             */
+        cellSize        = 1.5,                      /** @const The fisical size of a board cell             */
         initialCount    = 4,                        /** @const The count before the game starts             */
         initialParts    = 3,                        /** @const The initial amount of parts of the snake     */
-        initialPosition = { top: 3, left: 11 },     /** @const The starting position of the snake           */
+        initialPosition = { top : 3, left : 11 },   /** @const The starting position of the snake           */
         borderValue     = -1,                       /** @const The value used for the border in the matrix  */
         emptyValue      = -2,                       /** @const The value used for the space in the matrix   */
         foodValue       = -3,                       /** @const The value used for the food in the matrix    */
@@ -35,7 +35,6 @@
         instanceStorage = "snake.game",             /** @const The name of the Instance Storage             */
         soundStorage    = "snake.sound",            /** @const The name of the Sound Storage                */
         scoresStorage   = "snake.hs.",              /** @const The name of the High Scores Storage          */
-        zoomStorage     = "snake.zoom",             /** @const The name of the Zoom Storage                 */
         gameDisplay     = "mainScreen",
         gameLevel       = 1;
     
@@ -338,7 +337,7 @@
      * @return {string}
      */
     function getBoardPosition(pos) {
-        return ((pos - 1) * cellSize) + "px";
+        return ((pos - 1) * cellSize) + "em";
     }
     
     /**
@@ -376,7 +375,6 @@
         this.container = document.querySelector(".demo");
         this.left      = Utils.getPosition(document.querySelector(".messages")).left;
         this.width     = this.container.offsetWidth;
-        this.element   = null;
         this.elements  = [];
         this.pointer   = -2;
         
@@ -407,9 +405,8 @@
      * Start the demo
      */
     Demo.prototype.start = function () {
-        this.element = container.querySelector(".main li:nth-child(" + gameLevel + ")");
         this.pointer = -initialParts;
-        this.setPosition();
+        this.container.className = "demo demo" + gameLevel;
     };
     
     /**
@@ -439,14 +436,6 @@
         if (this.pointer >= this.elements.length) {
             this.pointer = -initialParts;
         }
-    };
-    
-    /**
-     * Set the position of the demo element
-     */
-    Demo.prototype.setPosition = function () {
-        var left = Utils.getPosition(this.element).left - this.left;
-        this.container.style.left = (left + (this.element.offsetWidth - this.width) / 2) + "px";
     };
     
     
@@ -519,7 +508,7 @@
         this.matrix[top][left] = foodValue;
         instance.addToMatrix(top, left, foodValue);
         
-        return { top: top, left: left };
+        return { top : top, left : left };
     };
     
     /**
@@ -625,9 +614,9 @@
         element.style.left = getBoardPosition(left);
         
         this.queue.enqueue({
-            element: element,
-            top:     top,
-            left:    left
+            element : element,
+            top     : top,
+            left    : left
         });
         this.container.appendChild(element);
     };
@@ -700,8 +689,8 @@
         }
         var last = this.queue.last();
         return {
-            top:  last.top  + this.dirTop,
-            left: last.left + this.dirLeft
+            top  : last.top  + this.dirTop,
+            left : last.left + this.dirLeft
         };
     };
     
@@ -794,7 +783,7 @@
      * @return {{top: number, left: number}}
      */
     Food.prototype.getPosition = function () {
-        return { top: this.top, left: this.left };
+        return { top : this.top, left : this.left };
     };
     
     /**
@@ -880,9 +869,9 @@
                     
                     if (value >= 0) {
                         pointer = value - head >= 0 ? value - head : totalCells + value - head;
-                        links[pointer] = { top: i, left: j };
+                        links[pointer] = { top : i, left : j };
                     } else {
-                        food = { top: i, left: j };
+                        food = { top : i, left : j };
                     }
                 } else {
                     matrix[i][j] = getBoardDefault(i, j);
@@ -891,16 +880,16 @@
         }
         
         return {
-            level:    this.data.get("level"),
-            score:    this.data.get("score"),
-            matrix:   matrix,
-            head:     head,
-            tail:     this.data.get("matrix.tail") + 1,
-            links:    links,
-            dirTop:   this.data.get("dirTop"),
-            dirLeft:  this.data.get("dirLeft"),
-            foodTop:  food.top,
-            foodLeft: food.left
+            level    : this.data.get("level"),
+            score    : this.data.get("score"),
+            matrix   : matrix,
+            head     : head,
+            tail     : this.data.get("matrix.tail") + 1,
+            links    : links,
+            dirTop   : this.data.get("dirTop"),
+            dirLeft  : this.data.get("dirLeft"),
+            foodTop  : food.top,
+            foodLeft : food.left
         };
     };
     
@@ -1023,8 +1012,8 @@
     HighScores.prototype.saveData = function () {
         var i, hs, data = [], saved = false, self = this,
             actual = {
-                name:  this.input.value,
-                score: gameScore
+                name  : this.input.value,
+                score : gameScore
             };
         
         for (i = 1; i <= this.total; i += 1) {
@@ -1068,79 +1057,6 @@
      */
     HighScores.prototype.isFocused = function () {
         return this.input.focused;
-    };
-    
-    
-    
-    /**
-     * @constructor
-     * Game Zoom
-     */
-    function Zoom() {
-        this.data    = new Storage(zoomStorage, true);
-        this.element = document.querySelector(".zoom");
-        this.values  = [ "1.0", "1.2", "1.4", "1.6", "1.8", "2.0" ];
-        this.current = 0;
-        this.style   = null;
-        
-        if (this.data.get()) {
-            this.current = this.data.get();
-            if (this.current > 0) {
-                this.setContent();
-                this.setStyle();
-            }
-        }
-    }
-    
-    /**
-     * Change the zoom
-     */
-    Zoom.prototype.change = function () {
-        this.current += 1;
-        if (this.current === this.values.length) {
-            this.current = 0;
-        }
-        this.setContent();
-        this.setStyle();
-        
-        this.data.set(this.current);
-    };
-    
-    /**
-     * Set the new zoom value
-     */
-    Zoom.prototype.setContent = function () {
-        this.element.innerHTML = "x" + this.values[this.current];
-    };
-    
-    /**
-     * Set the style for the zoom in the current style or in a new one
-     */
-    Zoom.prototype.setStyle = function () {
-        if (this.style) {
-            this.style.innerHTML = this.current === 0 ? "" : this.getStyle();
-        } else {
-            var head = document.querySelector("head");
-            
-            this.style = document.createElement("style");
-            this.style.id = "sZoom";
-            this.style.innerHTML = this.getStyle();
-            head.appendChild(this.style);
-        }
-    };
-    
-    /**
-     * Creates the style as a transform for each prefix
-     */
-    Zoom.prototype.getStyle = function () {
-        var prefix  = ["-webkit-", "-o-", ""],
-            content = "body > *:not(.zoom) {",
-            self    = this;
-        
-        prefix.forEach(function (prefix) {
-            content += prefix + "transform: scale(" + self.values[self.current] + ");";
-        });
-        return content + " }";
     };
     
     
@@ -1197,42 +1113,42 @@
      */
     function createShortcuts() {
         shortcuts = {
-            mainScreen: {
-                O: function () { newGame(gameLevel); },
-                Y: function () { newGame(1);         },
-                E: function () { newGame(2);         },
-                R: function () { newGame(3);         },
-                U: function () { newGame(4);         },
-                I: function () { showHighScores();   },
-                H: function () { showHelp();         },
-                T: function () { restoreGame();      },
-                M: function () { sound.toggle();     }
+            mainScreen : {
+                O : function () { newGame(gameLevel); },
+                Y : function () { newGame(1);         },
+                E : function () { newGame(2);         },
+                R : function () { newGame(3);         },
+                U : function () { newGame(4);         },
+                I : function () { showHighScores();   },
+                H : function () { showHelp();         },
+                T : function () { restoreGame();      },
+                M : function () { sound.toggle();     }
             },
-            paused: {
-                P: function () { endPause();         },
-                B: function () { finishGame();       }
+            paused : {
+                P : function () { endPause();         },
+                B : function () { finishGame();       }
             },
-            gameOver: {
-                O: function () { endGameOver(true);  },
-                B: function () { endGameOver(false); }
+            gameOver : {
+                O : function () { endGameOver(true);  },
+                B : function () { endGameOver(false); }
             },
-            highScores: {
-                Y: function () { scores.show(1);     },
-                E: function () { scores.show(2);     },
-                R: function () { scores.show(3);     },
-                U: function () { scores.show(4);     },
-                B: function () { showMainScreen();   }
+            highScores : {
+                Y : function () { scores.show(1);     },
+                E : function () { scores.show(2);     },
+                R : function () { scores.show(3);     },
+                U : function () { scores.show(4);     },
+                B : function () { showMainScreen();   }
             },
-            help: {
-                B: function () { showMainScreen();   }
+            help : {
+                B : function () { showMainScreen();   }
             },
-            playing: {
-                W: function () { snake.turnTop(-1);  },
-                A: function () { snake.turnLeft(-1); },
-                S: function () { snake.turnTop(1);   },
-                D: function () { snake.turnLeft(1);  },
-                P: function () { startPause();       },
-                M: function () { sound.toggle();     }
+            playing : {
+                W : function () { snake.turnTop(-1);  },
+                A : function () { snake.turnLeft(-1); },
+                S : function () { snake.turnTop(1);   },
+                D : function () { snake.turnLeft(1);  },
+                P : function () { startPause();       },
+                M : function () { sound.toggle();     }
             }
         };
     }
@@ -1290,9 +1206,6 @@
             case "sound":
                 sound.toggle();
                 break;
-            case "zoom":
-                zoom.change();
-                break;
             }
         });
         
@@ -1329,7 +1242,6 @@
         instance = new Instance();
         sound    = new Sounds(soundFiles, soundStorage, true);
         scores   = new HighScores();
-        zoom     = new Zoom();
     }
     
     

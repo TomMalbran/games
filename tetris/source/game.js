@@ -8,83 +8,83 @@
         container, header, paragraph, leveler, fielder, winker, tetriminer, nexter, piecer, ghoster,
         animation, startTime, gameTimer, gameCount, keyPressed, shortcuts,
         messages = {
-            mainScreen: [ "Tetris",     "Select the starting level" ],
-            paused:     [ "Pause",      "Continue with the game?"   ],
-            continuing: [ "Continue",   "Continue with the game?"   ],
-            gameOver:   [ "GameOver",   "Write your name"           ],
-            highScores: [ "HighScores", "Select a level"            ],
-            help:       [ "Help",       "Game controlls"            ]
+            mainScreen : [ "Tetris",     "Select the starting level" ],
+            paused     : [ "Pause",      "Continue with the game?"   ],
+            continuing : [ "Continue",   "Continue with the game?"   ],
+            gameOver   : [ "GameOver",   "Write your name"           ],
+            highScores : [ "HighScores", "Select a level"            ],
+            help       : [ "Help",       "Game controlls"            ]
         },
         tetriminos = [
             { // I Tetrimino
-                matrix: [
+                matrix : [
                     [ [ 0, 0, 0, 0 ], [ 1, 1, 1, 1 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ] ],     // Rotation 1
                     [ [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ],     // Rotation 2
                     [ [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 1, 1, 1, 1 ], [ 0, 0, 0, 0 ] ],     // Rotation 3
                     [ [ 0, 1, 0, 0 ], [ 0, 1, 0, 0 ], [ 0, 1, 0, 0 ], [ 0, 1, 0, 0 ] ]      // Rotation 4
                 ],
-                rows: 3,        // Amount of rows at the starting position
-                cols: 4         // Amount of columns at the starting position
+                rows : 3,        // Amount of rows at the starting position
+                cols : 4         // Amount of columns at the starting position
             },
             { // J Tetrimino
-                matrix: [
+                matrix : [
                     [ [ 1, 0, 0 ], [ 1, 1, 1 ], [ 0, 0, 0 ] ],
                     [ [ 0, 1, 1 ], [ 0, 1, 0 ], [ 0, 1, 0 ] ],
                     [ [ 0, 0, 0 ], [ 1, 1, 1 ], [ 0, 0, 1 ] ],
                     [ [ 0, 1, 0 ], [ 0, 1, 0 ], [ 1, 1, 0 ] ]
                 ],
-                rows: 2,
-                cols: 3
+                rows : 2,
+                cols : 3
             },
             { // L Tetrimino
-                matrix: [
+                matrix : [
                     [ [ 0, 0, 1 ], [ 1, 1, 1 ], [ 0, 0, 0 ] ],
                     [ [ 0, 1, 0 ], [ 0, 1, 0 ], [ 0, 1, 1 ] ],
                     [ [ 0, 0, 0 ], [ 1, 1, 1 ], [ 1, 0, 0 ] ],
                     [ [ 1, 1, 0 ], [ 0, 1, 0 ], [ 0, 1, 0 ] ]
                 ],
-                rows: 2,
-                cols: 3
+                rows : 2,
+                cols : 3
             },
             { // O Tetrimino
-                matrix: [
+                matrix : [
                     [ [ 0, 1, 1, 0 ], [ 0, 1, 1, 0 ], [ 0, 0, 0, 0 ] ],
                     [ [ 0, 1, 1, 0 ], [ 0, 1, 1, 0 ], [ 0, 0, 0, 0 ] ],
                     [ [ 0, 1, 1, 0 ], [ 0, 1, 1, 0 ], [ 0, 0, 0, 0 ] ],
                     [ [ 0, 1, 1, 0 ], [ 0, 1, 1, 0 ], [ 0, 0, 0, 0 ] ]
                 ],
-                rows: 2,
-                cols: 4
+                rows : 2,
+                cols : 4
             },
             { // S Tetrimino
-                matrix: [
+                matrix : [
                     [ [ 0, 1, 1 ], [ 1, 1, 0 ], [ 0, 0, 0 ] ],
                     [ [ 0, 1, 0 ], [ 0, 1, 1 ], [ 0, 0, 1 ] ],
                     [ [ 0, 0, 0 ], [ 0, 1, 1 ], [ 1, 1, 0 ] ],
                     [ [ 1, 0, 0 ], [ 1, 1, 0 ], [ 0, 1, 0 ] ]
                 ],
-                rows: 2,
-                cols: 3
+                rows : 2,
+                cols : 3
             },
             { // T Tetrimino
-                matrix: [
+                matrix : [
                     [ [ 0, 1, 0 ], [ 1, 1, 1 ], [ 0, 0, 0 ] ],
                     [ [ 0, 1, 0 ], [ 0, 1, 1 ], [ 0, 1, 0 ] ],
                     [ [ 0, 0, 0 ], [ 1, 1, 1 ], [ 0, 1, 0 ] ],
                     [ [ 0, 1, 0 ], [ 1, 1, 0 ], [ 0, 1, 0 ] ]
                 ],
-                rows: 2,
-                cols: 3
+                rows : 2,
+                cols : 3
             },
             { // Z Tetrimino
-                matrix: [
+                matrix : [
                     [ [ 1, 1, 0 ], [ 0, 1, 1 ], [ 0, 0, 0 ] ],
                     [ [ 0, 0, 1 ], [ 0, 1, 1 ], [ 0, 1, 0 ] ],
                     [ [ 0, 0, 0 ], [ 1, 1, 0 ], [ 0, 1, 1 ] ],
                     [ [ 0, 1, 0 ], [ 1, 1, 0 ], [ 1, 0, 0 ] ]
                 ],
-                rows: 2,
-                cols: 3
+                rows : 2,
+                cols : 3
             }
         ],
         soundFiles        = [ "pause", "crash", "drop", "line", "rotate", "end" ],
@@ -1056,9 +1056,9 @@
     HighScores.prototype.saveData = function () {
         var i, hs, data = [], saved = false, self = this,
             actual = {
-                name:  this.input.value,
-                level: scorer.getLevel(),
-                score: scorer.getScore()
+                name  : this.input.value,
+                level : scorer.getLevel(),
+                score : scorer.getScore()
             };
         
         for (i = 1; i <= this.total; i += 1) {
@@ -1142,38 +1142,38 @@
      */
     function createShortcuts() {
         shortcuts = {
-            mainScreen: {
-                O: function () { newGame();        },
-                A: function () { decreaseLevel();  },
-                D: function () { increaseLevel();  },
-                I: function () { showHighScores(); },
-                H: function () { showHelp();       },
-                M: function () { sound.toggle();   }
+            mainScreen : {
+                O : function () { newGame();        },
+                A : function () { decreaseLevel();  },
+                D : function () { increaseLevel();  },
+                I : function () { showHighScores(); },
+                H : function () { showHelp();       },
+                M : function () { sound.toggle();   }
             },
-            paused: {
-                P: function () { endPause();       },
-                B: function () { finishGame();     }
+            paused : {
+                P : function () { endPause();       },
+                B : function () { finishGame();     }
             },
-            gameOver: {
-                O: function () { scores.save();    },
-                B: function () { showMainScreen(); }
+            gameOver : {
+                O : function () { scores.save();    },
+                B : function () { showMainScreen(); }
             },
-            highScores: {
-                B: function () { showMainScreen(); },
-                R: function () { scores.restore(); }
+            highScores : {
+                B : function () { showMainScreen(); },
+                R : function () { scores.restore(); }
             },
-            help: {
-                B: function () { showMainScreen(); }
+            help : {
+                B : function () { showMainScreen(); }
             },
-            playing: {
-                C: function () { actualTetrimino.hardDrop();    },
-                W: function () { actualTetrimino.rotateRight(); },
-                A: function () { actualTetrimino.moveLeft();    },
-                S: function () { actualTetrimino.softDrop();    },
-                D: function () { actualTetrimino.moveRight();   },
-                Z: function () { actualTetrimino.rotateLeft();  },
-                P: function () { startPause();                  },
-                M: function () { sound.toggle();                }
+            playing : {
+                C : function () { actualTetrimino.hardDrop();    },
+                W : function () { actualTetrimino.rotateRight(); },
+                A : function () { actualTetrimino.moveLeft();    },
+                S : function () { actualTetrimino.softDrop();    },
+                D : function () { actualTetrimino.moveRight();   },
+                Z : function () { actualTetrimino.rotateLeft();  },
+                P : function () { startPause();                  },
+                M : function () { sound.toggle();                }
             }
         };
     }

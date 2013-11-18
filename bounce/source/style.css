@@ -23,29 +23,30 @@ html, body {
     height: 100%;
     overflow: hidden;
     background-color: transparent;
+    font-size: 15px;
 }
 html, body, input {
     color: black;
     font-family: "Gill Sans MT Ext Condensed Bold";
-    font-size: 28px;
     color: black;
-    text-shadow: #333 1px 1px 1px;
+    text-shadow: #333 0.1em 0.1em 0.1em;
 }
 
 a {
     color: #333;
-    text-shadow: #666 1px 1px 1px;
+    text-shadow: #666 0.05em 0.05em 0.05em;
     text-decoration: none;
     outline: none;
+    font-size: 3em
 }
 a:hover {
     color: black;
-    text-shadow: #333 1px 1px 1px;
+    text-shadow: #333 0.05em 0.05em 0.05em;
 }
 
 input {
     color: #333;
-    text-shadow: #666 1px 1px 1px;
+    text-shadow: #666 0.05em 0.05em 0.05em;
 }
 
 
@@ -63,7 +64,6 @@ input {
 .mainScreen .main,
 .paused     .pause,
 .gameOver   .input,
-.gameOver   .restart,
 .highScores .high,
 .help       .controls {
     display: block;
@@ -80,34 +80,16 @@ input {
     bottom: 50%;
     left: 50%;
     right: 50%;
-    width: 250px;
-    height: 360px;
-    margin-top: -182px;
-    margin-left: -127px;
-    border: 2px solid #121212;
-    box-shadow: inset 10px 0 #272727, inset -10px 0 #272727,
-                inset 0 10px #272727, inset 0 -10px #BEBEBE;
+    width: 25em;
+    height: 36em;
+    margin-top: -18.2em;
+    margin-left: -12.7em;
+    border: 0.2em solid #121212;
+    box-shadow: inset 1em 0 #272727, inset -1em 0 #272727,
+                inset 0 1em #272727, inset 0 -1em #BEBEBE;
     background-color: white;
     z-index: 3;
 }
-
-.zoom {
-    position: absolute;
-    top: 45px;
-    right: 10px;
-    padding: 10px 5px;
-    background-color: #333;
-    border-radius: 50%;
-    font: 12px Georgia, "Times New Roman", Times, serif;
-    font-weight: bold;
-    color: rgb(200, 200, 200);
-    text-shadow: 1px 1px black;
-}
-    .zoom:hover { 
-        background-color: #999;
-        color: black;
-        text-shadow: 1px 1px #ccc;
-    }
 
 
 
@@ -134,21 +116,21 @@ input {
     }
     .messages .text {
         position: absolute;
-        top: 40px;
+        top: 4em;
         left: 0;
         right: 0;
-        height: 80px;
+        height: 8em;
         background-color: black;
         opacity: 0.8;
     }
     
     .messages .text h2 {
         position: absolute;
-        top: 2px;
+        top: 0;
         left: 0;
         right: 0;
         margin: 0;
-        font-size: 55px;
+        font-size: 6em;
         font-variant: small-caps;
         font-weight: normal;
         text-align: center;
@@ -156,13 +138,12 @@ input {
     }
     .messages .text p {
         position: absolute;
-        top: 47px;
+        top: 5.5em;
         left: 0;
         right: 0;
         text-align: center;
         color: white;
-        font: 10px Verdana, Arial, Helvetica, sans-serif;
-        line-height: 14pt;
+        font-family: Verdana, Arial, Helvetica, sans-serif;
     }
 
 
@@ -170,11 +151,11 @@ input {
 /* -------------------------
     Mains Screen / Pause  */
 
-.main  { display: none; }
-.main ul { top: 150px; }
+.main    { display: none; }
+.main ul { top: 14em; }
 .pause {
     display: none;
-    top: 160px;
+    top: 16em;
 }
 
 .main ul, .pause {
@@ -186,8 +167,8 @@ input {
     padding: 0;
     list-style: none;
 }
-    .main li:nth-last-child(2) { padding-top: 20px; }
-    .main li:last-child { padding-left: 45px; }
+    .main li:nth-last-child(2) { padding-top: 1.5em;  }
+    .main li:last-child        { padding-left: 4.5em; }
 
 
 
@@ -197,17 +178,18 @@ input {
 .input {
     display: none;
     position: absolute;
-    top: 180px;
+    top: 18em;
     left: 0;
     right: 0;
     text-align: center;
 }
     .input input {
-        width: 110px;
-        padding-left: 5px;
-        border: 2px solid #333;
+        width: 5em;
+        padding-left: 0.2em;
+        border: 0.08em solid #333;
         background: none;
         border-radius: 5px;
+        font-size: 3em;
     }
     .input input:focus { outline: none; }
     .input input::-webkit-input-placeholder { 
@@ -220,9 +202,8 @@ input {
     }
 
 .restart {
-    display: none;
     position: absolute;
-    top: 250px;
+    top: 2.5em;
     left: 0;
     right: 0;
     text-align: center;
@@ -236,10 +217,10 @@ input {
 .high { display: none; }
 .high .links {
     position: absolute;
-    bottom: 22px;
+    bottom: 0.5em;
     left: 0;
     right: 0;
-    height: 20px;
+    height: 4em;
     text-align: center;
 }
     .high .links ul {
@@ -249,33 +230,35 @@ input {
     }
     .high .links li {
         display: inline-block;
-        padding-right: 6px;
-        padding-left: 6px;
+        padding-right: 0.6em;
+        padding-left: 0.6em;
     }
 
 .scores {
     position: absolute;
-    top: 125px;
-    left: 40px;
-    right: 40px;
-    bottom: 45px;
+    top: 6.25em;
+    left: 2em;
+    right: 2em;
+    bottom: 2.5em;
+    font-size: 2em;
 }
 .high .highScore {
     float: left;
     clear: both;
     width: 100%;
 }
-    .hsName { float: left; }
+    .hsName  { float: left; }
     .hsScore { float: right; }
 
 .none {
     position: absolute;
     display: none;
-    top: 190px;
+    top: 6em;
     left: 0;
     right: 0;
     bottom: 0;
     text-align: center;
+    font-size: 3em
 }
 
 
@@ -283,17 +266,18 @@ input {
 /* ------------------
     Help Controls  */
 
-.controls { display: none; }
+.controls    { display: none; }
 .controls ol {
-    font-size: 21px;
-    margin-top: 125px;
+    font-size: 2.2em;
+    margin: 5.4em 0.3em 0 0.8em;
     text-shadow: none;
-    margin-right: 15px;
+    padding: 0;
+    list-style-position: inside;
 }
 .controls a {
     position: absolute;
-    top: 315px;
-    left: 200px;
+    top: 10.5em;
+    left: 6.8em;
 }
 
 
@@ -303,23 +287,23 @@ input {
 
 .audio {
     position: absolute;
-    bottom: 20px;
-    left: 80px;
+    bottom: 2em;
+    left: 8em;
     cursor: pointer;
 }
 .audio .triangle {
     position: absolute;
-    bottom: 2px;
-    left: 2px;
-    border: 10px solid transparent;
+    bottom: 0.2em;
+    left: 0.2em;
+    border: 1em solid transparent;
     border-right-color: #333;
 }
     .audio .triangle:after {
         content: "";
         position: absolute;
-        top: -8px;
-        left: -12px;
-        border: 10px solid transparent;
+        top: -0.8em;
+        left: -1.2em;
+        border: 1em solid transparent;
         border-right-color: #666;
         z-index: -1;
     }
@@ -328,19 +312,19 @@ input {
 
 .audio .box {
     position: absolute;
-    bottom: 9px;
-    left: 11px;
-    height: 6px;
-    width: 5px;
+    bottom: 0.9em;
+    left: 1.1em;
+    height: 0.6em;
+    width: 0.5em;
     background-color: #333;
 }
     .audio .box:after {
         content: "";
         position: absolute;
-        top: 2px;
-        left: -2px;
-        height: 6px;
-        width: 5px;
+        top: 0.2em;
+        left: -0.2em;
+        height: 0.6em;
+        width: 0.5em;
         background-color: #666;
         z-index: -1;
     }
@@ -350,33 +334,33 @@ input {
 .waves {
     position: absolute;
     bottom: 0;
-    left: 20px;
+    left: 2em;
 }
     .waves div {
         position: absolute;
         left: 0;
         background-color: #333;
-        border-radius: 0 200px 200px 0;
+        border-radius: 0 20em 20em 0;
     }
     .waves div:nth-child(1) {
-        bottom: 3px;
-        width:  18px;
-        height: 18px;
+        bottom: 0.3em;
+        width:  1.8em;
+        height: 1.8em;
     }
     .waves div:nth-child(2) {
-        bottom: 5px;
-        width:  14px;
-        height: 14px;
+        bottom: 0.5em;
+        width:  1.4em;
+        height: 1.4em;
     }
     .waves div:nth-child(3) {
-        bottom: 7px;
-        width:  10px;
-        height: 10px;
+        bottom: 0.7em;
+        width:  1em;
+        height: 1em;
     }
     .waves div:nth-child(4) {
-        bottom: 9px;
-        width:  6px;
-        height: 6px;
+        bottom: 0.9em;
+        width:  0.6em;
+        height: 0.6em;
     }
     
     .audio:hover .waves div { 
@@ -387,10 +371,10 @@ input {
         position: absolute;
         left: 0;
         bottom: 0;
-        right: 1px;
+        right: 0.1em;
         top: 0;
         background-color: #CCC;
-        border-radius: 0 200px 200px 0;
+        border-radius: 0 20em 20em 0;
     }
 
 
@@ -409,11 +393,11 @@ input {
 
 .count {
     position: absolute;
-    top: 40px;
-    left: 10px;
-    right: 10px;
-    color: rgba(0,0,0,0.2);
-    font-size: 250px;
+    top: 0.16em;
+    left: 0.04em;
+    right: 0.04em;
+    color: rgba(0, 0, 0, 0.2);
+    font-size: 25em;
     text-align: center;
     line-height: normal;
     text-shadow: none;
@@ -421,10 +405,10 @@ input {
 .bricks {
     display: none;
     position: absolute;
-    top: 10px;
-    left: 10px;
-    bottom: 10px;
-    right: 10px;
+    top: 1em;
+    left: 1em;
+    bottom: 1em;
+    right: 1em;
 }
     .bricks.fade {
         -webkit-animation: fade 1s;
@@ -432,10 +416,10 @@ input {
     }
     .bricks div {
         position: absolute;
-        height: 25px;
-        width: 46px;
-        box-shadow: inset 0 0 0 15px #121212;
-        border: 4px solid transparent;
+        height: 2.5em;
+        width: 4.6em;
+        box-shadow: inset 0 0 0 1.5em #121212;
+        border: 0.4em solid transparent;
         box-sizing: border-box;
         -moz-box-sizing: border-box;
         transition: all .3s;
@@ -443,88 +427,88 @@ input {
 
 .board {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    bottom: 10px;
-    right: 10px;
+    top: 1em;
+    left: 1em;
+    bottom: 1em;
+    right: 1em;
 }
     .ship {
         position: absolute;
         display: none;
-        width: 50px;
-        height: 15px;
+        width: 5em;
+        height: 1.5em;
         background-color: #121212;
-        border-radius: 5px;
+        border-radius: 0.5em;
     }
     
     .ball, .tail div {
         position: absolute;
         display: none;
-        border-radius: 100px;
-        width: 30px;
-        height: 30px;
-        box-shadow: inset 0 0 0 15px #121212;
+        border-radius: 10em;
+        width: 3em;
+        height: 3em;
+        box-shadow: inset 0 0 0 1.5em #121212;
         box-sizing: border-box;
         -moz-box-sizing: border-box;
     }
     
     .tail div:nth-child(1) {
-        border: 1px solid transparent;
+        border: 0.1em solid transparent;
         opacity: 0.95;
     }
     .tail div:nth-child(2) {
-        border: 2px solid transparent;
+        border: 0.2em solid transparent;
         opacity: 0.90;
     }
     .tail div:nth-child(3) {
-        border: 3px solid transparent;
+        border: 0.3em solid transparent;
         opacity: 0.85;
     }
     .tail div:nth-child(4) {
-        border: 4px solid transparent;
+        border: 0.4em solid transparent;
         opacity: 0.80;
     }
     .tail div:nth-child(5) {
-        border: 5px solid transparent;
+        border: 0.5em solid transparent;
         opacity: 0.75;
     }
     .tail div:nth-child(6) {
-        border: 6px solid transparent;
+        border: 0.6em solid transparent;
         opacity: 0.70;
     }
     .tail div:nth-child(7) {
-        border: 7px solid transparent;
+        border: 0.7em solid transparent;
         opacity: 0.65;
     }
     .tail div:nth-child(8) {
-        border: 8px solid transparent;
+        border: 0.8em solid transparent;
         opacity: 0.6;
     }
     .tail div:nth-child(9) {
-        border: 9px solid transparent;
+        border: 0.9em solid transparent;
         opacity: 0.55;
     }
     .tail div:nth-child(10) {
-        border: 10px solid transparent;
+        border: 1em solid transparent;
         opacity: 0.5;
     }
     .tail div:nth-child(11) {
-        border: 11px solid transparent;
+        border: 1.1em solid transparent;
         opacity: 0.45;
     }
     .tail div:nth-child(12) {
-        border: 12px solid transparent;
+        border: 1.2em solid transparent;
         opacity: 0.4;
     }
     .tail div:nth-child(13) {
-        border: 13px solid transparent;
+        border: 1.3em solid transparent;
         opacity: 0.3;
     }
     .tail div:nth-child(14) {
-        border: 14px solid transparent;
+        border: 1.4em solid transparent;
         opacity: 0.2;
     }
     .tail div:nth-child(15) {
-        border: 14px solid transparent;
+        border: 1.5em solid transparent;
         opacity: 0.1;
     }

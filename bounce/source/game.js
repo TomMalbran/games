@@ -4,33 +4,32 @@
 (function () {
     "use strict";
     
-    var board, ship, ball, tail, bricks, sound, scores, zoom,
+    var board, ship, ball, tail, bricks, sound, scores,
         container, header, paragraph, counter,
         animation, startTime, keyPressed, shortcuts,
         messages = {
-            mainScreen: [ "Bounce",     "Select a game"      ],
-            paused:     [ "Paused",     "Continue the game?" ],
-            gameOver:   [ "GameOver",   "Write your name"    ],
-            highScores: [ "HighScores", "Select a game"      ],
-            help:       [ "Help",       "Game controls"      ]
+            mainScreen : [ "Bounce",     "Select a game"      ],
+            paused     : [ "Paused",     "Continue the game?" ],
+            gameOver   : [ "GameOver",   "Write your name"    ],
+            highScores : [ "HighScores", "Select a game"      ],
+            help       : [ "Help",       "Game controls"      ]
         },
         soundFiles      = [ "bounce", "brick", "end" ],
         fastKeys        = [ 37, 65, 39, 68 ],
-        boardBorder     = 10,                     /** @const The width of the board border                      */
-        speedInc        = 0.05,                   /** @const By how much the speed increases                    */
-        minSpeed        = 4,                      /** @const Minimum random speed of the ball                   */
-        maxSpeed        = 8,                      /** @const Maximum random speed of the ball                   */
+        boardBorder     = 1,                      /** @const The width of the board border                      */
+        speedInc        = 0.1,                    /** @const By how much the speed increases                    */
+        minSpeed        = 8,                      /** @const Minimum random speed of the ball                   */
+        maxSpeed        = 16,                     /** @const Maximum random speed of the ball                   */
         minAngle        = 25,                     /** @const Minimum random angle of exit from the ship         */
         maxAngle        = 75,                     /** @const Maximum random angle of exit from the ship         */
-        minShipWidth    = 30,                     /** @const Minimum width of the ship                          */
-        shipBricksWidth = 120,                    /** @const Width of the ship in Bricks mode                   */
-        shipNormalWidth = 50,                     /** @const Width of the ship in Speed or Random mode          */
-        shipDecrease    = 10,                     /** @const Amount of pixels to decrease the width of the ship */
-        shipExtraWdith  = 10,                     /** @const Extra width on the ship where the ball can bounce  */
+        minShipWidth    = 3,                      /** @const Minimum width of the ship                          */
+        shipBricksWidth = 12,                     /** @const Width of the ship in Bricks mode                   */
+        shipNormalWidth = 5,                      /** @const Width of the ship in Speed or Random mode          */
+        shipDecrease    = 1,                      /** @const Amount of pixels to decrease the width of the ship */
+        shipExtraWidth  = 1,                      /** @const Extra width on the ship where the ball can bounce  */
         shipKeyMovement = 10,                     /** @const Amount of pixels a ship is moved                   */
-        brickHeight     = 25,                     /** @const Brick Height                                       */
-        brickWidth      = 46,                     /** @const Brick Width                                        */
-        bottomBricks    = 196,                    /** @const Brick Height * Vertical Bricks                     */
+        brickHeight     = 2.5,                    /** @const Brick Height (in ems)                              */
+        brickWidth      = 4.6,                    /** @const Brick Width (in ems)                               */
         horizBricks     = 5,                      /** @const Amount of horizontal bricks                        */
         vertBricks      = 4,                      /** @const Amount of vertical bricks                          */
         tailsAmount     = 15,                     /** @const Amount of balls in the tail                        */
@@ -38,7 +37,6 @@
         maxScores       = 5,                      /** @const Maximum scores displayed                           */
         soundStorage    = "bounce.sound",         /** @const The name of the Sound Storage                      */
         scoresStorage   = "bounce.hs.",           /** @const The name of the High Scores Storage                */
-        zoomStorage     = "bounce.zoom",          /** @const The name of the Zoom Storage                       */
         gameDisplay     = "mainScreen",
         gameMode        = "speed",
         gameScore       = 0,
@@ -348,11 +346,12 @@
      */
     function Ship() {
         this.element = document.querySelector(".ship");
-        this.width   = isBricksMode() ? shipBricksWidth : shipNormalWidth;
-        this.top     = board.getHeight() - this.element.offsetHeight - 5;
-        this.left    = (board.getWidth() - this.element.offsetWidth) / 2;
-        
+        this.emWidth = isBricksMode() ? shipBricksWidth : shipNormalWidth;
         this.setWidth();
+        
+        this.top     = board.getHeight() - this.element.offsetHeight - 5;
+        this.left    = (board.getWidth() - this.width) / 2;
+        
         Utils.setPosition(this.element, this.top, this.left);
     }
     
@@ -360,7 +359,8 @@
      * Set the width property of the element
      */
     Ship.prototype.setWidth = function () {
-        this.element.style.width = this.width + "px";
+        this.element.style.width = this.emWidth + "em";
+        this.width = this.element.offsetWidth;
     };
     
     /**
@@ -444,8 +444,8 @@
      * Reduce the width of the ship
      */
     Ship.prototype.reduceWidth = function () {
-        if (this.width > minShipWidth) {
-            this.width -= shipDecrease;
+        if (this.emWidth > minShipWidth) {
+            this.emWidth -= shipDecrease;
             this.left  -= shipDecrease / 2;
             this.setWidth();
             this.setLeft();
@@ -458,8 +458,8 @@
      */
     Ship.prototype.getPosition = function () {
         return {
-            top:  this.top,
-            left: this.left - shipExtraWdith / 2
+            top  : this.top,
+            left : this.left - shipExtraWidth / 2
         };
     };
     
@@ -468,7 +468,7 @@
      * @return {number}
      */
     Ship.prototype.getWidth = function () {
-        return this.width + shipExtraWdith;
+        return this.width + shipExtraWidth;
     };
     
     
@@ -684,7 +684,7 @@
      * @return {{top: number, left: number}}
      */
     Ball.prototype.getPosition = function () {
-        return { top: this.top, left: this.left };
+        return { top : this.top, left : this.left };
     };
     
     /**
@@ -727,9 +727,9 @@
             container.appendChild(div);
             
             this.elements.push({
-                element: div,
-                top:     0,
-                left:    0
+                element : div,
+                top     : 0,
+                left    : 0
             });
         }
         
@@ -793,6 +793,7 @@
         if (isBricksMode()) {
             this.container = document.querySelector(".bricks");
             this.elements  = [];
+            this.bottom    = 0;
             this.create();
         }
     }
@@ -817,6 +818,7 @@
             }
         }
         this.elements.reverse();
+        this.bottom = this.elements[0].height * vertBricks;
         
         this.container.classList.add("fade");
         setTimeout(function () {
@@ -830,15 +832,17 @@
      * @param {number} column
      */
     Bricks.prototype.createBrick = function (row, column) {
-        var data = {
-            element: document.createElement("DIV"),
-            top:     brickHeight * row,
-            left:    brickWidth  * column
-        };
-        data.element.style.top  = data.top  + "px";
-        data.element.style.left = data.left + "px";
+        var data = { element : document.createElement("DIV") };
         
+        data.element.style.top  = (brickHeight * row)    + "em";
+        data.element.style.left = (brickWidth  * column) + "em";
         this.container.appendChild(data.element);
+        
+        data.top    = data.element.offsetTop;
+        data.left   = data.element.offsetLeft;
+        data.width  = data.element.offsetWidth;
+        data.height = data.element.offsetHeight;
+        
         this.elements.push(data);
     };
     
@@ -849,11 +853,11 @@
     Bricks.prototype.crash = function () {
         var self = this;
         
-        if (ball.getPosition().top > bottomBricks) {
+        if (ball.getPosition().top > this.bottom) {
             return false;
         } else {
             return this.elements.some(function (element, index) {
-                if (self.bottomCrash(element) || self.leftCrash(element) ||
+                if (self.bottomCrash(element)    || self.leftCrash(element) ||
                         self.rightCrash(element) || self.topCrash(element)) {
                     self.remove(element, index);
                     return true;
@@ -934,7 +938,7 @@
         this.elements.splice(index, 1);
         
         var el = element.element;
-        el.style.borderWidth = "15px";
+        el.style.borderWidth = "1.5em";
         
         setTimeout(function (el) {
             Utils.removeElement(el);
@@ -968,8 +972,8 @@
      */
     Bricks.prototype.pointInElement = function (top, left, element) {
         return (
-            top  >= element.top  && top  <= element.top  + brickHeight &&
-            left >= element.left && left <= element.left + brickWidth
+            top  >= element.top  && top  <= element.top  + element.height &&
+            left >= element.left && left <= element.left + element.width
         );
     };
     
@@ -1051,8 +1055,8 @@
     HighScores.prototype.saveData = function () {
         var i, hs, data = [], saved = false, self = this,
             actual = {
-                name:  this.input.value,
-                score: gameScore
+                name  : this.input.value,
+                score : gameScore
             };
         
         for (i = 1; i <= this.total; i += 1) {
@@ -1100,79 +1104,6 @@
     
     
     /**
-     * @constructor
-     * Game Zoom
-     */
-    function Zoom() {
-        this.data    = new Storage(zoomStorage, true);
-        this.element = document.querySelector(".zoom");
-        this.values  = [ "1.0", "1.2", "1.4", "1.6", "1.8", "2.0" ];
-        this.current = 0;
-        this.style   = null;
-        
-        if (this.data.get()) {
-            this.current = this.data.get();
-            if (this.current > 0) {
-                this.setContent();
-                this.setStyle();
-            }
-        }
-    }
-    
-    /**
-     * Change the zoom
-     */
-    Zoom.prototype.change = function () {
-        this.current += 1;
-        if (this.current === this.values.length) {
-            this.current = 0;
-        }
-        this.setContent();
-        this.setStyle();
-        
-        this.data.set(this.current);
-    };
-    
-    /**
-     * Set the new zoom value
-     */
-    Zoom.prototype.setContent = function () {
-        this.element.innerHTML = "x" + this.values[this.current];
-    };
-    
-    /**
-     * Set the style for the zoom in the current style or in a new one
-     */
-    Zoom.prototype.setStyle = function () {
-        if (this.style) {
-            this.style.innerHTML = this.current === 0 ? "" : this.getStyle();
-        } else {
-            var head = document.querySelector("head");
-            
-            this.style = document.createElement("style");
-            this.style.id = "sZoom";
-            this.style.innerHTML = this.getStyle();
-            head.appendChild(this.style);
-        }
-    };
-    
-    /**
-     * Creates the style as a transform for each prefix
-     */
-    Zoom.prototype.getStyle = function () {
-        var prefix  = ["-webkit-", "-o-", ""],
-            content = "body > *:not(.zoom) {",
-            self    = this;
-        
-        prefix.forEach(function (prefix) {
-            content += prefix + "transform: scale(" + self.values[self.current] + ");";
-        });
-        return content + " }";
-    };
-    
-    
-    
-    /**
      * Starts a new game
      * @param {string} mode
      */
@@ -1200,38 +1131,38 @@
      */
     function createShortcuts() {
         shortcuts = {
-            mainScreen: {
-                O: function () { newGame(gameMode);     },
-                E: function () { newGame("speed");      },
-                R: function () { newGame("random");     },
-                C: function () { newGame("bricks");     },
-                I: function () { showHighScores();      },
-                H: function () { showHelp();            },
-                M: function () { sound.toggle();        }
+            mainScreen : {
+                O : function () { newGame(gameMode);     },
+                E : function () { newGame("speed");      },
+                R : function () { newGame("random");     },
+                C : function () { newGame("bricks");     },
+                I : function () { showHighScores();      },
+                H : function () { showHelp();            },
+                M : function () { sound.toggle();        }
             },
-            paused: {
-                P: function () { endPause();            },
-                B: function () { finishGame();          }
+            paused : {
+                P : function () { endPause();            },
+                B : function () { finishGame();          }
             },
-            gameOver: {
-                O: function () { scores.save();         },
-                B: function () { showMainScreen();      }
+            gameOver : {
+                O : function () { scores.save();         },
+                B : function () { showMainScreen();      }
             },
-            highScores: {
-                E: function () { scores.show("speed");  },
-                R: function () { scores.show("random"); },
-                C: function () { scores.show("bricks"); },
-                B: function () { showMainScreen();      }
+            highScores : {
+                E : function () { scores.show("speed");  },
+                R : function () { scores.show("random"); },
+                C : function () { scores.show("bricks"); },
+                B : function () { showMainScreen();      }
             },
-            help: {
-                B: function () { showMainScreen();      }
+            help : {
+                B : function () { showMainScreen();      }
             },
-            playing: {
-                A: function () { ship.keyMove(-1);      },
-                D: function () { ship.keyMove(1);       },
-                O: function () { startGame();           },
-                P: function () { startPause();          },
-                M: function () { sound.toggle();        }
+            playing : {
+                A : function () { ship.keyMove(-1);      },
+                D : function () { ship.keyMove(1);       },
+                O : function () { startGame();           },
+                P : function () { startPause();          },
+                M : function () { sound.toggle();        }
             }
         };
     }
@@ -1279,9 +1210,6 @@
             case "sound":
                 sound.toggle();
                 break;
-            case "zoom":
-                zoom.change();
-                break;
             }
         });
         
@@ -1299,7 +1227,6 @@
         board  = new Board();
         sound  = new Sounds(soundFiles, soundStorage, true);
         scores = new HighScores();
-        zoom   = new Zoom();
     }
     
     

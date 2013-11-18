@@ -29,22 +29,22 @@ html, body {
     height: 100%;
     overflow: hidden;
     background-color: transparent;
+    font-size: 15px;
 }
 html, body, input {
     color: black;
-    text-shadow: #333333 1px 1px 1px;
-    font: 18px/24px "Bauhaus 93";
+    font-family: "Bauhaus 93";
 }
 
 a {
     color: #333333;
-    text-shadow: #666666 1px 1px 1px;
+    text-shadow: #666666 0.05em 0.05em 0.05em;
     text-decoration: none;
     outline: none;
 }
 a:hover {
     color: black;
-    text-shadow: #333333 1px 1px 1px;
+    text-shadow: #333333 0.05em 0.05em 0.05em;
 }
 
 
@@ -60,7 +60,6 @@ a:hover {
 .mainScreen .main,
 .paused     .pause,
 .continuing .pause,
-.gameOver   .restart,
 .gameOver   .input,
 .highScores .high,
 .help       .controls {
@@ -79,7 +78,7 @@ a:hover {
 .paused     .game,
 .continuing .game,
 .gameOver   .game {
-    opacity: .5;
+    opacity: 0.5;
 }
 
 
@@ -92,62 +91,43 @@ a:hover {
     left: 50%;
     right: 50%;
     bottom: 50%;
-    margin-left: -185px;
-    margin-top: -150px;
-    width: 370px;
-    height: 300px;
+    margin-left: -18.5em;
+    margin-top: -15em;
+    width: 37em;
+    height: 30em;
     background-color: #AACC99;
     background-image: linear-gradient(110deg, #AACC99 25%, #b7d3a8 25%, #b7d3a8 50%, #AACC99 50%, #AACC99);
-    border-radius: 10px;
-    box-shadow: 0 0 0 10px #272727, 0 0 0 12px #121212;
+    border-radius: 1em;
+    box-shadow: 0 0 0 1em #272727, 0 0 0 1.2em #121212;
 }
-
-.zoom {
-    position: absolute;
-    top: 45px;
-    right: 10px;
-    padding: 10px 5px;
-    background-color: #333;
-    border-radius: 50%;
-    font: 12px Georgia, "Times New Roman", Times, serif;
-    font-weight: bold;
-    color: rgb(200, 200, 200);
-    text-shadow: 1px 1px #000;
-}
-    .zoom:hover { 
-        background-color: #999;
-        color: #000;
-        text-shadow: 1px 1px #ccc;
-    }
-
 
 .board {
     position: absolute;
-    top: 18px;
-    left: 18px;
-    bottom: 38px;
-    right: 18px;
-    border: 1px solid #333333;
-    box-shadow: inset -2px 2px 0 #7C9774, -2px 2px 0 #7C9774;
+    top: 1.8em;
+    left: 1.8em;
+    bottom: 3.8em;
+    right: 1.8em;
+    border: 0.1em solid #333333;
+    box-shadow: inset -0.2em 0.2em 0 #7C9774, -0.2em 0.2em 0 #7C9774;
 }
 
 
 .game {
     position: absolute;
     display: none;
-    top: 18px;
-    left: 18px;
+    top: 1.8em;
+    left: 1.8em;
     bottom: 0;
-    right: 18px;
+    right: 1.8em;
 }
 .start {
     position: absolute;
-    top: 113px;
+    top: 0.5em;
     left: 0;
     right: 0;
     text-align: center;
-    font-size: 100px;
-    text-shadow: 1px 1px 1px black, -1px -1px 1px black, 4px 4px 1px #333333;
+    font-size: 10em;
+    text-shadow: 0.01em 0.01em 0.01em black, -0.01em -0.01em 0.01em black, 0.04em 0.04em 0.01em #333333;
 }
 
 .snake {
@@ -160,10 +140,12 @@ a:hover {
 
 .score, .time, .level {
     position: absolute;
-    bottom: 10px;
-    left: 5px;
-    right: 5px;
-    height: 20px;
+    bottom: 0.25em;
+    left: 0.25em;
+    right: 0.25em;
+    height: 1.5em;
+    font-size: 2em;
+    text-shadow: #333333 0.05em 0.05em 0.05em;
 }
     .score { text-align: left;   }
     .time  { text-align: center; }
@@ -176,40 +158,40 @@ a:hover {
 
 .messages {
     position: absolute;
-    top: -12px;
-    left: -12px;
-    bottom: -12px;
-    right: -12px;
+    top: -1.2em;
+    left: -1.2em;
+    bottom: -1.2em;
+    right: -1.2em;
     z-index: 5;
 }
 .messages .text {
     position: absolute;
-    top: 50px;
+    top: 5em;
     left: 0;
     right: 0;
-    height: 80px;
+    height: 8em;
     background-color: black;
     opacity: 0.8;
 }
     .messages .text h2 {
         position: absolute;
-        top: 8px;
+        top: 0.1em;
         left: 0;
         right: 0;
         margin: 0;
-        font: 65px Equilibrium;
+        font: 6.5em Equilibrium;
         text-align: center;
         text-transform: lowercase;
-        color: #FFFFFF;
+        color: white;
     }
     .messages .text p {
         position: absolute;
-        top: 48px;
+        top: 4.8em;
         left: 0;
         right: 0;
-        font: 10px/14px Verdana, Arial, Helvetica, sans-serif;
+        font-family: Verdana, Arial, Helvetica, sans-serif;
         text-align: center;
-        color: #FFFFFF;
+        color: white;
     }
 
 
@@ -220,33 +202,38 @@ a:hover {
 .main { display: none; }
 .demo {
     position: absolute;
-    top: 145px;
-    left: 40px;
-    height: 75px;
-    width: 45px;
+    top: 14.5em;
+    left: 4em;
+    height: 7.5em;
+    width: 4.5em;
 }
+    .demo1 { left: 4.6em; }
+    .demo2 { left: 13em; }
+    .demo3 { left: 21.7em; }
+    .demo4 { left: 30.4em; }
+
 .main ul {
     position: absolute;
-    top: 225px;
-    left: 20px;
-    right: 20px;
+    top: 11.25em;
+    left: 1em;
+    right: 1em;
     margin: 0;
     padding: 0;
-    font-size: 21px;
+    font-size: 2em;
     text-align: center;
     list-style: none;
 }
     .main li {
         display: inline-block;
-        width: 80px;
+        width: 4em;
     }
     .main li:nth-last-child(-n+3) {
         position: absolute;
-        top: 58px;
+        top: 2.7em;
         width: auto;
     }
-    .main li:nth-last-child(3)    { left: 5px;  }
-    .main li:nth-last-child(-n+2) { right: 5px; }
+    .main li:nth-last-child(3)    { left: 0.5em;  }
+    .main li:nth-last-child(-n+2) { right: 0.5em; }
     
 .main.help li:nth-last-child(1),
 .main.continue li:nth-last-child(2) { display: none; }
@@ -259,76 +246,80 @@ a:hover {
 .input {
     display: none;
     position: absolute;
-    top: 150px;
-    left: 20px;
-    right: 20px;
+    top: 7.5em;
+    left: 1em;
+    right: 1em;
+    font-size: 2em;
     text-align: center;
 }
     .input input {
         position: absolute;
         top: 0;
-        left: 90px;
-        width: 120px;
+        left: 4.5em;
+        width: 6em;
+        padding: 0.2em 0 0 0.2em;
         background: none;
-        border: 2px solid #333333;
-        border-radius: 5px;
-        box-shadow: inset -2px 2px 0 #7C9774, -2px 2px 0 #7C9774;
+        border: 0.1em solid #333333;
+        border-radius: 0.25em;
+        box-shadow: inset -0.1em 0.1em 0 #7C9774, -0.1em 0.1em 0 #7C9774;
+        font-size: 1em;
         z-index: 2;
     }
     .input input:focus { outline: none; }
     .input input::-webkit-input-placeholder { 
-        padding-top: 1px;
         color: #999;
-        text-shadow: #CCC 1px 1px 1px;
+        text-shadow: #CCC 0.1em 0.1em 0.1em;
     }
     .input input:-moz-placeholder {
-        padding-top: 1px;
         color: #999;
-        text-shadow: #CCC 1px 1px 1px;
+        text-shadow: #CCC 0.1em 0.1em 0.1em;
     }
     
-    .input a {
+    .submit {
         position: absolute;
-        top: 9px;
-        left: 225px;
+        top: 0.45em;
+        left: 11.25em;
     }
-
-.restart {
-    display: none;
-    position: absolute;
-    top: 210px;
-    left: 20px;
-    right: 20px;
-    text-align: center;
-}
+    .restart {
+        position: absolute;
+        top: 3em;
+        left: 1em;
+        right: 1em;
+        text-align: center;
+    }
 
 
 
 /* ----------------
     High Scores  */
 
-.high { display: none; }
+.high {
+    display: none;
+    font-size: 2em;
+    text-shadow: #333333 0.05em 0.05em 0.05em;
+}
 .high ul {
     position: absolute;
-    bottom: 22px;
-    left: 30px;
+    bottom: 0.8em;
+    left: 1.4em;
     right: 0;
-    height: 20px;
+    height: 1.5em;
     margin: 0;
     padding: 0;
     list-style: none;
+    
 }
     .high li {
         display: inline-block;
-        padding-right: 22px;
+        padding-right: 0.8em;
     }
 
 .scores {
     position: absolute;
-    top: 130px;
-    left: 60px;
-    right: 60px;
-    bottom: 45px;
+    top: 6.5em;
+    left: 3em;
+    right: 3em;
+    bottom: 2.5em;
 }
 .high .highScore {
     float: left;
@@ -341,7 +332,7 @@ a:hover {
 .none {
     position: absolute;
     display: none;
-    top: 150px;
+    top: 7.5em;
     left: 0;
     right: 0;
     bottom: 0;
@@ -356,28 +347,29 @@ a:hover {
 .pause {
     display: none;
     position: absolute;
-    top: 180px;
+    top: 9em;
     left: 0;
     right: 0;
     margin: 0;
     padding: 0;
     text-align: center;
     list-style: none;
+    font-size: 2em;
 }
     .pause li {
         display: inline;
-        padding: 0 10px;
+        padding: 0 0.5em;
     }
 
 
 .controls { display: none; }
 .controls ol {
-    margin: 130px 30px 5px 25px;
-    font-size: 17px;
+    margin: 7.5em 1.9em 0 1.7em;
+    font-size: 1.7em;
 }
 .controls a {
-    padding-left: 310px;
-    font-size: 21px;
+    padding-left: 15.5em;
+    font-size: 2em;
 }
 
 
@@ -387,23 +379,23 @@ a:hover {
 
 .audio {
     position: absolute;
-    bottom: 18px;
-    left: 180px;
+    bottom: 1.8em;
+    left: 18em;
     cursor: pointer;
 }
 .audio .triangle {
     position: absolute;
-    bottom: 2px;
-    left: 2px;
-    border: 10px solid transparent;
+    bottom: 0.2em;
+    left: 0.2em;
+    border: 1em solid transparent;
     border-right-color: #333;
 }
     .audio .triangle:after {
         content: "";
         position: absolute;
-        top: -8px;
-        left: -12px;
-        border: 10px solid transparent;
+        top: -0.8em;
+        left: -1.2em;
+        border: 1em solid transparent;
         border-right-color: #666;
         z-index: -1;
     }
@@ -412,19 +404,19 @@ a:hover {
 
 .audio .box {
     position: absolute;
-    bottom: 9px;
-    left: 11px;
-    height: 6px;
-    width: 5px;
+    bottom: 0.9em;
+    left: 1.1em;
+    height: 0.6em;
+    width: 0.5em;
     background-color: #333;
 }
     .audio .box:after {
         content: "";
         position: absolute;
-        top: 2px;
-        left: -2px;
-        height: 6px;
-        width: 5px;
+        top: 0.2em;
+        left: -0.2em;
+        height: 0.6em;
+        width: 0.5em;
         background-color: #666;
         z-index: -1;
     }
@@ -434,33 +426,33 @@ a:hover {
 .waves {
     position: absolute;
     bottom: 0;
-    left: 20px;
+    left: 2em;
 }
     .waves div {
         position: absolute;
         left: 0;
         background-color: #333333;
-        border-radius: 0 200px 200px 0;
+        border-radius: 0 20em 20em 0;
     }
     .waves div:nth-child(1) {
-        bottom: 3px;
-        width:  18px;
-        height: 18px;
+        bottom: 0.3em;
+        width:  1.8em;
+        height: 1.8em;
     }
     .waves div:nth-child(2) {
-        bottom: 5px;
-        width:  14px;
-        height: 14px;
+        bottom: 0.5em;
+        width:  1.4em;
+        height: 1.4em;
     }
     .waves div:nth-child(3) {
-        bottom: 7px;
-        width:  10px;
-        height: 10px;
+        bottom: 0.7em;
+        width:  1em;
+        height: 1em;
     }
     .waves div:nth-child(4) {
-        bottom: 9px;
-        width:  6px;
-        height: 6px;
+        bottom: 0.9em;
+        width:  0.6em;
+        height: 0.6em;
     }
     
     .audio:hover .waves div { 
@@ -471,10 +463,10 @@ a:hover {
         position: absolute;
         left: 0;
         bottom: 0;
-        right: 1px;
+        right: 0.1em;
         top: 0;
         background-color: #AACC99;
-        border-radius: 0 200px 200px 0;
+        border-radius: 0 20em 20em 0;
     }
 
 
@@ -486,27 +478,27 @@ a:hover {
     position: absolute;
     top: 0;
     left: 0;
-    width: 17px;
-    height: 17px;
+    width: 1.7em;
+    height: 1.7em;
 }
     .snakeBody {
         position: absolute;
         top: 0;
-        left: 2px;
-        bottom: 2px;
+        left: 0.2em;
+        bottom: 0.2em;
         right: 0;
         background-color: black;
-        border-radius: 4px;
+        border-radius: 0.4em;
         z-index: 2;
     }
     .snakeShadow {
         position: absolute;
-        top: 2px;
+        top: 0.2em;
         left: 0;
         bottom: 0;
-        right: 2px;
+        right: 0.2em;
         background-color: #7C9774;
-        border-radius: 4px;
+        border-radius: 0.4em;
         z-index: 1;
     }
 
@@ -538,23 +530,23 @@ a:hover {
     position: absolute;
     top: 0;
     left: 0;
-    width: 17px;
-    height: 17px;
+    width: 1.7em;
+    height: 1.7em;
 }
     .foodBody {
         position: absolute;
         top: 0;
-        left: 2px;
-        width: 15px;
-        height: 15px;
+        left: 0.2em;
+        width: 1.5em;
+        height: 1.5em;
         z-index: 2;
     }
     .foodShadow {
         position: absolute;
-        top: 2px;
+        top: 0.2em;
         left: 0;
-        width: 15px;
-        height: 15px;
+        width: 1.5em;
+        height: 1.5em;
         z-index: 1;
     }
 
@@ -570,32 +562,32 @@ a:hover {
     .foodBody div:nth-child(1),
     .foodShadow div:nth-child(1) {
         top: 0;
-        left: 4px;
-        width: 7px;
-        height: 6px;
-        border-radius: 3px 3px 0 0;
+        left: 0.4em;
+        width: 0.7em;
+        height: 0.6em;
+        border-radius: 0.3em 0.3em 0 0;
     }
     .foodBody div:nth-child(2),
     .foodShadow div:nth-child(2) {
-        top: 4px;
+        top: 0.4em;
         right: 0;
-        width: 6px;
-        height: 7px;
-        border-radius: 0 3px 3px 0;
+        width: 0.6em;
+        height: 0.7em;
+        border-radius: 0 0.3em 0.3em 0;
     }
     .foodBody div:nth-child(3),
     .foodShadow div:nth-child(3) {
         bottom: 0;
-        left: 4px;
-        width: 7px;
-        height: 6px;
-        border-radius: 0 0 3px 3px;
+        left: 0.4em;
+        width: 0.7em;
+        height: 0.6em;
+        border-radius: 0 0 0.3em 0.3em;
     }
     .foodBody div:nth-child(4),
     .foodShadow div:nth-child(4) {
-        top: 4px;
+        top: 0.4em;
         left: 0;
-        width: 6px;
-        height: 7px;
-        border-radius: 3px 0 0 3px;
+        width: 0.6em;
+        height: 0.7em;
+        border-radius: 0.3em 0 0 0.3em;
     }
