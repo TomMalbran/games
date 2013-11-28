@@ -1,0 +1,573 @@
+@charset "utf-8";
+
+
+/* --------------------
+    Monsters Design  */
+
+.mob {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    z-index: 1;
+}
+    .mobDeath {
+        display: none;
+        position: absolute;
+        top: -1px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: rgb(218, 48, 24);
+        border: 1px solid black;
+        z-index: 1;
+    }
+    .mobLife {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 13px;
+        height: 2px;
+        background-color: rgb(255, 0, 0);
+    }
+    .mobSlow {
+        position: absolute;
+        display: none;
+        top: 7px;
+        left: 7px;
+        height: 1px;
+        width: 1px;
+        box-shadow: 0 0 3px 6px rgb(72, 125, 108);
+    }
+    .mobBleed {
+        position: absolute;
+        display: none;
+        top: 7px;
+        left: 7px;
+        height: 1px;
+        width: 1px;
+        box-shadow: 0 0 3px 6px black;
+    }
+    .mobBody {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+    }
+
+.hit      .mobDeath,
+.slowed   .mobSlow,
+.bleeding .mobBleed {
+    display: block;
+}
+
+
+
+/* ---------------
+    Normal Mob  */
+
+.normalMob {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 11px;
+    height: 11px;
+    border: 1px solid rgb(29, 29, 29);
+    border-radius: 10px;
+    background: radial-gradient(closest-side, rgb(220, 220, 220), rgb(120, 120, 120));
+}
+    .normalMob:after {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 8px;
+        width: 2px;
+        height: 1px;
+        border-top: 2px solid rgba(29, 29, 29, 0.7);
+        border-bottom: 2px solid rgba(29, 29, 29, 0.7);
+    }
+
+
+
+/* ---------------
+    Inmune Mob  */
+
+.inmuneBody {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 11px;
+    height: 11px;
+    border: 1px solid rgb(59, 0, 59);
+    border-radius: 10px;
+    background: radial-gradient(closest-side, rgb(230, 170, 250), rgb(180, 75, 248));
+}
+    .inmuneBody:after {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 8px;
+        width: 2px;
+        height: 1px;
+        border-top: 2px solid rgba(59, 0, 59, 0.7);
+        border-bottom: 2px solid rgba(59, 0, 59, 0.7);
+    }
+
+.inmuneLine1,
+.inmuneLine2,
+.inmuneLine3,
+.inmuneLine4 {
+    position: absolute;
+    top: 7px;
+    left: -1px;
+    width: 17px;
+    height: 1px;
+    background-color: rgb(59, 0, 59);
+}
+    .inmuneLine2 {
+        -webkit-transform: rotate(45deg);
+                transform: rotate(45deg);
+    }
+    .inmuneLine3 {
+        -webkit-transform: rotate(90deg);
+                transform: rotate(90deg);
+    }
+    .inmuneLine4 {
+        -webkit-transform: rotate(135deg);
+                transform: rotate(135deg);
+    }
+
+
+
+/* --------------
+    Group Mob  */
+
+.groupMob {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 11px;
+    height: 11px;
+    border: 1px solid rgb(0, 29, 59);
+    border-radius: 10px;
+    background: radial-gradient(closest-side, rgb(157, 174, 239), rgb(76, 76, 179));
+}
+    .groupMob:after {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 8px;
+        width: 2px;
+        height: 1px;
+        border-top: 2px solid rgba(0, 29, 59, 0.7);
+        border-bottom: 2px solid rgba(0, 29, 59, 0.7);
+    }
+
+
+
+/* -------------
+    Fast Mob  */
+
+.fastHead {
+    position: absolute;
+    top: 1px;
+    left: 10px;
+    width: 6px;
+    height: 11px;
+    border: 1px solid rgb(65, 9, 6);
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+    background: radial-gradient(farthest-side at 0% 50%, rgb(255, 199, 202), rgb(180, 76, 105));
+}
+    .fastHead:after {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 2px;
+        width: 2px;
+        height: 1px;
+        border-top: 2px solid rgba(65, 9, 6, 0.7);
+        border-bottom: 2px solid rgba(65, 9, 6, 0.7);
+    }
+
+.fastTail {
+    position: absolute;
+    top: 1px;
+    left: -4px;
+    width: 14px;
+    height: 13px;
+    overflow: hidden;
+}
+    .fastTail:after {
+        content: "";
+        position: absolute;
+        top: -1px;
+        left: 7px;
+        width: 13px;
+        height: 13px;
+        border: 1px solid rgb(65, 9, 6);
+        background: radial-gradient(closest-corner, rgb(255, 199, 202), rgb(180, 76, 105));
+        -webkit-transform: rotate(135deg) skew(20deg, 20deg);
+                transform: rotate(135deg) skew(20deg, 20deg);
+    }
+
+
+
+/* --------------
+    Spawn Mob  */
+
+.spawnHead,
+.spawnTail {
+    position: absolute;
+    width: 10px;
+    height: 13px;
+    overflow: hidden;
+}	
+    .spawnHead { top: 0; left:  7px; }
+    .spawnTail { top: 0; left: -3px; }
+    
+    .spawnHead:after {
+        content: "";
+        position: absolute;
+        top: 4px;
+        left: 6px;
+        width: 2px;
+        height: 1px;
+        border-top: 2px solid rgba(28, 38, 9, 0.7);
+        border-bottom: 2px solid rgba(28, 38, 9, 0.7);
+    }
+    .spawnHead:before,
+    .spawnTail:before {
+        content: "";
+        position: absolute;
+        width: 11px;
+        height: 11px;
+        border: 1px solid rgb(28, 38, 9);
+        border-radius: 10px;
+        background: radial-gradient(closest-side, rgb(184, 246, 184), rgb(31, 142, 30));
+    }
+    .spawnHead:before { left: -3px; }
+
+
+.spawnChild {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 11px;
+    height: 11px;
+    border: 1px solid rgb(28, 38, 9);
+    border-radius: 10px;
+    background: radial-gradient(closest-side, rgb(184, 246, 184), rgb(31, 142, 30));
+}
+    .spawnChild:after {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 8px;
+        width: 2px;
+        height: 1px;
+        border-top: 2px solid rgba(28, 38, 9, 0.7);
+        border-bottom: 2px solid rgba(28, 38, 9, 0.7);
+    }
+
+
+
+/* ---------------
+    Flying Mob  */
+
+.flyingMob {
+    position: absolute;
+    top: 2px;
+    left: -1px;
+    width: 16px;
+    height: 13px;
+    border-left: 1px solid black;
+    overflow: hidden;
+    z-index: 2;
+}
+    .flyingMob:after {
+        content: "";
+        position: absolute;
+        top: 4px;
+        left: 7px;
+        width: 2px;
+        height: 1px;
+        border-top: 2px solid rgba(0, 0, 0, 0.7);
+        border-bottom: 2px solid rgba(0, 0, 0, 0.7);
+    }
+    .flyingMob:before {
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: -10px;
+        height: 15px;
+        width: 15px;
+        border: 1px solid black;
+        background: linear-gradient(45deg, rgb(236, 228, 155), rgb(231, 227, 157) 35%, rgb(192, 169, 46) 65%, rgb(206, 188, 66));
+        -webkit-transform: rotate(135deg) skew(24deg, 24deg);
+                transform: rotate(135deg) skew(24deg, 24deg);
+    }
+
+.flyingShadow {
+    position: absolute;
+    top: 6px;
+    left: -4px;
+    width: 16px;
+    height: 13px;
+    overflow: hidden;
+    z-index: 1;
+}
+    .flyingShadow:before {
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: -10px;
+        height: 17px;
+        width: 17px;
+        background: rgba(0, 0, 0, 0.3);
+        -webkit-transform: rotate(135deg) skew(24deg, 24deg);
+                transform: rotate(135deg) skew(24deg, 24deg);
+    }
+
+
+
+/* --------------
+    Arrow Mob  */
+
+.arrowHead {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    width: 7px;
+    height: 15px;
+    overflow: hidden;
+}
+    .arrowHead:after {
+        content: "";
+        position: absolute;
+        top: 5px;
+        left: 2px;
+        width: 2px;
+        height: 1px;
+        border-top: 2px solid rgba(89, 11, 11, 0.7);
+        border-bottom: 2px solid rgba(89, 11, 11, 0.7);
+    }
+    .arrowHead:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -11px;
+        width: 13px;
+        height: 13px;
+        border: 1px solid rgb(89, 11, 11);
+        background: radial-gradient(farthest-side, rgb(232, 176, 176), rgb(195, 60, 60));
+        -webkit-transform: rotate(135deg);
+                transform: rotate(135deg);
+    }
+
+.arrowTail {
+    position: absolute;
+    top: 1px;
+    left: -4px;
+    width: 14px;
+    height: 13px;
+    overflow: hidden;
+}
+    .arrowTail:after {
+        content: "";
+        position: absolute;
+        top: -1px;
+        left: 7px;
+        width: 13px;
+        height: 13px;
+        border: 1px solid rgb(89, 11, 11);
+        background: radial-gradient(closest-corner, rgb(231, 177, 177), rgb(195, 60, 60));
+        -webkit-transform: rotate(135deg) skew(20deg, 20deg);
+                transform: rotate(135deg) skew(20deg, 20deg);
+    }
+
+
+
+/* -------------
+    Dark Mob  */
+
+.darkHead {
+    position: absolute;
+    top: 2px;
+    left: 5px;
+    width: 10px;
+    height: 13px;
+    overflow: hidden;
+}
+    .darkHead:after {
+        content: "";
+        position: absolute;
+        top: 4px;
+        left: 5px;
+        width: 2px;
+        height: 1px;
+        border-top: 2px solid rgba(154, 154, 154, 0.7);
+        border-bottom: 2px solid rgba(154, 154, 154, 0.7);
+    }
+    .darkHead:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -3px;
+        width: 11px;
+        height: 11px;
+        border: 1px solid rgb(40,40,40);
+        border-radius: 10px;
+        background: radial-gradient(farthest-side at 30% 50%, rgb(100, 100, 100), rgb(30, 30, 30));
+    }
+
+.darkTail {
+    position: absolute;
+    top: 3px;
+    left: 2px;
+    height: 11px;
+    width: 5px;
+    overflow: hidden;
+}
+    .darkTail:after {
+        content: "";
+        top: 1px;
+        left: -9px;
+        position: absolute;
+        height: 9px;
+        width: 12px;
+        border-radius: 5px;
+        box-shadow: 0 0 0 3px rgb(40, 40, 40);
+    }
+
+
+
+/* --------------
+    Decoy Mob  */
+
+.decoyHead {
+    position: absolute;
+    top: 0;
+    left: 9px;
+    height: 13px;
+    width: 7px;
+    border: 1px solid rgb(63, 81, 59);
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+    background-color: rgb(141, 171, 135);
+}
+    .decoyHead:after {
+        content: "";
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        width: 2px;
+        height: 1px;
+        border-top: 2px solid rgba(63, 81, 59, 0.7);
+        border-bottom: 2px solid rgba(63, 81, 59, 0.7);
+    }
+
+.decoyBody {
+    position: absolute;
+    top: -3px;
+    left: 3px;
+    height: 19px;
+    width: 8px;
+    border-radius: 5px;
+    border: 1px solid rgb(63, 81, 59);
+    border-right: none;
+    background: radial-gradient(rgb(227, 234, 225), rgb(113, 150, 105));
+}
+    .decoyBody:before,
+    .decoyBody:after {
+        content: "";
+        position: absolute;
+        left: -7px;
+        width: 7px;
+        height: 5px;
+        border: 1px solid rgb(63, 81, 59);
+        border-right: none;
+        background-color: rgb(170, 192, 165);
+    }
+    .decoyBody:before {
+        top: 2px;
+        -webkit-transform: skew(20deg, 20deg);
+                transform: skew(20deg, 20deg);
+    }
+    .decoyBody:after {
+        top: 10px;
+        -webkit-transform: skew(-20deg, -20deg);
+                transform: skew(-20deg, -20deg);
+    }
+
+
+.decoyChild {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 9px;
+    height: 9px;
+    border: 1px solid rgb(63, 81, 59);
+    border-radius: 10px;
+    background: radial-gradient(closest-side, rgb(227, 234, 225), rgb(113, 150, 105));
+}
+    .decoyChild:after {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: 6px;
+        width: 2px;
+        height: 1px;
+        border-top: 2px solid rgba(63, 81, 59, 0.7);
+        border-bottom: 2px solid rgba(63, 81, 59, 0.7);
+    }
+
+
+
+/* ---------------
+    Hopper Mob  */
+
+.hopperMob {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 11px;
+    height: 11px;
+    border: 1px solid rgb(92, 19, 83);
+    border-radius: 10px;
+    background: radial-gradient(closest-side, rgb(237, 196, 237), rgb(207, 99, 207));
+}
+    .hopperMob:after {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 8px;
+        width: 2px;
+        height: 1px;
+        border-top: 2px solid rgba(92, 19, 83, 0.7);
+        border-bottom: 2px solid rgba(92, 19, 83, 0.7);
+    }
+
+
+
+/* ---------------
+    Mob Alerts  */
+
+.alert {
+    position: absolute;
+    width: 15px;
+    height: 10px;
+    margin-top: -5px;
+    margin-left: -5px;
+    text-align: center;
+    font-weight: bold;
+    z-index: 3;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+}
+    .alertRed    { color: rgb(153, 0, 0);   }
+    .alertYellow { color: rgb(255, 255, 0); }

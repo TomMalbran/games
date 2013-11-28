@@ -1,0 +1,751 @@
+@charset "utf-8";
+
+/* ---------------
+    Game Fonts  */
+
+@font-face {
+    font-family: "Battle Beasts";
+    font-style: normal;
+    font-weight: normal;
+    src: local("Battle Beasts"), url("../fonts/battlebeasts.ttf") format("truetype");
+}
+
+
+
+/* ----------------
+    Main Styles  */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: transparent;
+    color: white;
+    font: 10px Verdana, Arial, Helvetica, sans-serif;
+    
+    -webkit-font-smoothing: antialiased;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+    outline: none;
+}
+
+button {
+    padding: 0;
+    display: block;
+    border: 1px solid black;
+    color: black;
+    font: bold 10px Verdana, Arial, Helvetica, sans-serif;
+    text-align: center;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+dl { margin: 10px 0; }
+dt, dd {
+    display: inline-block;
+    margin: 0;
+}
+
+
+#container {
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    left: 50%;
+    right: 50%;
+    width: 660px;
+    height: 440px;
+    margin-top: -220px;
+    margin-left: -330px;
+}
+    h1 {
+        position: absolute;
+        left: 410px;
+        top: -45px;
+        margin: 0;
+        font: 75px "Battle Beasts";
+        color: white;
+        z-index: 1001;
+    }
+
+
+/* -----------------
+    Main Content  */
+
+.mainContent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 210px;
+    bottom: 45px;
+}
+    .sellAll {
+        display: none;
+        position: absolute;
+        top: -4px;
+        left: 20px;
+        padding: 2px 5px;
+    }
+    .planning .sellAll {
+        display: block;
+    }
+
+
+
+/* ------------------
+    Board Section  */
+
+.board {
+    position: absolute;
+    top: 18px;
+    left: 13px;
+    right: 13px;
+    bottom: 13px;
+    border: 2px solid rgb(18, 18, 18);
+    background-color: rgb(244, 244, 244);
+    background-image: linear-gradient(90deg,  rgb(207, 207, 207) 1px, transparent 1px),
+                      linear-gradient(180deg, rgb(207, 207, 207) 1px, transparent 1px),
+                      linear-gradient(135deg, rgb(219, 219, 219) 25%, transparent 25%, transparent 75%, rgb(219, 219, 219) 75%, rgb(219, 219, 219)),
+                      linear-gradient(135deg, rgb(219, 219, 219) 25%, transparent 25%, transparent 75%, rgb(219, 219, 219) 75%, rgb(219, 219, 219));
+    background-size: 6px 6px, 6px 6px, 12px 12px, 12px 12px;
+    background-position: 0 0, 0 0, 0 0, 6px 6px;
+}
+    .players > div {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+    }
+    .defenses { overflow: visible !important; }
+
+
+.walls div { position: absolute; }
+.start  { background: rgba(0,  51, 0, 0.85); }
+.target { background: rgba(140, 0, 0, 0.85); }
+.wall   { background: rgba(0,   0, 0, 0.85); }
+
+.path div {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-color: transparent transparent transparent rgba(0, 0, 0, 0.3);
+    border-style: solid;
+    border-width: 7px 14px;
+    -webkit-transform-origin: 23% 52%;
+            transform-origin: 23% 52%;
+}
+
+.blood .blood {
+    position: absolute;
+    height: 0;
+    width: 0;
+    margin-top: 8px;
+    margin-left: 8px;
+    box-shadow: 0 0 25px 2px rgb(98, 138, 52);
+}
+
+.building {
+    position: absolute;
+    display: none;
+}
+.building .towerRange { display: block; }
+
+.building.dim3 .towerPlaceholder2,
+.building.dim2 .towerPlaceholder3 { display: none; }
+
+    .valid .towerPlaceholder2,
+    .valid .towerPlaceholder3 {
+        padding: 0;
+        border: 1px solid rgb(0, 204, 0);
+        background-color: rgb(0, 255, 0);
+        opacity: .6;
+    }
+    .invalid .towerPlaceholder2,
+    .invalid .towerPlaceholder3 {
+        padding: 0;
+        border: 1px solid rgb(204, 0, 0);
+        background-color: rgb(255, 0, 0);
+        opacity: .6;
+    }
+
+.blocking {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 18px;
+    width: 62px;
+    margin-top: -21px;
+    margin-left: -44px;
+    padding: 10px;
+    background-color: rgb(225, 136, 9);
+    border: 2px solid black;
+    border-radius: 5px;
+    color: black;
+    font-size: 15px;
+    opacity: 0.8;
+    z-index: 1;
+}
+
+
+
+/* --------------
+    Game Menu  */
+
+.mainScreen     .overlay, .mainScreen     .mainScreenMenu,
+.selectMap      .overlay, .selectMap      .selectMapMenu,
+.selectLevel    .overlay, .selectLevel    .selectLevelMenu,
+.planningPaused .overlay, .planningPaused .pauseMenu,
+.playingPaused  .overlay, .playingPaused  .pauseMenu,
+.gameOver       .overlay, .gameOver       .gameOverMenu,
+.controls       .overlay, .controls       .controlsMenu {
+    display: block;
+}
+
+.overlay {
+    display: none;
+    position: absolute;
+    top: -10px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: black;
+    opacity: 0.6;
+    z-index: 1000;
+}
+
+.menu {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 5px solid rgba(0, 0, 0, 0.4);
+    box-shadow: inset 0 0 0 999px rgba(0, 0, 0, 0.8);
+    z-index: 1001;
+}
+    .mainScreenMenu,
+    .pauseMenu {
+        height: 170px;
+        width: 190px;
+        margin-top: -85px;
+        margin-left: -95px;
+    }
+    .selectMapMenu {
+        height: 216px;
+        width: 246px;
+        margin-top: -108px;
+        margin-left: -123px;
+    }
+    .selectLevelMenu {
+        height: 210px;
+        width: 190px;
+        margin-top: -105px;
+        margin-left: -95px;
+    }
+    .gameOverMenu {
+        height: 216px;
+        width: 240px;
+        margin-top: -108px;
+        margin-left: -120px;
+    }
+    .controlsMenu {
+        height: 322px;
+        width: 310px;
+        margin-top: -162px;
+        margin-left: -155px;
+    }
+    
+    .menu button {
+        font-size: 18px;
+        line-height: 1.5;
+        margin-bottom: 8px;
+    }
+
+
+.maps button {
+    position: relative;
+    display: inline-block;
+    width: 39px;
+    border-radius: 0;
+    margin: 3px;
+}
+    .maps button:hover::before {
+        content: attr(data-name) '\A' attr(data-score);
+        position: absolute;
+        top: -37px;
+        left: -22px;
+        width: 80px;
+        height: 33px;
+        font-size: 10px;
+        border: 1px solid black;
+        border-radius: 3px;
+        background: rgb(233, 209, 0);
+        white-space: pre;
+        z-index: 2;
+    }
+    .maps button:hover::after {
+        content: "";
+        position: absolute;
+        top -1px;
+        left: 14px;
+        width: 0;
+        height: 0;
+        border-color: black transparent transparent transparent;
+        border-style: solid;
+        border-width: 4px 5px;
+    }
+
+.selectMapMenu > div > button {
+    display: inline-block;
+    width: auto;
+    padding: 0 10px;
+    margin-top: 18px;
+    margin-left: -4px;
+}
+    .totalScore {
+        display: inline-block;
+        width: 150px;
+        text-align: right;
+        font-size: 15px;
+        color: rgb(1, 255, 1);
+    }
+
+
+.finalScore dt,
+.finalScore dd {
+    font-size: 17px;
+    color: rgb(255, 0, 0);
+}
+    .finalScore dt {
+        width: 130px;
+        text-align: right;
+    }
+    .finalScore dd {
+        width: 80px;
+        padding-left: 10px;
+        font-weight: bold;
+    }
+    
+    .finalScore dt:nth-of-type(3),
+    .finalScore dd:nth-of-type(3) {
+        color: rgb(235, 95, 2);
+    }
+    .finalScore dt:last-of-type,
+    .finalScore dd:last-of-type {
+        padding-top: 30px;
+        color: rgb(1, 255, 1);
+    }
+
+
+.controls dt {
+    width: 100px;
+    padding-right: 5px;
+    text-align: right;
+    line-height: 1.4em;
+    color: yellow;
+}
+    .controls dt:after {
+        content: " :";
+        color: white;
+    }
+.controls dd { width: 180px; }
+
+
+
+/* --------------------
+    Sidebar Section  */
+
+.sideBar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 210px;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+    .pauseButton,
+    .audioButton {
+        position: absolute;
+        bottom: 55px;
+        height: 22px;
+        width: 93px;
+        padding: 3px;
+        border-radius: 3px;
+    }
+    .pauseButton { left:  10px; }
+    .audioButton { right: 10px; }
+
+
+
+/* ------------------
+    Scores Design  */
+
+.scoresPanel {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    height: 40px;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+    .scoresPanel div {
+        position: absolute;
+        left: 5px;
+        right: 5px;
+        height: 14px;
+    }
+    .goldScore {
+        top: 5px;
+        text-align: left;
+        color: rgb(255, 255, 0);
+    }
+    .livesScore {
+        top: 5px;
+        text-align: right;
+        color: rgb(153, 0, 0);
+    }
+    .timeScore {
+        bottom: 5px;
+        text-align: left;
+        color: white;
+    }
+    .scoreScore {
+        bottom: 5px;
+        text-align: right;
+        color: rgb(0, 102, 0);
+    }
+
+
+
+/* ---------------------
+    Towers Container  */
+
+.towersPanel {
+    position: absolute;
+    top: 60px;
+    left: 10px;
+    right: 10px;
+    height: 110px;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+    .towersPanel .tower {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+    }
+    
+    .towersPanel .row1 { top:  10px;  }
+    .towersPanel .row2 { top:  45px;  }
+    
+    .towersPanel .col1 { left: 0;     }
+    .towersPanel .col2 { left: 35px;  }
+    .towersPanel .col3 { left: 70px;  }
+    .towersPanel .col4 { left: 105px; }
+    .towersPanel .col5 { left: 140px; }
+    
+    .towersPanel .selected { box-shadow: 0 0 10px 2px rgb(0, 153, 0); }
+    .towersPanel .disabled {
+        background-color: rgba(0, 0, 0, 0.8);
+        cursor: not-allowed;
+    }
+
+
+
+/* -----------------------
+    Description Design  */
+
+.description { 
+    position: absolute;
+    top: 180px;
+    left: 10px;
+    right: 10px;
+    bottom: 85px;
+    background-color: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+}
+    .description.fadeIn {
+        opacity: 1;
+        transition: opacity 1s;
+    }
+    .description.delayedFadeOut {
+        opacity: 0;
+        transition: opacity 1s .5s;
+    }
+    .description.fadeOut {
+        opacity: 0;
+        transition: opacity 1s;
+    }
+    
+    .description p { margin-top: 5px; }
+    .description .information {
+        position: absolute;
+        top: 35px;
+        right: 0;
+        left: 10px;
+        bottom: 25px;
+    }
+    .description .text {
+        position: absolute;
+        top: 3px;
+        text-align: right;
+        width: 50px;
+    }
+    .description .actual {
+        position: absolute;
+        left: 60px;
+        width: 20px;
+        font-size: 15px;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .description .next {
+        position: absolute;
+        left: 100px;
+        width: 30px;
+        font-size: 15px;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+
+.towerCost { 
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    color: yellow;
+}
+.towerDamage {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    color: rgb(255, 0, 0);
+}
+.towerDistance {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+    color: rgb(168, 194, 255);
+}
+.towerSpeed {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+}
+.towerBoost {
+    position: absolute;
+    bottom: 5px;
+    right: 0;
+    text-align: right;
+    color: rgb(255, 0, 0);
+}
+
+
+.sellButton.sellButton,
+.upgradeButton.upgradeButton,
+.actionButton.actionButton {
+    position: absolute;
+    bottom: 0;
+    height: 22px;
+    width: 83px;
+    padding: 3px;
+    font-size: 10px;
+}
+    .sellButton.sellButton       { right: 0; }
+    .upgradeButton.upgradeButton { left:  0; }
+    .actionButton.actionButton   {
+        display: none;
+        left: 62px;
+        width: 46px;
+    }
+    .extraButton .sellButton, 
+    .extraButton .upgradeButton { width:   59px;  }
+    .extraButton .actionButton  { display: block; }
+    .hideButtons .upgradeButton { display: none;  }
+    .cantUpgrade .upgradeButton { opacity: 0.5; cursor: not-allowed; }
+
+    
+.mobPoints { 
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 0;
+    color: rgb(255, 0, 0);
+}
+.mobGold {
+    position: absolute;
+    top: 30px;
+    left: 10px;
+    right: 0;
+    color: yellow;
+}
+.mobSpeed {
+    position: absolute;
+    top: 50px;
+    left: 10px;
+    right: 0;
+}
+
+
+.descLoad {
+    position: absolute;
+    top: 35px;
+    left: -5px;
+    right: 3px;
+    height: 14px;
+    border: 2px solid rgb(41, 41, 41);
+    overflow: hidden;
+}
+.descLoadBar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    background: linear-gradient(to right, rgb(255, 153, 0), rgb(255, 201, 0));
+}
+
+
+
+/* -------------------
+    Bottom Section  */
+
+.bottomSection {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 20px 5px 5px 20px;
+    background: linear-gradient(to bottom, rgb(41, 41, 41), rgb(8, 8, 8));
+}
+    .wavesCount {
+        position: absolute;
+        top: 13px;
+        left: 10px;
+        width: 50px;
+        text-align: right;
+        font-size: 11px;
+        font-weight: bold;
+    }
+
+.waves {
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    left: 70px;
+    right: 90px;
+    border: 1px solid black;
+    background-color: rgb(102, 102, 102);
+    overflow: hidden;
+}
+    .waves:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 13px;
+        opacity: .8;
+        background: linear-gradient(to bottom, black, transparent);
+    }
+    
+    .wave {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 72px;
+        padding: 3px;
+        border-right: 1px solid black;
+        border-left: 1px solid black;
+        color: black;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .wave h3 {
+        margin: 0;
+        font-size: 11px;
+        text-transform: uppercase;
+    }
+    .wave p {
+        margin: 0;
+        font-size: 8px;
+        line-height: 9px;
+    }
+
+.startButton,
+.nextButton {
+    position: absolute;
+    top: 3px;
+    bottom: 3px;
+    right: 5px;
+    width: 80px;
+    padding: 3px;
+    font-size: 18px;
+}
+    .nextButton { display: none; }
+
+.playing       .startButton,
+.playingPaused .startButton {
+    display: none;
+}
+.playing       .nextButton,
+.playingPaused .nextButton {
+    display: block;
+}
+
+
+
+/* --------------------
+    General Classes  */
+
+h2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 13px;
+    margin: 0;
+    padding: 5px;
+    border: 1px solid black;
+    font-size: 10px;
+    color: black;
+    font-weight: bold;
+    background: linear-gradient(to bottom, rgb(252, 213, 36), rgb(249, 187, 33));
+}
+.content {
+    position: absolute;
+    top: 25px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+}
+
+.navButton {
+    background: linear-gradient(to bottom, rgb(252, 213, 36), rgb(249, 187, 33));
+}
+.navButton:hover {
+    background: linear-gradient(to bottom, rgb(250, 199, 34), rgb(215, 158, 27));
+}
+
+.menuButton {
+    width: 100%;
+    background: linear-gradient(to bottom, rgb(134, 132, 130), rgb(107, 106, 105));
+}
+.menuButton:hover {
+    background: linear-gradient(to bottom, rgb(204, 202, 202), rgb(134, 132, 130));
+}

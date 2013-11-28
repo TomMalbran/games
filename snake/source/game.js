@@ -1070,13 +1070,13 @@
             gameDisplay = "continuing";
             showMessage();
             
-            data        = instance.getData();
-            gameLevel   = data.level;
-            gameScore   = data.score;
-            gameTimer   = getTimer();
-            board       = new Board(data.matrix, data.head,   data.tail);
-            snake       = new Snake(data.links,  data.dirTop, data.dirLeft);
-            food        = new Food(data.foodTop, data.foodLeft);
+            data      = instance.getData();
+            gameLevel = data.level;
+            gameScore = data.score;
+            gameTimer = getTimer();
+            board     = new Board(data.matrix, data.head,   data.tail);
+            snake     = new Snake(data.links,  data.dirTop, data.dirLeft);
+            food      = new Food(data.foodTop, data.foodLeft);
             
             showLevel();
             increaseScore(0);

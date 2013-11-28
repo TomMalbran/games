@@ -42,7 +42,8 @@ var Sounds = (function () {
     function Sounds(soundFiles, storageName, usesElement) {
         this.data   = new Storage(storageName, true);
         this.format = supportsOGG() ? ".ogg" : (supportsMP3() ? ".mp3" : null);
-        this.mute   = this.data.get();
+        this.mute   = !!this.data.get();
+        this.old    = this.mute;
         
         if (usesElement) {
             this.audio = document.querySelector(".audio");
@@ -75,11 +76,35 @@ var Sounds = (function () {
     
     /**
      * Mute/Unmute the sound
+     * @param {boolean} mute
      */
-    Sounds.prototype.toggle = function () {
-        this.mute = !this.mute;
+    Sounds.prototype.toggle = function (mute) {
+        this.mute = mute !== undefined ? mute : !this.mute;
         this.setDisplay();
-        this.data.set(this.mute);
+        this.data.set(this.mute ? 1 : 0);
+    };
+    
+    /**
+     * Used to mute the sound for a short period
+     */
+    Sounds.prototype.startMute = function () {
+        this.old = this.mute;
+        this.toggle(true);
+    };
+    
+    /**
+     * Resets the Mute to the original value
+     */
+    Sounds.prototype.endMute = function () {
+        this.toggle(this.old);
+    };
+    
+    /**
+     * Returns true if the sound is off and false if is on
+     * @return {boolean}
+     */
+    Sounds.prototype.isMute = function () {
+        return this.mute;
     };
     
     /**
@@ -90,6 +115,7 @@ var Sounds = (function () {
             this.waves.style.display = this.mute ? "none" : "block";
         }
     };
+    
     
     
     return Sounds;

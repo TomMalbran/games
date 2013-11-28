@@ -33,15 +33,6 @@ var Utils = (function () {
                     function (id) { clearTimeout(id); };
             return f(id);
         },
-    
-    
-        /**
-         * Returns true if the browser supports Local Storage
-         * @return {boolean}
-         */
-        supportsStorage: function () {
-            return window.localStorage !== "undefined" && window.localStorage !== null;
-        },
         
         
         /**
@@ -75,6 +66,34 @@ var Utils = (function () {
                 }
             }
             return result;
+        },
+        
+        /**
+         * Calculates the Hypotenuse of a triangle with sides x and y
+         * @param {number} x
+         * @param {number} y
+         * @return {number}
+         */
+        calcDistance: function (x, y) {
+            return Math.sqrt(x * x + y * y);
+        },
+        
+        /**
+         * Returns the angle between two values
+         * @param {number} x
+         * @param {number} y
+         * @return {number}
+         */
+        calcAngle: function (x, y) {
+            var	angle = Math.round(Math.abs(Math.atan(y / x) * 180 / Math.PI));
+            if (y < 0 && x >= 0) {
+                angle = 360 - angle;
+            } else if (y < 0 && x < 0) {
+                angle = 180 + angle;
+            } else if (y >= 0 && x < 0) {
+                angle = 180 - angle;
+            }
+            return angle;
         },
         
         
