@@ -1,5 +1,5 @@
 /*jslint browser: true */
-/*global Maps, Utils */
+/*global Utils */
 
 var Ammo = (function () {
     "use strict";

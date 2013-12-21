@@ -1,5 +1,4 @@
 /*jslint browser: true */
-/*global Tower */
 
 var Panel = (function () {
     "use strict";

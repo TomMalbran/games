@@ -1,5 +1,4 @@
 /*jslint browser: true */
-/*global Utils */
 
 var Score = (function () {
     "use strict";
