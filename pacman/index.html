@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Pacman</title>
+    <link rel="stylesheet" href="design/style.css" />
+    
+    <script src="source/Init.js"></script>
+    <script src="source/Animations.js"></script>
+    <script src="source/Blob.js"></script>
+    <script src="source/Board.js"></script>
+    <script src="source/Food.js"></script>
+    <script src="source/Demo.js"></script>
+    <script src="source/Ghosts.js"></script>
+    <script src="source/Score.js"></script>
+    
+    <script src="../utils/Sounds.js"></script>
+    <script src="../utils/Storage.js"></script>
+    <script src="../utils/Utils.js"></script>
+</head>
+
+<body>
+    <div id="container" class="mainScreen">
+        <canvas class="board"></canvas>
+        <canvas class="game"></canvas>
+        <canvas class="screen"></canvas>
+        
+        <div class="main">
+            <ul>
+                <li><a href="#" data-action="play">Start Game</a></li>
+                <li><a href="#" data-action="scores">High Scores</a></li>
+                <li><a href="#" data-action="controls">Controls</a></li>
+            </ul>
+            <div class="audio" data-action="sound">
+                <div class="waves">
+                    <div></div><div></div>
+                    <div></div><div></div>
+                </div>
+                <div class="triangle"></div>
+                <div class="box"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
