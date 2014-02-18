@@ -14,10 +14,5 @@ var pmData = {
 	// Food Data
 	fruitPos:   [ 159, 202 ],
 	fruitText:  [ 167, 210 ],
-	fruitDots:  [ 174,  74 ],
-	fruitSize:  20,
-	
-	fruitTimer: function () {
-		return Math.round(Math.random() * 1000) + 9000;
-	}
+	fruitSize:  20
 };

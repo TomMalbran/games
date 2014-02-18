@@ -9,7 +9,9 @@ var Food = (function () {
         enerMult   = 0.41666,
         pillValue  = 1,
         pillMult   = 0.16666,
-        pillColor  = "white";
+        pillColor  = "white",
+        fruitDots1 = 174,
+        fruitDots2 = 74;
     
     
     
@@ -257,9 +259,13 @@ var Food = (function () {
 		}
 	};
     
+    Food.prototype.getFruitTime = function () {
+		return Math.round(Math.random() * 1000) + 9000;
+	};
+    
 	Food.prototype.addFruit = function () {
-		if (this.total === pmData.fruitDots[0] || this.total === pmData.fruitDots[1]) {
-			this.timer = pmData.fruitTimer();
+		if (this.total === fruitDots1 || this.total === fruitDots2) {
+			this.timer = this.getFruitTime();
 			this.drawFruit(pmData.fruitPos[0], pmData.fruitPos[1]);
 		}
 	};

@@ -328,14 +328,38 @@ var Board = (function () {
      * @private
      * @extends {Canvas}
      * The Game Canvas Class
+     * @param {Board} parent
      */
-    function GameCanvas() {
+    function GameCanvas(parent) {
+        this.parent = parent;
         this.init("game");
     }
     
     GameCanvas.prototype = Object.create(Canvas.prototype);
     GameCanvas.prototype.constructor = GameCanvas;
     GameCanvas.prototype.parentClass = Canvas.prototype;
+    
+    /**
+     * Draws the Ghosts Targets for testing
+     * @param {Array.<Ghost>} ghosts
+     */
+    GameCanvas.prototype.drawTargets = function (ghosts) {
+		var self = this;
+        
+        this.ctx.save();
+        ghosts.forEach(function (ghost) {
+			self.ctx.fillStyle   = ghost.getBodyColor();
+			self.ctx.strokeStyle = ghost.getBodyColor();
+			
+			var tile = this.parent.getTileXYCenter(ghost.getTargetTile());
+			self.ctx.beginPath();
+			self.ctx.moveTo(ghost.getX(), ghost.getY());
+			self.ctx.lineTo(tile.x, tile.y);
+			self.ctx.fillRect(tile.x - 4, tile.y - 4, 8, 8);
+			self.ctx.stroke();
+        });
+		this.ctx.restore();
+	};
     
     
     
@@ -715,7 +739,7 @@ var Board = (function () {
     function Board() {
         this.boardCanvas  = new BoardCanvas(this);
         this.screenCanvas = new ScreenCanvas();
-        this.gameCanvas   = new GameCanvas();
+        this.gameCanvas   = new GameCanvas(this);
     }
     
     /**

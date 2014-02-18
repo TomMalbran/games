@@ -282,6 +282,10 @@ var Blob = (function () {
 		return this.isWall(this.dir);
 	};
     
+    /**
+     * Returns true if the Blob has passed the center of the currrent tile
+     * @return {boolean}
+     */
 	Blob.prototype.passedCenter = function () {
 		return (
             (this.dir.x ===  1 && this.x >= this.tileCenter.x) ||
@@ -291,6 +295,11 @@ var Blob = (function () {
         );
 	};
     
+    /**
+     * Returns true if the Blob has to turn now
+     * @param {{x: number, y: number}}
+     * @return {boolean}
+     */
 	Blob.prototype.turnNow = function (turn) {
 		return (
             (!this.dir.x && !turn.x) || (!this.dir.y && !turn.y) ||		// Halth Turn
@@ -298,6 +307,11 @@ var Blob = (function () {
         );
 	};
     
+    /**
+     * Returns true if the next tile is a wall
+     * @param {{x: number, y: number}}
+     * @return {boolean}
+     */
 	Blob.prototype.isWall = function (turn) {
 		return this.board.isWall(this.tile.x + turn.x, this.tile.y + turn.y);
 	};

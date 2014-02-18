@@ -690,6 +690,14 @@ var Ghosts = (function () {
         return this.dotsCount;
     };
     
+    /**
+     * Returns the Ghost's current target tile
+     * @return {number}
+     */
+	Ghost.prototype.getTargetTile = function () {
+        return this.target;
+    };
+    
     
         
     /**
