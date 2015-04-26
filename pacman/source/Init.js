@@ -5,7 +5,7 @@
     "use strict";
     
     var board, demo, animations, sounds, score, food, ghosts, blob,
-        container, audio, animation, startTime, actions, shortcuts,
+        container, animation, startTime, actions, shortcuts,
         soundFiles  = [ "start", "death", "eat1", "eat2", "kill" ],
         specialKeys = {
             "8"  : "BS",
@@ -29,16 +29,16 @@
      * @return {boolean}
      */
     function isPlaying() {
-		return ["ready", "playing", "paused"].indexOf(gameDisplay) > -1;
-	}
+        return ["ready", "playing", "paused"].indexOf(gameDisplay) > -1;
+    }
     
     /**
      * Returns true if the game is paused
      * @return {boolean}
      */
     function isPaused() {
-		return gameDisplay === "paused";
-	}
+        return gameDisplay === "paused";
+    }
     
     /**
      * Adds the class to the design to show the Display
@@ -159,11 +159,11 @@
      */
     function togglePause() {
         if (isPaused()) {
-			gameDisplay = "playing";
-			animations.endAnimation();
+            gameDisplay = "playing";
+            animations.endAnimation();
         } else {
-			gameDisplay = "paused";
-			animations.paused();
+            gameDisplay = "paused";
+            animations.paused();
         }
     }
     

@@ -454,12 +454,12 @@ var Score = (function () {
      * @param {Score} score
      */
     function ScoreBlob(board, score, number) {
-		this.init(board, score, board.getBoardCanvas());
+        this.init(board, score, board.getBoardCanvas());
         
         this.x   = this.board.getTileCenter(blobTile.x + number * blobMult);
-		this.y   = this.board.getTileCenter(blobTile.y);
+        this.y   = this.board.getTileCenter(blobTile.y);
         this.dir = Object.create(blobDir);
-	}
+    }
     
     ScoreBlob.prototype = Object.create(Blob.prototype);
     ScoreBlob.prototype.constructor = ScoreBlob;
@@ -635,41 +635,41 @@ var Score = (function () {
         if (Array.isArray(value)) {
             return Object.create(value);
         }
-		return value;
-	};
+        return value;
+    };
     
     /**
      * Returns the Pen Force time in miliseconds
      * @return {number}
      */
-	Score.prototype.getPenForceTime = function () {
-		return this.getLevelData("penForceTime") * 1000;
-	};
+    Score.prototype.getPenForceTime = function () {
+        return this.getLevelData("penForceTime") * 1000;
+    };
     
     /**
      * Returns the switch time at the given mode in miliseconds
      * @param {number} mode
      * @return {number}
      */
-	Score.prototype.getSwitchTime = function (mode) {
-		return this.getLevelData("switchTimes")[mode] * 1000;
-	};
+    Score.prototype.getSwitchTime = function (mode) {
+        return this.getLevelData("switchTimes")[mode] * 1000;
+    };
     
     /**
      * Returns the Fright time in miliseconds
      * @return {number}
      */
-	Score.prototype.getFrightTime = function () {
-		return this.getLevelData("frightTime") * 1000;
-	};
+    Score.prototype.getFrightTime = function () {
+        return this.getLevelData("frightTime") * 1000;
+    };
     
     /**
      * Returns the amount of switchs when blinking in fright mode 
      * @return {number}
      */
-	Score.prototype.getBlinks = function () {
-		return this.getLevelData("frightBlinks") * 2;
-	};
+    Score.prototype.getBlinks = function () {
+        return this.getLevelData("frightBlinks") * 2;
+    };
     
     
     

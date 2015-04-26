@@ -101,8 +101,8 @@ var Demo = (function () {
      * @param {Score} score
      */
     function DemoBlob(board, score) {
-		this.init(board, score, board.getScreenCanvas());
-	}
+        this.init(board, score, board.getScreenCanvas());
+    }
     
     DemoBlob.prototype = Object.create(Blob.prototype);
     DemoBlob.prototype.constructor = DemoBlob;
@@ -117,7 +117,7 @@ var Demo = (function () {
     DemoBlob.prototype.chaseDemo = function (dir, x, y) {
         this.dir   = Object.create(dir);
         this.x     = x;
-		this.y     = y;
+        this.y     = y;
         this.speed = this.score.getLevelData("pmSpeed");
     };
     
@@ -181,19 +181,19 @@ var Demo = (function () {
      * The Demo Class
      * @param {Board} board
      */
-	function Demo(board) {
+    function Demo(board) {
         this.board    = board;
         this.canvas   = board.getScreenCanvas();
         this.ctx      = this.canvas.getContext();
         
-		this.step     = -1;
-		this.name     = "";
+        this.step     = -1;
+        this.name     = "";
         this.score    = new Score(board);
         this.bigBlob  = new BigBlob(board);
         this.food     = new DemoFood(board);
         
-		this.nextAnimation();
-	}
+        this.nextAnimation();
+    }
     
     /**
      * Destroys the current Demo and leaves it ready for the next start
@@ -203,38 +203,38 @@ var Demo = (function () {
         this.canvas.clear();
         this.nextAnimation();
     };
-	
+    
     
     /**
      * Calls the animation the demo is at
      * @param {number} time
      * @param {number} speed
      */
-	Demo.prototype.animate = function (time, speed) {
-		switch (this.name) {
+    Demo.prototype.animate = function (time, speed) {
+        switch (this.name) {
         case "title":
             this.titleAnimation(time);
             break;
-		case "chase":
+        case "chase":
             this.chaseAnimation(speed);
             break;
-		case "frighten":
+        case "frighten":
             this.frightenAnimation(time, speed);
             break;
-		case "present":
+        case "present":
             this.presentAnimation(time, speed);
             break;
-		}
-	};
+        }
+    };
     
     /**
      * Jumps to the next animation in the demo
      */
-	Demo.prototype.nextAnimation = function () {
+    Demo.prototype.nextAnimation = function () {
         this.step  = this.step === animations.length - 1 ? 1 : this.step + 1;
-		this.name  = animations[this.step];
+        this.name  = animations[this.step];
         this.timer = 0;
-		
+        
         switch (this.name) {
         case "chase":
             this.initChase();
@@ -246,28 +246,28 @@ var Demo = (function () {
             this.initPresent();
             break;
         }
-	};
-	
-	
-	/**
-	 * The Title Animation
-	 * @param {number} time
-	 */
-	Demo.prototype.titleAnimation = function (time) {
-		this.timer += time;
+    };
+    
+    
+    /**
+     * The Title Animation
+     * @param {number} time
+     */
+    Demo.prototype.titleAnimation = function (time) {
+        this.timer += time;
         var alpha   = 1 - Math.round(10 * this.timer / titleData.endTime) / 10;
-		
-		this.canvas.clear();
-		this.bigBlob.animate(time);
-		this.canvas.fill(alpha);
-		
-		if (this.timer > titleData.endTime) {
-			this.canvas.clear();
-			this.drawTitle();
+        
+        this.canvas.clear();
+        this.bigBlob.animate(time);
+        this.canvas.fill(alpha);
+        
+        if (this.timer > titleData.endTime) {
+            this.canvas.clear();
+            this.drawTitle();
             this.bigBlob.endAnimation();
-			this.nextAnimation();
-		}
-	};
+            this.nextAnimation();
+        }
+    };
     
     /**
      * Draws the Pacman title
@@ -275,15 +275,15 @@ var Demo = (function () {
     Demo.prototype.drawTitle = function () {
         var size = this.board.getTileSize();
         
-		this.ctx.save();
-		this.ctx.font      = "6em 'Whimsy TT'";
-		this.ctx.textAlign = "right";
-		this.ctx.fillText("Pa", titleData.leftText.x * size, titleData.leftText.y * size);
-		this.ctx.textAlign = "left";
-		this.ctx.fillText("man", titleData.rightText.x * size, titleData.rightText.y * size);
-		this.ctx.restore();
-	};
-	
+        this.ctx.save();
+        this.ctx.font      = "6em 'Whimsy TT'";
+        this.ctx.textAlign = "right";
+        this.ctx.fillText("Pa", titleData.leftText.x * size, titleData.leftText.y * size);
+        this.ctx.textAlign = "left";
+        this.ctx.fillText("man", titleData.rightText.x * size, titleData.rightText.y * size);
+        this.ctx.restore();
+    };
+    
     
     /**
      * Initializes the Players for the Chase animation
@@ -316,18 +316,18 @@ var Demo = (function () {
         this.ghosts = [ this.blinky, this.pinky, this.inky, this.clyde ];
     };
     
-	/**
-	 * The Chase Animation
-	 * @param {number} speed
-	 */
-	Demo.prototype.chaseAnimation = function (speed) {
+    /**
+     * The Chase Animation
+     * @param {number} speed
+     */
+    Demo.prototype.chaseAnimation = function (speed) {
         this.animatePlayers(speed, true);
         
         if (this.blob.getX() >= this.endPos) {
-			this.nextAnimation();
+            this.nextAnimation();
         }
-	};
-	
+    };
+    
     
     /**
      * Initializes the Players for the Frighten animation
@@ -346,17 +346,17 @@ var Demo = (function () {
     };
     
     /**
-	 * The Frighten Animation
-	 * @param {number} time
-	 * @param {number} speed
-	 */
-	Demo.prototype.frightenAnimation = function (time, speed) {
+     * The Frighten Animation
+     * @param {number} time
+     * @param {number} speed
+     */
+    Demo.prototype.frightenAnimation = function (time, speed) {
         this.animatePlayers(speed);
-		this.drawScores(time);
-		
-		if (this.ghosts.length > 0 && this.blob.getX() <= this.ghosts[0].getX()) {
+        this.drawScores(time);
+        
+        if (this.ghosts.length > 0 && this.blob.getX() <= this.ghosts[0].getX()) {
             this.ghosts.shift();
-			this.text = this.blob.getX();
+            this.text = this.blob.getX();
             this.scores.push({
                 timer : 0,
                 size  : 1,
@@ -367,11 +367,11 @@ var Demo = (function () {
                     y : frightenData.textTile
                 }
             });
-		}
-		if (this.blob.getX() < this.endPos) {
-			this.nextAnimation();
         }
-	};
+        if (this.blob.getX() < this.endPos) {
+            this.nextAnimation();
+        }
+    };
     
     /**
      * Draws the Scores in the Canvas
@@ -389,8 +389,8 @@ var Demo = (function () {
                 self.scores.splice(index, 1);
             }
         });
-	};
-	
+    };
+    
     
     /**
      * Initializes the Players for the Present animation
@@ -410,11 +410,11 @@ var Demo = (function () {
     };
     
     /**
-	 * The Present Animation
-	 * @param {number} time
-	 * @param {number} speed
-	 */
-	Demo.prototype.presentAnimation = function (time, speed) {
+     * The Present Animation
+     * @param {number} time
+     * @param {number} speed
+     */
+    Demo.prototype.presentAnimation = function (time, speed) {
         if (this.timer <= 0) {
             this.animatePlayers(speed);
             
@@ -437,20 +437,20 @@ var Demo = (function () {
         } else {
             this.timer -= time;
         }
-	};
+    };
     
     /**
      * Draws the Name of the given Ghost
      * @param {Ghost} ghost
      */
     Demo.prototype.drawName = function (ghost) {
-		this.canvas.drawText({
-			size:  2,
-			color: ghost.getBodyColor(),
-			text:  "‘" + ghost.getName() + "’",
-			pos:   presentData.namePos
-		});
-	};
+        this.canvas.drawText({
+            size:  2,
+            color: ghost.getBodyColor(),
+            text:  "‘" + ghost.getName() + "’",
+            pos:   presentData.namePos
+        });
+    };
     
     
     /**
@@ -472,7 +472,7 @@ var Demo = (function () {
             this.blob.animate(speed);
         }
     };
-	
+    
     
     
     // The public API

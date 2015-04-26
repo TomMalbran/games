@@ -47,7 +47,6 @@ var Board = (function () {
      * 0 Wall | 1 Path | 2 Pill on Path | 3 Intersection | 4 Pill on Interection | 5 Tunnel
      */
         wallValue      = 0,
-        pathValue      = 1,
         pillPathValue  = 2,
         interValue     = 3,
         interPillValue = 4,
@@ -199,9 +198,9 @@ var Board = (function () {
         
         this.ctx              = canvas.getContext("2d");
         this.ctx.font         = "2em 'Whimsy TT'";
-		this.ctx.fillStyle    = "white";
-		this.ctx.textAlign    = "center";
-		this.ctx.textBaseline = "middle";
+        this.ctx.fillStyle    = "white";
+        this.ctx.textAlign    = "center";
+        this.ctx.textBaseline = "middle";
         
         this.rects            = [];
     };
@@ -223,11 +222,11 @@ var Board = (function () {
      * @param {number=} height
      */
     Canvas.prototype.fill = function (alpha, x, y, width, height) {
-		this.ctx.save();
-		this.ctx.fillStyle = "rgba(0, 0, 0, " + alpha + ")";
-		this.ctx.fillRect(x || 0, y || 0, width || canvasWidth, height || totalHeight);
-		this.ctx.restore();
-	};
+        this.ctx.save();
+        this.ctx.fillStyle = "rgba(0, 0, 0, " + alpha + ")";
+        this.ctx.fillRect(x || 0, y || 0, width || canvasWidth, height || totalHeight);
+        this.ctx.restore();
+    };
     
     /**
      * Clear the entire board
@@ -249,21 +248,21 @@ var Board = (function () {
             }
         });
         this.rects = [];
-	};
-	
+    };
+    
     /**
      * Saves a new position to clear in the future
      * @param {number} x
      * @param {number} y
      */
     Canvas.prototype.savePos = function (x, y) {
-		this.rects.push({
+        this.rects.push({
             x      : x - eraseSize / 2,
             y      : y - eraseSize / 2,
             width  : eraseSize,
             height : eraseSize
         });
-	};
+    };
     
     /**
      * Saves a new rectangle to clear in the future
@@ -280,17 +279,17 @@ var Board = (function () {
     Canvas.prototype.drawText = function (data) {
         var metrics, width, height, mult = 0.5;
         
-		this.ctx.save();
-		if (data.size) {
+        this.ctx.save();
+        if (data.size) {
             this.ctx.font = data.size + "em 'Whimsy TT'";
-		}
+        }
         if (data.align) {
             this.ctx.textAlign = data.align;
             mult = data.align === "left" ? 1 : 0;
-		}
+        }
         this.ctx.fillStyle = data.color;
-		this.ctx.fillText(data.text, data.pos.x * tileSize, data.pos.y * tileSize);
-		this.ctx.restore();
+        this.ctx.fillText(data.text, data.pos.x * tileSize, data.pos.y * tileSize);
+        this.ctx.restore();
         
         metrics = this.ctx.measureText(data.text);
         width   = metrics.width + tileSize;
@@ -303,7 +302,7 @@ var Board = (function () {
             height : height,
             alpha  : data.alpha || 0
         });
-	};
+    };
     
     
     
@@ -344,22 +343,22 @@ var Board = (function () {
      * @param {Array.<Ghost>} ghosts
      */
     GameCanvas.prototype.drawTargets = function (ghosts) {
-		var self = this;
+        var self = this;
         
         this.ctx.save();
         ghosts.forEach(function (ghost) {
-			self.ctx.fillStyle   = ghost.getBodyColor();
-			self.ctx.strokeStyle = ghost.getBodyColor();
-			
-			var tile = this.parent.getTileXYCenter(ghost.getTargetTile());
-			self.ctx.beginPath();
-			self.ctx.moveTo(ghost.getX(), ghost.getY());
-			self.ctx.lineTo(tile.x, tile.y);
-			self.ctx.fillRect(tile.x - 4, tile.y - 4, 8, 8);
-			self.ctx.stroke();
+            self.ctx.fillStyle   = ghost.getBodyColor();
+            self.ctx.strokeStyle = ghost.getBodyColor();
+            
+            var tile = this.parent.getTileXYCenter(ghost.getTargetTile());
+            self.ctx.beginPath();
+            self.ctx.moveTo(ghost.getX(), ghost.getY());
+            self.ctx.lineTo(tile.x, tile.y);
+            self.ctx.fillRect(tile.x - 4, tile.y - 4, 8, 8);
+            self.ctx.stroke();
         });
-		this.ctx.restore();
-	};
+        this.ctx.restore();
+    };
     
     
     
@@ -689,7 +688,7 @@ var Board = (function () {
     BoardCanvas.prototype.drawLines = function () {
         var i;
         this.ctx.strokeStyle = "#CCC";
-        this.ctx.lineWidth	 = 1;
+        this.ctx.lineWidth   = 1;
         this.ctx.beginPath();
         
         for (i = 0; i < boardRows; i += 1) {
@@ -720,10 +719,10 @@ var Board = (function () {
             
             boardTurns[key].forEach(function (value) {
                 var dir = self.parent.numberToDir(value),
-                    x   = self.parent.getTileCorner(Number(coords[0]) + dir.x),
-                    y   = self.parent.getTileCorner(Number(coords[1]) + dir.y);
+                    bx  = self.parent.getTileCorner(Number(coords[0]) + dir.x),
+                    by  = self.parent.getTileCorner(Number(coords[1]) + dir.y);
                 
-                self.ctx.strokeRect(x, y, tileSize, tileSize);
+                self.ctx.strokeRect(bx, by, tileSize, tileSize);
             });
             self.ctx.restore();
         });
@@ -829,8 +828,8 @@ var Board = (function () {
      * @return {number}
      */
     Board.prototype.getTileCenter = function (tile) {
-		return Math.round((tile + 0.5) * tileSize);
-	};
+        return Math.round((tile + 0.5) * tileSize);
+    };
     
     /**
      * Returns the position at the middle of a tile
@@ -838,29 +837,29 @@ var Board = (function () {
      * @return {{x: number, y: number}}
      */
     Board.prototype.getTileXYCenter = function (tile) {
-		return { x: this.getTileCenter(tile.x), y: this.getTileCenter(tile.y) };
-	};
+        return { x: this.getTileCenter(tile.x), y: this.getTileCenter(tile.y) };
+    };
     
     /**
      * Returns the position at the top-left corner of a tile
      * @param {number} tile
      * @return {number}
      */
-	Board.prototype.getTileCorner = function (tile) {
-		return Math.round(tile * tileSize);
-	};
+    Board.prototype.getTileCorner = function (tile) {
+        return Math.round(tile * tileSize);
+    };
     
     /**
      * Returns the position of a tile in terms of the matrix coordinates
      * @param {number} x
      * @param {number} y
      */
-	Board.prototype.getTilePos = function (x, y) {
-		return {
+    Board.prototype.getTilePos = function (x, y) {
+        return {
             x : Math.floor(x / tileSize),
             y : Math.floor(y / tileSize)
         };
-	};
+    };
     
     /**
      * Returns a new position for a player if is at the end of the tunnel
@@ -869,12 +868,12 @@ var Board = (function () {
      */
     Board.prototype.tunnelEnds = function (x) {
         if (x < tunnelStart) {
-			return tunnelEnd;
-		} else if (x > tunnelEnd) {
-			return tunnelStart;
-        } else {
-            return x;
+            return tunnelEnd;
         }
+        if (x > tunnelEnd) {
+            return tunnelStart;
+        }
+        return x;
     };
     
     
@@ -885,8 +884,8 @@ var Board = (function () {
      * @return {boolean}
      */
     Board.prototype.isWall = function (col, row) {
-		return boardMatrix[row][col] === wallValue;
-	};
+        return boardMatrix[row][col] === wallValue;
+    };
     
     /**
      * Returns true if there is an intersection at the given position
@@ -894,9 +893,9 @@ var Board = (function () {
      * @param {number} row
      * @return {boolean}
      */
-	Board.prototype.isIntersection = function (col, row) {
-		return boardMatrix[row][col] === interValue || boardMatrix[row][col] === interPillValue;
-	};
+    Board.prototype.isIntersection = function (col, row) {
+        return boardMatrix[row][col] === interValue || boardMatrix[row][col] === interPillValue;
+    };
     
     /**
      * Returns true if there is a tunnel at the given position
@@ -904,9 +903,9 @@ var Board = (function () {
      * @param {number} row
      * @return {boolean}
      */
-	Board.prototype.isTunnel = function (col, row) {
-		return boardMatrix[row][col] === tunnelValue;
-	};
+    Board.prototype.isTunnel = function (col, row) {
+        return boardMatrix[row][col] === tunnelValue;
+    };
     
     /**
      * Returns an array with the position of the energizers
@@ -930,9 +929,9 @@ var Board = (function () {
      * @param {number} row
      * @return {boolean}
      */
-	Board.prototype.hasPill = function (col, row) {
-		return boardMatrix[row][col] === pillPathValue || boardMatrix[row][col] === interPillValue;
-	};
+    Board.prototype.hasPill = function (col, row) {
+        return boardMatrix[row][col] === pillPathValue || boardMatrix[row][col] === interPillValue;
+    };
     
     
     /**
@@ -959,35 +958,35 @@ var Board = (function () {
      * @return {{x: number, y: number}}
      */
     Board.prototype.numberToDir = function (value) {
-		switch (value) {
-		case 0:
+        switch (value) {
+        case 0:
             return { x:  0, y: -1 };   // Up
-		case 1:
+        case 1:
             return { x: -1, y:  0 };   // Left
-		case 2:
+        case 2:
             return { x:  0, y:  1 };   // Down
-		case 3:
+        case 3:
             return { x:  1, y:  0 };   // Right
-		}
-	};
+        }
+    };
     
     /**
      * Transforms an x,y direction into a number
      * @param {{x: number, y: number}} dir
      * @return {number}
      */
-	Board.prototype.dirToNumber = function (dir) {
-		switch (this.tileToString(dir)) {
-		case "x0y-1":
+    Board.prototype.dirToNumber = function (dir) {
+        switch (this.tileToString(dir)) {
+        case "x0y-1":
             return 0;   // Up
-		case "x-1y0":
+        case "x-1y0":
             return 1;   // Left
-		case "x0y1":
+        case "x0y1":
             return 2;   // Down
-		case "x1y0":
+        case "x1y0":
             return 3;   // Right
-		}
-	};
+        }
+    };
     
     
     

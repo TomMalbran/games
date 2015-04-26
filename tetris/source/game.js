@@ -105,7 +105,6 @@
         maxScores         = 9,
         soundStorage      = "tetris.sound",
         scoresStorage     = "tetris.hs",
-        zoomStorage       = "tetris.zoom",
         gameDisplay       = "mainScreen",
         gameLevel         = 1;
     
@@ -113,9 +112,8 @@
     /**
      * Display Functions
      */
-    function isStarting() { return gameDisplay === "starting"; }
-    function isPlaying() {  return gameDisplay === "playing";  }
-    function isPaused() {   return gameDisplay === "paused";   }
+    function isPlaying() { return gameDisplay === "playing"; }
+    function isPaused() {  return gameDisplay === "paused";  }
     
     /**
      * Destroys the game elements
@@ -259,8 +257,7 @@
     function requestAnimation() {
         startTime = new Date().getTime();
         animation = Utils.requestAnimationFrame(function () {
-            var time  = new Date().getTime() - startTime,
-                speed = time / 16;
+            var time = new Date().getTime() - startTime;
             
             gameTimer -= time;
             if (gameTimer < 0) {
@@ -993,9 +990,8 @@
     
     /**
      * Show the Scores for the given mode
-     * @param {string} mode
      */
-    HighScores.prototype.show = function (mode) {
+    HighScores.prototype.show = function () {
         this.scores.innerHTML = "";
         this.showHideNone(this.total === 0);
         
@@ -1031,13 +1027,13 @@
      * Creates the content for each High Score
      */
     HighScores.prototype.createContent = function (name, level, score) {
-        var namer     = "<div class='left'>"    + name  + " -</div>",
-            lvler     = "<div class='middle'>"  + level + "</div>",
-            scorer    = "<div class='right'>- " + score + "</div>",
-            container = document.createElement("DIV");
+        var namer   = "<div class='left'>"    + name  + " -</div>",
+            lvler   = "<div class='middle'>"  + level + "</div>",
+            screr   = "<div class='right'>- " + score + "</div>",
+            element = document.createElement("DIV");
         
-        container.innerHTML = namer + lvler + scorer;
-        return container;
+        element.innerHTML = namer + lvler + screr;
+        return element;
     };
     
     /**

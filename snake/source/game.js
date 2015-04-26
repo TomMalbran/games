@@ -44,7 +44,6 @@
      */
     function isStarting() { return gameDisplay === "starting"; }
     function isPlaying() {  return gameDisplay === "playing";  }
-    function isPaused() {   return gameDisplay === "paused";   }
     function isDemoing() {  return gameDisplay === "demo";     }
     
     /**
@@ -855,10 +854,10 @@
      */
     Instance.prototype.getData = function () {
         var i, j, value, pointer,
-            head   = this.data.get("matrix.head"),
-            matrix = [],
-            links  = [],
-            food   = {};
+            head    = this.data.get("matrix.head"),
+            matrix  = [],
+            links   = [],
+            foodPos = {};
         
         for (i = 0; i < matrixRows; i += 1) {
             matrix[i] = [];
@@ -871,7 +870,7 @@
                         pointer = value - head >= 0 ? value - head : totalCells + value - head;
                         links[pointer] = { top : i, left : j };
                     } else {
-                        food = { top : i, left : j };
+                        foodPos = { top : i, left : j };
                     }
                 } else {
                     matrix[i][j] = getBoardDefault(i, j);
@@ -888,8 +887,8 @@
             links    : links,
             dirTop   : this.data.get("dirTop"),
             dirLeft  : this.data.get("dirLeft"),
-            foodTop  : food.top,
-            foodLeft : food.left
+            foodTop  : foodPos.top,
+            foodLeft : foodPos.left
         };
     };
     

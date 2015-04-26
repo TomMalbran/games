@@ -78,7 +78,6 @@ var Panel = (function () {
      * @param {number} gold
      */
     Panel.prototype.showInfo = function (tower, gold) {
-        var cost = tower.getUpgradeCost();
         this.create(
             tower.getName(),
             tower.getText(),

@@ -188,8 +188,7 @@ var Towers = (function () {
      * @param {Tower} tower
      */
     Manager.prototype.boostTower = function (tower) {
-        var subtower, self = this;
-        
+        var self = this;
         tower.getLists().towers.forEach(function (element) {
             self.get(element).addBoost(tower.getActualDamage());
         });

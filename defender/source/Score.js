@@ -18,8 +18,8 @@ var Score = (function () {
     function Score(level, onGameOver) {
         this.level      = Number(level) + 1;
         this.onGameOver = onGameOver;
-        this.enable     = function () {};
-        this.disable    = function () {};
+        this.enable     = function () { return undefined; };
+        this.disable    = function () { return undefined; };
         
         this.goldElem   = document.querySelector(".goldScore");
         this.livesElem  = document.querySelector(".livesScore");

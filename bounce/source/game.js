@@ -6,7 +6,7 @@
     
     var board, ship, ball, tail, bricks, sound, scores,
         container, header, paragraph, counter,
-        animation, startTime, keyPressed, shortcuts,
+        startTime, keyPressed, shortcuts,
         messages = {
             mainScreen : [ "Bounce",     "Select a game"      ],
             paused     : [ "Paused",     "Continue the game?" ],
@@ -49,7 +49,6 @@
     function isSpeedMode() {  return gameMode    === "speed";   }
     function isRandomMode() { return gameMode    === "random";  }
     function isBricksMode() { return gameMode    === "bricks";  }
-    function isPaused() {     return gameDisplay === "paused";  }
     function isPlaying() {    return gameDisplay === "playing"; }
     
     
@@ -132,7 +131,7 @@
      */
     function requestAnimation() {
         startTime = new Date().getTime();
-        animation = Utils.requestAnimationFrame(function () {
+        Utils.requestAnimationFrame(function () {
             var time  = new Date().getTime() - startTime,
                 speed = time / 16;
             
@@ -152,13 +151,6 @@
                 requestAnimation();
             }
         });
-    }
-    
-    /**
-     * Cancel an animation frame
-     */
-    function cancelAnimation() {
-        Utils.cancelAnimationFrame(animation);
     }
     
     
@@ -287,7 +279,7 @@
         this.height   = this.element.offsetHeight;
         this.position = Utils.getPosition(this.element);
         
-        this.element.addEventListener("click", function (e) {
+        this.element.addEventListener("click", function () {
             if (!hasStarted) {
                 startGame();
             } else {
@@ -391,7 +383,8 @@
         
         if (mouseLeft < boardLeft || mouseLeft > boardRight) {
             return;
-        } else if (mouseLeft >= leftSide && mouseLeft <= rightSide) {
+        }
+        if (mouseLeft >= leftSide && mouseLeft <= rightSide) {
             shipLeft = mouseLeft - board.getLeft() - shipHalth;
         } else if (mouseLeft > rightSide) {
             shipLeft = rightSide - board.getLeft() - shipHalth;
@@ -720,7 +713,7 @@
     function Tail() {
         this.elements = [];
         
-        var container = document.querySelector(".tail"), i, div;
+        var i, div;
         container.innerHTML = "";
         for (i = 0; i < tailsAmount; i += 1) {
             div = document.createElement("DIV");
@@ -776,7 +769,6 @@
      * Sets the position of each element
      */
     Tail.prototype.setPosition = function () {
-        var self = this;
         this.elements.forEach(function (data) {
             data.element.style.top  = data.top  + "px";
             data.element.style.left = data.left + "px";
@@ -855,16 +847,15 @@
         
         if (ball.getPosition().top > this.bottom) {
             return false;
-        } else {
-            return this.elements.some(function (element, index) {
-                if (self.bottomCrash(element)    || self.leftCrash(element) ||
-                        self.rightCrash(element) || self.topCrash(element)) {
-                    self.remove(element, index);
-                    return true;
-                }
-                return false;
-            });
         }
+        return this.elements.some(function (element, index) {
+            if (self.bottomCrash(element)    || self.leftCrash(element) ||
+                    self.rightCrash(element) || self.topCrash(element)) {
+                self.remove(element, index);
+                return true;
+            }
+            return false;
+        });
     };
     
     /**

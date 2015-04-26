@@ -30,7 +30,7 @@ var Ghosts = (function () {
      * @param {number} mode
      * @return {boolean}
      */
-	function isFrighten(mode) {
+    function isFrighten(mode) {
         return mode === blueMode || mode === whiteMode;
     }
     
@@ -412,9 +412,8 @@ var Ghosts = (function () {
     Ghost.prototype.getTarget = function (blob) {
         if (this.mode === chaseMode || this.isElroy()) {
             return this.chase(blob);
-        } else {
-            return this.scatter;
         }
+        return this.scatter;
     };
     
     /**
@@ -465,7 +464,7 @@ var Ghosts = (function () {
     Ghost.prototype.chaseDemo = function (dir, x, y) {
         this.dir   = Object.create(dir);
         this.x     = x;
-		this.y     = y;
+        this.y     = y;
         this.mode  = chaseMode;
         this.speed = this.getLevelSpeed();
     };
@@ -484,9 +483,8 @@ var Ghosts = (function () {
     /**
      * Initialize some variables for the present demo animation
      * @param {{x: number, y: number}} dir
-     * @param {number} x
      */
-    Ghost.prototype.presentDemo = function (dir, x) {
+    Ghost.prototype.presentDemo = function (dir) {
         this.dir   = Object.create(dir);
         this.x     = -this.size;
         this.mode  = chaseMode;
@@ -621,25 +619,25 @@ var Ghosts = (function () {
      * @return {string}
      */
     Ghost.prototype.getBodyColor = function () {
-		switch (this.mode) {
-		case blueMode:
+        switch (this.mode) {
+        case blueMode:
             return "rgb(0, 51, 255)";
-		case whiteMode:
+        case whiteMode:
             return "rgb(255, 255, 255)";
-		case eyesMode:
+        case eyesMode:
             return "rgb(0, 0, 0)";
         default:
             return this.color;
-		}
-	};
+        }
+    };
     
     /**
      * Returns the color used for the Ghosts face depending on the mode
      * @return {string}
      */
     Ghost.prototype.getFaceColor = function () {
-		return this.mode === blueMode ? "rgb(255, 255, 255)" : "rgb(255, 0, 0)";
-	};
+        return this.mode === blueMode ? "rgb(255, 255, 255)" : "rgb(255, 0, 0)";
+    };
     
     
     /**
@@ -654,7 +652,7 @@ var Ghosts = (function () {
      * Returns the Ghost's name position
      * @return {string}
      */
-	Ghost.prototype.getName = function () {
+    Ghost.prototype.getName = function () {
         return this.name;
     };
     
@@ -662,7 +660,7 @@ var Ghosts = (function () {
      * Returns the Ghost's x position
      * @return {number}
      */
-	Ghost.prototype.getX = function () {
+    Ghost.prototype.getX = function () {
         return this.x;
     };
     
@@ -670,7 +668,7 @@ var Ghosts = (function () {
      * Returns the Ghost's y position
      * @return {number}
      */
-	Ghost.prototype.getY = function () {
+    Ghost.prototype.getY = function () {
         return this.y;
     };
     
@@ -678,7 +676,7 @@ var Ghosts = (function () {
      * Returns the Ghost's tile position
      * @return {{x: number, y: number}}
      */
-	Ghost.prototype.getTile = function () {
+    Ghost.prototype.getTile = function () {
         return this.tile;
     };
     
@@ -686,7 +684,7 @@ var Ghosts = (function () {
      * Returns the Ghost's interntal dots counter
      * @return {number}
      */
-	Ghost.prototype.getDots = function () {
+    Ghost.prototype.getDots = function () {
         return this.dotsCount;
     };
     
@@ -694,7 +692,7 @@ var Ghosts = (function () {
      * Returns the Ghost's current target tile
      * @return {number}
      */
-	Ghost.prototype.getTargetTile = function () {
+    Ghost.prototype.getTargetTile = function () {
         return this.target;
     };
     
@@ -720,9 +718,9 @@ var Ghosts = (function () {
         };
         
         this.id      = 0;
-		this.x       = 168;
+        this.x       = 168;
         this.y       = 138;
-		this.dir     = { x: -1, y:  0 };
+        this.dir     = { x: -1, y:  0 };
         this.scatter = { x: 25, y: -3 };
         this.inPen   = false;
         this.color   = "rgb(221, 0, 0)";
@@ -738,12 +736,12 @@ var Ghosts = (function () {
     Blinky.prototype.constructor = Blinky;
     Blinky.prototype.parentClass = Ghost.prototype;
     
-	/**
-	 * Blinky's target is always the current tile of the Blob
-	 * @param {Blob} blob
-	 * @return {{x: number, y: number}}
-	 */
-	Blinky.prototype.chase = function (blob) {
+    /**
+     * Blinky's target is always the current tile of the Blob
+     * @param {Blob} blob
+     * @return {{x: number, y: number}}
+     */
+    Blinky.prototype.chase = function (blob) {
         return blob.getTile();
     };
     
@@ -799,9 +797,9 @@ var Ghosts = (function () {
         };
         
         this.id       = 1;
-		this.x        = 168;
+        this.x        = 168;
         this.y        = 174;
-		this.scatter  = { x: 2, y: -3 };
+        this.scatter  = { x: 2, y: -3 };
         this.inPen    = true;
         this.color    = "rgb(255, 153, 153)";
         this.name     = "Pinky";
@@ -813,22 +811,22 @@ var Ghosts = (function () {
     Pinky.prototype = Object.create(Ghost.prototype);
     Pinky.prototype.constructor = Pinky;
     Pinky.prototype.parentClass = Ghost.prototype;
-	
+    
     /**
      * Pinky's target is always 4 tiles ahead of the Blob
      * @param {Blob} blob
      * @return {{x: number, y: number}}
      */
-	Pinky.prototype.chase = function (blob) {
+    Pinky.prototype.chase = function (blob) {
         var targetx = blob.getTile().x + 4 * blob.getDir().x,
             targety = blob.getTile().y + 4 * blob.getDir().y;
-		
+        
         // Recreating bug where Up = Up+Left
         if (blob.getDir().y === -1) {
             targetx -= 4;
         }
         return { x: targetx, y: targety };
-	};
+    };
     
     
     
@@ -840,7 +838,7 @@ var Ghosts = (function () {
      * @param {Canvas}  canvas
      * @param {?number} dots
      */
-	function Inky(parent, canvas, dots) {
+    function Inky(parent, canvas, dots) {
         this.paths   = {
             inPen    : [
                 { dir : { x:  0, y: -1 }, disty : 168, next : 1 },
@@ -858,9 +856,9 @@ var Ghosts = (function () {
         };
         
         this.id      = 2;
-		this.x       = 144;
+        this.x       = 144;
         this.y       = 174;
-		this.scatter = { x: 27, y: 31 };
+        this.scatter = { x: 27, y: 31 };
         this.inPen   = true;
         this.color   = "rgb(102, 255, 255)";
         this.name    = "Inky";
@@ -872,13 +870,13 @@ var Ghosts = (function () {
     Inky.prototype = Object.create(Ghost.prototype);
     Inky.prototype.constructor = Inky;
     Inky.prototype.parentClass = Ghost.prototype;
-	
+    
     /**
      * Inky's target is an average of Blinky's position and the Blob's position
      * @param {Blob} blob
      * @return {{x: number, y: number}}
      */
-	Inky.prototype.chase = function (blob) {
+    Inky.prototype.chase = function (blob) {
         var offsetx = blob.getTile().x + 2 * blob.getDir().x,
             offsety = blob.getTile().y + 2 * blob.getDir().y;
         
@@ -890,7 +888,7 @@ var Ghosts = (function () {
             x : offsetx * 2 - this.parent.blinky.getTile().x,
             y : offsety * 2 - this.parent.blinky.getTile().y
         };
-	};
+    };
     
     
     
@@ -902,7 +900,7 @@ var Ghosts = (function () {
      * @param {Canvas}  canvas
      * @param {?number} dots
      */
-	function Clyde(parent, canvas, dots) {
+    function Clyde(parent, canvas, dots) {
         this.paths   = {
             inPen    : [
                 { dir : { x:  0, y: -1 }, disty : 168, next : 1 },
@@ -920,9 +918,9 @@ var Ghosts = (function () {
         };
         
         this.id      = 3;
-		this.x       = 192;
+        this.x       = 192;
         this.y       = 174;
-		this.scatter = { x: 0, y: 31 };
+        this.scatter = { x: 0, y: 31 };
         this.inPen   = true;
         this.color   = "rgb(255,153,0)";
         this.name    = "Clyde";
@@ -930,7 +928,7 @@ var Ghosts = (function () {
         this.init(parent, canvas, dots);
         this.setPath("inPen");
     }
-	
+    
     Clyde.prototype = Object.create(Ghost.prototype);
     Clyde.prototype.constructor = Clyde;
     Clyde.prototype.parentClass = Ghost.prototype;
@@ -940,16 +938,15 @@ var Ghosts = (function () {
      * @param {Blob} blob
      * @return {{x: number, y: number}}
      */
-	Clyde.prototype.chase = function (blob) {
+    Clyde.prototype.chase = function (blob) {
         var x = Math.pow(this.tile.x - blob.getTile().x, 2),
             y = Math.pow(this.tile.y - blob.getTile().y, 2);
         
         if (Math.sqrt(x + y) > 8) {
             return blob.getTile();
-        } else {
-            return this.scatter;
         }
-	};
+        return this.scatter;
+    };
     
     
     
@@ -984,10 +981,10 @@ var Ghosts = (function () {
         // Pen Data
         this.penType     = !!oldManager;               // Type used to force ghosts out of the pen (false = using 
                                                        // ... ghost's dot counters | true = using global dot counter)
-		this.penTimer    = 0;                          // Pen Leaving Force Timer
-		this.globalDots  = 0;                          // Global dots counter
-		this.inPen       = [ this.pinky, this.inky, this.clyde ];
-		
+        this.penTimer    = 0;                          // Pen Leaving Force Timer
+        this.globalDots  = 0;                          // Global dots counter
+        this.inPen       = [ this.pinky, this.inky, this.clyde ];
+        
         if (!this.penType) {
             this.inPen.forEach(function () {
                 self.checkDotLimit();
@@ -1065,7 +1062,7 @@ var Ghosts = (function () {
     /**
      * Draws all The Ghosts
      */
-    Manager.prototype.drawGhosts = function (speed, blob) {
+    Manager.prototype.drawGhosts = function () {
         this.ghosts.forEach(function (ghost) {
             ghost.draw();
         });
@@ -1154,107 +1151,107 @@ var Ghosts = (function () {
     /**
      * Increases the global dots or the first Ghost internal dots depending on the mode
      */
-	Manager.prototype.incDotCounter = function () {
-		if (!this.penType) {
-			this.incGhostsDots();
-		} else {
-			this.incGlobalDots();
+    Manager.prototype.incDotCounter = function () {
+        if (!this.penType) {
+            this.incGhostsDots();
+        } else {
+            this.incGlobalDots();
         }
-	};
-	
-	/**
-	 * Increases the internal dots counter for the Ghost in the Pen array
-	 */
-	Manager.prototype.incGhostsDots = function () {
-		if (this.inPen.length > 0) {
-			this.inPen[0].increaseDots();
-			this.checkDotLimit();
-		}
-	};
-	
+    };
+    
+    /**
+     * Increases the internal dots counter for the Ghost in the Pen array
+     */
+    Manager.prototype.incGhostsDots = function () {
+        if (this.inPen.length > 0) {
+            this.inPen[0].increaseDots();
+            this.checkDotLimit();
+        }
+    };
+    
     /**
      * Checks if a ghost can leave pen
      */
-	Manager.prototype.checkDotLimit = function () {
-		var limits = this.score.getLevelData("penLeavingLimit");
-		
-		if (limits[this.inPen[0].getID()] <= this.inPen[0].getDots()) {
-			this.releaseGhostFromPen();
+    Manager.prototype.checkDotLimit = function () {
+        var limits = this.score.getLevelData("penLeavingLimit");
+        
+        if (limits[this.inPen[0].getID()] <= this.inPen[0].getDots()) {
+            this.releaseGhostFromPen();
         }
-	};
-	
-	/**
-	 * Increases the global dot counter and release ghosts changes type when required
-	 */
-	Manager.prototype.incGlobalDots = function () {
-		var self = this;
+    };
+    
+    /**
+     * Increases the global dot counter and release ghosts changes type when required
+     */
+    Manager.prototype.incGlobalDots = function () {
+        var self = this;
         this.globalDots += 1;
         
         this.inPen.forEach(function (ghost) {
-			if (self.globalDots === penDotsCount[ghost.getID()]) {
-				if (ghost.getID() <= 2) {
-					self.releaseGhostFromPen();
-				} else {
-					self.penType    = false;
-					self.globalDots = 0;
-				}
-			}
+            if (self.globalDots === penDotsCount[ghost.getID()]) {
+                if (ghost.getID() <= 2) {
+                    self.releaseGhostFromPen();
+                } else {
+                    self.penType    = false;
+                    self.globalDots = 0;
+                }
+            }
         });
-	};
-	
+    };
+    
     /**
      * Increases the Pen Timer
      * @param {number} time
      */
-	Manager.prototype.increasePenTimer = function (time) {
-		this.penTimer += time;
-		if (this.inPen.length > 0 && this.penTimer >= this.score.getPenForceTime()) {
-			this.releaseGhostFromPen();
-			this.penTimer = 0;
-		}
-	};
+    Manager.prototype.increasePenTimer = function (time) {
+        this.penTimer += time;
+        if (this.inPen.length > 0 && this.penTimer >= this.score.getPenForceTime()) {
+            this.releaseGhostFromPen();
+            this.penTimer = 0;
+        }
+    };
     
     /**
      * Resents the Pen Timer to cero, since the Blob ate a pill and checks the Dots counters
      */
-	Manager.prototype.resetPenTimer = function () {
-		this.penTimer = 0;
+    Manager.prototype.resetPenTimer = function () {
+        this.penTimer = 0;
         this.incDotCounter();
-	};
-	
-	/**
-	 * Releases the first Ghost in the vector from Pen
-	 */
-	Manager.prototype.releaseGhostFromPen = function () {
-		var ghost = this.inPen[0];
-		ghost.setPath("exitPen");
+    };
+    
+    /**
+     * Releases the first Ghost in the vector from Pen
+     */
+    Manager.prototype.releaseGhostFromPen = function () {
+        var ghost = this.inPen[0];
+        ghost.setPath("exitPen");
         ghost.activateElroy();
         
-		this.inPen = this.inPen.slice(1);
-	};
-	
-	/**
-	 * Adds the given Ghost to Pen
-	 * @param {Ghost} ghost
-	 */
-	Manager.prototype.addGhostToPen = function (ghost) {
-		var i = 0;
+        this.inPen = this.inPen.slice(1);
+    };
+    
+    /**
+     * Adds the given Ghost to Pen
+     * @param {Ghost} ghost
+     */
+    Manager.prototype.addGhostToPen = function (ghost) {
+        var i = 0;
         
         // Blinky never stays in the Pen
         if (ghost.getID() === 0) {
-			ghost.setPath("exitPen");
-		} else {
-			while (i < this.inPen.length && this.inPen[i].getID() <= ghost.getID()) {
+            ghost.setPath("exitPen");
+        } else {
+            while (i < this.inPen.length && this.inPen[i].getID() <= ghost.getID()) {
                 i += 1;
             }
             this.inPen.splice(i, 0, ghost);
-			ghost.setPath("inPen");
+            ghost.setPath("inPen");
             
-			if (!this.penType) {
+            if (!this.penType) {
                 this.checkDotLimit();
             }
         }
-	};
+    };
     
     
     

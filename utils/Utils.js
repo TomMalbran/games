@@ -14,7 +14,7 @@ var Utils = (function () {
                     window.mozRequestAnimationFrame    ||
                     window.msRequestAnimationFrame     ||
                     window.oRequestAnimationFrame      ||
-                    function (callback, element) {
+                    function (callback) {
                         window.setTimeout(callback, 1000 / 60);
                     };
             return f(callback);
@@ -85,7 +85,7 @@ var Utils = (function () {
          * @return {number}
          */
         calcAngle: function (x, y) {
-            var	angle = Math.round(Math.abs(Math.atan(y / x) * 180 / Math.PI));
+            var angle = Math.round(Math.abs(Math.atan(y / x) * 180 / Math.PI));
             if (y < 0 && x >= 0) {
                 angle = 360 - angle;
             } else if (y < 0 && x < 0) {
@@ -164,7 +164,7 @@ var Utils = (function () {
          */
         getPosition: function (element) {
             var posTop = 0, posLeft = 0;
-            if (typeof element.offsetParent !== "undefined") {
+            if (element.offsetParent !== undefined) {
                 posTop  = element.offsetTop;
                 posLeft = element.offsetLeft;
                 
@@ -173,7 +173,7 @@ var Utils = (function () {
                     posTop  += element.offsetTop;
                     posLeft += element.offsetLeft;
                 }
-            } else if (typeof element.x !== "undefined") {
+            } else if (element.x !== undefined) {
                 posTop  = element.y;
                 posLeft = element.x;
             }

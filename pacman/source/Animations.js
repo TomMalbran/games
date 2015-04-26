@@ -35,7 +35,7 @@ var Animations = (function () {
      * Does the Animation
      * @param {number} time
      */
-    Animation.prototype.animate = function (time) {
+    Animation.prototype.animate = function () {
         return undefined;
     };
     
@@ -103,7 +103,7 @@ var Animations = (function () {
      * @param {number} time
      * @return {boolean}
      */
-    PausedAnimation.prototype.isAnimating = function (time) {
+    PausedAnimation.prototype.isAnimating = function () {
         return true;
     };
     

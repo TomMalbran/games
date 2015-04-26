@@ -23,24 +23,24 @@ var Food = (function () {
     function Food(board) {
         this.board = board;
         this.ctx   = board.getBoardCanvas().getContext();
-		
+        
         this.init();
         this.createMatrix();
         this.createEnergizers();
-	}
+    }
     
     /**
      * Initializes the instance
      */
     Food.prototype.init = function () {
         this.pillSize   = Math.round(this.board.getTileSize() * pillMult);
-		this.total      = this.board.getPillAmount();
+        this.total      = this.board.getPillAmount();
         this.minRadius  = this.pillSize;
         this.maxRadius  = Math.round(this.board.getTileSize() * enerMult);
-		this.radius     = this.maxRadius;
+        this.radius     = this.maxRadius;
         this.energizers = [];
         this.matrix     = [];
-		this.mult       = -1;
+        this.mult       = -1;
         this.timer      = 0;
     };
     
@@ -49,15 +49,15 @@ var Food = (function () {
      */
     Food.prototype.createMatrix = function () {
         var i, j, self = this;
-		for (i = 0; i < this.board.getBoardRows(); i += 1) {
-			this.matrix[i] = [];
-			for (j = 0; j < this.board.getBoardCols(); j += 1) {
-				this.matrix[i][j] = this.board.hasPill(j, i) ? pillValue : 0;
+        for (i = 0; i < this.board.getBoardRows(); i += 1) {
+            this.matrix[i] = [];
+            for (j = 0; j < this.board.getBoardCols(); j += 1) {
+                this.matrix[i][j] = this.board.hasPill(j, i) ? pillValue : 0;
             }
-		}
+        }
         
         this.board.getEnergizers().forEach(function (ener) {
-			self.matrix[ener.y][ener.x] = enerValue;
+            self.matrix[ener.y][ener.x] = enerValue;
         });
     };
     
@@ -72,7 +72,7 @@ var Food = (function () {
             var x = self.board.getTileCenter(ener.x),
                 y = self.board.getTileCenter(ener.y);
             
-			if (self.matrix[ener.y][ener.x] === enerValue) {
+            if (self.matrix[ener.y][ener.x] === enerValue) {
                 self.energizers.push({ x: x, y: y });
             }
         });
@@ -164,7 +164,6 @@ var Food = (function () {
      * @param {number} y
      */
     Food.prototype.clearEnergizer = function (x, y) {
-        var size = this.board.getTileSize();
         this.ctx.clearRect(x - this.maxRadius, y - this.maxRadius, this.maxRadius * 2, this.maxRadius * 2);
     };
     
@@ -172,19 +171,19 @@ var Food = (function () {
      * Does the Enerigizers animation
      */
     Food.prototype.wink = function () {
-		this.calcRadius();
-		this.drawEnergizers(this.radius);
-	};
+        this.calcRadius();
+        this.drawEnergizers(this.radius);
+    };
     
     /**
      * Calculates the Radius for the Energizers
      */
     Food.prototype.calcRadius = function () {
         this.radius += this.mult * 0.1;
-		this.mult    = this.radius <= this.minRadius ? 1 : (this.radius >= this.maxRadius ? -1 : this.mult);
+        this.mult    = this.radius <= this.minRadius ? 1 : (this.radius >= this.maxRadius ? -1 : this.mult);
     };
     
-	
+    
     /**
      * Returns true if there is a Pill at the given cell
      * @param {number} col
@@ -201,13 +200,13 @@ var Food = (function () {
      * @return {number}
      */
     Food.prototype.eatPill = function (col, row) {
-		var value = this.matrix[row][col],
+        var value = this.matrix[row][col],
             x     = this.board.getTileCenter(col),
             y     = this.board.getTileCenter(row);
         
         this.clearPill(col, row);
         this.matrix[row][col] = 0;
-		this.total -= 1;
+        this.total -= 1;
         
         if (this.isEnergizer(value)) {
             this.clearEnergizer(x, y);
@@ -234,301 +233,301 @@ var Food = (function () {
     };
     
     
-	/*Food.prototype.eat = function (blob) {
-		var col = blob.getTile().x,
+    /*Food.prototype.eat = function (blob) {
+        var col = blob.getTile().x,
             row = blob.getTile().y;
-		
+        
         if (this.timer > 0 && this.atFruit(blob)) {
-			this.eatFruit();
+            this.eatFruit();
         } else if (this.matrix[row][col] > 0) {
-			this.eatDot(col, row);
-			this.addFruit();
-			return true;
-		}
-		return false;
-	};*/
-	
-	
-	// Fruits
-	Food.prototype.reduceTimer = function (time) {
-		if (this.timer > 0) {
-			this.timer -= time;
-			if (this.timer <= 0) {
-				this.clearFruit();
+            this.eatDot(col, row);
+            this.addFruit();
+            return true;
+        }
+        return false;
+    };*/
+    
+    
+    // Fruits
+    Food.prototype.reduceTimer = function (time) {
+        if (this.timer > 0) {
+            this.timer -= time;
+            if (this.timer <= 0) {
+                this.clearFruit();
             }
-		}
-	};
+        }
+    };
     
     Food.prototype.getFruitTime = function () {
-		return Math.round(Math.random() * 1000) + 9000;
-	};
+        return Math.round(Math.random() * 1000) + 9000;
+    };
     
-	Food.prototype.addFruit = function () {
-		if (this.total === fruitDots1 || this.total === fruitDots2) {
-			this.timer = this.getFruitTime();
-			this.drawFruit(pmData.fruitPos[0], pmData.fruitPos[1]);
-		}
-	};
+    Food.prototype.addFruit = function () {
+        if (this.total === fruitDots1 || this.total === fruitDots2) {
+            this.timer = this.getFruitTime();
+            this.drawFruit(pmData.fruitPos[0], pmData.fruitPos[1]);
+        }
+    };
     
-	Food.prototype.eatFruit = function () {
-		pmScore.fruit();
-		this.clearFruit();
-	};
-	
-	
-	// Sub Functions
-	Food.prototype.atFruit = function (blob) {
-		var minX = pmData.fruitPos[0] - 2,
-			maxX = pmData.fruitPos[0] + pmData.fruitSize - 2,
-			minY = pmData.fruitPos[1] - 2,
-			maxY = pmData.fruitPos[1] + pmData.fruitSize - 2;
-		
-		return (
+    Food.prototype.eatFruit = function () {
+        pmScore.fruit();
+        this.clearFruit();
+    };
+    
+    
+    // Sub Functions
+    Food.prototype.atFruit = function (blob) {
+        var minX = pmData.fruitPos[0] - 2,
+            maxX = pmData.fruitPos[0] + pmData.fruitSize - 2,
+            minY = pmData.fruitPos[1] - 2,
+            maxY = pmData.fruitPos[1] + pmData.fruitSize - 2;
+        
+        return (
             blob.getX() >= minX && blob.getX() <= maxX &&
-			blob.getY() >= minY && blob.getY() <= maxY
+            blob.getY() >= minY && blob.getY() <= maxY
         );
-	};
+    };
     
-	Food.prototype.getValue = function (col, row) {
-		return this.matrix[col][row];
-	};
+    Food.prototype.getValue = function (col, row) {
+        return this.matrix[col][row];
+    };
     
     
     /**
      * Draws a Fruit
      */
     Food.prototype.drawFruit = function (x, y) {
-		this.ctx.save();
-		this.ctx.translate(x, y);
-		this["draw" + fruitnames[this.score.getLevelData("fruitType")]]();
-		this.ctx.restore();
-	};
+        this.ctx.save();
+        this.ctx.translate(x, y);
+        this["draw" + fruitnames[this.score.getLevelData("fruitType")]]();
+        this.ctx.restore();
+    };
     
     Food.prototype.clearFruit = function () {
         this.ctx.clearRect(pmData.fruitPos[0] - 1, pmData.fruitPos[1] - 1, pmData.fruitSize, pmData.fruitSize);
     };
     
-	
-	// Cherries
-	Food.prototype.drawCherries = function () {
-		this.ctx.fillStyle = "rgb(255, 0, 0)";
-		this.ctx.beginPath();
-		this.ctx.arc(10, 14, 4, 0, 2 * Math.PI);
-		this.ctx.arc(4, 10, 4, 0, 2 * Math.PI);
-		this.ctx.fill();
-		
-		this.ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
-		this.ctx.beginPath();
-		this.ctx.arc(8, 15.5, 1.5, 0, 2 * Math.PI);
-		this.ctx.arc(1.5, 11, 1.5, 0, 2 * Math.PI);
-		this.ctx.fill();
-		
-		this.ctx.strokeStyle = "rgb(0, 153, 0)";
-		this.ctx.lineWidth = 2;
-		this.ctx.beginPath();
-		this.ctx.moveTo(17, 1);
-		this.ctx.quadraticCurveTo(9, 1, 5, 9);
-		this.ctx.moveTo(17, 1);
-		this.ctx.quadraticCurveTo(12, 3, 10, 12);
-		this.ctx.stroke();
-		
-		this.ctx.strokeStyle = "rgb(222, 151, 81)";
-		this.ctx.lineWidth = 3;
-		this.ctx.lineCap = "round";
-		this.ctx.beginPath();
-		this.ctx.moveTo(17, 1);
-		this.ctx.lineTo(16, 2);
-		this.ctx.stroke();
-	};
-	
-	// Strawberry
-	Food.prototype.drawStrawberry = function () {
-		var i, dots = [ 3, 7, 5, 6, 4, 10, 7, 8, 6, 11, 7, 13, 9, 10, 9, 14, 10, 12, 11, 8, 12, 11, 14, 6, 14, 9 ];
+    
+    // Cherries
+    Food.prototype.drawCherries = function () {
+        this.ctx.fillStyle = "rgb(255, 0, 0)";
+        this.ctx.beginPath();
+        this.ctx.arc(10, 14, 4, 0, 2 * Math.PI);
+        this.ctx.arc(4, 10, 4, 0, 2 * Math.PI);
+        this.ctx.fill();
+        
+        this.ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+        this.ctx.beginPath();
+        this.ctx.arc(8, 15.5, 1.5, 0, 2 * Math.PI);
+        this.ctx.arc(1.5, 11, 1.5, 0, 2 * Math.PI);
+        this.ctx.fill();
+        
+        this.ctx.strokeStyle = "rgb(0, 153, 0)";
+        this.ctx.lineWidth = 2;
+        this.ctx.beginPath();
+        this.ctx.moveTo(17, 1);
+        this.ctx.quadraticCurveTo(9, 1, 5, 9);
+        this.ctx.moveTo(17, 1);
+        this.ctx.quadraticCurveTo(12, 3, 10, 12);
+        this.ctx.stroke();
+        
+        this.ctx.strokeStyle = "rgb(222, 151, 81)";
+        this.ctx.lineWidth = 3;
+        this.ctx.lineCap = "round";
+        this.ctx.beginPath();
+        this.ctx.moveTo(17, 1);
+        this.ctx.lineTo(16, 2);
+        this.ctx.stroke();
+    };
+    
+    // Strawberry
+    Food.prototype.drawStrawberry = function () {
+        var i, dots = [ 3, 7, 5, 6, 4, 10, 7, 8, 6, 11, 7, 13, 9, 10, 9, 14, 10, 12, 11, 8, 12, 11, 14, 6, 14, 9 ];
         
         this.ctx.fillStyle = "rgb(222, 0, 0)";
-		this.ctx.beginPath();
-		this.ctx.moveTo(9, 3);
-		this.ctx.quadraticCurveTo(17, 3, 17, 7);
-		this.ctx.quadraticCurveTo(17, 14, 9, 17);
-		this.ctx.quadraticCurveTo(1, 14, 1, 7);
-		this.ctx.quadraticCurveTo(1, 3, 9, 3);
-		this.ctx.fill();
-		
-		this.ctx.fillStyle = "rgb(0, 222, 0)";
-		this.ctx.beginPath();
-		this.ctx.moveTo(5, 3);
-		this.ctx.lineTo(13, 3);
-		this.ctx.lineTo(14, 4);
-		this.ctx.lineTo(9, 7);
-		this.ctx.lineTo(4, 4);
-		this.ctx.fill();
-				
-		this.ctx.fillStyle = "rgb(255, 255, 255)";
-		this.ctx.fillRect(8, 0, 2, 4);
-		
-		for (i = 0; i < dots.length; i += 2) {
-			this.ctx.fillRect(dots[i], dots[i + 1], 1, 1);
+        this.ctx.beginPath();
+        this.ctx.moveTo(9, 3);
+        this.ctx.quadraticCurveTo(17, 3, 17, 7);
+        this.ctx.quadraticCurveTo(17, 14, 9, 17);
+        this.ctx.quadraticCurveTo(1, 14, 1, 7);
+        this.ctx.quadraticCurveTo(1, 3, 9, 3);
+        this.ctx.fill();
+        
+        this.ctx.fillStyle = "rgb(0, 222, 0)";
+        this.ctx.beginPath();
+        this.ctx.moveTo(5, 3);
+        this.ctx.lineTo(13, 3);
+        this.ctx.lineTo(14, 4);
+        this.ctx.lineTo(9, 7);
+        this.ctx.lineTo(4, 4);
+        this.ctx.fill();
+        
+        this.ctx.fillStyle = "rgb(255, 255, 255)";
+        this.ctx.fillRect(8, 0, 2, 4);
+        
+        for (i = 0; i < dots.length; i += 2) {
+            this.ctx.fillRect(dots[i], dots[i + 1], 1, 1);
         }
-	};
-	
-	// Peach
-	Food.prototype.drawPeach = function () {
-		this.ctx.fillStyle = "rgb(255, 181, 33)";
-		this.ctx.beginPath();
-		this.ctx.arc(6, 10, 5, Math.PI, 1.5 * Math.PI, false);
-		this.ctx.arc(12, 10, 5, 1.5 * Math.PI, 2 * Math.PI, false);
-		this.ctx.arc(10, 11, 7, 0, 0.5 * Math.PI, false);
-		this.ctx.arc(8, 11, 7, 0.5 * Math.PI, Math.PI, false);
-		this.ctx.fill();
-		
-		this.ctx.strokeStyle = "rgb(0, 222, 0)";
-		this.ctx.lineCap = "round";
-		this.ctx.beginPath();
-		this.ctx.moveTo(6, 5);
-		this.ctx.lineTo(14, 4);
-		this.ctx.moveTo(14, 0);
-		this.ctx.quadraticCurveTo(11, 0, 10, 7);
-		this.ctx.stroke();
-	};
-	
-	// Apple
-	Food.prototype.drawApple = function () {
-		this.ctx.fillStyle = "rgb(222, 0, 0)";
-		this.ctx.beginPath();
-		this.ctx.arc(6, 8, 5, Math.PI, 1.5 * Math.PI, false);
-		this.ctx.arc(12, 8, 5, 1.5 * Math.PI, 2 * Math.PI, false);
-		this.ctx.arc(10, 11, 7, 0, 0.5 * Math.PI, false);
-		this.ctx.arc(13, 15, 3, 0.5 * Math.PI, Math.PI, false);
-		this.ctx.arc(6, 15, 3, 0, 0.5 * Math.PI, false);
-		this.ctx.arc(8, 11, 7, 0.5 * Math.PI, Math.PI, false);
-		this.ctx.fill();
-		
-		this.ctx.strokeStyle = "rgb(0, 222, 0)";
-		this.ctx.lineCap = "round";
-		this.ctx.beginPath();
-		this.ctx.arc(3, 7, 7, 1.5 * Math.PI, 2 * Math.PI, false);
-		this.ctx.arc(13, 4, 4, Math.PI, 1.5 * Math.PI, false);
-		this.ctx.stroke();
-		
-		this.ctx.strokeStyle = "rgba(255, 255, 255, 0.8)";
-		this.ctx.beginPath();
-		this.ctx.arc(7, 9, 4, Math.PI, 1.5 * Math.PI, false);
-		this.ctx.stroke();
-	};
-	
-	// Grapes
-	Food.prototype.drawGrapes = function () {
-		this.ctx.fillStyle = "rgb(0, 222, 0)";
-		this.ctx.beginPath();
-		this.ctx.arc(9, 11, 8, 0, 2 * Math.PI);
-		this.ctx.fill();
-		
-		this.ctx.strokeStyle = "rgb(74, 74, 0)";
-		this.ctx.beginPath();
-		this.ctx.moveTo(9, 4);
-		this.ctx.lineTo(2, 11);
-		this.ctx.lineTo(7, 16);
-		this.ctx.moveTo(14, 6);
-		this.ctx.lineTo(8, 12);
-		this.ctx.lineTo(14, 18);
-		this.ctx.moveTo(9, 6);
-		this.ctx.lineTo(15, 12);
-		this.ctx.lineTo(10, 17);
-		this.ctx.moveTo(10, 14);
-		this.ctx.lineTo(4, 18);
-		this.ctx.stroke();
-		
-		this.ctx.strokeStyle = "rgb(222, 148, 74)";
-		this.ctx.beginPath();
-		this.ctx.moveTo(4, 0);
-		this.ctx.lineTo(5, 1);
-		this.ctx.lineTo(12, 1);
-		this.ctx.moveTo(9, 1);
-		this.ctx.lineTo(9, 4);
-		this.ctx.stroke();
-	};
-	
-	// Galaxian
-	Food.prototype.darwGalaxian = function () {
-		this.ctx.fillStyle   = "rgb(255, 250, 55)";
-		this.ctx.strokeStyle = "rgb(255, 250, 55)";
-		this.ctx.beginPath();
-		this.ctx.moveTo(1, 4);
-		this.ctx.lineTo(17, 4);
-		this.ctx.lineTo(9, 11);
-		this.ctx.fill();
-		this.ctx.beginPath();
-		this.ctx.moveTo(9, 11);
-		this.ctx.lineTo(9, 18);
-		this.ctx.stroke();
-		
-		this.ctx.strokeStyle = "rgb(0, 51, 255)";
-		this.ctx.beginPath();
-		this.ctx.moveTo(1, 1);
-		this.ctx.lineTo(1, 6);
-		this.ctx.lineTo(8, 12);
-		this.ctx.moveTo(17, 1);
-		this.ctx.lineTo(17, 6);
-		this.ctx.lineTo(10, 12);
-		this.ctx.stroke();
-		
-		this.ctx.fillStyle   = "rgb(255, 0, 0)";
-		this.ctx.strokeStyle = "rgb(255, 0, 0)";
-		this.ctx.beginPath();
-		this.ctx.moveTo(3, 5);
-		this.ctx.lineTo(9, 0);
-		this.ctx.lineTo(15, 5);
-		this.ctx.fill();
-		this.ctx.beginPath();
-		this.ctx.moveTo(9, 3);
-		this.ctx.lineTo(9, 6);
-		this.ctx.stroke();
-	};
-	
-	// Bell
-	Food.prototype.darwBell = function () {
-		this.ctx.fillStyle = "rgb(255, 255, 33)";
-		this.ctx.beginPath();
-		this.ctx.moveTo(1, 15);
-		this.ctx.quadraticCurveTo(1, 1, 9, 1);
-		this.ctx.quadraticCurveTo(17, 1, 17, 15);
-		this.ctx.fill();
-		
-		this.ctx.fillStyle = "rgb(0, 222, 222)";
-		this.ctx.fillRect(3, 14, 12, 3);
-		this.ctx.fillStyle = "rgb(255, 255, 255)";
-		this.ctx.fillRect(9, 14, 3, 3);
-		
-		this.ctx.strokeStyle = "rgb(255, 255, 255)";
-		this.ctx.beginPath();
-		this.ctx.moveTo(8, 4);
-		this.ctx.quadraticCurveTo(4, 4, 4, 13);
-		this.ctx.stroke();
-	};
-	
-	// Key
-	Food.prototype.drawKey = function () {
-		this.ctx.fillStyle = "rgb(0, 222, 222)";
-		this.ctx.beginPath();
-		this.ctx.arc(6, 3, 3, Math.PI, 1.5 * Math.PI, false);
-		this.ctx.arc(12, 3, 3, 1.5 * Math.PI, 2 * Math.PI, false);
-		this.ctx.arc(12, 5, 3, 0, 0.5 * Math.PI, false);
-		this.ctx.arc(6, 5, 3, 0.5 * Math.PI, Math.PI, false);
-		this.ctx.fill();
-		this.ctx.clearRect(6, 2, 6, 2);
-		
-		this.ctx.strokeStyle = "rgb(255, 255, 255)";
-		this.ctx.beginPath();
-		this.ctx.moveTo(8, 8);
-		this.ctx.lineTo(8, 15);
-		this.ctx.arc(9.5, 13.5, 1.5, Math.PI, 0, true);
-		this.ctx.lineTo(11, 8);
-		this.ctx.moveTo(11, 10);
-		this.ctx.lineTo(14, 10);
-		this.ctx.moveTo(11, 13);
-		this.ctx.lineTo(14, 13);
-		this.ctx.stroke();
-	};
+    };
+    
+    // Peach
+    Food.prototype.drawPeach = function () {
+        this.ctx.fillStyle = "rgb(255, 181, 33)";
+        this.ctx.beginPath();
+        this.ctx.arc(6, 10, 5, Math.PI, 1.5 * Math.PI, false);
+        this.ctx.arc(12, 10, 5, 1.5 * Math.PI, 2 * Math.PI, false);
+        this.ctx.arc(10, 11, 7, 0, 0.5 * Math.PI, false);
+        this.ctx.arc(8, 11, 7, 0.5 * Math.PI, Math.PI, false);
+        this.ctx.fill();
+        
+        this.ctx.strokeStyle = "rgb(0, 222, 0)";
+        this.ctx.lineCap = "round";
+        this.ctx.beginPath();
+        this.ctx.moveTo(6, 5);
+        this.ctx.lineTo(14, 4);
+        this.ctx.moveTo(14, 0);
+        this.ctx.quadraticCurveTo(11, 0, 10, 7);
+        this.ctx.stroke();
+    };
+    
+    // Apple
+    Food.prototype.drawApple = function () {
+        this.ctx.fillStyle = "rgb(222, 0, 0)";
+        this.ctx.beginPath();
+        this.ctx.arc(6, 8, 5, Math.PI, 1.5 * Math.PI, false);
+        this.ctx.arc(12, 8, 5, 1.5 * Math.PI, 2 * Math.PI, false);
+        this.ctx.arc(10, 11, 7, 0, 0.5 * Math.PI, false);
+        this.ctx.arc(13, 15, 3, 0.5 * Math.PI, Math.PI, false);
+        this.ctx.arc(6, 15, 3, 0, 0.5 * Math.PI, false);
+        this.ctx.arc(8, 11, 7, 0.5 * Math.PI, Math.PI, false);
+        this.ctx.fill();
+        
+        this.ctx.strokeStyle = "rgb(0, 222, 0)";
+        this.ctx.lineCap = "round";
+        this.ctx.beginPath();
+        this.ctx.arc(3, 7, 7, 1.5 * Math.PI, 2 * Math.PI, false);
+        this.ctx.arc(13, 4, 4, Math.PI, 1.5 * Math.PI, false);
+        this.ctx.stroke();
+        
+        this.ctx.strokeStyle = "rgba(255, 255, 255, 0.8)";
+        this.ctx.beginPath();
+        this.ctx.arc(7, 9, 4, Math.PI, 1.5 * Math.PI, false);
+        this.ctx.stroke();
+    };
+    
+    // Grapes
+    Food.prototype.drawGrapes = function () {
+        this.ctx.fillStyle = "rgb(0, 222, 0)";
+        this.ctx.beginPath();
+        this.ctx.arc(9, 11, 8, 0, 2 * Math.PI);
+        this.ctx.fill();
+        
+        this.ctx.strokeStyle = "rgb(74, 74, 0)";
+        this.ctx.beginPath();
+        this.ctx.moveTo(9, 4);
+        this.ctx.lineTo(2, 11);
+        this.ctx.lineTo(7, 16);
+        this.ctx.moveTo(14, 6);
+        this.ctx.lineTo(8, 12);
+        this.ctx.lineTo(14, 18);
+        this.ctx.moveTo(9, 6);
+        this.ctx.lineTo(15, 12);
+        this.ctx.lineTo(10, 17);
+        this.ctx.moveTo(10, 14);
+        this.ctx.lineTo(4, 18);
+        this.ctx.stroke();
+        
+        this.ctx.strokeStyle = "rgb(222, 148, 74)";
+        this.ctx.beginPath();
+        this.ctx.moveTo(4, 0);
+        this.ctx.lineTo(5, 1);
+        this.ctx.lineTo(12, 1);
+        this.ctx.moveTo(9, 1);
+        this.ctx.lineTo(9, 4);
+        this.ctx.stroke();
+    };
+    
+    // Galaxian
+    Food.prototype.darwGalaxian = function () {
+        this.ctx.fillStyle   = "rgb(255, 250, 55)";
+        this.ctx.strokeStyle = "rgb(255, 250, 55)";
+        this.ctx.beginPath();
+        this.ctx.moveTo(1, 4);
+        this.ctx.lineTo(17, 4);
+        this.ctx.lineTo(9, 11);
+        this.ctx.fill();
+        this.ctx.beginPath();
+        this.ctx.moveTo(9, 11);
+        this.ctx.lineTo(9, 18);
+        this.ctx.stroke();
+        
+        this.ctx.strokeStyle = "rgb(0, 51, 255)";
+        this.ctx.beginPath();
+        this.ctx.moveTo(1, 1);
+        this.ctx.lineTo(1, 6);
+        this.ctx.lineTo(8, 12);
+        this.ctx.moveTo(17, 1);
+        this.ctx.lineTo(17, 6);
+        this.ctx.lineTo(10, 12);
+        this.ctx.stroke();
+        
+        this.ctx.fillStyle   = "rgb(255, 0, 0)";
+        this.ctx.strokeStyle = "rgb(255, 0, 0)";
+        this.ctx.beginPath();
+        this.ctx.moveTo(3, 5);
+        this.ctx.lineTo(9, 0);
+        this.ctx.lineTo(15, 5);
+        this.ctx.fill();
+        this.ctx.beginPath();
+        this.ctx.moveTo(9, 3);
+        this.ctx.lineTo(9, 6);
+        this.ctx.stroke();
+    };
+    
+    // Bell
+    Food.prototype.darwBell = function () {
+        this.ctx.fillStyle = "rgb(255, 255, 33)";
+        this.ctx.beginPath();
+        this.ctx.moveTo(1, 15);
+        this.ctx.quadraticCurveTo(1, 1, 9, 1);
+        this.ctx.quadraticCurveTo(17, 1, 17, 15);
+        this.ctx.fill();
+        
+        this.ctx.fillStyle = "rgb(0, 222, 222)";
+        this.ctx.fillRect(3, 14, 12, 3);
+        this.ctx.fillStyle = "rgb(255, 255, 255)";
+        this.ctx.fillRect(9, 14, 3, 3);
+        
+        this.ctx.strokeStyle = "rgb(255, 255, 255)";
+        this.ctx.beginPath();
+        this.ctx.moveTo(8, 4);
+        this.ctx.quadraticCurveTo(4, 4, 4, 13);
+        this.ctx.stroke();
+    };
+    
+    // Key
+    Food.prototype.drawKey = function () {
+        this.ctx.fillStyle = "rgb(0, 222, 222)";
+        this.ctx.beginPath();
+        this.ctx.arc(6, 3, 3, Math.PI, 1.5 * Math.PI, false);
+        this.ctx.arc(12, 3, 3, 1.5 * Math.PI, 2 * Math.PI, false);
+        this.ctx.arc(12, 5, 3, 0, 0.5 * Math.PI, false);
+        this.ctx.arc(6, 5, 3, 0.5 * Math.PI, Math.PI, false);
+        this.ctx.fill();
+        this.ctx.clearRect(6, 2, 6, 2);
+        
+        this.ctx.strokeStyle = "rgb(255, 255, 255)";
+        this.ctx.beginPath();
+        this.ctx.moveTo(8, 8);
+        this.ctx.lineTo(8, 15);
+        this.ctx.arc(9.5, 13.5, 1.5, Math.PI, 0, true);
+        this.ctx.lineTo(11, 8);
+        this.ctx.moveTo(11, 10);
+        this.ctx.lineTo(14, 10);
+        this.ctx.moveTo(11, 13);
+        this.ctx.lineTo(14, 13);
+        this.ctx.stroke();
+    };
 
     
     

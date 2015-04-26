@@ -892,7 +892,7 @@ var Maps = (function () {
      * @return {Array.<{type: string, col: number, row: number, level: number}>}
      */
     Map.prototype.getInitialSetup = function () {
-        var i, j, data, tower, level, list = [],
+        var i, data, list = [],
             amount = this.storage.get("towers");
         
         if (amount) {

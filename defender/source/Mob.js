@@ -1,4 +1,4 @@
-/*jslint browser: true */
+/*jslint browser: true, unparam: true */
 /*global List, Utils */
 
 var Mob = (function () {

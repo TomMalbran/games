@@ -1,4 +1,4 @@
-/*jslint browser: true */
+/*jslint browser: true, unparam: true */
 /*global Mob, List, AStar, Utils */
 
 var Mobs = (function () {
@@ -94,7 +94,7 @@ var Mobs = (function () {
      * @param {Mob} mob
      */
     Manager.prototype.moveToNewCell = function (mob) {
-        var	pos = mob.getCenterPos(),
+        var pos = mob.getCenterPos(),
             row = mob.getCell(pos.top),
             col = mob.getCell(mob.left),
             ret = false;
@@ -734,9 +734,8 @@ var Mobs = (function () {
                     paths[cell] = self.createMobPath(mob);
                     if (paths[cell].length === 0) {
                         return true;
-                    } else {
-                        self.mobs[mob.getID()] = cell;
                     }
+                    self.mobs[mob.getID()] = cell;
                 }
             });
             return false;
@@ -905,14 +904,12 @@ var Mobs = (function () {
     Paths.prototype.getMobDir = function (path, pos, isFlyer) {
         if (isFlyer) {
             return this.flyerPaths[path].dir;
-        } else {
-            var dir = this.getPathDir(path, pos);
-            if (dir.top === dir.left === 1) {
-                return { top: dir.top / 1.414, left: dir.left / 1.414 };
-            } else {
-                return { top: dir.top, left: dir.left };
-            }
         }
+        var dir = this.getPathDir(path, pos);
+        if (dir.top === 1 && dir.left === 1) {
+            return { top: dir.top / 1.414, left: dir.left / 1.414 };
+        }
+        return { top: dir.top, left: dir.left };
     };
     
     /**
@@ -924,12 +921,11 @@ var Mobs = (function () {
     Paths.prototype.getPathDir = function (path, pos) {
         if (!this.normalPaths[path][pos + 1]) {
             return { top: null, left: null };
-        } else {
-            return {
-                top  : this.normalPaths[path][pos + 1][1] - this.normalPaths[path][pos][1],
-                left : this.normalPaths[path][pos + 1][0] - this.normalPaths[path][pos][0]
-            };
         }
+        return {
+            top  : this.normalPaths[path][pos + 1][1] - this.normalPaths[path][pos][1],
+            left : this.normalPaths[path][pos + 1][0] - this.normalPaths[path][pos][0]
+        };
     };
     
     /**

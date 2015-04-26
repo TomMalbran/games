@@ -25,9 +25,9 @@ var Blob = (function () {
         this.ghosts = ghosts;
         this.sounds = sounds;
         
-		this.init(board, score, board.getGameCanvas());
-		this.draw();
-	}
+        this.init(board, score, board.getGameCanvas());
+        this.draw();
+    }
     
     /**
      * Initializes the Blob
@@ -43,15 +43,15 @@ var Blob = (function () {
         
         this.tile       = Object.create(startingPos);
         this.tileCenter = this.board.getTileXYCenter(this.tile);
-		this.x          = this.tileCenter.x;
-		this.y          = this.tileCenter.y;
-		this.dir        = Object.create(startingDir);
-		this.speed      = this.score.getLevelData("pmSpeed");
-		this.center     = true;
-		this.turn       = null;
-		this.delta      = null;
-		this.mouth      = 5;
-		this.radius     = Math.round(this.board.getTileSize() / 1.5);
+        this.x          = this.tileCenter.x;
+        this.y          = this.tileCenter.y;
+        this.dir        = Object.create(startingDir);
+        this.speed      = this.score.getLevelData("pmSpeed");
+        this.center     = true;
+        this.turn       = null;
+        this.delta      = null;
+        this.mouth      = 5;
+        this.radius     = Math.round(this.board.getTileSize() / 1.5);
         this.sound      = 1;
     };
     
@@ -62,37 +62,37 @@ var Blob = (function () {
     Blob.prototype.onDeath = function (callback) {
         this.deathCallback = callback;
     };
-	
+    
     
     /**
      * Animates the Blob
      * @param {number} speed
      */
-	Blob.prototype.animate = function (speed) {
-		if (this.center && this.crashed()) {
-			this.mouth = 5;
-		} else if (this.delta) {
-			this.cornering(speed);
+    Blob.prototype.animate = function (speed) {
+        if (this.center && this.crashed()) {
+            this.mouth = 5;
+        } else if (this.delta) {
+            this.cornering(speed);
         } else {
-			this.move(speed);
+            this.move(speed);
         }
-		this.draw();
-	};
-	
-	/**
-	 * Moves the Blob
-	 * @param {number} seed
-	 */
-	Blob.prototype.move = function (speed) {
-		this.x += this.dir.x * this.speed * speed;
-		this.y += this.dir.y * this.speed * speed;
-		
-		this.moveMouth();
-		this.newTile();
-		this.atCenter();
+        this.draw();
+    };
+    
+    /**
+     * Moves the Blob
+     * @param {number} seed
+     */
+    Blob.prototype.move = function (speed) {
+        this.x += this.dir.x * this.speed * speed;
+        this.y += this.dir.y * this.speed * speed;
+        
+        this.moveMouth();
+        this.newTile();
+        this.atCenter();
         
         this.x = this.board.tunnelEnds(this.x);
-	};
+    };
     
     /**
      * Changes the state of the Blob's mouth
@@ -100,33 +100,33 @@ var Blob = (function () {
     Blob.prototype.moveMouth = function () {
         this.mouth = (this.mouth + 1) % 20;
     };
-	
+    
     /**
      * The Blob might have entered a new Tile, and several things might need to be done
      */
-	Blob.prototype.newTile = function () {
-		var tile = this.board.getTilePos(this.x, this.y);
-		if (this.tile.x !== tile.x || this.tile.y !== tile.y) {
-			this.tile       = tile;
-			this.tileCenter = this.board.getTileXYCenter(tile);
-			this.center     = false;
-			
-			if (this.turn && !this.isWall(this.turn)) {
-				this.delta = {
+    Blob.prototype.newTile = function () {
+        var tile = this.board.getTilePos(this.x, this.y);
+        if (this.tile.x !== tile.x || this.tile.y !== tile.y) {
+            this.tile       = tile;
+            this.tileCenter = this.board.getTileXYCenter(tile);
+            this.center     = false;
+            
+            if (this.turn && !this.isWall(this.turn)) {
+                this.delta = {
                     x : this.dir.x || this.turn.x,
                     y : this.dir.y || this.turn.y
                 };
-			}
+            }
             
-			this.ghosts.setTargets(this);
-		}
-	};
+            this.ghosts.setTargets(this);
+        }
+    };
     
     /**
      * Does the turning or wall crash when the Blob is at, or just passed, the center of a tile
      */
-	Blob.prototype.atCenter = function () {
-		if (!this.center && this.passedCenter()) {
+    Blob.prototype.atCenter = function () {
+        if (!this.center && this.passedCenter()) {
             this.eat();
             
             var turn = false;
@@ -140,36 +140,36 @@ var Blob = (function () {
                 this.y = this.tileCenter.y;
             }
             this.center = true;
-		}
-	};
-	
-	
-	/**
-	 * Does a faster turn by turnning a bit before the corner. Only when a turn is asked before reaching an intersection
-	 */
-	Blob.prototype.cornering = function (speed) {
-		this.x += this.delta.x * this.speed * speed;
-		this.y += this.delta.y * this.speed * speed;
-		
-		if (this.passedCenter()) {
-			if (this.dir.x) {
+        }
+    };
+    
+    
+    /**
+     * Does a faster turn by turnning a bit before the corner. Only when a turn is asked before reaching an intersection
+     */
+    Blob.prototype.cornering = function (speed) {
+        this.x += this.delta.x * this.speed * speed;
+        this.y += this.delta.y * this.speed * speed;
+        
+        if (this.passedCenter()) {
+            if (this.dir.x) {
                 this.x = this.tileCenter.x;
             }
-			if (this.dir.y) {
+            if (this.dir.y) {
                 this.y = this.tileCenter.y;
             }
-			this.dir   = this.turn;
-			this.turn  = null;
-			this.delta = null;
-			
-			this.eat();
-		}
-	};
-	
-	/**
-	 * Eats food (dots, energizers, fruits)
-	 */
-	Blob.prototype.eat = function () {
+            this.dir   = this.turn;
+            this.turn  = null;
+            this.delta = null;
+            
+            this.eat();
+        }
+    };
+    
+    /**
+     * Eats food (dots, energizers, fruits)
+     */
+    Blob.prototype.eat = function () {
         if (this.food.isAtPill(this.tile.x, this.tile.y)) {
             var value = this.food.eatPill(this.tile.x, this.tile.y),
                 total = this.food.getLeftPills();
@@ -193,7 +193,7 @@ var Blob = (function () {
             this.sound = 1;
             this.setSpeed(false);
         }
-	};
+    };
     
     Blob.prototype.eatSound = function () {
         this.sound = (this.sound + 1) % 2;
@@ -203,19 +203,20 @@ var Blob = (function () {
             this.sounds.eat2();
         }
     };
-	
-	// New direction (given by the user)
-	Blob.prototype.makeTurn = function (turn) {
-		if (this.delta) {
+    
+    // New direction (given by the user)
+    Blob.prototype.makeTurn = function (turn) {
+        if (this.delta) {
             return;
-		} else if (this.turnNow(turn)) {
-			this.dir    = turn;
-			this.turn   = null;
-			this.center = false;
-		} else {
-			this.turn = turn;
         }
-	};
+        if (this.turnNow(turn)) {
+            this.dir    = turn;
+            this.turn   = null;
+            this.center = false;
+        } else {
+            this.turn = turn;
+        }
+    };
     
     
     /**
@@ -277,68 +278,76 @@ var Blob = (function () {
         
 
     
-	// Sub Functions
-	Blob.prototype.crashed = function () {
-		return this.isWall(this.dir);
-	};
+    // Sub Functions
+    Blob.prototype.crashed = function () {
+        return this.isWall(this.dir);
+    };
     
     /**
      * Returns true if the Blob has passed the center of the currrent tile
      * @return {boolean}
      */
-	Blob.prototype.passedCenter = function () {
-		return (
+    Blob.prototype.passedCenter = function () {
+        return (
             (this.dir.x ===  1 && this.x >= this.tileCenter.x) ||
-			(this.dir.x === -1 && this.x <= this.tileCenter.x) ||
-			(this.dir.y ===  1 && this.y >= this.tileCenter.y) ||
-			(this.dir.y === -1 && this.y <= this.tileCenter.y)
+            (this.dir.x === -1 && this.x <= this.tileCenter.x) ||
+            (this.dir.y ===  1 && this.y >= this.tileCenter.y) ||
+            (this.dir.y === -1 && this.y <= this.tileCenter.y)
         );
-	};
+    };
     
     /**
      * Returns true if the Blob has to turn now
      * @param {{x: number, y: number}}
      * @return {boolean}
      */
-	Blob.prototype.turnNow = function (turn) {
-		return (
-            (!this.dir.x && !turn.x) || (!this.dir.y && !turn.y) ||		// Halth Turn
-			(this.center && this.crashed() && !this.isWall(turn))		// Crash Turn
+    Blob.prototype.turnNow = function (turn) {
+        return (
+            (!this.dir.x && !turn.x) || (!this.dir.y && !turn.y) ||     // Halth Turn
+            (this.center && this.crashed() && !this.isWall(turn))       // Crash Turn
         );
-	};
+    };
     
     /**
      * Returns true if the next tile is a wall
      * @param {{x: number, y: number}}
      * @return {boolean}
      */
-	Blob.prototype.isWall = function (turn) {
-		return this.board.isWall(this.tile.x + turn.x, this.tile.y + turn.y);
-	};
-	
-	Blob.prototype.setSpeed = function (ate) {
-		var param;
-		if (this.ghosts.areFrighten()) {
-			param = ate ? "eatingFrightSpeed" : "pmFrightSpeed";
-		} else {
-			param = ate ? "eatingSpeed" : "pmSpeed";
+    Blob.prototype.isWall = function (turn) {
+        return this.board.isWall(this.tile.x + turn.x, this.tile.y + turn.y);
+    };
+    
+    Blob.prototype.setSpeed = function (ate) {
+        var param;
+        if (this.ghosts.areFrighten()) {
+            param = ate ? "eatingFrightSpeed" : "pmFrightSpeed";
+        } else {
+            param = ate ? "eatingSpeed" : "pmSpeed";
         }
         this.speed = this.score.getLevelData(param);
-	};
+    };
     
-	Blob.prototype.getAngle = function () {
-		if (this.dir.x === -1) { return 0; }
-		if (this.dir.x ===  1) { return Math.PI; }
-		if (this.dir.y === -1) { return 0.5 * Math.PI; }
-		if (this.dir.y ===  1) { return 1.5 * Math.PI; }
-	};
-	
+    Blob.prototype.getAngle = function () {
+        if (this.dir.x === -1) {
+            return 0;
+        }
+        if (this.dir.x ===  1) {
+            return Math.PI;
+        }
+        if (this.dir.y === -1) {
+            return 0.5 * Math.PI;
+        }
+        if (this.dir.y ===  1) {
+            return 1.5 * Math.PI;
+        }
+    };
+    
     
     /**
      * Returns the Blob x position
      * @return {number}
      */
-	Blob.prototype.getX = function () {
+    Blob.prototype.getX = function () {
         return this.x;
     };
     
@@ -346,7 +355,7 @@ var Blob = (function () {
      * Returns the Blob y position
      * @return {number}
      */
-	Blob.prototype.getY = function () {
+    Blob.prototype.getY = function () {
         return this.y;
     };
     
@@ -354,7 +363,7 @@ var Blob = (function () {
      * Returns the Blob direction
      * @return {{x: number, y: number}}
      */
-	Blob.prototype.getDir = function () {
+    Blob.prototype.getDir = function () {
         return this.dir;
     };
     
@@ -362,7 +371,7 @@ var Blob = (function () {
      * Returns the Blob tile
      * @return {{x: number, y: number}}
      */
-	Blob.prototype.getTile = function () {
+    Blob.prototype.getTile = function () {
         return this.tile;
     };
     

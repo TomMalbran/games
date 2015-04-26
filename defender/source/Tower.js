@@ -1,4 +1,4 @@
-/*jslint browser: true */
+/*jslint browser: true, unparam: true */
 /*global Utils */
 
 var Tower = (function () {
@@ -201,22 +201,22 @@ var Tower = (function () {
      */
     Tower.prototype.createElement = function () {
         var content  = document.querySelector(".towersPanel .towerBuild[data-type='" + this.type + "']").parentNode.innerHTML;
-		this.element = document.createElement("DIV");
-		
-		this.element.dataset.type   = "tower";
-		this.element.dataset.id     = this.id;
-		this.element.style.position = "absolute";
-		this.element.style.top      = (this.row + this.size / 2) * this.boardSize + "px";
-		this.element.style.left     = (this.col + this.size / 2) * this.boardSize + "px";
-		
-		this.element.innerHTML =
-			"<div class='towerCenter" + this.size + " towerShadow'></div>" +
-			"<div class='towerCenter" + this.size + " towerSelect'></div>" +
-			"<div class='towerRange'></div>" +
-			"<div class='towerPlaceholder" + this.size + "'>" + content + "</div>";
+        this.element = document.createElement("DIV");
         
-		this.element.querySelector(".towerBuild").classList.remove("selected");
-		
+        this.element.dataset.type   = "tower";
+        this.element.dataset.id     = this.id;
+        this.element.style.position = "absolute";
+        this.element.style.top      = (this.row + this.size / 2) * this.boardSize + "px";
+        this.element.style.left     = (this.col + this.size / 2) * this.boardSize + "px";
+        
+        this.element.innerHTML =
+            "<div class='towerCenter" + this.size + " towerShadow'></div>" +
+            "<div class='towerCenter" + this.size + " towerSelect'></div>" +
+            "<div class='towerRange'></div>" +
+            "<div class='towerPlaceholder" + this.size + "'>" + content + "</div>";
+        
+        this.element.querySelector(".towerBuild").classList.remove("selected");
+	   	
         this.width    = this.size * this.boardSize - 10;
         this.loader   = this.element.querySelector(".towerLoader");
         this.rotate   = this.element.querySelector(".towerRotate" + this.size);
@@ -225,8 +225,8 @@ var Tower = (function () {
         this.number   = this.element.querySelector(".towerNumber");
         this.setRangeClasses();
         
-		return this.element;
-	};
+        return this.element;
+    };
     
     
     /**
