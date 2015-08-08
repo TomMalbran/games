@@ -22,9 +22,7 @@ html, body {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-	background-color: transparent;
-    
-    -webkit-backface-visibility: hidden;
+	background-color: transparent;    
     backface-visibility: hidden;
 }
 html, body, input {
@@ -127,7 +125,6 @@ a {
     cursor: pointer;
 }
 .audio:hover {
-    -webkit-transform: scale(1.2);
     transform: scale(1.2);
     transition: all 0.2s;
 }

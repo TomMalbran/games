@@ -27,7 +27,6 @@ html, body {
     font: 10px Verdana, Arial, Helvetica, sans-serif;
     
     -webkit-font-smoothing: antialiased;
-    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
 }
 
@@ -141,8 +140,7 @@ dt, dd {
     border-color: transparent transparent transparent rgba(0, 0, 0, 0.3);
     border-style: solid;
     border-width: 7px 14px;
-    -webkit-transform-origin: 23% 52%;
-            transform-origin: 23% 52%;
+    transform-origin: 23% 52%;
 }
 
 .blood .blood {

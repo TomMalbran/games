@@ -492,13 +492,6 @@ a:hover {
 /* -----------------
     Board Design  */
 
-@-webkit-keyframes wink {
-    0%    { opacity: 1; }
-    50%   { opacity: 1; }
-    50.1% { opacity: 0; }
-    100%  { opacity: 0; }
-}
-
 @keyframes wink {
     0%    { opacity: 1; }
     50%   { opacity: 1; }
@@ -535,8 +528,7 @@ a:hover {
     }
     .winker .wink {
         display: block;
-        -webkit-animation: wink 150ms 3 linear;
-                animation: wink 150ms 3 linear;
+        animation: wink 150ms 3 linear;
     }
 
 #piece, #ghost {

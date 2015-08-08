@@ -128,16 +128,13 @@
     background-color: rgb(59, 0, 59);
 }
     .inmuneLine2 {
-        -webkit-transform: rotate(45deg);
-                transform: rotate(45deg);
+        transform: rotate(45deg);
     }
     .inmuneLine3 {
-        -webkit-transform: rotate(90deg);
-                transform: rotate(90deg);
+        transform: rotate(90deg);
     }
     .inmuneLine4 {
-        -webkit-transform: rotate(135deg);
-                transform: rotate(135deg);
+        transform: rotate(135deg);
     }
 
 
@@ -210,8 +207,7 @@
         height: 13px;
         border: 1px solid rgb(65, 9, 6);
         background: radial-gradient(closest-corner, rgb(255, 199, 202), rgb(180, 76, 105));
-        -webkit-transform: rotate(135deg) skew(20deg, 20deg);
-                transform: rotate(135deg) skew(20deg, 20deg);
+        transform: rotate(135deg) skew(20deg, 20deg);
     }
 
 
@@ -307,8 +303,7 @@
         width: 15px;
         border: 1px solid black;
         background: linear-gradient(45deg, rgb(236, 228, 155), rgb(231, 227, 157) 35%, rgb(192, 169, 46) 65%, rgb(206, 188, 66));
-        -webkit-transform: rotate(135deg) skew(24deg, 24deg);
-                transform: rotate(135deg) skew(24deg, 24deg);
+        transform: rotate(135deg) skew(24deg, 24deg);
     }
 
 .flyingShadow {
@@ -328,8 +323,7 @@
         height: 17px;
         width: 17px;
         background: rgba(0, 0, 0, 0.3);
-        -webkit-transform: rotate(135deg) skew(24deg, 24deg);
-                transform: rotate(135deg) skew(24deg, 24deg);
+        transform: rotate(135deg) skew(24deg, 24deg);
     }
 
 
@@ -364,8 +358,7 @@
         height: 13px;
         border: 1px solid rgb(89, 11, 11);
         background: radial-gradient(farthest-side, rgb(232, 176, 176), rgb(195, 60, 60));
-        -webkit-transform: rotate(135deg);
-                transform: rotate(135deg);
+        transform: rotate(135deg);
     }
 
 .arrowTail {
@@ -385,8 +378,7 @@
         height: 13px;
         border: 1px solid rgb(89, 11, 11);
         background: radial-gradient(closest-corner, rgb(231, 177, 177), rgb(195, 60, 60));
-        -webkit-transform: rotate(135deg) skew(20deg, 20deg);
-                transform: rotate(135deg) skew(20deg, 20deg);
+        transform: rotate(135deg) skew(20deg, 20deg);
     }
 
 
@@ -494,13 +486,11 @@
     }
     .decoyBody:before {
         top: 2px;
-        -webkit-transform: skew(20deg, 20deg);
-                transform: skew(20deg, 20deg);
+        transform: skew(20deg, 20deg);
     }
     .decoyBody:after {
         top: 10px;
-        -webkit-transform: skew(-20deg, -20deg);
-                transform: skew(-20deg, -20deg);
+        transform: skew(-20deg, -20deg);
     }
 
 

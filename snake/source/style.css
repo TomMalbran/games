@@ -507,12 +507,6 @@ a:hover {
 /* ----------------
     Food Design  */
 
-@-webkit-keyframes spin {
-    from { -webkit-transform: rotate(0deg);    }
-    20%  { -webkit-transform: rotate(360deg);  }
-    50%  { -webkit-transform: rotate(720deg);  }
-    to   { -webkit-transform: rotate(1080deg); }
-}
 @keyframes spin {
     from { transform: rotate(0deg);    }
     20%  { transform: rotate(360deg);  }
@@ -520,10 +514,8 @@ a:hover {
     to   { transform: rotate(1080deg); }
 }
 
-
 .spin {
-    -webkit-animation: spin 5s linear;
-            animation: spin 5s linear;
+    animation: spin 5s linear;
 }
 
 .food {

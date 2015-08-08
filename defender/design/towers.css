@@ -131,8 +131,7 @@
         margin-top: -14px;
     }
         .towerPlaceholder3 .towerScale {
-            -webkit-transform: scale(1.5);
-                    transform: scale(1.5);
+            transform: scale(1.5);
         }
     
     .towerRotate2,
@@ -445,13 +444,11 @@
 }
     .airMissile1,
     .airMissile3 {
-        -webkit-transform: skew(10deg, 10deg);
-                transform: skew(10deg, 10deg);
+        transform: skew(10deg, 10deg);
     }
     .airMissile2,
     .airMissile4 {
-        -webkit-transform: skew(-10deg, -10deg);
-                transform: skew(-10deg, -10deg);
+        transform: skew(-10deg, -10deg);
     }
     .airMissile1 { top:  2px; left:  3px; }
     .airMissile2 { top:  2px; left: 14px; }
@@ -471,13 +468,11 @@
 }
     .airMissile1:before,
     .airMissile3:before {
-        -webkit-transform: rotate(-45deg);
-                transform: rotate(-45deg);
+        transform: rotate(-45deg);
     }
     .airMissile2:before,
     .airMissile4:before {
-        -webkit-transform: rotate(45deg);
-                transform: rotate(45deg);
+        transform: rotate(45deg);
     }
     .airMissile1:before { top:  3px; left:  3px; }
     .airMissile2:before { top:  3px; left: -2px; }
@@ -497,12 +492,10 @@
     border-right: 2px solid rgb(53, 1, 177);
 }
     .airMissile1:after, .airMissile3:after {
-        -webkit-transform: rotate(-45deg);
-                transform: rotate(-45deg);
+        transform: rotate(-45deg);
     }
     .airMissile2:after, .airMissile4:after {
-        -webkit-transform: rotate(45deg);
-                transform: rotate(45deg);
+        transform: rotate(45deg);
     }
     
     .airMissile1:after { top:  2px; left: -1px; }
@@ -518,8 +511,7 @@
     z-index: 5;
 }
     .airAmmo .airMissile1 {
-        -webkit-transform: rotate(140deg) skew(10deg, 10deg);
-                transform: rotate(140deg) skew(10deg, 10deg);
+        transform: rotate(140deg) skew(10deg, 10deg);
     }
 
 .missile1 .airMissile1,
@@ -654,15 +646,13 @@
         top: -3px;
         border-top: 1px solid rgb(92, 92, 91);
         background: linear-gradient(to bottom, rgb(179, 179, 179), white);
-        -webkit-transform: skewY(-20deg);
-                transform: skewY(-20deg);
+        transform: skewY(-20deg);
     }
     .inkTank:after {
         top: 3px;
         border-bottom: 1px solid rgb(92, 92, 91);
         background: linear-gradient(to top, rgb(179, 179, 179), white);
-        -webkit-transform: skewY(20deg);
-                transform: skewY(20deg);
+        transform: skewY(20deg);
     }
 
 
@@ -728,14 +718,12 @@
     .snapTL,
     .snapBR {
         background: rgb(182, 182, 182);
-        -webkit-transform: skew(10deg, 10deg);
-                transform: skew(10deg, 10deg);
+        transform: skew(10deg, 10deg);
     }
     .snapTR,
     .snapBL {
         background: white;
-        -webkit-transform: skew(-10deg, -10deg);
-                transform: skew(-10deg, -10deg);
+        transform: skew(-10deg, -10deg);
     }
     .snapTL { top:  3px; left:  3px; }
     .snapTR { top:  3px; left: 12px; }
@@ -757,13 +745,11 @@
 }
     .snapTL:before,
     .snapBR:before {
-        -webkit-transform: skew(30deg, 30deg);
-                transform: skew(30deg, 30deg);
+        transform: skew(30deg, 30deg);
     }
     .snapTR:before,
     .snapBL:before {
-        -webkit-transform: skew(-30deg, -30deg);
-                transform: skew(-30deg, -30deg);
+        transform: skew(-30deg, -30deg);
     }
 
 
@@ -781,26 +767,22 @@
     .snapTL:after {
         top: -1px;
         left: -3px;
-        -webkit-transform: rotate(-45deg);
-                transform: rotate(-45deg);
+        transform: rotate(-45deg);
     }
     .snapTR:after {
         top: -1px;
         left: 3px;
-        -webkit-transform: rotate(45deg);
-                transform: rotate(45deg);
+        transform: rotate(45deg);
     }
     .snapBL:after {
         top: 4px;
         left: -3px;
-        -webkit-transform: rotate(-135deg);
-                transform: rotate(-135deg);
+        transform: rotate(-135deg);
     }
     .snapBR:after {
         top: 4px;
         left: 3px;
-        -webkit-transform: rotate(135deg);
-                transform: rotate(135deg);
+        transform: rotate(135deg);
     }
 
 
@@ -874,15 +856,13 @@
         top: -2px;
         border-bottom: none;
         background: linear-gradient(to bottom, rgb(119, 104, 29), rgb(226, 224, 172));
-        -webkit-transform: skewY(15deg);
-                transform: skewY(15deg);
+        transform: skewY(15deg);
     }
     .laserHead:after {
         top: 2px;
         border-top: none;
         background: linear-gradient(to top, rgb(119, 104, 29), rgb(226, 224, 172));
-        -webkit-transform: skewY(-15deg);
-                transform: skewY(-15deg);
+        transform: skewY(-15deg);
     }
 
 
@@ -922,15 +902,13 @@
         top: -3px;
         border-bottom: none;
         background: linear-gradient(to bottom, rgb(119, 104, 29), rgb(226, 224, 172));
-        -webkit-transform: skewY(-30deg);
-                transform: skewY(-30deg);
+        transform: skewY(-30deg);
     }
     .laserTail:after {
         top: 3px;
         border-top: none;
         background: linear-gradient(to top, rgb(119, 104, 29), rgb(226, 224, 172));
-        -webkit-transform: skewY(30deg);
-                transform: skewY(30deg);
+        transform: skewY(30deg);
     }
 
 
@@ -942,8 +920,7 @@
     background: rgb(246, 235, 148);
     opacity: 0.8;
     z-index: 2;
-    -webkit-transform-origin: 0% 50%;
-            transform-origin: 0% 50%;
+    transform-origin: 0% 50%;
 }
 
 

@@ -382,10 +382,6 @@ input {
 /* -----------------
     Board Design  */
 
-@-webkit-keyframes fade {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
 @keyframes fade {
     from { opacity: 0; }
     to   { opacity: 1; }
@@ -411,8 +407,7 @@ input {
     right: 1em;
 }
     .bricks.fade {
-        -webkit-animation: fade 1s;
-                animation: fade 1s;
+        animation: fade 1s;
     }
     .bricks div {
         position: absolute;
@@ -421,7 +416,6 @@ input {
         box-shadow: inset 0 0 0 1.5em #121212;
         border: 0.4em solid transparent;
         box-sizing: border-box;
-        -moz-box-sizing: border-box;
         transition: all .3s;
     }
 
@@ -449,7 +443,6 @@ input {
         height: 3em;
         box-shadow: inset 0 0 0 1.5em #121212;
         box-sizing: border-box;
-        -moz-box-sizing: border-box;
     }
     
     .tail div:nth-child(1) {
