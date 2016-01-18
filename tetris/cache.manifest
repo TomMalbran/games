@@ -1,8 +1,18 @@
 CACHE MANIFEST
-# rev 1
+# rev 2
 
-/source/style.css
-/source/game.js
+/design/style.css
+
+/source/Board.js
+/source/Display.js
+/source/HighScores.js
+/source/Keyboard.js
+/source/Level.js
+/source/Score.js
+/source/Tetrimino.js
+/source/Tetriminos.js
+/source/Init.js
+
 ../utils/Utils.js
 ../utils/Storage.js
 ../utils/Sounds.js

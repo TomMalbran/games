@@ -1,8 +1,6 @@
-@charset "utf-8";
-
-/* ---------------
-    Game Fonts  */
-
+/**
+ * Game Fonts
+ */
 @font-face {
     font-family: "Agency FB";
     font-style: normal;
@@ -18,9 +16,9 @@
 
 
 
-/* ----------------
-    Main Styles  */
-
+/**
+ * Main Styles
+ */
 html, body {
     margin: 0;
     padding: 0;
@@ -63,9 +61,9 @@ a:hover {
 
 
 
-/* ----------------
-    Game Design  */
-
+/**
+ * Game Design
+ */
 #container {
     position: absolute;
     top: 50%;
@@ -98,9 +96,9 @@ a:hover {
 
 
 
-/* ----------------
-    Show / Hide  */
-
+/**
+ * Show / Hide
+ */
 .playing .messages { display: none; }
 .playing .pauser,
 .paused  .pauser { display: block; }
@@ -122,9 +120,9 @@ a:hover {
 
 
 
-/* -------------------
-    Messages Panel  */
-
+/**
+ * Messages Panel
+ */
 .messages {
     position: absolute;
     top: 0;
@@ -165,9 +163,9 @@ a:hover {
 
 
 
-/* ------------------------
-    Main Screen / Pause  */
-
+/**
+ * Main Screen / Pause
+ */
 .levels {
     display: none;
     position: absolute;
@@ -228,9 +226,9 @@ a:hover {
 
 
 
-/* --------------
-    Game Over  */
-
+/**
+ * Game Over
+ */
 .input {
     display: none;
     position: absolute;
@@ -263,9 +261,9 @@ a:hover {
 
 
 
-/* ----------------
-    High Scores  */
-
+/**
+ * High Scores
+ */
 .high { display: none; }
 .scores {
     position: absolute;
@@ -325,9 +323,9 @@ a:hover {
 
 
 
-/* ---------
-    Help  */
-
+/**
+ * Help
+ */
 .controls {
     display: none;
     position: absolute;
@@ -357,9 +355,9 @@ a:hover {
 
 
 
-/* ------------------
-    Scores Design  */
-
+/**
+ * Scores Design
+ */
 .next, .level, .score, .lines {
     position: absolute; 
     left: 0;
@@ -412,9 +410,9 @@ a:hover {
 
 
 
-/* -----------------
-    Audio Button  */
-
+/**
+ * Audio Button
+ */
 .audio {
     position: absolute;
     top: 39em;
@@ -489,9 +487,9 @@ a:hover {
 
 
 
-/* -----------------
-    Board Design  */
-
+/**
+ * Board Design
+ */
 @keyframes wink {
     0%    { opacity: 1; }
     50%   { opacity: 1; }
@@ -537,9 +535,9 @@ a:hover {
 
 
 
-/* ------------------
-    Pieces Design  */
-
+/**
+ * Pieces Design
+ */
 .field div,
 #piece div,
 #ghost div,
@@ -548,32 +546,44 @@ a:hover {
     width: 2.2em;
     height: 2.2em;
 }
-
-    .piece0 div, .cell0 { /* I */
+     /* I */
+    .piece0 div, .cell0 {
         box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #CC6602, inset -0.4em 0.4em #FF9935;
         background-color: #FF6301;
     }
-    .piece1 div, .cell1 { /* J */
+    
+    /* J */
+    .piece1 div, .cell1 {
         box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #9900CD, inset -0.4em 0.4em #CD66FF;
         background-color: #CC00FF;
     }
-    .piece2 div, .cell2 { /* L */
+
+    /* L */
+    .piece2 div, .cell2 {
         box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #0000CC, inset -0.4em 0.4em #6367FE;
         background-color: #0000FE;
     }
-    .piece3 div, .cell3 { /* O */
+
+    /* O */
+    .piece3 div, .cell3 {
         box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #CC0001, inset -0.4em 0.4em #FF6666;
         background-color: #FE0000;
     }
-    .piece4 div, .cell4 { /* S */
+
+    /* S */
+    .piece4 div, .cell4 {
         box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #3499C7, inset -0.4em 0.4em #99FFFF;
         background-color: #64CDFA;
     }
-    .piece5 div, .cell5 { /* T */
+
+    /* T */
+    .piece5 div, .cell5 {
         box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #FCCE00, inset -0.4em 0.4em #FEFF99;
         background-color: #FFFD04;
     }
-    .piece6 div, .cell6 { /* Z */
+
+    /* Z */
+    .piece6 div, .cell6 {
         box-shadow: inset 0 0 0 0.2em black, inset 0.4em -0.4em #01CC00, inset -0.4em 0.4em #66FF66;
         background-color: #00FF00;
     }
@@ -584,8 +594,14 @@ a:hover {
     }
 
 
-.r0, .r1, .r2, .r3 { display: none; }
+.r0, .r1, .r2, .r3 {
+    display: none;
+}
 .rot0 .r0, .rot1 .r1,
-.rot2 .r2, .rot3 .r3 { display: block; }    
+.rot2 .r2, .rot3 .r3 {
+    display: block;
+}
 
-.tetriminos { display: none; }
+.tetriminos {
+    display: none;
+}

@@ -1,0 +1,12 @@
+{
+    "globals": {
+        "Board": true,
+        "Display": true,
+        "HighScores": true,
+        "Keyboard": true,
+        "Level": true,
+        "Score": true,
+        "Tetrimino": true,
+        "Tetriminos": true
+    }
+}
