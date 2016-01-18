@@ -1,0 +1,14 @@
+{
+    "globals": {
+        "Board": true,
+        "Demo": true,
+        "Display": true,
+        "Food": true,
+        "HighScores": true,
+        "Instance": true,
+        "Keyboard": true,
+        "Matrix": true,
+        "Score": true,
+        "Snake": true
+    }
+}

@@ -1,8 +1,20 @@
 CACHE MANIFEST
-# rev 2
+# rev 3
 
-/source/style.css
-/source/game.js
+/design/style.css
+
+/source/Board.js
+/source/Demo.js
+/source/Display.js
+/source/Food.js
+/source/HighScores.js
+/source/Instance.js
+/source/Keyboard.js
+/source/Matrix.js
+/source/Score.js
+/source/Snake.js
+/source/Init.js
+
 ../utils/Utils.js
 ../utils/Queue.js
 ../utils/Storage.js
