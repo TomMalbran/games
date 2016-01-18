@@ -1,8 +1,6 @@
-@charset "utf-8";
-
-/* ------------------
-    Tower Wrapper  */
-
+/**
+ * Tower Wrapper
+ */
 .towerCenter2,
 .towerCenter3 {
     position: absolute;
@@ -93,9 +91,9 @@
 
 
 
-/* ------------------
-    Tower Content  */
-
+/**
+ * Tower Content
+ */
 .towerContent {
     position: absolute;
     top: 0;
@@ -218,9 +216,9 @@
 
 
 
-/* ----------------
-    Show / Hide  */
-
+/**
+ * Show / Hide
+ */
 .loading .towerRotate2,
 .loading .towerRotate3,
 .loading .towerLock {
@@ -236,9 +234,9 @@
 
 
 
-/* -----------
-    Ranges  */
-
+/**
+ * Ranges
+ */
 .towerRange30  { width:  60px; height:  60px; margin-left:    -30px; margin-top:    -30px; }
 .towerRange45  { width:  90px; height:  90px; margin-left:    -45px; margin-top:    -45px; }
 .towerRange60  { width: 120px; height: 120px; margin-left:    -60px; margin-top:    -60px; }
@@ -252,9 +250,9 @@
 
 
 
-/* -----------------
-    Normal Tower  */
-
+/**
+ * Normal Tower
+ */
 .shootBody {
     position: absolute;
     top: 3px;
@@ -289,9 +287,9 @@
 
 
 
-/* ---------------
-    Fast Tower  */
-
+/**
+ * Fast Tower
+ */
 .fastBody {
     position: absolute;
     top: 1px;
@@ -335,9 +333,9 @@
 
 
 
-/* ------------------
-    Missile Tower  */
-
+/**
+ * Missile Tower
+ */
 .missileBase {
     position: absolute;
     top: 2px;
@@ -429,9 +427,9 @@
 
 
 
-/* -------------------
-    Anti-Air Tower  */
-
+/**
+ * Anti-Air Tower
+ */
 .airMissile1,
 .airMissile2,
 .airMissile3,
@@ -523,9 +521,9 @@
 
 
 
-/* ----------------
-    Frost Tower  */
-
+/**
+ * Frost Tower
+ */
 .frostBody {
     position: absolute;
     top: 1px;
@@ -569,9 +567,9 @@
 
 
 
-/* ---------------------
-    Earthquake Tower  */
-
+/**
+ * Earthquake Tower
+ */
 .earthBody {
     position: absolute;
     top: 0;
@@ -605,9 +603,9 @@
 
 
 
-/* --------------
-    Ink Tower  */
-
+/**
+ * Ink Tower
+ */
 .inkBase,
 .inkBase:after {
     position: absolute;
@@ -703,9 +701,9 @@
 
 
 
-/* ---------------
-    Snap Tower  */
-
+/**
+ * Snap Tower
+ */
 .snapTL,
 .snapTR,
 .snapBL,
@@ -809,9 +807,9 @@
 
 
 
-/* ----------------
-    Laser Tower  */
-
+/**
+ * Laser Tower
+ */
 .laserTank {
     position: absolute;
     top: 10px;
@@ -925,9 +923,9 @@
 
 
 
-/* ----------------
-    Boost Tower  */
-
+/**
+ * Boost Tower
+ */
 .boostZ {
     position: absolute;
     top: 6px;

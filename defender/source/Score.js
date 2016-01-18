@@ -1,83 +1,81 @@
-/*jslint browser: true */
-
-var Score = (function () {
-    "use strict";
-    
-    var initialGold    = 100,
-        initialLives   = 20,
-        initialTimer   = 25,
-        initialSeconds = 800,
-        livesMult      = 25;
-    
+/**
+ * The Score Panel Class
+ */
+class Score {
     
     /**
-     * @constructor
-     * The Score Panel
-     * @param {number} level
+     * The Score Panel constructor
+     * @param {number}   level
+     * @param {function} onGameOver
      */
-    function Score(level, onGameOver) {
-        this.level      = Number(level) + 1;
-        this.onGameOver = onGameOver;
-        this.enable     = function () { return undefined; };
-        this.disable    = function () { return undefined; };
+    constructor(level, onGameOver) {
+        this.level        = Number(level) + 1;
+        this.onGameOver   = onGameOver;
+        this.enable       = () => {};
+        this.disable      = () => {};
         
-        this.goldElem   = document.querySelector(".goldScore");
-        this.livesElem  = document.querySelector(".livesScore");
-        this.timeElem   = document.querySelector(".timeScore");
-        this.scoreElem  = document.querySelector(".scoreScore");
-        this.finalElem  = document.querySelector(".finalScore");
+        this.goldElem     = document.querySelector(".goldScore");
+        this.livesElem    = document.querySelector(".livesScore");
+        this.timeElem     = document.querySelector(".timeScore");
+        this.scoreElem    = document.querySelector(".scoreScore");
+        this.finalElem    = document.querySelector(".finalScore");
         
-        this.gold       = initialGold;
-        this.lives      = initialLives;
-        this.timer      = initialTimer;
-        this.score      = 0;
-        this.bonus      = 0;
-        this.seconds    = initialSeconds;
+        this.initialTimer = 25;
+        this.initialSecs  = 800;
+        
+        this.gold         = 100;
+        this.lives        = 20;
+        this.timer        = this.initialTimer;
+        this.score        = 0;
+        this.bonus        = 0;
+        this.seconds      = this.initialSecs;
+        this.livesMult    = 25;
         
         this.showScores();
     }
     
+    
     /**
      * Calls the on Game Over function
      */
-    Score.prototype.gameOver = function () {
+    gameOver() {
         this.onGameOver();
-    };
+    }
     
     /**
      * Sets the functions that are called when the gold is increased or decreased
-     * @param {function()} enable
-     * @param {function()} disable
+     * @param {function} enable
+     * @param {function} disable
      */
-    Score.prototype.setFunctions = function (enable, disable) {
+    setFunctions(enable, disable) {
         this.enable  = enable;
         this.disable = disable;
-    };
+    }
         
     /**
      * Increases the Gold by the given amount
      * @param {number} amount
      */
-    Score.prototype.incGold = function (amount) {
+    incGold(amount) {
         this.gold += amount;
         this.showScores();
         this.enable();
-    };
+    }
     
     /**
      * Decreases the Gold by the given amount
      * @param {number} amount
      */
-    Score.prototype.decGold = function (amount) {
+    decGold(amount) {
         this.gold -= amount;
         this.showScores();
         this.disable();
-    };
-        
+    }
+    
     /**
      * Decreases one Life
      */
-    Score.prototype.decLives = function () {
+    decLives() {
         this.lives -= 1;
         this.showScores();
         
@@ -85,129 +83,127 @@ var Score = (function () {
             this.lives = 0;
             this.onGameOver();
         }
-    };
+    }
     
     
     /**
      * Starts the Timer for a new Wave
      */
-    Score.prototype.startTimer = function () {
+    startTimer() {
         this.addBonus();
-        this.timer = initialTimer;
+        this.timer = this.initialTimer;
         this.showScores();
-    };
+    }
     
     /**
      * Decreases the Timer by the given amount
      * @param {number} time
+     * @return {boolean}
      */
-    Score.prototype.decTimer = function (time) {
+    decTimer(time) {
         this.seconds -= time;
         if (this.seconds <= 0) {
             this.timer   -= 1;
-            this.seconds += initialSeconds;
+            this.seconds += this.initialSecs;
             this.showScores();
             return true;
         }
         return false;
-    };
+    }
     
     /**
      * Removes the Timer for the last wave
      */
-    Score.prototype.removeTimer = function () {
+    removeTimer() {
         this.timer = "";
         this.showScores();
-    };
+    }
             
     /**
      * Increases the Score byt the given amount
      * @param {number} amount
      */
-    Score.prototype.incScore = function (amount) {
+    incScore(amount) {
         this.score += amount;
         this.showScores();
-    };
+    }
         
     /**
      * Adds the bonus for calling a new wave before the time ended
      */
-    Score.prototype.addBonus = function () {
+    addBonus() {
         this.bonus += this.timer;
-    };
+    }
     
     /**
      * Returns the final Bonus for the Final Score
      * @return {number}
      */
-    Score.prototype.getBonus = function () {
+    getBonus() {
         return this.bonus * (this.lives <= 0 ? 0 : 1);
-    };
+    }
     
     /**
      * Returns the total Score for the Final Score
      * @return {number}
      */
-    Score.prototype.getTotal = function () {
-        return (this.score + this.lives * livesMult + this.getBonus()) * this.level;
-    };
+    getTotal() {
+        return (this.score + this.lives * this.livesMult + this.getBonus()) * this.level;
+    }
+    
     
     /**
      * Sets the Scores
      */
-    Score.prototype.showScores = function () {
+    showScores() {
         this.goldElem.innerHTML  = "Gold:  " + this.gold;
         this.livesElem.innerHTML = "Lives: " + this.lives;
         this.timeElem.innerHTML  = "Time:  " + this.timer;
         this.scoreElem.innerHTML = "Score: " + this.score;
-    };
+    }
     
     /**
      * Sets the Final Score
      */
-    Score.prototype.showFinal = function () {
+    showFinal() {
         this.finalElem.innerHTML =
             "<dt>Score</dt><dd>" + this.score + "</dd>" +
-            "<dt>+ " + this.lives + " lives x" + livesMult + "</dt><dd>" + (this.lives * livesMult) + "</dd>" +
+            "<dt>+ " + this.lives + " lives x" + this.livesMult + "</dt><dd>" + (this.lives * this.livesMult) + "</dd>" +
             "<dt>+ Time Bonus</dt><dd>" + this.getBonus() + "</dd>" +
             "<dt>x Multiplier</dt><dd>" + this.level + "</dd>" +
             "<dt>Total Score</dt><dd>" + this.getTotal() + "</dd>";
-    };
+    }
+    
     
     /**
      * Returns the current Gold
      * @return {number}
      */
-    Score.prototype.getGold  = function () {
+    getGold () {
         return this.gold;
-    };
+    }
     
     /**
      * Returns the current Lives
      * @return {number}
      */
-    Score.prototype.getLives = function () {
+    getLives() {
         return this.lives;
-    };
+    }
     
     /**
      * Returns the current Timer
      * @return {number}
      */
-    Score.prototype.getTimer = function () {
+    getTimer() {
         return this.timer;
-    };
+    }
     
     /**
      * Returns the current Score
      * @return {number}
      */
-    Score.prototype.getScore = function () {
+    getScore() {
         return this.score;
-    };
-    
-    
-    
-    // The public API
-    return Score;
-}());
+    }
+}

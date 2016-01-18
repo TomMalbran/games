@@ -1,14 +1,12 @@
-/*jslint browser: true */
-
-var Panel = (function () {
-    "use strict";
-    
+/**
+ * The Panel Class
+ */
+class Panel {
     
     /**
-     * @constructor
-     * The Panel Class
+     * The Panel constructor
      */
-    function Panel() {
+    constructor() {
         this.hasStarted = false;
         this.container  = document.querySelector(".description");
         this.towerSel   = null;
@@ -19,15 +17,15 @@ var Panel = (function () {
     /**
      * Updates the inner started state when the game starts
      */
-    Panel.prototype.gameStarted = function () {
+    gameStarted() {
         this.hasStarted = true;
-    };
+    }
     
     /**
      * Shows the Tower Preview Description
      * @param {Tower} tower
      */
-    Panel.prototype.previewTower = function (tower) {
+    previewTower(tower) {
         this.create(
             tower.getName(true),
             tower.getText(),
@@ -42,7 +40,7 @@ var Panel = (function () {
         );
         this.towerSel = null;
         this.mobSel   = null;
-    };
+    }
     
     
     /**
@@ -50,7 +48,7 @@ var Panel = (function () {
      * @param {Tower} tower
      * @param {number} gold
      */
-    Panel.prototype.showTower = function (tower, gold) {
+    showTower(tower, gold) {
         if (tower.isLoading()) {
             this.showLoad(tower);
         } else {
@@ -58,26 +56,26 @@ var Panel = (function () {
         }
         this.towerSel = tower;
         this.mobSel   = null;
-    };
+    }
     
     /**
      * Shows the given Tower Loading Bar
      * @param {Tower} tower
      */
-    Panel.prototype.showLoad = function (tower) {
+    showLoad(tower) {
         this.create(
             tower.getName(),
             tower.getText(),
             this.towerLoading(tower.getLoad())
         );
-    };
+    }
     
     /**
      * Shows the given Tower Information
      * @param {Tower} tower
      * @param {number} gold
      */
-    Panel.prototype.showInfo = function (tower, gold) {
+    showInfo(tower, gold) {
         this.create(
             tower.getName(),
             tower.getText(),
@@ -104,14 +102,14 @@ var Panel = (function () {
                 price       : tower.getPrice(this.hasStarted)
             })
         );
-    };
+    }
     
     
     /**
      * Shows the given Mob Information
      * @param {Mob} mob
      */
-    Panel.prototype.showMob = function (mob) {
+    showMob(mob) {
         this.create(
             mob.getName(),
             mob.getWave() + ". " + mob.getText(),
@@ -119,7 +117,7 @@ var Panel = (function () {
         );
         this.towerSel = null;
         this.mobSel   = mob;
-    };
+    }
     
     
     /**
@@ -129,7 +127,7 @@ var Panel = (function () {
      * @param {string} information
      * @param {string} buttons
      */
-    Panel.prototype.create = function (name, text, information, buttons) {
+    create(name, text, information, buttons) {
         this.container.innerHTML =
             "<h2>" + name + "</h2>" +
             "<div class='content'>" +
@@ -138,15 +136,15 @@ var Panel = (function () {
             "</div>";
         
         this.container.className = "description fadeIn";
-    };
+    }
     
     /**
      * Creates the Tower Information HTML
      * @param {Object} data
      * @return {string}
      */
-    Panel.prototype.towerInfo = function (data) {
-        var content =
+    towerInfo(data) {
+        let content =
             "<div class='towerCost'>" +
             "    <div class='text'>Cost:</div>" +
             "    <div class='actual'>" + data.aCost + "</div>" +
@@ -170,15 +168,15 @@ var Panel = (function () {
             "<div class='towerBoost'>" + (data.boost ? "Boost: " + data.boost + "%" : "") + "</div>";
         
         return content;
-    };
+    }
     
     /**
      * Creates the Tower Buttons HTML
      * @param {Object} data
      * @return {string}
      */
-    Panel.prototype.towerButtons = function (data) {
-        var classes = [], button = "", content;
+    towerButtons(data) {
+        let classes = [], button = "", content;
         
         if (data.isMaxed) {
             classes.push("hideButtons");
@@ -203,21 +201,21 @@ var Panel = (function () {
             "</div>";
         
         return content;
-    };
+    }
     
     /**
      * Creates the Tower Loading HTML
      * @param {number} data
      * @return {string}
      */
-    Panel.prototype.towerLoading = function (loaded) {
-        var content =
+    towerLoading(loaded) {
+        let content =
             "<div class='descLoad'>" +
             "    <div class='descLoadBar' style='width: " + (loaded * this.width) + "px'></div>" +
             "</div>";
         
         return content;
-    };
+    }
     
     /**
      * Creates the Mob Information HTML
@@ -226,8 +224,8 @@ var Panel = (function () {
      * @param {number} speed
      * @return {string}
      */
-    Panel.prototype.mobInfo = function (life, gold, speed) {
-        var content =
+    mobInfo(life, gold, speed) {
+        let content =
             "<div class='mobPoints'>" +
             "    <div class='text'>Life:</div>" +
             "   <div class='actual'>" + life + "</div>" +
@@ -240,49 +238,45 @@ var Panel = (function () {
             "    <div class='text'>Speed:</div>" +
             "    <div class='actual'>" + speed + "</div>" +
             "</div>";
+        
         return content;
-    };
+    }
     
     
     /**
      * Hides the Panel after a few seconds
      */
-    Panel.prototype.disappear = function () {
+    disappear() {
         this.towerSel = null;
         this.mobSel   = null;
         this.container.className = "description delayedFadeOut";
-    };
+    }
     
     /**
      * Hides the Panel inmediatelly
      */
-    Panel.prototype.hide = function () {
+    hide() {
         this.towerSel = null;
         this.mobSel   = null;
         this.container.className = "description fadeOut";
-    };
+    }
     
     
     /**
      * Updates the Description of the currently selected Mob
      */
-    Panel.prototype.updateMob = function (mob) {
+    updateMob(mob) {
         if (this.mobSel && this.mobSel.getID() === mob.getID()) {
             this.showMob(mob);
         }
-    };
+    }
     
     /**
      * Hides the Description of the Mob
      */
-    Panel.prototype.destroyMob = function (mob) {
+    destroyMob(mob) {
         if (this.mobSel && this.mobSel.getID() === mob.getID()) {
             this.hide();
         }
-    };
-    
-    
-    
-    // The puublic API
-    return Panel;
-}());
+    }
+}

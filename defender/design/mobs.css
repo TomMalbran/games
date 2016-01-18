@@ -1,9 +1,6 @@
-@charset "utf-8";
-
-
-/* --------------------
-    Monsters Design  */
-
+/**
+ * Monsters Design
+ */
 .mob {
     position: absolute;
     top: 0;
@@ -30,7 +27,7 @@
         left: 0;
         width: 13px;
         height: 2px;
-        background-color: rgb(255, 0, 0);
+        background-color: green;
     }
     .mobSlow {
         position: absolute;
@@ -66,9 +63,9 @@
 
 
 
-/* ---------------
-    Normal Mob  */
-
+/**
+ * Normal Mob
+ */
 .normalMob {
     position: absolute;
     top: 1px;
@@ -92,9 +89,9 @@
 
 
 
-/* ---------------
-    Inmune Mob  */
-
+/**
+ * Inmune Mob
+ */
 .inmuneBody {
     position: absolute;
     top: 1px;
@@ -139,9 +136,9 @@
 
 
 
-/* --------------
-    Group Mob  */
-
+/**
+ * Group Mob
+ */
 .groupMob {
     position: absolute;
     top: 1px;
@@ -165,9 +162,9 @@
 
 
 
-/* -------------
-    Fast Mob  */
-
+/**
+ * Fast Mob
+ */
 .fastHead {
     position: absolute;
     top: 1px;
@@ -212,9 +209,9 @@
 
 
 
-/* --------------
-    Spawn Mob  */
-
+/**
+ * Spawn Mob
+ */
 .spawnHead,
 .spawnTail {
     position: absolute;
@@ -271,9 +268,9 @@
 
 
 
-/* ---------------
-    Flying Mob  */
-
+/**
+ * Flying Mob
+ */
 .flyingMob {
     position: absolute;
     top: 2px;
@@ -328,9 +325,9 @@
 
 
 
-/* --------------
-    Arrow Mob  */
-
+/**
+ * Arrow Mob
+ */
 .arrowHead {
     position: absolute;
     top: 0;
@@ -383,9 +380,9 @@
 
 
 
-/* -------------
-    Dark Mob  */
-
+/**
+ * Dark Mob
+ */
 .darkHead {
     position: absolute;
     top: 2px;
@@ -437,9 +434,9 @@
 
 
 
-/* --------------
-    Decoy Mob  */
-
+/**
+ * Decoy Mob
+ */
 .decoyHead {
     position: absolute;
     top: 0;
@@ -517,9 +514,9 @@
 
 
 
-/* ---------------
-    Hopper Mob  */
-
+/**
+ * Hopper Mob
+ */
 .hopperMob {
     position: absolute;
     top: 1px;
@@ -543,9 +540,9 @@
 
 
 
-/* ---------------
-    Mob Alerts  */
-
+/**
+ * Mob Alerts
+ */
 .alert {
     position: absolute;
     width: 15px;

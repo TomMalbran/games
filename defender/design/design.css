@@ -1,8 +1,6 @@
-@charset "utf-8";
-
-/* ---------------
-    Game Fonts  */
-
+/**
+ * Game Fonts
+ */
 @font-face {
     font-family: "Battle Beasts";
     font-style: normal;
@@ -12,9 +10,9 @@
 
 
 
-/* ----------------
-    Main Styles  */
-
+/**
+ * Main Styles
+ */
 html, body {
     margin: 0;
     padding: 0;
@@ -76,9 +74,9 @@ dt, dd {
     }
 
 
-/* -----------------
-    Main Content  */
-
+/**
+ * Main Content
+ */
 .mainContent {
     position: absolute;
     top: 0;
@@ -99,9 +97,9 @@ dt, dd {
 
 
 
-/* ------------------
-    Board Section  */
-
+/**
+ * Board Section
+ */
 .board {
     position: absolute;
     top: 18px;
@@ -197,9 +195,9 @@ dt, dd {
 
 
 
-/* --------------
-    Game Menu  */
-
+/**
+ * Game Menu
+ */
 .mainScreen     .overlay, .mainScreen     .mainScreenMenu,
 .selectMap      .overlay, .selectMap      .selectMapMenu,
 .selectLevel    .overlay, .selectLevel    .selectLevelMenu,
@@ -360,9 +358,9 @@ dt, dd {
 
 
 
-/* --------------------
-    Sidebar Section  */
-
+/**
+ * Sidebar Section
+ */
 .sideBar {
     position: absolute;
     top: 0;
@@ -385,9 +383,9 @@ dt, dd {
 
 
 
-/* ------------------
-    Scores Design  */
-
+/**
+ * Scores Design
+ */
 .scoresPanel {
     position: absolute;
     top: 10px;
@@ -426,9 +424,9 @@ dt, dd {
 
 
 
-/* ---------------------
-    Towers Container  */
-
+/**
+ * Towers Container
+ */
 .towersPanel {
     position: absolute;
     top: 60px;
@@ -460,9 +458,9 @@ dt, dd {
 
 
 
-/* -----------------------
-    Description Design  */
-
+/**
+ * Description Design
+ */
 .description { 
     position: absolute;
     top: 180px;
@@ -619,9 +617,9 @@ dt, dd {
 
 
 
-/* -------------------
-    Bottom Section  */
-
+/**
+ * Bottom Section
+ */
 .bottomSection {
     position: absolute;
     bottom: 5px;
@@ -708,9 +706,9 @@ dt, dd {
 
 
 
-/* --------------------
-    General Classes  */
-
+/**
+ * General Classes
+ */
 h2 {
     position: absolute;
     top: 0;

@@ -1,11 +1,8 @@
-/*jslint browser: true */
-/*global Board, Maps, Panel, Score, Towers, Mobs, Sounds, Utils */
-
 (function () {
     "use strict";
     
-    var score, maps, board, panel, towers, mobs, sounds,
-        container, audio, animation, startTime, actions, shortcuts,
+    let display, score, maps, board, panel, towers, mobs, sounds,
+        audio, animation, startTime, actions, shortcuts,
         soundFiles = [
             "build", "upgrade", "sell", "blocking", "enter", "exit", "death", "shoot", "hit",
             "fast", "missile", "antiair", "frost", "earth", "ink", "snap", "laser"
@@ -22,10 +19,8 @@
             "39" : "Right",
             "40" : "Down"
         },
-        soundStorage = "defender.sound",
-        gameDisplay  = "mainScreen",
-        gameMap      = "classic",
-        gameLevel    = 0;
+        gameMap   = "classic",
+        gameLevel = 0;
     
         
     
@@ -34,15 +29,15 @@
      */
     function requestAnimation() {
         startTime = new Date().getTime();
-        animation = Utils.requestAnimationFrame(function () {
-            var time  = new Date().getTime() - startTime,
+        animation = window.requestAnimationFrame(() => {
+            let time  = new Date().getTime() - startTime,
                 speed = time / 16,
                 dec   = score.decTimer(time);
             
             towers.animate(time, speed);
             mobs.animate(time, speed, dec);
                 
-            if (gameDisplay === "playing") {
+            if (display.isPlaying()) {
                 requestAnimation();
             }
         });
@@ -52,15 +47,7 @@
      * Cancel an animation frame
      */
     function cancelAnimation() {
-        Utils.cancelAnimationFrame(animation);
-    }
-    
-    
-    /**
-     * Adds the class to the design to show the Display
-     */
-    function showDisplay() {
-        container.className = gameDisplay;
+        window.cancelAnimationFrame(animation);
     }
     
     
@@ -77,9 +64,7 @@
      * Shows the Game Over Screen
      */
     function showGameOver() {
-        gameDisplay = "gameOver";
-        showDisplay();
-        
+        display.set("gameOver");
         destroyGame();
         maps.saveScore(score.getLives(), score.getTotal());
         score.showFinal();
@@ -91,9 +76,8 @@
      * @param {number} level
      */
     function newGame(level) {
-        gameDisplay = "planning";
-        gameLevel   = level;
-        showDisplay();
+        display.set("planning");
+        gameLevel = level;
         
         maps.saveMap(gameMap, gameLevel);
         
@@ -108,16 +92,14 @@
      * Show the Main Screen
      */
     function showMainScreen() {
-        gameDisplay = "mainScreen";
-        showDisplay();
+        display.set("mainScreen");
     }
     
     /**
      * Shows the Maps selection Screen
      */
     function showMapSelection() {
-        gameDisplay = "selectMap";
-        showDisplay();
+        display.set("selectMap");
         maps.display();
     }
     
@@ -134,17 +116,15 @@
      * @param {string} map
      */
     function showLevelSelection(map) {
-        gameDisplay = "selectLevel";
-        gameMap     = maps.codeToMap(map);
-        showDisplay();
+        display.set("selectLevel");
+        gameMap = maps.codeToMap(map);
     }
     
     /**
      * Show the Controls
      */
     function showControls() {
-        gameDisplay = "controls";
-        showDisplay();
+        display.set("controls");
     }
     
     
@@ -152,9 +132,7 @@
      * Start Playing
      */
     function startPlaying() {
-        gameDisplay = "playing";
-        showDisplay();
-        
+        display.set("playing");
         panel.gameStarted();
         board.gameStarted();
         towers.gameStarted();
@@ -167,7 +145,7 @@
      * Starts the Game and or sends the next wave
      */
     function nextWave() {
-        if (gameDisplay === "planning") {
+        if (display.isPlanning()) {
             startPlaying();
         } else {
             mobs.sendNextWave();
@@ -196,43 +174,32 @@
      * Starts the pause
      */
     function startPause() {
-        gameDisplay = gameDisplay + "Paused";
-        showDisplay();
+        display.setPause();
         cancelAnimation();
-    }
-    
-    /**
-     * Ends the pause and continues planning
-     */
-    function continuePlanning() {
-        gameDisplay = "planning";
-        showDisplay();
-    }
-    
-    /**
-     * Ends the pause and continues playing
-     */
-    function continuePlaying() {
-        gameDisplay = "playing";
-        showDisplay();
-        requestAnimation();
     }
     
     /**
      * Pause the Game
      */
     function pauseGame() {
-        switch (gameDisplay) {
-        case "planningPaused":
-            continuePlanning();
-            break;
-        case "playingPaused":
-            continuePlaying();
-            break;
-        default:
-            startPause();
+        if (display.isPlanningPaused()) {
+            display.set("planning");
+        } else if (display.isPlayingPaused()) {
+            display.set("playing");
+            requestAnimation();
+        } else {
+            display.setPause();
             towers.drop();
+            cancelAnimation();
         }
+    }
+    
+    
+    /**
+     * Sets the text of the Audio button
+     */
+    function setAudioText() {
+        audio.innerHTML = sounds.isMute() ? "Unmute" : "Mute";
     }
     
     /**
@@ -240,7 +207,7 @@
      */
     function toggleSound() {
         sounds.toggle();
-        audio.innerHTML = sounds.isMute() ? "Unmute" : "Mute";
+        setAudioText();
     }
     
     /**
@@ -257,22 +224,22 @@
      */
     function createActions() {
         actions = {
-            mainScreen  : function () { showMainScreen();       },
-            selectMap   : function () { showMapSelection();     },
-            lastMap     : function () { showLastMap();          },
-            controls    : function () { showControls();         },
-            selectLevel : function (d) { showLevelSelection(d); },
-            newGame     : function (d) { newGame(d);            },
-            pause       : function () { pauseGame();            },
-            restart     : function () { restartGame();          },
-            endGame     : function () { endGame();              },
-            mute        : function () { toggleSound();          },
-            next        : function () { nextWave();             },
-            upgrade     : function () { towers.upgrade();       },
-            fire        : function () { towers.fire();          },
-            lock        : function () { towers.lock();          },
-            sell        : function () { towers.sell();          },
-            sellAll     : function () { towers.sellAll();       }
+            mainScreen  : ()  => showMainScreen(),
+            selectMap   : ()  => showMapSelection(),
+            lastMap     : ()  => showLastMap(),
+            controls    : ()  => showControls(),
+            selectLevel : (d) => showLevelSelection(d),
+            newGame     : (d) => newGame(d),
+            pause       : ()  => pauseGame(),
+            restart     : ()  => restartGame(),
+            endGame     : ()  => endGame(),
+            mute        : ()  => toggleSound(),
+            next        : ()  => nextWave(),
+            upgrade     : ()  => towers.upgrade(),
+            fire        : ()  => towers.fire(),
+            lock        : ()  => towers.lock(),
+            sell        : ()  => towers.sell(),
+            sellAll     : ()  => towers.sellAll()
         };
     }
     
@@ -280,7 +247,7 @@
      * Creates a shortcut object
      */
     function createShortcuts() {
-        var paused = {
+        let paused = {
                 P     : "pause",
                 C     : "pause",
                 R     : "restart",
@@ -295,19 +262,19 @@
                 L     : "lock",
                 S     : "sell",
                 A     : "sellAll",
-                DN    : function (d) { towers.startBuilding(d);  },
-                B     : function () { towers.buildTower();       },
-                Left  : function () { towers.moveTower(-1, 0);   },
-                Up    : function () { towers.moveTower(0, -1);   },
-                Right : function () { towers.moveTower(1,  0);   },
-                Down  : function () { towers.moveTower(0,  1);   },
-                Home  : function () { towers.selectFirst();      },
-                End   : function () { towers.selectLast();       },
-                Z     : function () { towers.selectNextPrev(-1); },
-                X     : function () { towers.selectNextPrev(+1); },
-                PU    : function () { towers.selectNextPrev(-5); },
-                PD    : function () { towers.selectNextPrev(+5); },
-                Esc   : function () { endSelection();            }
+                DN    : (d) => towers.startBuilding(d),
+                B     : ()  => towers.buildTower(),
+                Left  : ()  => towers.moveTower(-1, 0),
+                Up    : ()  => towers.moveTower(0, -1),
+                Right : ()  => towers.moveTower(1,  0),
+                Down  : ()  => towers.moveTower(0,  1),
+                Home  : ()  => towers.selectFirst(),
+                End   : ()  => towers.selectLast(),
+                Z     : ()  => towers.selectNextPrev(-1),
+                X     : ()  => towers.selectNextPrev(+1),
+                PU    : ()  => towers.selectNextPrev(-5),
+                PD    : ()  => towers.selectNextPrev(+5),
+                Esc   : ()  => endSelection()
             };
         
         shortcuts = {
@@ -321,9 +288,9 @@
                 BS : "mainScreen"
             },
             selectLevel : {
-                E  : function () { newGame(0); },
-                N  : function () { newGame(1); },
-                H  : function () { newGame(2); },
+                E  : () => newGame(0),
+                N  : () => newGame(1),
+                H  : () => newGame(2),
                 BS : "selectMap"
             },
             controls : {
@@ -344,23 +311,19 @@
      * Stores the used DOM elements and initializes the Event Handlers
      */
     function initDomListeners() {
-        container = document.querySelector("#container");
-        audio     = document.querySelector(".audioButton");
+        audio = document.querySelector(".audioButton");
         
-        document.body.addEventListener("click", function (e) {
-            var element = e.target;
-            while (element.parentElement && !element.dataset.action) {
-                element = element.parentElement;
-            }
-            
+        document.body.addEventListener("click", (e) => {
+            let element = Utils.getTarget(e);
             if (actions[element.dataset.action]) {
                 actions[element.dataset.action](element.dataset.data || undefined);
+                e.preventDefault();
             }
         });
         
-        document.addEventListener("keydown", function (event) {
-            var dec, hexa,
-                key  = event.keyCode,
+        document.addEventListener("keydown", (e) => {
+            let dec, hexa,
+                key  = e.keyCode,
                 code = specialKeys[key] || String.fromCharCode(key),
                 data = code;
             
@@ -370,25 +333,25 @@
             } else if (key >= 96 && key <= 105) {
                 dec  = key - 96;
                 hexa = dec;
-            } else if (["A", "B", "C", "D", "E", "F"].indexOf(code) > -1) {
+            } else if ([ "A", "B", "C", "D", "E", "F" ].indexOf(code) > -1) {
                 hexa = code;
             }
             
-            if (shortcuts[gameDisplay].HN && hexa !== undefined) {
+            if (shortcuts[display.get()].HN && hexa !== undefined) {
                 code = "HN";
                 data = hexa;
-            } else if (shortcuts[gameDisplay].DN && dec !== undefined) {
+            } else if (shortcuts[display.get()].DN && dec !== undefined) {
                 code = "DN";
                 data = dec;
             }
             
-            if (shortcuts[gameDisplay][code]) {
-                if (typeof shortcuts[gameDisplay][code] === "string") {
-                    actions[shortcuts[gameDisplay][code]](data);
+            if (shortcuts[display.get()][code]) {
+                if (typeof shortcuts[display.get()][code] === "string") {
+                    actions[shortcuts[display.get()][code]](data);
                 } else {
-                    shortcuts[gameDisplay][code](data);
+                    shortcuts[display.get()][code](data);
                 }
-                event.preventDefault();
+                e.preventDefault();
             }
         });
     }
@@ -401,14 +364,15 @@
         createShortcuts();
         initDomListeners();
         
-        maps   = new Maps.Maps();
-        sounds = new Sounds(soundFiles, soundStorage, false);
+        display = new Display();
+        maps    = new Maps();
+        sounds  = new Sounds(soundFiles, "defender.sound", false);
         
-        audio.innerHTML = sounds.isMute() ? "Unmute" : "Mute";
+        setAudioText();
     }
     
     
     // Load the game
-    window.addEventListener("load", function () { main(); }, false);
+    window.addEventListener("load", main, false);
 
 }());
