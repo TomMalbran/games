@@ -1,8 +1,19 @@
 CACHE MANIFEST
-# rev 2
+# rev 3
 
-/source/style.css
-/source/game.js
+/design/style.css
+
+/source/Ball.js
+/source/Board.js
+/source/Bricks.js
+/source/Display.js
+/source/HighScores.js
+/source/Mode.js
+/source/Score.js
+/source/Ship.js
+/source/Tail.js
+/source/Init.js
+
 ../utils/Utils.js
 ../utils/Storage.js
 ../utils/Sounds.js

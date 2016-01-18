@@ -1,0 +1,14 @@
+{
+    "globals": {
+        "Ball": true,
+        "Board": true,
+        "Bricks": true,
+        "Display": true,
+        "HighScores": true,
+        "Keyboard": true,
+        "Mode": true,
+        "Score": true,
+        "Ship": true,
+        "Tail": true
+    }
+}
