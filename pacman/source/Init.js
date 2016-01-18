@@ -1,11 +1,9 @@
-/*jslint browser: true */
-/*global Board, Demo, Animations, Score, Food, Ghosts, Blob, Sounds, Utils */
-
 (function () {
     "use strict";
     
-    var board, demo, animations, sounds, score, food, ghosts, blob,
-        container, animation, startTime, actions, shortcuts,
+    var display, demo, animations, sounds, scores,
+        score, food, fruit, ghosts, blob,
+        animation, startTime, actions, shortcuts,
         soundFiles  = [ "start", "death", "eat1", "eat2", "kill" ],
         specialKeys = {
             "8"  : "BS",
@@ -18,47 +16,24 @@
             "68" : "Right",
             "40" : "Down",
             "83" : "Down"
-        },
-        soundStorage = "pacman.sound",
-        gameDisplay  = "mainScreen";
+        };
     
     
     
     /**
-     * Returns true if the game is in a playing mode
-     * @return {boolean}
+     * Calls the Game Over animation and then deletes the game data
      */
-    function isPlaying() {
-        return ["ready", "playing", "paused"].indexOf(gameDisplay) > -1;
-    }
-    
-    /**
-     * Returns true if the game is paused
-     * @return {boolean}
-     */
-    function isPaused() {
-        return gameDisplay === "paused";
-    }
-    
-    /**
-     * Adds the class to the design to show the Display
-     */
-    function showDisplay() {
-        container.className = gameDisplay;
-    }
-    
-    
-    
     function gameOver() {
-        gameDisplay = "ready";
-        animations.gameOver(function () {
-            gameDisplay = "mainScreen";
-            score       = null;
-            food        = null;
-            ghosts      = null;
-            blob        = null;
-            board.clearAll();
-            showDisplay();
+        display.set("ready");
+        animations.gameOver(() => {
+            food   = null;
+            fruit  = null;
+            ghosts = null;
+            blob   = null;
+            
+            Board.clearAll();
+            display.set("gameOver").show();
+            scores.setInput();
         });
     }
     
@@ -67,24 +42,85 @@
      * @param {boolean} newLife
      */
     function createPlayers(newLife) {
-        ghosts = new Ghosts.Manager(board, score, newLife ? ghosts : null);
-        blob   = new Blob(board, score, food, ghosts, sounds);
+        ghosts = new Ghosts(newLife ? ghosts : null);
+        blob   = new Blob();
         
         blob.draw();
-        ghosts.drawGhosts();
+        ghosts.draw();
+        animations.ready(() => display.set("playing"));
+    }
+    
+    
+    /**
+     * Called when the Blob enters a new tile
+     */
+    function blobEating() {
+        let tile   = blob.getTile(),
+            atPill = food.isAtPill(tile);
         
-        animations.ready(function () {
-            gameDisplay = "playing";
+        if (atPill) {
+            let value = food.eatPill(tile),
+                total = food.getLeftPills();
+            
+            fruit.add(total);
+            score.pill(value);
+            ghosts.resetPenTimer();
+            ghosts.checkElroyDots(total);
+            
+            if (value === Data.energizerValue) {
+                ghosts.frighten(blob);
+            }
+            sounds[blob.getSound()]();
+        
+        } else if (fruit.isAtPos(tile)) {
+            let text = score.fruit();
+            fruit.eat();
+            animations.fruitScore(text, Board.fruitTile);
+        }
+        blob.onEat(atPill, ghosts.areFrighten());
+    }
+    
+    /**
+     * Called to do the crash etween a ghost and th blob
+     */
+    function ghostCrash() {
+        ghosts.crash(blob.getTile(), (eyesCounter, tile) => {
+            let text = score.kill(eyesCounter);
+            animations.ghostScore(text, tile);
+            sounds.kill();
+        }, () => {
+            Board.clearGame();
+            animations.death(blob, newLife);
+            sounds.death();
         });
     }
     
+    
+    /**
+     * Called after the Blob dies
+     */
     function newLife() {
         if (!score.died()) {
             gameOver();
         } else {
-            gameDisplay = "ready";
+            display.set("ready");
             createPlayers(true);
         }
+    }
+    
+    /**
+     * Called after we get to a new level
+     */
+    function newLevel() {
+        animations.newLevel(score.getLevel(), () => {
+            food  = new Food();
+            fruit = new Fruit();
+            
+            Board.clearGame();
+            food.draw();
+            score.draw();
+            createPlayers(false);
+        });
     }
     
     
@@ -93,34 +129,36 @@
      */
     function requestAnimation() {
         startTime = new Date().getTime();
-        animation = Utils.requestAnimationFrame(function () {
-            var time  = new Date().getTime() - startTime,
+        animation = window.requestAnimationFrame(() => {
+            let time  = new Date().getTime() - startTime,
                 speed = time / 16;
             
             if (speed > 5) {
                 return requestAnimation();
             }
             
-            if (!isPlaying()) {
+            if (display.isMainScreen()) {
                 demo.animate(time, speed);
             } else if (animations.isAnimating()) {
                 animations.animate(time);
-            } else {
-                board.clearGame();
+            } else if (display.isPlaying()) {
+                Board.clearGame();
                 food.wink();
+                fruit.reduceTimer(time);
                 ghosts.animate(time, speed, blob);
-                blob.animate(speed);
+                let newTile = blob.animate(speed);
                 animations.animate(time);
                 
-                if (ghosts.crash(blob)) {
-                    board.clearGame();
-                    sounds.death();
-                    animations.death(blob, function () {
-                        newLife();
-                    });
+                if (newTile) {
+                    ghosts.setTargets(blob);
+                    blobEating();
                 }
+                if (food.getLeftPills() === 0) {
+                    score.newLevel();
+                    animations.endLevel(newLevel);
+                }
+                ghostCrash();
             }
-            
             requestAnimation();
         });
     }
@@ -129,7 +167,7 @@
      * Cancel an animation frame
      */
     function cancelAnimation() {
-        Utils.cancelAnimationFrame(animation);
+        window.cancelAnimationFrame(animation);
     }
    
     
@@ -137,19 +175,19 @@
      * Starts a new Game
      */
     function newGame() {
-        gameDisplay = "ready";
+        display.set("ready").show();
         cancelAnimation();
         
-        score  = new Score(board, sounds, animations);
-        food   = new Food(board);
+        score = new Score();
+        food  = new Food();
+        fruit = new Fruit();
         
         demo.destroy();
-        board.drawBoard();
+        Board.drawBoard();
         food.draw();
         score.draw();
         
         createPlayers(false);
-        showDisplay();
         requestAnimation();
         sounds.start();
     }
@@ -158,12 +196,29 @@
      * Toggles the Game Pause
      */
     function togglePause() {
-        if (isPaused()) {
-            gameDisplay = "playing";
-            animations.endAnimation();
+        if (display.isPaused()) {
+            display.set("playing");
+            animations.endAll();
         } else {
-            gameDisplay = "paused";
+            display.set("paused");
             animations.paused();
+        }
+    }
+    
+    /**
+     * Show the High Scores
+     */
+    function showHighScores() {
+        display.set("highScores").show();
+        scores.show();
+    }
+    
+    /**
+     * Saves the High Score
+     */
+    function saveHighScore() {
+        if (scores.save(score.getLevel(), score.getScore())) {
+            showHighScores();
         }
     }
     
@@ -174,27 +229,44 @@
      */
     function createActionsShortcuts() {
         actions = {
-            play  : function () { newGame();       },
-            sound : function () { sounds.toggle(); }
+            play       : () => newGame(),
+            highScores : () => showHighScores(),
+            help       : () => display.set("help").show(),
+            sound      : () => sounds.toggle(),
+            save       : () => saveHighScore(),
+            retore     : () => scores.restore(),
+            mainScreen : () => display.set("mainScreen").show()
         };
         
         shortcuts = {
             mainScreen : {
                 Enter : "play",
-                S     : "highScores",
-                Help  : "controls",
+                Down  : "play",
+                H     : "highScores",
+                C     : "help",
                 M     : "sound"
             },
             playing : {
-                P     : function () { togglePause();   },
-                M     : function () { sounds.toggle(); },
-                Left  : function () { blob.makeTurn({ x: -1, y:  0 }); },
-                Up    : function () { blob.makeTurn({ x:  0, y: -1 }); },
-                Right : function () { blob.makeTurn({ x:  1, y:  0 }); },
-                Down  : function () { blob.makeTurn({ x:  0, y:  1 }); }
+                P     : () => togglePause(),
+                M     : () => sounds.toggle(),
+                Left  : () => blob.makeTurn({ x: -1, y:  0 }),
+                Up    : () => blob.makeTurn({ x:  0, y: -1 }),
+                Right : () => blob.makeTurn({ x:  1, y:  0 }),
+                Down  : () => blob.makeTurn({ x:  0, y:  1 })
             },
             paused : {
-                P : function () { togglePause(); }
+                P     : () => togglePause()
+            },
+            gameOver : {
+                Enter : () => saveHighScore(),
+                B     : () => display.set("mainScreen").show()
+            },
+            highScores : {
+                B     : () => display.set("mainScreen").show(),
+                R     : () => scores.restore()
+            },
+            help : {
+                B     : () => display.set("mainScreen").show()
             }
         };
     }
@@ -203,43 +275,48 @@
      * Stores the used DOM elements and initializes the Event Handlers
      */
     function initDomListeners() {
-        container = document.querySelector("#container");
-        
-        document.body.addEventListener("click", function (e) {
-            var element = e.target;
-            while (element.parentElement && !element.dataset.action) {
-                element = element.parentElement;
-            }
-            
+        document.body.addEventListener("click", (e) => {
+            let element = Utils.getTarget(e);
             if (actions[element.dataset.action]) {
                 actions[element.dataset.action](element.dataset.data || undefined);
-                event.preventDefault();
+                e.preventDefault();
             }
         });
         
-        document.addEventListener("keydown", function (event) {
-            var key  = event.keyCode,
+        document.addEventListener("keydown", (e) => {
+            var key  = e.keyCode,
                 code = specialKeys[key] || String.fromCharCode(key);
             
-            if (shortcuts[gameDisplay] && shortcuts[gameDisplay][code]) {
-                if (typeof shortcuts[gameDisplay][code] === "string") {
-                    actions[shortcuts[gameDisplay][code]]();
+            if (shortcuts[display.get()] && shortcuts[display.get()][code]) {
+                if (typeof shortcuts[display.get()][code] === "string") {
+                    actions[shortcuts[display.get()][code]]();
                 } else {
-                    shortcuts[gameDisplay][code]();
+                    shortcuts[display.get()][code]();
                 }
-                event.preventDefault();
+                e.preventDefault();
             }
         });
+    }
+    
+    /**
+     * Destroys the demo when the display changes
+     */
+    function onShow() {
+        if (!display.isMainScreen()) {
+            demo.destroy();
+        }
     }
     
     /**
      * The main Function
      */
     function main() {
-        board      = new Board();
-        demo       = new Demo(board);
-        animations = new Animations(board);
-        sounds     = new Sounds(soundFiles, soundStorage);
+        Board.create();
+        display    = new Display(onShow);
+        demo       = new Demo();
+        animations = new Animations();
+        sounds     = new Sounds(soundFiles, "pacman.sound", true);
+        scores     = new HighScores();
         
         createActionsShortcuts();
         initDomListeners();
@@ -248,6 +325,6 @@
     
     
     // Load the game
-    window.addEventListener("load", function () { main(); }, false);
+    window.addEventListener("load", main, false);
     
 }());

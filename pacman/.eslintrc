@@ -1,0 +1,43 @@
+{
+    "globals": {
+        "Animations": true,
+        "Board": true,
+        "Blob": true,
+        "Data": true,
+        "Display": true,
+        "Food": true,
+        "Fruit": true,
+        "HighScores": true,
+        "Ghosts": true,
+        
+        "Ghost": true,
+        "Blinky": true,
+        "Pinky": true,
+        "Inky": true,
+        "Clyde": true,
+        
+        "Animation": true,
+        "ReadyAnimation": true,
+        "PausedAnimation": true,
+        "DeathAnimation": true,
+        "GameOverAnimation": true,
+        "GhostScoreAnimation": true,
+        "FruitScoreAnimation": true,
+        "EndLevelAnimation": true,
+        "NewLevelAnimation": true,
+        
+        "Canvas": true,
+        "BoardCanvas": true,
+        "GameCanvas": true,
+        
+        "Demo": true,
+        "DemoBlob": true,
+        "DemoData": true,
+        "DemoFood": true,
+        "DemoGhost": true,
+        "BigBlob": true,
+        
+        "Score": true,
+        "ScoreBlob": true
+    }
+}

@@ -1,8 +1,6 @@
-@charset "utf-8";
-
-/* ---------------
-    Game Fonts  */
-
+/**
+ * Game Fonts
+ */
 @font-face {
 	font-family: "Whimsy TT";
 	font-style: normal;
@@ -12,9 +10,9 @@
 
 
 
-/* ----------------
-    Main Styles  */
-
+/**
+ * Main Styles
+ */
 html, body {
 	margin: 0;
 	padding: 0;
@@ -33,10 +31,15 @@ html, body, input {
 }
 
 h1 {
-	font-size: 50px;
+	font-size: 6em;
 	font-weight: normal;
 	text-align: center;
 }
+h2 {
+    font-size: 4.5em;
+    text-align: center;
+}
+
 a {
 	color: rgb(204, 204, 204);
 	text-decoration: none;
@@ -68,9 +71,9 @@ a {
 
 
 
-/* ----------------
-    Game Design  */
-
+/**
+ * Game Design
+ */
 .board,
 .screen,
 .game {
@@ -81,9 +84,9 @@ a {
 
 
 
-/* ----------------
-    Show / Hide  */
-
+/**
+ * Show / Hide
+ */
 .mainScreen .main,
 .gameOver   .input,
 .highScores .high,
@@ -91,12 +94,7 @@ a {
 	display: block;
 }
 
-
-
-/* --------------------
-    Messages Design  */
-
-.main {
+.display {
 	display: none;
 	position: absolute;
 	top: 0;
@@ -104,18 +102,133 @@ a {
 	right: 0;
 	bottom: 0;
 }
-	.main ul {
-		text-align: center;
-		padding: 0;
-		margin-top: 21em;
-	}
-	.main li { list-style: none; }
 
 
 
-/* -----------------
-    Audio Button  */
+/**
+ * MainScreen Design
+ */
+.main ul {
+    text-align: center;
+    padding: 0;
+    margin-top: 21em;
+}
+.main li {
+    list-style: none;
+}
 
+
+
+/**
+ * High Scores Design
+ */
+.high {
+    text-align: center;
+}
+.scores {
+    text-align: center;
+    font-size: 1.7em;
+}
+    .scores .titles,
+    .scores .scores,
+    .help   .titles,
+    .help   .scores {
+        float: left;
+        clear: both;
+        width: 100%;
+    }
+    .scores .titles {
+        margin-bottom: 0.3em;
+        color: rgb(255, 255, 51);
+    }
+    
+    .scores .left,
+    .scores .right,
+    .help   .left,
+    .help   .right {
+        float: left;
+        width: 40%;
+        margin-bottom: 0.3em;
+    }
+    .scores .left,   .help .left   { text-align: right; }
+    .scores .right,  .help .right  { text-align:  left; }
+    .scores .middle, .help .middle {
+        float: left;
+        width: 20%;
+        text-align: center;
+        margin-bottom: 0.3em;
+    }
+
+.none {
+    font-size: 2em;
+    margin: 5em 0 0 0;
+    color: rgb(255, 255, 51);
+}
+
+.restore, .back {
+    position: absolute;
+    bottom: 0.8em;
+}
+    .restore { left:  0.8em; }
+    .back    { right: 0.8em; }
+
+
+
+/**
+ * Game Over Design
+ */
+.input {
+    text-align: center;
+}
+.input p {
+    font-size: 2em;
+    color: rgb(255, 255, 51);
+    margin-top: 4em;
+}
+.input input {
+    background-color: transparent;
+    border-color: rgb(0, 51, 255);
+    border-radius: 0.6em;
+    padding: 0.5em;
+    font-size: 1.5em;
+    margin-right: 0.5em;
+}
+.restart {
+    display: block;
+    margin-top: 2em;
+}
+
+
+
+/**
+ * Controls Design
+ */
+.controls ol {
+    box-sizing: border-box;
+    width: 95%;
+    margin: 0 auto;
+    font-size: 2em;
+    line-height: 0.9em;
+    color: rgb(255, 255, 51);
+}
+.controls ol li {
+    margin-bottom: 0.7em;
+}
+.controls ol li span {
+    color: white;
+    font-size: 0.7em;
+}
+
+.controls a {
+    float: right;
+    margin-right: 5%;
+}
+
+
+
+/**
+ * Audio Button
+ */
 .audio {
     position: absolute;
     bottom: 2em;
