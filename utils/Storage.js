@@ -1,5 +1,3 @@
-/*jslint browser: true */
-
 /**
  * Creates a new Storage. A storage uses local storage capabilities to save JSON data
  */

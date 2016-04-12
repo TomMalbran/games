@@ -214,10 +214,10 @@ class Paths {
         let angle   = this.getDeg(this.getPathDir(path, pos, false)),
             element = document.createElement("DIV");
         
-        element.style.top  = (row * this.parent.board.getSize()) + "px";
-        element.style.left = (col * this.parent.board.getSize()) + "px";
+        element.style.top       = (row * this.parent.board.getSize()) + "px";
+        element.style.left      = (col * this.parent.board.getSize()) + "px";
+        element.style.transform = "rotate(" + angle + "deg)";
         
-        Utils.setTransform(element, "rotate(" + angle + "deg)");
         this.element.appendChild(element);
     }
     

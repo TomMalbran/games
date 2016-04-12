@@ -169,7 +169,7 @@ class Board {
         
         this.winkElem.appendChild(element);
         
-        Utils.addEventListener(element, "AnimationEnd", () => {
+        element.addEventListener("animationend", () => {
             this.endWink();
         });
         return element;

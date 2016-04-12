@@ -1,8 +1,6 @@
-@charset "utf-8";
-
-/* ----------------
-    Main Styles  */
-
+/**
+ * Main Styles
+ */
 html {
     background: radial-gradient(black 15%, transparent 16%) 0 0,
                 radial-gradient(black 15%, transparent 16%) 8px 8px,
@@ -23,9 +21,9 @@ body {
 
 
 
-/* ------------------
-    Design Styles  */
-
+/**
+ * Design Styles
+ */
 header {
     position: absolute;
     box-sizing: border-box;
@@ -53,9 +51,9 @@ iframe {
 
 
 
-/* ------------------
-    header Styles  */
-
+/**
+ * Header Styles
+ */
 header h1 {
     display: inline-block;
     margin: 0;
@@ -86,11 +84,16 @@ header p {
     
 
 
-/* --------------------
-    Nav Menu Styles  */
-
-#nav { list-style: none; margin: 5px; }
-#nav li { display: inline-block; }
+/**
+ * Nav Menu Styles
+ */
+#nav {
+    list-style: none;
+    margin: 5px;
+}
+#nav li {
+    display: inline-block;
+}
 #nav a {
     position: relative;
     margin: 2px 3px;
@@ -106,8 +109,12 @@ header p {
     opacity: 0;
     transition: opacity 0.5s;
 }
-    header.expand #nav a { opacity: 1; }
-    #nav a:hover { color: white; }
+    header.expand #nav a {
+        opacity: 1;
+    }
+    #nav a:hover {
+        color: white;
+    }
     
     #nav a::after {
         content: "//";
@@ -132,4 +139,6 @@ header p {
         color: #646464;
     }
     
-    #nav li.selected a { color: white; }
+    #nav li.selected a {
+        color: white;
+    }

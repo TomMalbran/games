@@ -1,4 +1,4 @@
-/** 
+/**
  * Creates a new queue. A queue is a first-in-first-out (FIFO) data structure -
  * items are added to the end of the queue and removed from the front.
  */

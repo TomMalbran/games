@@ -39,6 +39,6 @@ class LaserAmmo extends Ammo {
      * @param {number} angle
      */
     rotate(angle) {
-        Utils.setTransform(this.element, "rotate(" + angle + "deg) translateX(20px)");
+        this.element.style.transform = "rotate(" + angle + "deg) translateX(20px)";
     }
 }

@@ -424,7 +424,7 @@ class Mob {
         if (this.translate) {
             transform += " translateX(" + this.translate * 3 + "px)";
         }
-        Utils.setTransform(this.mbody, transform);
+        this.mbody.style.transform = transform;
     }
     
     /**

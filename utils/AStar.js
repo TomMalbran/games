@@ -1,5 +1,3 @@
-/*jslint plusplus: true, unparam: true */
-
 /**
  * A* (A-Star) algorithm for a path finder
  */

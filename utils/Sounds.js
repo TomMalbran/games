@@ -1,6 +1,3 @@
-/*jslint browser: true */
-/*global Storage, Audio */
-
 var Sounds = (function () {
     "use strict";
     

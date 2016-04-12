@@ -1,48 +1,26 @@
-/*jslint browser: true */
-
-var Utils = (function () {
+let Utils = (function () {
     "use strict";
 
     return {
-        /**
-         * Request Animation Frame shim
-         * @param {function} callback
-         */
-        requestAnimationFrame: function (callback) {
-            var f = window.requestAnimationFrame       ||
-                    window.webkitRequestAnimationFrame ||
-                    window.mozRequestAnimationFrame    ||
-                    window.msRequestAnimationFrame     ||
-                    window.oRequestAnimationFrame      ||
-                    function (callback) {
-                        window.setTimeout(callback, 1000 / 60);
-                    };
-            return f(callback);
-        },
-        
-        /**
-         * Cancel Animation Frame shim
-         * @param {string} id
-         */
-        cancelAnimationFrame: function (id) {
-            var f = window.cancelRequestAnimationFrame       ||
-                    window.webkitCancelRequestAnimationFrame ||
-                    window.mozCancelRequestAnimationFrame    ||
-                    window.msCancelRequestAnimationFrame     ||
-                    window.oCancelRequestAnimationFrame      ||
-                    function (id) { clearTimeout(id); };
-            return f(id);
-        },
-        
-        
         /**
          * Returns a random value between from and to
          * @param {number} from
          * @param {number} to
          * @return {number}
          */
-        rand: function (from, to) {
+        rand(from, to) {
             return Math.floor(Math.random() * (to - from + 1) + from);
+        },
+        
+        /**
+         * Returns the value higher than the min and lower than the max
+         * @param {number} value
+         * @param {number} min
+         * @param {number} max
+         * @return {number}
+         */
+        clamp(value, min, max) {
+            return Math.max(min, Math.min(max, value));
         },
     
         /**
@@ -51,11 +29,11 @@ var Utils = (function () {
          * @param {string} separator
          * @return {string}
          */
-        formatNumber: function (number, separator) {
-            var result = "", count = 0, i, char;
+        formatNumber(number, separator) {
+            let result = "", count = 0, char;
             number = String(number);
             
-            for (i = number.length - 1; i >= 0; i -= 1) {
+            for (let i = number.length - 1; i >= 0; i -= 1) {
                 char   = number.charAt(i);
                 count += 1;
                 result = char + result;
@@ -69,23 +47,13 @@ var Utils = (function () {
         },
         
         /**
-         * Calculates the Hypotenuse of a triangle with sides x and y
-         * @param {number} x
-         * @param {number} y
-         * @return {number}
-         */
-        calcDistance: function (x, y) {
-            return Math.sqrt(x * x + y * y);
-        },
-        
-        /**
          * Returns the angle between two values
          * @param {number} x
          * @param {number} y
          * @return {number}
          */
-        calcAngle: function (x, y) {
-            var angle = Math.round(Math.abs(Math.atan(y / x) * 180 / Math.PI));
+        calcAngle(x, y) {
+            let angle = Math.round(Math.abs(Math.atan(y / x) * 180 / Math.PI));
             if (y < 0 && x >= 0) {
                 angle = 360 - angle;
             } else if (y < 0 && x < 0) {
@@ -98,86 +66,39 @@ var Utils = (function () {
         
         
         /**
-         * Cross-browser CSS3 Transform property
-         * @param {DOMElement} element
-         * @param {string} transform
+         * Returns the closest element with an action
+         * @param {Event}
+         * @return {DOMElement}
          */
-        setTransform: function (element, transform) {
-            ["WebkitTransform", "MozTransform", "OTransform", "transform"].some(function (property) {
-                if (document.body.style.hasOwnProperty(property)) {
-                    element.style[property] = transform;
-                    return true;
-                }
-                return false;
-            });
+        getTarget(event) {
+            let element = event.target;
+            while (element.parentElement && !element.dataset.action) {
+                element = element.parentElement;
+            }
+            return element;
         },
-        
-        /**
-         * Cross-browser CSS3 Transform-Origin property
-         * @param {DOMElement} element
-         * @param {string} origin
-         */
-        setOrigin: function (element, origin) {
-            ["WebkitTransformOrigin", "MozTransformOrigin", "OTransformOrigin", "transformOrigin"].some(function (property) {
-                if (document.body.style.hasOwnProperty(property)) {
-                    element.style[property] = origin;
-                    return true;
-                }
-                return false;
-            });
-        },
-        
-        /**
-         * Cross-browser add CSS3 Event Listener
-         * @param {DOMElement} element
-         * @param {string} type
-         * @param {function} callback
-         */
-        addEventListener: function (element, type, callback) {
-            ["webkit", "moz", "MS", "o", ""].forEach(function (prefix) {
-                if (!prefix) {
-                    type = type.toLowerCase();
-                }
-                element.addEventListener(prefix + type, callback, false);
-            });
-        },
-        
-        /**
-         * Cross-browser remove CSS3 Event Listener
-         * @param {DOMElement} element
-         * @param {string} type
-         * @param {function} callback
-         */
-        removeEventListener: function (element, type, callback) {
-            ["webkit", "moz", "MS", "o", ""].forEach(function (prefix) {
-                if (!prefix) {
-                    type = type.toLowerCase();
-                }
-                element.removeEventListener(prefix + type, callback, false);
-            });
-        },
-        
         
         /**
          * Returns the position of an Element in the document
          * @param {DOMElement} element
+         * @return {{top: number, left: number}}
          */
-        getPosition: function (element) {
-            var posTop = 0, posLeft = 0;
+        getPosition(element) {
+            let top = 0, left = 0;
             if (element.offsetParent !== undefined) {
-                posTop  = element.offsetTop;
-                posLeft = element.offsetLeft;
+                top  = element.offsetTop;
+                left = element.offsetLeft;
                 
                 while (element.offsetParent && typeof element.offsetParent === "object") {
                     element = element.offsetParent;
-                    posTop  += element.offsetTop;
-                    posLeft += element.offsetLeft;
+                    top  += element.offsetTop;
+                    left += element.offsetLeft;
                 }
             } else if (element.x !== undefined) {
-                posTop  = element.y;
-                posLeft = element.x;
+                top  = element.y;
+                left = element.x;
             }
-            return { top: posTop, left: posLeft };
+            return { top, left };
         },
         
         /**
@@ -186,7 +107,7 @@ var Utils = (function () {
          * @param {number} top
          * @param {number} lefet
          */
-        setPosition: function (element, top, left) {
+        setPosition(element, top, left) {
             element.style.top  = top  + "px";
             element.style.left = left + "px";
         },
@@ -195,7 +116,7 @@ var Utils = (function () {
          * Removes the Element from the DOM
          * @param {DOMElement} element
          */
-        removeElement: function (element) {
+        removeElement(element) {
             var parent = element.parentNode;
             parent.removeChild(element);
         },
@@ -204,27 +125,27 @@ var Utils = (function () {
         /**
          * Returns the Mouse Position
          * @param {Event} event
+         * @return {{top: number, left: number}}
          */
-        getMousePos: function (event) {
-            var posTop = 0, posLeft = 0;
-            
+        getMousePos(event) {
+            let top = 0, left = 0;
             if (!event) {
                 event = window.event;
             }
             if (event.pageX) {
-                posTop  = event.pageY;
-                posLeft = event.pageX;
+                top  = event.pageY;
+                left = event.pageX;
             } else if (event.clientX) {
-                posTop  = event.clientY + (document.documentElement.scrollTop  || document.body.scrollTop);
-                posLeft = event.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft);
+                top  = event.clientY + (document.documentElement.scrollTop  || document.body.scrollTop);
+                left = event.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft);
             }
-            return { top: posTop, left: posLeft };
+            return { top, left };
         },
     
         /**
          * Unselects the elements
          */
-        unselect: function () {
+        unselect() {
             if (window.getSelection) {
                 window.getSelection().removeAllRanges();
             } else if (document.selection) {

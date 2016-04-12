@@ -82,7 +82,7 @@ class Ammo {
      * @param {number} angle
      */
     rotate(angle) {
-        Utils.setTransform(this.element, "rotate(" + angle + "deg)");
+        this.element.style.transform = "rotate(" + angle + "deg)";
     }
     
     /**

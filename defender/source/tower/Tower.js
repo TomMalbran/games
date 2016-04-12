@@ -409,7 +409,7 @@ class Tower {
      */
     rotateCanon(angle) {
         this.angle = angle;
-        Utils.setTransform(this.rotate, "rotate(" + angle + "deg)");
+        this.rotate.transform = "rotate(" + angle + "deg)";
     }
     
     

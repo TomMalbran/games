@@ -1,8 +1,6 @@
-@charset "utf-8";
-
-/* ---------------
-    Game Fonts  */
-
+/**
+ * Game Fonts
+ */
 @font-face {
     font-family: "Gill Sans MT Ext Condensed Bold";
     font-style: normal;
@@ -12,9 +10,9 @@
 
 
 
-/* ----------------
-    Main Styles  */
-
+/**
+ * Main Styles
+ */
 html, body {
     margin: 0;
     padding: 0;
@@ -51,15 +49,22 @@ input {
 
 
 
-/* ------------------
-    Modes Display  */
+/**
+ * Modes Display
+ */
+.playing .board {
+    cursor: none;
+}
+.playing .messages {
+    display: none;
+}
 
-.playing .board    { cursor: none;   }
-.playing .messages { display: none;  }
 .playing .board .ship,
 .playing .board .ball,
 .playing .board .tail div,
-.playing .bricks   { display: block; }
+.playing .bricks {
+    display: block;
+}
 
 .mainScreen .main,
 .paused     .pause,
@@ -71,9 +76,9 @@ input {
 
 
 
-/* ----------------
-    Game Design  */
-
+/**
+ * Game Design
+ */
 #container {
     position: absolute;
     top: 50%;
@@ -93,9 +98,9 @@ input {
 
 
 
-/* -------------------
-    Messages Panel  */
-
+/**
+ * Messages Panel
+ */
 .messages {
     position: absolute;
     top: 0;
@@ -148,11 +153,15 @@ input {
 
 
 
-/* -------------------------
-    Mains Screen / Pause  */
-
-.main    { display: none; }
-.main ul { top: 14em; }
+/**
+ * Mains Screen / Pause
+ */
+.main {
+    display: none;
+}
+.main ul {
+    top: 14em;
+}
 .pause {
     display: none;
     top: 16em;
@@ -172,9 +181,9 @@ input {
 
 
 
-/* --------------
-    Game Over  */
-
+/**
+ * Game Over
+ */
 .input {
     display: none;
     position: absolute;
@@ -211,9 +220,9 @@ input {
 
 
 
-/* ----------------
-    High Scores  */
-
+/**
+ * High Scores
+ */
 .high { display: none; }
 .high .links {
     position: absolute;
@@ -263,9 +272,9 @@ input {
 
 
 
-/* ------------------
-    Help Controls  */
-
+/**
+ * Help Controls
+ */
 .controls {
     display: none;
 }
@@ -284,9 +293,9 @@ input {
 
 
 
-/* -----------------
-    Audio Button  */
-
+/**
+ * Audio Button
+ */
 .audio {
     position: absolute;
     bottom: 2.5em;
@@ -381,9 +390,9 @@ input {
 
 
 
-/* -----------------
-    Board Design  */
-
+/**
+ * Board Design
+ */
 @keyframes fade {
     from { opacity: 0; }
     to   { opacity: 1; }

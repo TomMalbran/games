@@ -81,7 +81,7 @@ class Alerts {
                     data.left    += this.moveX[data.pointer];
                     data.timer    = 100;
                     data.pointer += 1;
-                    Utils.setTransform(data.element, "translate(" + data.left + "px, " + data.top + "px)");
+                    data.element.style.transform = "translate(" + data.left + "px, " + data.top + "px)";
                 }
                 if (data.pointer >= this.moveX.length) {
                     Utils.removeElement(data.element);
