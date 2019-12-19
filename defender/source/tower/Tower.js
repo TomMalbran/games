@@ -3,7 +3,7 @@
  * The Tower Base Class
  */
 class Tower {
-    
+
     /**
      * The Tower Base constructor
      * @param {number} id
@@ -40,10 +40,10 @@ class Tower {
     
     /**
      * Creates the Tower element and returns it
-     * @return {DOMElement}
+     * @return {HTMLElement}
      */
     createElement() {
-        let content  = document.querySelector(".towersPanel .towerBuild[data-type='" + this.type + "']").parentNode.innerHTML;
+        let content  = document.querySelector(`.towersPanel .towerBuild[data-type="${this.type}"]`).parentNode.innerHTML;
         this.element = document.createElement("DIV");
         
         this.element.dataset.type   = "tower";
@@ -52,11 +52,12 @@ class Tower {
         this.element.style.top      = (this.row + this.size / 2) * this.boardSize + "px";
         this.element.style.left     = (this.col + this.size / 2) * this.boardSize + "px";
         
-        this.element.innerHTML =
-            "<div class='towerCenter" + this.size + " towerShadow'></div>" +
-            "<div class='towerCenter" + this.size + " towerSelect'></div>" +
-            "<div class='towerRange'></div>" +
-            "<div class='towerPlaceholder" + this.size + "'>" + content + "</div>";
+        this.element.innerHTML = `
+            <div class="towerCenter${this.size}" towerShadow"></div>
+            <div class="towerCenter${this.size}" towerSelect"></div>
+            <div class="towerRange"></div>
+            <div class="towerPlaceholder${this.size}">${content}</div>
+        `;
         
         this.element.querySelector(".towerBuild").classList.remove("selected");
 	   	
@@ -409,7 +410,7 @@ class Tower {
      */
     rotateCanon(angle) {
         this.angle = angle;
-        this.rotate.transform = "rotate(" + angle + "deg)";
+        this.rotate.style.transform = `rotate(${angle}deg)`;
     }
     
     
@@ -642,8 +643,8 @@ class Tower {
      * @param {number} add
      * @return {number}
      */
-    getActualRange(add) {
-        return Math.floor(this.ranges[this.level - 1 + (add || 0)]);
+    getActualRange(add = 0) {
+        return Math.floor(this.ranges[this.level - 1 + add]);
     }
     
     /**

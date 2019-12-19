@@ -154,10 +154,14 @@ dt, dd {
     position: absolute;
     display: none;
 }
-.building .towerRange { display: block; }
+.building .towerRange {
+    display: block;
+}
 
 .building.dim3 .towerPlaceholder2,
-.building.dim2 .towerPlaceholder3 { display: none; }
+.building.dim2 .towerPlaceholder3 {
+    display: none;
+}
 
     .valid .towerPlaceholder2,
     .valid .towerPlaceholder3 {
@@ -292,7 +296,7 @@ dt, dd {
     .maps button:hover::after {
         content: "";
         position: absolute;
-        top -1px;
+        top: -1px;
         left: 14px;
         width: 0;
         height: 0;
@@ -350,11 +354,13 @@ dt, dd {
     line-height: 1.4em;
     color: yellow;
 }
-    .controls dt:after {
-        content: " :";
-        color: white;
-    }
-.controls dd { width: 180px; }
+.controls dt:after {
+    content: " :";
+    color: white;
+}
+.controls dd {
+    width: 180px;
+}
 
 
 
@@ -693,7 +699,9 @@ dt, dd {
     padding: 3px;
     font-size: 18px;
 }
-    .nextButton { display: none; }
+.nextButton {
+    display: none;
+}
 
 .playing       .startButton,
 .playingPaused .startButton {
