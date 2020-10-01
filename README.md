@@ -1,4 +1,4 @@
-# HTML5 Games
+# HTML5 Games - An Amazing Collection Of Games
 
 A collection of old style addictive games writen in JavaScript, HTML and CSS.
 
