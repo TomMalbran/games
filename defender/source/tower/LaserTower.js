@@ -31,6 +31,16 @@ class LaserTower extends Tower {
         this.init(id, row, col, boardSize);
     }
 
+    /**
+     * Creates a new Ammo
+     * @param {Array.<Mob>} targets
+     * @param {Number}      index
+     * @returns {LaserAmmo}
+     */
+     createAmmo(targets, index) {
+        return new LaserAmmo(this, targets, this.boardSize);
+    }
+
 
     /**
      * Returns a list of Mobs in a lineal range of the tower
