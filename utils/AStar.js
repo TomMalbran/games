@@ -3,7 +3,7 @@
  */
 var AStar = (function () {
     "use strict";
-    
+
 
     function diagonalSuccessors($N, $S, $E, $W, N, S, E, W, grid, rows, cols, result, i, walkable) {
         if ($N) {
@@ -64,7 +64,7 @@ var AStar = (function () {
             $W = W > -1 && grid[y][W] < walkable,
             result = [],
             i = 0;
-        
+
         if ($N) { result[i++] = { x: x, y: N }; }
         if ($E) { result[i++] = { x: E, y: y }; }
         if ($S) { result[i++] = { x: x, y: S }; }
@@ -79,7 +79,7 @@ var AStar = (function () {
     function euclidean(start, end, f1, f2) {
         var x = start.x - end.x,
             y = start.y - end.y;
-        
+
         return f2(x * x + y * y);
     }
 
@@ -98,10 +98,10 @@ var AStar = (function () {
             result = [],
             open = [{ x: start[0], y: start[1], f: 0, g: 0, v: start[0] + start[1] * cols }],
             length = 1;
-        
+
         end = { x: end[0], y: end[1], v: end[0] + end[1] * cols };
         find = f === "Diagonal" || f === "Euclidean" ? diagonalSuccessors : find;
-        
+
         switch (f) {
         case "Diagonal":
         case "DiagonalFree":
@@ -117,7 +117,7 @@ var AStar = (function () {
             find = nothingToDo;
             break;
         }
-        
+
         find = find || diagonalSuccessorsFree;
         do {
             max = limit;
@@ -156,7 +156,7 @@ var AStar = (function () {
         } while (length);
         return result;
     }
-    
-    
+
+
     return AStar;
 }());

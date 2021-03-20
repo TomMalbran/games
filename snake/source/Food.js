@@ -2,7 +2,7 @@
  * Food Manager
  */
 class Food {
-    
+
     /**
      * Food Manager constructor
      * @param {Board} board
@@ -15,19 +15,19 @@ class Food {
         this.element  = document.querySelector(".food");
         this.body     = this.element.querySelector(".foodBody");
         this.shadow   = this.element.querySelector(".foodShadow");
-        
+
         this.top      = top  || 0;
         this.left     = left || 0;
         this.foodTime = 1000;
         this.time     = this.foodTime;
-        
+
         if (top) {
             this.setPosition();
         } else {
             this.add(pos);
         }
     }
-    
+
     /**
      * Checks if the given position is the food position and it hides it when it is
      * @param {number} top
@@ -40,7 +40,7 @@ class Food {
         }
         return false;
     }
-    
+
     /**
      * Repositions the food and resets the values
      * @param {{top: number, left: number}} pos
@@ -49,10 +49,10 @@ class Food {
         this.time = this.foodTime;
         this.top  = pos.top;
         this.left = pos.left;
-        
+
         this.setPosition();
     }
-    
+
     /**
      * Reduces the time
      * @param {number} time
@@ -63,7 +63,7 @@ class Food {
             this.setTransform();
         }
     }
-    
+
     /**
      * Places the food at a position
      */
@@ -71,7 +71,7 @@ class Food {
         this.element.style.top  = this.board.getPosition(this.top);
         this.element.style.left = this.board.getPosition(this.left);
     }
-    
+
     /**
      * Sets the transform to rotate the food
      */
@@ -87,8 +87,8 @@ class Food {
         this.body.style.transform   = "rotate(" + deg + "deg)";
         this.shadow.style.transform = "rotate(" + deg + "deg)";
     }
-    
-    
+
+
     /**
      * Returns the position of the food
      * @return {{top: number, left: number}}
@@ -96,7 +96,7 @@ class Food {
     getPosition() {
         return { top : this.top, left : this.left };
     }
-    
+
     /**
      * Returns the timer
      * @return {number}

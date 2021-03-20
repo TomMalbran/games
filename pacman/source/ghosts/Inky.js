@@ -3,7 +3,7 @@
  * The Inky Class
  */
 class Inky extends Ghost {
-    
+
     /**
      * The Inky constructor
      * @param {Canvas} canvas
@@ -12,7 +12,7 @@ class Inky extends Ghost {
      */
     constructor(canvas, dots, blinky) {
         super();
-        
+
         this.paths = {
             inPen    : [
                 { dir : { x:  0, y: -1 }, disty : 168, next : 1 },
@@ -28,7 +28,7 @@ class Inky extends Ghost {
                 { dir : { x: -1, y:  0 }, distx : 144, next : null }
             ]
         };
-        
+
         this.id      = 2;
         this.x       = 144;
         this.y       = 174;
@@ -36,11 +36,11 @@ class Inky extends Ghost {
         this.inPen   = true;
         this.color   = Inky.color;
         this.blinky  = blinky;
-        
+
         this.init(canvas, dots);
         this.setPath("inPen");
     }
-    
+
     /**
      * Returns the Ghost's name
      * @return {string}
@@ -48,7 +48,7 @@ class Inky extends Ghost {
     static get name() {
         return "Inky";
     }
-    
+
     /**
      * Returns the Ghost's color
      * @return {string}
@@ -57,7 +57,7 @@ class Inky extends Ghost {
         return "rgb(102, 255, 255)";
     }
 
-    
+
     /**
      * Inky's target is an average of Blinky's position and the Blob's position
      * @param {Blob} blob
@@ -66,7 +66,7 @@ class Inky extends Ghost {
     chase(blob) {
         let offsetx = blob.getTile().x + 2 * blob.getDir().x,
             offsety = blob.getTile().y + 2 * blob.getDir().y;
-        
+
         // Recreating bug where Up = Up+Left
         if (blob.getDir().y === -1) {
             offsetx -= 2;

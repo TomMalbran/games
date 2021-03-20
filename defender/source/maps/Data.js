@@ -1,5 +1,5 @@
 let MapsData = {
-    
+
     nothing    : 0,
     start1     : 1,     // Start  for path 1
     start2     : 2,     // Start  for path 2
@@ -7,12 +7,12 @@ let MapsData = {
     target2    : 4,     // Target for path 2
     wall       : 5,
     towerStart : 6,     // Starting tower id
-    
+
     // Map Data
     squareSize : 15,
     colsAmount : 28,
     rowsAmount : 24,
-    
+
     // The Maps
     maps : {
         classic : {

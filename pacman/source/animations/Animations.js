@@ -2,7 +2,7 @@
  * The Animations Manager Class
  */
 class Animations {
-    
+
     /**
      * The Animations Manager constructor
      */
@@ -10,7 +10,7 @@ class Animations {
         this.canvas     = Board.screenCanvas;
         this.animations = [];
     }
-    
+
     /**
      * Returns true if there is an animation
      */
@@ -18,7 +18,7 @@ class Animations {
         return this.animations.length &&
             this.animations.some((anim) => anim.blocksGameLoop());
     }
-    
+
     /**
      * Animates the current animation, if possible
      * @param {number} time
@@ -36,7 +36,7 @@ class Animations {
             });
         }
     }
-    
+
     /**
      * Ends all the Animations
      */
@@ -44,7 +44,7 @@ class Animations {
         this.animations.forEach((anim) => anim.onEnd());
         this.animations = [];
     }
-    
+
     /**
      * Adds a new animation
      * @param {Animation} animation
@@ -52,9 +52,9 @@ class Animations {
     add(animation) {
         this.animations.push(animation);
     }
-    
-    
-    
+
+
+
     /**
      * Creates the Ready Animation
      * @param {function} callback
@@ -62,14 +62,14 @@ class Animations {
     ready(callback) {
         this.add(new ReadyAnimation(this.canvas, callback));
     }
-    
+
     /**
      * Creates the Paused Animation
      */
     paused() {
         this.add(new PausedAnimation(this.canvas));
     }
-    
+
     /**
      * Creates the Blob's Death Animation
      * @param {Blob}     blob
@@ -78,7 +78,7 @@ class Animations {
     death(blob, callback) {
         this.add(new DeathAnimation(this.canvas, blob, callback));
     }
-    
+
     /**
      * Creates the Game Over Animation
      * @param {function} callback
@@ -86,7 +86,7 @@ class Animations {
     gameOver(callback) {
         this.add(new GameOverAnimation(this.canvas, callback));
     }
-    
+
     /**
      * Creates the Ghost Score Animation
      * @param {string} text
@@ -95,7 +95,7 @@ class Animations {
     ghostScore(score, pos) {
         this.add(new GhostScoreAnimation(this.canvas, score, pos));
     }
-    
+
     /**
      * Creates the Fruit Score Animation
      * @param {string} text
@@ -104,7 +104,7 @@ class Animations {
     fruitScore(score, pos) {
         this.add(new FruitScoreAnimation(this.canvas, score, pos));
     }
-    
+
     /**
      * Creates the End Level Animation
      * @param {function} callback
@@ -112,7 +112,7 @@ class Animations {
     endLevel(callback) {
         this.add(new EndLevelAnimation(callback));
     }
-    
+
     /**
      * Creates the New Level Animation
      * @param {number}   level

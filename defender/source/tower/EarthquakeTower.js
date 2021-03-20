@@ -3,7 +3,7 @@
  * The Earthquake Tower Class
  */
 class EarthquakeTower extends Tower {
-    
+
     /**
      * The Earthquake Tower constructor
      * @param {number} id
@@ -13,7 +13,7 @@ class EarthquakeTower extends Tower {
      */
     constructor(id, row, col, boardSize) {
         super();
-        
+
         this.type    = "Earthquake";
         this.name    = "Earthquake Tower";
         this.special = "Tsunami Tower";
@@ -22,15 +22,15 @@ class EarthquakeTower extends Tower {
         this.size    = 2;
         this.stuns   = true;
         this.sound   = "earth";
-        
+
         this.costs   = [ 100, 220, 365, 540, 800, 1250 ];
         this.damages = [  60, 120, 240, 480, 960, 2000 ];
         this.ranges  = [  30,  30,  30,  30,  30,   30 ];
         this.speeds  = [ 1.3, 1.3, 1.3, 1.3, 1.3,  1.6 ];
-        
+
         this.init(id, row, col, boardSize);
     }
-    
+
     /**
      * Creates a new Ammo
      * @param {Array.<Mob>} targets
@@ -40,8 +40,8 @@ class EarthquakeTower extends Tower {
         return new EarthquakeAmmo(this, targets, this.boardSize);
     }
 
-    
-    
+
+
     /**
      * Returns a list of Mobs in the range of the tower
      * @param {List.<Iterator>} mobs
@@ -51,7 +51,7 @@ class EarthquakeTower extends Tower {
     getTargets(mobs, mob) {
         return [ this.getRangeTargets(mobs) ];
     }
-    
+
     /**
      * Returns true if the given Mob is a valid target
      * @param {Mob} mob
@@ -60,7 +60,7 @@ class EarthquakeTower extends Tower {
     isValidTarget(mob) {
         return !mob.isFlyer();
     }
-    
+
     /**
      * Returns true if it will stun a mob
      * @return {boolean}

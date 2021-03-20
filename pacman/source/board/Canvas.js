@@ -2,7 +2,7 @@
  * The Canvas Base Class
  */
 class Canvas {
-    
+
     /**
      * Initializes the Canvas Object
      * @param {string} name
@@ -12,18 +12,18 @@ class Canvas {
         let canvas    = document.querySelector("." + name);
         canvas.width  = Board.width;
         canvas.height = Board.height;
-        
+
         this.ctx              = canvas.getContext("2d");
         this.ctx.font         = "2em 'Whimsy TT'";
         this.ctx.fillStyle    = "white";
         this.ctx.textAlign    = "center";
         this.ctx.textBaseline = "middle";
-        
+
         this.rects            = [];
-        
+
         return this;
     }
-    
+
     /**
      * Returns the conetext for the board element
      * @return {RenderingContext}
@@ -31,7 +31,7 @@ class Canvas {
     get context() {
         return this.ctx;
     }
-    
+
     /**
      * Fills the canvas with black at the given alpha value
      * @param {number} alpha
@@ -46,7 +46,7 @@ class Canvas {
         this.ctx.fillRect(x || 0, y || 0, width || Board.width, height || Board.height);
         this.ctx.restore();
     }
-    
+
     /**
      * Clear the entire board
      */
@@ -54,7 +54,7 @@ class Canvas {
         this.ctx.clearRect(0, 0, Board.width, Board.height);
         this.rects = [];
     }
-    
+
     /**
      * Clears only the saved rects
      */
@@ -67,7 +67,7 @@ class Canvas {
         });
         this.rects = [];
     }
-    
+
     /**
      * Saves a new position to clear in the future
      * @param {number} x
@@ -81,7 +81,7 @@ class Canvas {
             height : Board.eraseSize
         });
     }
-    
+
     /**
      * Saves a new rectangle to clear in the future
      * @param {{x: number, y: number, width: number, height: number, alpha: ?number}} data
@@ -89,14 +89,14 @@ class Canvas {
     saveRect(data) {
         this.rects.push(data);
     }
-    
+
     /**
      * Draws the Text in the canvas
      * @param {{text: string, pos: {x: number, y: number}, color: string, size: ?numer, align: ?string}} data
      */
     drawText(data) {
         let metrics, width, height, mult = 0.5;
-        
+
         this.ctx.save();
         if (data.size) {
             this.ctx.font = data.size + "em 'Whimsy TT'";
@@ -108,11 +108,11 @@ class Canvas {
         this.ctx.fillStyle = data.color;
         this.ctx.fillText(data.text, data.pos.x * Board.tileSize, data.pos.y * Board.tileSize);
         this.ctx.restore();
-        
+
         metrics = this.ctx.measureText(data.text);
         width   = metrics.width + Board.tileSize;
         height  = data.size ? (data.size + 0.5) * Board.tileSize : 2.5 * Board.tileSize;
-        
+
         this.saveRect({
             x      : data.pos.x * Board.tileSize - mult * width,
             y      : data.pos.y * Board.tileSize - height / 2,

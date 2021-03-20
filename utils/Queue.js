@@ -4,7 +4,7 @@
  */
 var Queue = (function () {
     "use strict";
-    
+
     /**
      * @constructor
      * The Queue Class
@@ -15,7 +15,7 @@ var Queue = (function () {
         this.current = null;
         this.length  = 0;
     }
-    
+
     /**
      * Enqueues the given item
      * @param {*} item
@@ -25,7 +25,7 @@ var Queue = (function () {
             data: item,
             next: null
         };
-        
+
         if (!this.head) {
             this.head = node;
             this.tail = node;
@@ -35,7 +35,7 @@ var Queue = (function () {
         }
         this.length += 1;
     };
-    
+
     /**
      * Dequeues and returns the first item in the Queue. If the Queue is empty it returns null.
      * @return {?*}
@@ -49,7 +49,7 @@ var Queue = (function () {
         }
         return null;
     };
-    
+
     /**
      * Returns the first element of the queue or null if the Queue is empty
      * @return {?*}
@@ -57,7 +57,7 @@ var Queue = (function () {
     Queue.prototype.first = function () {
         return this.head ? this.head.data : null;
     };
-    
+
     /**
      * Returns the last element of the queue or null if the Queue is empty
      * @return {?*}
@@ -65,8 +65,8 @@ var Queue = (function () {
     Queue.prototype.last = function () {
         return this.tail ? this.tail.data : null;
     };
-    
-    
+
+
     /**
      * Returns true if the queue is empty, and false otherwise
      * @return {boolean}
@@ -74,7 +74,7 @@ var Queue = (function () {
     Queue.prototype.isEmpty = function () {
         return !this.head;
     };
-    
+
     /**
      * Returns the size of the queue
      * @return {number}
@@ -82,15 +82,15 @@ var Queue = (function () {
     Queue.prototype.size = function () {
         return this.length;
     };
-    
-    
+
+
     /**
      * Starts the iterator at the head of the queue
      */
     Queue.prototype.iterate = function () {
         this.current = this.head;
     };
-    
+
     /**
      * Moves the iterator to the next element
      */
@@ -99,14 +99,14 @@ var Queue = (function () {
             this.current = this.current.next;
         }
     };
-    
+
     /**
      * Returns the current element of the Queue or null if there isn't one
      */
     Queue.prototype.item = function () {
         return this.current ? this.current.data : null;
     };
-    
+
     /**
      * Returns true if there are more elements after the current one
      * @return {boolean}
@@ -114,7 +114,7 @@ var Queue = (function () {
     Queue.prototype.hasNext = function () {
         return !!this.current;
     };
-    
-    
+
+
     return Queue;
 }());

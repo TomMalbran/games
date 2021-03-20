@@ -2,7 +2,7 @@
  * Tail Manager
  */
 class Tail {
-    
+
     /**
      * Tail Manager constructor
      */
@@ -12,11 +12,11 @@ class Tail {
         this.elements    = [];
         this.container   = document.querySelector(".tail");
         this.container.innerHTML = "";
-        
+
         for (let i = 0; i < this.amount; i += 1) {
             let div = document.createElement("DIV");
             this.container.appendChild(div);
-            
+
             this.elements.push({
                 element : div,
                 top     : 0,
@@ -24,7 +24,7 @@ class Tail {
             });
         }
     }
-    
+
     /**
      * Sets the initial positions of the tails elements
      * @param {Ball} ball
@@ -37,7 +37,7 @@ class Tail {
         });
         this.setPosition();
     }
-    
+
     /**
      * Move the tail
      * @param {Ball} ball
@@ -48,7 +48,7 @@ class Tail {
             pos   = ball.getPosition(),
             top   = pos.top,
             left  = pos.left;
-        
+
         if (Math.abs(top - first.top) < this.minDistance ||
                 Math.abs(left - first.left) < this.minDistance) {
             return;
@@ -56,16 +56,16 @@ class Tail {
         this.elements.forEach((data) => {
             oldTop  = data.top;
             oldLeft = data.left;
-            
+
             data.top  = top;
             data.left = left;
-            
+
             top  = oldTop;
             left = oldLeft;
         });
         this.setPosition();
     }
-    
+
     /**
      * Sets the position of each element
      */

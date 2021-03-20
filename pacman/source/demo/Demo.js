@@ -2,35 +2,35 @@
  * The Demo Class
  */
 class Demo {
-    
+
     /**
      * The Demo constructor
      */
     constructor() {
         this.canvas  = Board.screenCanvas;
         this.ctx     = this.canvas.context;
-        
+
         this.step    = -1;
         this.name    = "";
         this.bigBlob = new BigBlob();
         this.food    = new DemoFood();
-        
+
         this.nextAnimation();
     }
-    
-    
+
+
     /**
      * Destroys the current Demo and leaves it ready for the next start
      */
     destroy() {
         this.step    = -1;
         this.bigBlob = new BigBlob();
-        
+
         this.canvas.clear();
         this.nextAnimation();
     }
-    
-    
+
+
     /**
      * Calls the animation the demo is at
      * @param {number} time
@@ -52,7 +52,7 @@ class Demo {
             break;
         }
     }
-    
+
     /**
      * Jumps to the next animation in the demo
      */
@@ -60,7 +60,7 @@ class Demo {
         this.step  = this.step === DemoData.animations.length - 1 ? 1 : this.step + 1;
         this.name  = DemoData.animations[this.step];
         this.timer = 0;
-        
+
         switch (this.name) {
         case "chase":
             this.initChase();
@@ -73,8 +73,8 @@ class Demo {
             break;
         }
     }
-    
-    
+
+
     /**
      * The Title Animation
      * @param {number} time
@@ -82,11 +82,11 @@ class Demo {
     titleAnimation(time) {
         this.timer += time;
         let alpha   = 1 - Math.round(10 * this.timer / DemoData.title.endTime) / 10;
-        
+
         this.canvas.clear();
         this.bigBlob.animate(time);
         this.canvas.fill(alpha);
-        
+
         if (this.timer > DemoData.title.endTime) {
             this.canvas.clear();
             this.drawTitle();
@@ -94,14 +94,14 @@ class Demo {
             this.nextAnimation();
         }
     }
-    
+
     /**
      * Draws the Pacman title
      */
     drawTitle() {
         var left  = Board.tileToPos(DemoData.title.leftText),
             right = Board.tileToPos(DemoData.title.rightText);
-        
+
         this.ctx.save();
         this.ctx.font      = "6em 'Whimsy TT'";
         this.ctx.textAlign = "right";
@@ -110,8 +110,8 @@ class Demo {
         this.ctx.fillText("man", right.x, right.y);
         this.ctx.restore();
     }
-    
-    
+
+
     /**
      * Initializes the Players for the Chase animation
      */
@@ -119,17 +119,17 @@ class Demo {
         let size = Board.tileSize,
             yPos = DemoData.chase.playersY * size,
             dir  = DemoData.chase.playersDir;
-        
+
         this.createPlayers();
         this.blob.chaseDemo(dir,       -size, yPos);
         this.blinky.chaseDemo(dir, -4 * size, yPos);
         this.pinky.chaseDemo(dir,  -6 * size, yPos);
         this.inky.chaseDemo(dir,   -8 * size, yPos);
         this.clyde.chaseDemo(dir, -10 * size, yPos);
-        
+
         this.endPos = DemoData.chase.endTile * Board.tileSize;
     }
-    
+
     /**
      * Creates the Blob and the Ghosts
      */
@@ -139,40 +139,40 @@ class Demo {
         this.pinky  = new DemoGhost(Pinky.name, Pinky.color);
         this.inky   = new DemoGhost(Inky.name, Inky.color);
         this.clyde  = new DemoGhost(Clyde.name, Clyde.color);
-        
+
         this.ghosts = [ this.blinky, this.pinky, this.inky, this.clyde ];
     }
-    
+
     /**
      * The Chase Animation
      * @param {number} speed
      */
     chaseAnimation(speed) {
         this.animatePlayers(speed, true);
-        
+
         if (this.blob.getX() >= this.endPos) {
             this.nextAnimation();
         }
     }
-    
-    
+
+
     /**
      * Initializes the Players for the Frighten animation
      */
     initFrighten() {
         var speed = Data.getLevelData("ghostFrightSpeed") * DemoData.frighten.speedMult,
             dir   = DemoData.frighten.playersDir;
-        
+
         this.blob.frightenDemo(dir);
         this.blinky.frightenDemo(dir, speed);
         this.pinky.frightenDemo(dir, speed);
         this.inky.frightenDemo(dir, speed);
         this.clyde.frightenDemo(dir, speed);
-        
+
         this.scores = [];
         this.endPos = DemoData.frighten.endTile * Board.tileSize;
     }
-    
+
     /**
      * The Frighten Animation
      * @param {number} time
@@ -181,7 +181,7 @@ class Demo {
     frightenAnimation(time, speed) {
         this.animatePlayers(speed);
         this.drawScores(time);
-        
+
         if (this.ghosts.length > 0 && this.blob.getX() <= this.ghosts[0].getX()) {
             this.ghosts.shift();
             this.text = this.blob.getX();
@@ -200,7 +200,7 @@ class Demo {
             this.nextAnimation();
         }
     }
-    
+
     /**
      * Draws the Scores in the Canvas
      * @param {number} time
@@ -209,7 +209,7 @@ class Demo {
         this.scores.forEach((score, index) => {
             score.timer += time;
             score.size   = Math.min(0.2 + Math.round(score.timer * 100 / DemoData.chase.scoreInc) / 100, 1);
-            
+
             if (score.timer < DemoData.chase.scoreTime) {
                 this.canvas.drawText(score);
             } else {
@@ -217,8 +217,8 @@ class Demo {
             }
         });
     }
-    
-    
+
+
     /**
      * Initializes the Players for the Present animation
      */
@@ -228,14 +228,14 @@ class Demo {
         this.pinky.presentDemo(DemoData.present.dir);
         this.inky.presentDemo(DemoData.present.dir);
         this.clyde.presentDemo(DemoData.present.dir);
-        
+
         this.ghosts   = [ this.blinky ];
         this.others   = [ this.pinky, this.inky, this.clyde ];
         this.count    = 4;
         this.presentX = DemoData.present.tile * Board.tileSize;
         this.exitX    = Board.width + Board.tileSize;
     }
-    
+
     /**
      * The Present Animation
      * @param {number} time
@@ -244,7 +244,7 @@ class Demo {
     presentAnimation(time, speed) {
         if (this.timer <= 0) {
             this.animatePlayers(speed);
-            
+
             if (this.count > 0 && this.ghosts[0].getX() > this.presentX) {
                 this.drawName(this.ghosts[0]);
                 if (this.others.length) {
@@ -253,19 +253,19 @@ class Demo {
                 }
                 this.timer  = DemoData.present.timer;
                 this.count -= 1;
-            
+
             } else if (this.ghosts[this.ghosts.length - 1].getX() > this.exitX) {
                 this.ghosts.pop();
                 if (!this.ghosts.length) {
                     this.nextAnimation();
                 }
             }
-            
+
         } else {
             this.timer -= time;
         }
     }
-    
+
     /**
      * Draws the Name of the given Ghost
      * @param {Ghost} ghost
@@ -278,8 +278,8 @@ class Demo {
             pos   : DemoData.present.namePos
         });
     }
-    
-    
+
+
     /**
      * Animates all the players
      * @param {number}   speed
@@ -287,14 +287,14 @@ class Demo {
      */
     animatePlayers(speed, food) {
         this.canvas.clearSavedRects();
-        
+
         if (food) {
             this.food.wink();
         }
         this.ghosts.forEach((ghost) => {
             ghost.demoAnimate(speed);
         });
-        
+
         if (this.blob) {
             this.blob.animate(speed);
         }

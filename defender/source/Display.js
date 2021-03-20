@@ -2,7 +2,7 @@
  * The Display Class
  */
 class Display {
-    
+
     /**
      * The Display constructor
      */
@@ -10,8 +10,8 @@ class Display {
         this.container = document.querySelector("#container");
         this.display   = "mainScreen";
     }
-    
-    
+
+
     /**
      * Returns the display
      * @return {string}
@@ -19,7 +19,7 @@ class Display {
     get() {
         return this.display;
     }
-    
+
     /**
      * Sets the display and changes the container class
      * @param {string} display
@@ -28,7 +28,7 @@ class Display {
         this.display = display;
         this.show();
     }
-    
+
     /**
      * Changes the display to the paused version and changes the container class
      */
@@ -36,15 +36,15 @@ class Display {
         this.display = this.display + "Paused";
         this.show();
     }
-    
+
     /**
      * Changes the container class
      */
     show() {
         this.container.className = this.display;
     }
-    
-    
+
+
     /**
      * Returns true if the display is in the "playing" mode
      * @return {boolean}
@@ -52,7 +52,7 @@ class Display {
     isPlaying() {
         return this.display === "playing";
     }
-    
+
     /**
      * Returns true if the display is in the "planning" mode
      * @return {boolean}
@@ -60,7 +60,7 @@ class Display {
     isPlanning() {
         return this.display === "planning";
     }
-    
+
     /**
      * Returns true if the display is in the "planningPaused" mode
      * @return {boolean}
@@ -68,7 +68,7 @@ class Display {
     isPlanningPaused() {
         return this.display === "planningPaused";
     }
-    
+
     /**
      * Returns true if the display is in the "playingPaused" mode
      * @return {boolean}

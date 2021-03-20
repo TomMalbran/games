@@ -3,7 +3,7 @@
  * The Laser Ammo Class
  */
 class LaserAmmo extends Ammo {
-    
+
     /**
      * The Laser Ammo constructor
      * @param {Tower} tower
@@ -12,15 +12,15 @@ class LaserAmmo extends Ammo {
      */
     constructor(tower, targets, boardSize) {
         super();
-        
+
         this.center      = 0;
         this.rotateTower = true;
         this.rotateAmmo  = false;
         this.className   = "laserAmmo";
-        
+
         this.init(tower, targets, boardSize);
     }
-    
+
     /**
      * Moves the ammo according to the given time. Returns true if it reached the target
      * @param {number} time
@@ -33,7 +33,7 @@ class LaserAmmo extends Ammo {
         }
         return false;
     }
-    
+
     /**
      * Rotates the Ammo
      * @param {number} angle

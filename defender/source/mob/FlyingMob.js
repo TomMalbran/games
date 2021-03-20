@@ -3,19 +3,19 @@
  * The Flying Mob Class
  */
 class FlyingMob extends Mob {
-    
+
     /**
      * The Flying Mob constructor
      * @param {Object} data
      */
     constructor(data) {
         super();
-        
+
         this.name     = "Flying";
         this.slogan   = "I can Fly!";
         this.text     = "This mob goes in straight line to the exit.";
         this.color    = "rgb(192, 169, 46)";
-        
+
         this.interval = 400;
         this.amount   = 10;
         this.bosses   = 1;
@@ -27,7 +27,7 @@ class FlyingMob extends Mob {
         this.content  =
             "<div class='flyingMob'></div>" +
             "<div class='flyingShadow'></div>";
-        
+
         this.init(data);
     }
 }

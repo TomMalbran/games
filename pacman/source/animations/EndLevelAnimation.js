@@ -3,22 +3,22 @@
  * The End Level Animation
  */
 class EndLevelAnimation extends Animation {
-    
+
     /**
      * The End Level Animation constructor
      * @param {function} callback
      */
     constructor(callback) {
         super();
-        
+
         this.callback   = callback;
-        
+
         this.blinks     = 0;
         this.blocksGame = true;
         this.blinkTimer = 150;
         this.endTime    = 1600;
     }
-    
+
     /**
      * Does the End Level animation
      */

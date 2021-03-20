@@ -2,7 +2,7 @@
  * The Board Class
  */
 class Board {
-    
+
     /**
      * The Board constructor
      * @param {number}   tetriminoSize
@@ -11,17 +11,17 @@ class Board {
     constructor(tetriminoSize, onWindEnd) {
         this.fieldElem = document.querySelector(".field");
         this.winkElem  = document.querySelector(".winker");
-        
+
         this.tetriminoSize = tetriminoSize;
         this.onWindEnd     = onWindEnd;
         this.matrixCols    = 12;
         this.matrixRows    = 23;
         this.matrix        = [];
-        
+
         this.rows      = [];
         this.lines     = [];
         this.winks     = null;
-        
+
         for (let i = 0; i < this.matrixRows; i += 1) {
             this.matrix[i] = [];
             this.rows[i]   = 0;
@@ -30,8 +30,8 @@ class Board {
             }
         }
     }
-    
-    
+
+
     /**
      * Checks if there is a crash, given the Tetrimino Matrix and position
      * @param {number} top
@@ -49,7 +49,7 @@ class Board {
         }
         return false;
     }
-    
+
     /**
      * Adds Tetrimino Elements to the Matrix
      * @param {DOMElement} element
@@ -59,10 +59,10 @@ class Board {
     addToMatrix(element, top, left) {
         this.matrix[top][left + 1] = element;
         this.rows[top] += 1;
-        
+
         return this.rows[top] === this.matrixCols - 2;
     }
-    
+
     /**
      * Removes a Row from the Matrix
      * @param {number} line
@@ -74,7 +74,7 @@ class Board {
                 Utils.removeElement(this.matrix[line][i]);
             }
         }
-        
+
         i = line - 1;
         while (this.rows[i] > 0) {
             for (let j = 1; j < this.matrixCols - 1; j += 1) {
@@ -92,8 +92,8 @@ class Board {
         }
         this.rows[i] = 0;
     }
-    
-    
+
+
     /**
      * Adds all the elements in the Tetrimino to the board
      * @param {Array.<Array.<number>>} matrix
@@ -104,14 +104,14 @@ class Board {
      */
     addElements(matrix, type, elemTop, elemLeft) {
         let lines = [];
-        
+
         for (let i = 0; i < matrix.length; i += 1) {
             for (let j = 0; j < matrix[i].length; j += 1) {
                 if (matrix[i][j]) {
                     let top  = elemTop  + i,
                         left = elemLeft + j,
                         elem = this.append(type, top, left);
-                    
+
                     if (this.addToMatrix(elem, top, left)) {
                         lines.push(top);
                     }
@@ -123,7 +123,7 @@ class Board {
         }
         return lines.length;
     }
-    
+
     /**
      * Creates a new element and adds it to the Board
      * @param {number} type
@@ -136,11 +136,11 @@ class Board {
         element.className  = "cell" + type;
         element.style.top  = this.getTop(top);
         element.style.left = this.getLeft(left);
-        
+
         this.fieldElem.appendChild(element);
         return element;
     }
-    
+
     /**
      * Starts the wink animation
      * @param {Array.<number>} lines
@@ -155,7 +155,7 @@ class Board {
         });
         this.winks = lines;
     }
-    
+
     /**
      * Creates a new wink Element
      * @param {number} top
@@ -166,15 +166,15 @@ class Board {
         element.className   = "wink";
         element.style.top   = this.getTop(top);
         element.dataset.top = top;
-        
+
         this.winkElem.appendChild(element);
-        
+
         element.addEventListener("animationend", () => {
             this.endWink();
         });
         return element;
     }
-    
+
     /**
      * Ends the Wink animation
      */
@@ -184,12 +184,12 @@ class Board {
                 this.lines[line].classList.remove("wink");
                 this.removeLine(line);
             });
-            
+
             this.winks = null;
             this.onWindEnd();
         }
     }
-    
+
     /**
      * Returns true if the Board is winking
      * @return {boolean}
@@ -197,8 +197,8 @@ class Board {
     isWinking() {
         return this.winks !== null;
     }
-    
-    
+
+
     /**
      * Returns true if the position is a border
      * @param {number} top
@@ -208,7 +208,7 @@ class Board {
     isBorder(top, left) {
         return top === this.matrixRows  - 1 || left === 0 || left === this.matrixCols - 1;
     }
-    
+
     /**
      * Returns a column so that the Tetrimino is centered in the board
      * @param {number} cols - Number of columns of the Tetrimino
@@ -217,7 +217,7 @@ class Board {
     getMiddle(cols) {
         return Math.floor((this.matrixCols - cols - 2) / 2);
     }
-    
+
     /**
      * Returns the top position for styling
      * @param {number} top
@@ -226,7 +226,7 @@ class Board {
     getTop(top) {
         return ((top - 2) * this.tetriminoSize) + "em";
     }
-    
+
     /**
      * Returns the left position for styling
      * @param {number} top
@@ -235,8 +235,8 @@ class Board {
     getLeft(left) {
         return (left * this.tetriminoSize) + "em";
     }
-    
-    
+
+
     /**
      * Clears the elements
      */

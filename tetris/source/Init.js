@@ -1,15 +1,15 @@
 (function () {
     "use strict";
-    
+
     let display, level, sound, scores, keyboard,
         board, score, tetriminos,
         animation, startTime,
         soundFiles      = [ "pause", "crash", "drop", "line", "rotate", "end" ],
         tetriminoSize   = 2,
         maxInitialLevel = 10;
-    
-    
-    
+
+
+
     /**
      * Destroys the game elements
      */
@@ -17,8 +17,8 @@
         board.clearElements();
         tetriminos.clearElements();
     }
-    
-    
+
+
     /**
      * Request an animation frame
      */
@@ -26,36 +26,36 @@
         startTime = new Date().getTime();
         animation = window.requestAnimationFrame(() => {
             let time = new Date().getTime() - startTime;
-            
+
             score.decTime(time);
             if (score.time < 0) {
                 tetriminos.softDrop();
                 score.resetTime();
             }
             keyboard.holdingKey();
-            
+
             if (display.isPlaying() && !board.isWinking()) {
                 requestAnimation();
             }
         });
     }
-    
+
     /**
      * Cancel an animation frame
      */
     function cancelAnimation() {
         window.cancelAnimationFrame(animation);
     }
-    
-    
-        
+
+
+
     /**
      * Show the Main Screen
      */
     function showMainScreen() {
         display.set("mainScreen").show();
     }
-    
+
     /**
      * Pause the Game
      */
@@ -64,7 +64,7 @@
         sound.pause();
         cancelAnimation();
     }
-    
+
     /**
      * Unpause the Game
      */
@@ -73,7 +73,7 @@
         sound.pause();
         requestAnimation();
     }
-    
+
     /**
      * Toggles the pause
      */
@@ -84,7 +84,7 @@
             startPause();
         }
     }
-    
+
     /**
      * Finish the Game
      */
@@ -92,7 +92,7 @@
         destroyGame();
         showMainScreen();
     }
-    
+
     /**
      * Game Over
      */
@@ -102,7 +102,7 @@
         scores.setInput();
         destroyGame();
     }
-    
+
     /**
      * Show the High Scores
      */
@@ -110,7 +110,7 @@
         display.set("highScores").show();
         scores.show();
     }
-    
+
     /**
      * Saves the High Score
      */
@@ -119,16 +119,16 @@
             showHighScores();
         }
     }
-    
+
     /**
      * Show the Help
      */
     function showHelp() {
         display.set("help").show();
     }
-    
-    
-    
+
+
+
     /**
      * Called when a wink ends
      */
@@ -136,22 +136,22 @@
         tetriminos.setHardDrop();
         requestAnimation();
     }
-    
+
     /**
      * Starts a new game
      */
     function newGame() {
         display.set("playing").hide();
         keyboard.reset();
-        
+
         board      = new Board(tetriminoSize, onWindEnd);
         score      = new Score(level.get(), maxInitialLevel);
         tetriminos = new Tetriminos(board, sound, score, tetriminoSize, showGameOver);
-        
+
         requestAnimation();
     }
-    
-    
+
+
     /**
      * Creates the shortcuts functions
      * @return {Object}
@@ -199,7 +199,7 @@
             }
         };
     }
-    
+
     /**
      * Stores the used DOM elements and initializes the Event Handlers
      */
@@ -220,28 +220,28 @@
                     restore    : () => scores.restore(),
                     sound      : () => sound.toggle()
                 };
-            
+
             if (actions[element.dataset.action]) {
                 actions[element.dataset.action]();
             }
         });
     }
-    
+
     /**
      * The main Function
      */
     function main() {
         initDomListeners();
-        
+
         display  = new Display();
         level    = new Level(maxInitialLevel);
         sound    = new Sounds(soundFiles, "tetris.sound", true);
         scores   = new HighScores();
         keyboard = new Keyboard(display, scores, getShortcuts());
     }
-    
-    
+
+
     // Load the game
     window.addEventListener("load", main, false);
-    
+
 }());

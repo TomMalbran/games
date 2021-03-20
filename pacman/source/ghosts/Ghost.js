@@ -2,7 +2,7 @@
  * The Ghost Base Class
  */
 class Ghost {
-    
+
     /**
      * Initializes the Ghost
      * @param {Canvas}  canvas
@@ -11,7 +11,7 @@ class Ghost {
     init(canvas, dots) {
         this.canvas     = canvas;
         this.ctx        = canvas.context;
-        
+
         this.mode       = "scatter";
         this.tile       = Board.getGhostStartTile(this.inPen);
         this.tileCenter = Board.getTileXYCenter(this.tile);
@@ -25,7 +25,7 @@ class Ghost {
         this.pathName   = null;
         this.pathStep   = 0;
     }
-    
+
     /**
      * Switches the Ghost mode
      * @param {number} oldMode
@@ -37,7 +37,7 @@ class Ghost {
             this.mode   = newMode;
             this.target = this.getTarget(blob);
             this.speed  = this.getSpeed();
-                
+
             if (!this.dontHalfTurn(oldMode)) {
                 if (this.path === null) {
                     this.turn = {
@@ -50,7 +50,7 @@ class Ghost {
             }
         }
     }
-    
+
     /**
      * Moves the Ghost
      * @param {number} speed
@@ -62,18 +62,18 @@ class Ghost {
         let addToPen = false;
         this.x += this.dir.x * this.speed * speed;
         this.y += this.dir.y * this.speed * speed;
-        
+
         if (this.path !== null) {
             addToPen = this.pathMove(blob, switchMode);
         } else {
             this.normalMove(blob);
         }
-        
+
         this.moveFeet();
         this.draw();
         return addToPen;
     }
-    
+
     /**
      * Moves the Ghost in a predefined path
      * @param {Blob}   blob
@@ -89,17 +89,17 @@ class Ghost {
             if (this.dir.y) {
                 this.y = step.disty;
             }
-            
+
             if (step.next !== null) {
                 this.pathStep = step.next;
                 this.dir      = this.path[this.pathStep].dir;
-            
+
             } else if (this.pathName === "exitPen") {
                 this.path  = null;
                 this.dir   = this.turn;
                 this.turn  = null;
                 this.speed = Data.getGhostSpeed(false);
-            
+
             } else if (this.pathName === "enterPen") {
                 this.mode       = switchMode;
                 this.target     = this.getTarget(blob);
@@ -111,7 +111,7 @@ class Ghost {
         }
         return false;
     }
-    
+
     /**
      * Moves the Ghost around the board
      * @param {Blob} blob
@@ -119,7 +119,7 @@ class Ghost {
     normalMove(blob) {
         this.newTile(blob);
         this.x = Board.tunnelEnds(this.x);
-        
+
         if (!this.center && this.passedCenter()) {
             if (this.turn) {
                 this.makeTurn();
@@ -131,8 +131,8 @@ class Ghost {
             this.center = true;
         }
     }
-    
-    
+
+
     /**
      * The Ghost moved to a new Tile
      * @param {Blob} blob
@@ -143,14 +143,14 @@ class Ghost {
             this.tile       = tile;
             this.tileCenter = Board.getTileXYCenter(this.tile);
             this.center     = false;
-            
+
             if (this.isEnteringPen()) {
                 this.setPath("enterPen");
             }
         }
     }
-    
-        
+
+
     /**
      * Sets the Path of the Ghost
      * @param {string} path
@@ -162,7 +162,7 @@ class Ghost {
         this.dir      = this.path[this.pathStep].dir;
         this.speed    = Data.getPathSpeed(name);
     }
-    
+
     /**
      * Returns true if the Ghost is entering the Pen
      * @return {boolean}
@@ -170,8 +170,8 @@ class Ghost {
     isEnteringPen() {
         return this.mode === "eyes" && Board.equalTiles(this.tile, Board.eyesTarget);
     }
-    
-    
+
+
     /**
      * The Ghost turns used the previously stored turn direction
      */
@@ -181,7 +181,7 @@ class Ghost {
         this.dir  = this.turn;
         this.turn = null;
     }
-    
+
     /**
      * The Ghost decided which direction to do next depending on different factors
      */
@@ -195,7 +195,7 @@ class Ghost {
             this.turn = this.getTargetTurn(turns);
         }
     }
-    
+
     /**
      * Returns a list with all the possible turns a Ghost can do at an intersection
      * @return {Array.<{x: number, y: number}>}
@@ -205,7 +205,7 @@ class Ghost {
             pos    = Board.tileToString(tile),
             turns  = Board.getTurns(pos),
             result = [];
-        
+
         turns.forEach((turn) => {
             if ((turn + 2) % 4 !== Board.dirToNumber(this.dir)) {
                 result.push(Board.numberToDir(turn));
@@ -213,7 +213,7 @@ class Ghost {
         });
         return result;
     }
-    
+
     /**
      * Decides the best turn depending on which cell after the intersection is closes to the target
      * @param {Array.<{x: number, y: number}>} turns
@@ -223,13 +223,13 @@ class Ghost {
         let tile   = this.getNextTile(),
             best   = 999999,
             result = {};
-        
+
         turns.forEach((turn) => {
             let ntile = Board.sumTiles(tile, turn),
                 distx = Math.pow(this.target.x - ntile.x, 2),
                 disty = Math.pow(this.target.y - ntile.y, 2),
                 dist  = Math.sqrt(distx + disty);
-            
+
             if (dist < best) {
                 best   = dist;
                 result = turn;
@@ -237,7 +237,7 @@ class Ghost {
         });
         return result;
     }
-    
+
     /**
      * Checks if the Ghost and the Blob are in the same tile and when those
      * are the same depending on the Ghost's mode, it can kill the blob or die
@@ -251,13 +251,13 @@ class Ghost {
                 this.target = Board.eyesTarget;
                 this.speed  = Data.eyesSpeed;
                 return "kill";
-            
+
             } else if (this.mode !== "eyes") {
                 return "die";
             }
         }
     }
-    
+
     /**
      * Returns true if the Ghost should change it's target
      * @param {number} globalMode
@@ -266,7 +266,7 @@ class Ghost {
     shouldChangeTarget(globalMode) {
         return this.mode !== "eyes" && (globalMode === "chase" || this.isElroy());
     }
-    
+
     /**
      * Don't let the Ghost change mode on certain cases
      * @param {number} mode
@@ -275,7 +275,7 @@ class Ghost {
     dontSwitch(mode) {
         return (Data.isFrighten(mode) && !Data.isFrighten(this.mode)) || this.mode === "eyes";
     }
-    
+
     /**
      * Don't let the Ghost half turn when switching from Blue to White mode
      * @param {number} mode
@@ -284,14 +284,14 @@ class Ghost {
     dontHalfTurn(mode) {
         return mode === "blue" || mode === "white";
     }
-    
+
     /**
      * Returns the Ghost's Speed based on diferent factors
      * @return {number}
      */
     getSpeed() {
         let speed = Data.getGhostSpeed(false);
-        
+
         if (this.mode === "eyes") {
             speed = Data.eyesSpeed;
         } else if (Data.isFrighten(this.mode)) {
@@ -303,7 +303,7 @@ class Ghost {
         }
         return speed;
     }
-    
+
     /**
      * Returns true if the Ghost moved past certain distance stored in the Path
      * @return {boolean}
@@ -317,7 +317,7 @@ class Ghost {
             (this.dir.y === -1 && this.y <= path.disty)
         );
     }
-    
+
     /**
      * Returns true if the Ghost passed the center of the tile
      * @return {boolean}
@@ -330,7 +330,7 @@ class Ghost {
             (this.dir.y === -1 && this.y <= this.tileCenter.y)
         );
     }
-    
+
     /**
      * Returns the next tile
      * @return {{x: number, y: number}}
@@ -338,7 +338,7 @@ class Ghost {
     getNextTile() {
         return Board.sumTiles(this.tile, this.dir);
     }
-    
+
     /**
      * Returns true if the next tile is an intersection
      * @return {boolean}
@@ -347,7 +347,7 @@ class Ghost {
         let tile = this.getNextTile();
         return Board.isIntersection(tile.x, tile.y);
     }
-    
+
     /**
      * Returns the Ghost's target depending on the current mode
      * @param {Blob} blob
@@ -359,8 +359,8 @@ class Ghost {
         }
         return this.scatter;
     }
-    
-    
+
+
     /**
      * Returns true if the Ghost is in "Cruise Elroy" Mode. Only used for Blinky
      * @return {boolean}
@@ -368,21 +368,21 @@ class Ghost {
     isElroy() {
         return false;
     }
-    
+
     /**
      * Makes it possible for a Ghost to switch to "Cruise Elroy" Mode. Only used for Blinky
      */
     activateElroy() {
         return undefined;
     }
-    
+
     /**
      * Increases the internal pills count of a Ghost
      */
     increaseDots() {
         this.dotsCount += 1;
     }
-    
+
     /**
      * Sets the Chase target of the Ghost
      * @param {Blob} blob
@@ -390,15 +390,15 @@ class Ghost {
     setChaseTarget(blob) {
         this.target = this.chase(blob);
     }
-    
-    
+
+
     /**
      * Changes the Drawing for the Ghosts feet
      */
     moveFeet() {
         this.feet = (this.feet + 0.3) % 2;
     }
-    
+
     /**
      * Draws the Ghost
      */
@@ -407,7 +407,7 @@ class Ghost {
         this.canvas.savePos(this.x, this.y);
         this.ctx.save();
         this.ctx.translate(Math.round(this.x) - center, Math.round(this.y) - center);
-        
+
         this.ghostBody();
         if (Data.isFrighten(this.mode)) {
             this.ghostFrightenFace();
@@ -416,7 +416,7 @@ class Ghost {
         }
         this.ctx.restore();
     }
-    
+
     /**
      * Draws the Ghost's Body
      */
@@ -425,7 +425,7 @@ class Ghost {
         this.ctx.beginPath();
         this.ctx.arc(8,  8, 8, Math.PI, 1.5 * Math.PI, false);
         this.ctx.arc(10, 8, 8, 1.5 * Math.PI, 2 * Math.PI, false);
-        
+
         if (!Math.floor(this.feet)) {
             this.ghostFeet0();
         } else {
@@ -433,7 +433,7 @@ class Ghost {
         }
         this.ctx.fill();
     }
-    
+
     /**
      * Draws one of the variations of the Ghost's Feet
      */
@@ -449,7 +449,7 @@ class Ghost {
         this.ctx.lineTo(0, 16);
         this.ctx.lineTo(0, 8);
     }
-    
+
     /**
      * Draws the other variation of the Ghost's Feet
      */
@@ -465,7 +465,7 @@ class Ghost {
         this.ctx.lineTo(0, 18);
         this.ctx.lineTo(0, 8);
     }
-    
+
     /**
      * Draws the Ghost's Face for the Chase/Scatter/Eyes modes
      */
@@ -475,14 +475,14 @@ class Ghost {
         this.ctx.arc(6    + this.dir.x * 2, 7 + this.dir.y * 2, 3, 0, 2 * Math.PI);
         this.ctx.arc(12.5 + this.dir.x * 2, 7 + this.dir.y * 2, 3, 0, 2 * Math.PI);
         this.ctx.fill();
-        
+
         this.ctx.fillStyle = "rgb(0, 51, 255)";
         this.ctx.beginPath();
         this.ctx.arc(6    + this.dir.x * 4, 7 + this.dir.y * 4, 1.5, 0, 2 * Math.PI);
         this.ctx.arc(12.5 + this.dir.x * 4, 7 + this.dir.y * 4, 1.5, 0, 2 * Math.PI);
         this.ctx.fill();
     }
-    
+
     /**
      * Draws the Ghost's Face for the Frighten (Blue/White) modes
      */
@@ -492,7 +492,7 @@ class Ghost {
         this.ctx.arc(6, 7, 1.5, 0, 2 * Math.PI);
         this.ctx.arc(12.5, 7, 1.5, 0, 2 * Math.PI);
         this.ctx.fill();
-        
+
         this.ctx.strokeStyle = this.getFaceColor();
         this.ctx.beginPath();
         this.ctx.moveTo(3, 14);
@@ -504,7 +504,7 @@ class Ghost {
         this.ctx.lineTo(15, 14);
         this.ctx.stroke();
     }
-    
+
     /**
      * Returns the color for the Ghosts body depending on the mode
      * @return {string}
@@ -521,7 +521,7 @@ class Ghost {
             return this.color;
         }
     }
-    
+
     /**
      * Returns the color used for the Ghosts face depending on the mode
      * @return {string}
@@ -529,8 +529,8 @@ class Ghost {
     getFaceColor() {
         return this.mode === "blue" ? "rgb(255, 255, 255)" : "rgb(255, 0, 0)";
     }
-    
-    
+
+
     /**
      * Returns the Ghost's ID
      * @return {number}
@@ -538,7 +538,7 @@ class Ghost {
     getID() {
         return this.id;
     }
-    
+
     /**
      * Returns the Ghost's x position
      * @return {number}
@@ -546,7 +546,7 @@ class Ghost {
     getX() {
         return this.x;
     }
-    
+
     /**
      * Returns the Ghost's y position
      * @return {number}
@@ -554,7 +554,7 @@ class Ghost {
     getY() {
         return this.y;
     }
-    
+
     /**
      * Returns the Ghost's tile position
      * @return {{x: number, y: number}}
@@ -562,7 +562,7 @@ class Ghost {
     getTile() {
         return this.tile;
     }
-    
+
     /**
      * Returns the Ghost's interntal dots counter
      * @return {number}
@@ -570,7 +570,7 @@ class Ghost {
     getDots() {
         return this.dotsCount;
     }
-    
+
     /**
      * Returns the Ghost's current target tile
      * @return {number}

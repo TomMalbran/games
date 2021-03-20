@@ -2,7 +2,7 @@
  * The Tower Selection Class
  */
 class Selection {
-    
+
     /**
      * The Tower Selection constructor
      * @param {Towers} parent
@@ -10,11 +10,11 @@ class Selection {
     constructor(parent) {
         this.parent = parent;
         this.tower  = null;
-        
+
         this.parent.board.addListener("tower",   this.select.bind(this));
         this.parent.board.addListener("default", this.drop.bind(this));
     }
-    
+
     /**
      * Selects the Tower with the given element, if the target is not in the range
      * @param {Event} event
@@ -29,7 +29,7 @@ class Selection {
             this.pick(tower);
         }
     }
-    
+
     /**
      * Does the actual selection of the given Tower
      * @param {Tower} tower
@@ -40,15 +40,15 @@ class Selection {
             if (this.tower) {
                 this.tower.toggleSelect(false);
             }
-            
+
             this.tower = tower;
             this.tower.toggleSelect(true);
-            
+
             this.parent.panel.showTower(this.tower, this.parent.score.getGold());
             this.enableUpgrades();
         }
     }
-    
+
     /**
      * Unselects the currently selected tower if its ID is the same as the given one
      * @param {number} ID
@@ -58,7 +58,7 @@ class Selection {
             this.drop();
         }
     }
-    
+
     /**
      * Unselects the currently selected tower, if there is one slected
      */
@@ -69,8 +69,8 @@ class Selection {
             this.parent.panel.hide();
         }
     }
-    
-    
+
+
     /**
      * Select the First Tower of the list
      */
@@ -78,7 +78,7 @@ class Selection {
         this.drop();
         this.nextPrev(1);
     }
-    
+
     /**
      * Selects the Last Tower of the list
      */
@@ -86,7 +86,7 @@ class Selection {
         this.drop();
         this.nextPrev(-1);
     }
-    
+
     /**
      * Selects the Next/Prev Tower. >0 for next, <0 for prev
      * @param {number} add
@@ -97,11 +97,11 @@ class Selection {
             added = (pos + add) % ids.length,
             index = added < 0 ? ids.length + added : added,
             tower = this.parent.manager.get(ids[index]);
-        
+
         this.pick(tower);
     }
-    
-    
+
+
     /**
      * Shows the Tower Description
      * @param {?number} id
@@ -111,7 +111,7 @@ class Selection {
             this.parent.panel.showTower(this.tower, this.parent.score.getGold());
         }
     }
-    
+
     /**
      * Hides the Tower Description
      * @param {?number} id
@@ -121,8 +121,8 @@ class Selection {
             this.parent.panel.hide();
         }
     }
-    
-    
+
+
     /**
      * Enables the Towers Upgrades from the Description
      * @param {number} gold
@@ -132,7 +132,7 @@ class Selection {
             this.parent.panel.showTower(this.tower, gold);
         }
     }
-    
+
     /**
      * Disable the Towers Upgrades from the Description
      * @param {number} gold
@@ -142,8 +142,8 @@ class Selection {
             this.parent.panel.showTower(this.tower, gold);
         }
     }
-    
-    
+
+
     /**
      * Returns true if a Tower is selected
      * @return {boolean}
@@ -151,7 +151,7 @@ class Selection {
     hasSelected() {
         return this.tower !== null;
     }
-    
+
     /**
      * Returns the selected Tower
      * @return {Tower}

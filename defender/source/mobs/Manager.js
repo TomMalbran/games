@@ -2,7 +2,7 @@
  * The Mobs Manager Class
  */
 class MobsManager {
-    
+
     /**
      * The Mobs Manager constructor
      * @param {Mobs} parent
@@ -18,8 +18,8 @@ class MobsManager {
         this.bleeding = new List();
         this.id       = 0;
     }
-    
-    
+
+
     /**
      * Creates a new Mob with the given type and data and adds it to the list
      * @param {Mob} mob
@@ -31,7 +31,7 @@ class MobsManager {
         this.id += 1;
         return mob;
     }
-    
+
     /**
      * Returns the Mob with the given ID, if there is one
      * @param {number} id
@@ -49,7 +49,7 @@ class MobsManager {
         }
         return result;
     }
-    
+
     /**
      * Mobs all the Mobs in the list at the given speed
      * @param {number} time
@@ -60,14 +60,14 @@ class MobsManager {
             this.moving.forEach((it) => {
                 let mob = it.getPrev(), cell, turn;
                 mob.move(speed);
-                
+
                 cell = this.moveToNewCell(mob);
                 turn = this.turnMob(mob);
                 mob.specialPower(time, cell, turn);
             });
         }
     }
-    
+
     /**
      * Moves the Mob to a new cell
      * @param {Mob} mob
@@ -78,7 +78,7 @@ class MobsManager {
             row = mob.getCell(pos.top),
             col = mob.getCell(mob.left),
             ret = false;
-        
+
         if (this.parent.paths.nextInPath(mob, row, col)) {
             if (!mob.isFlyer()) {
                 this.parent.board.removeMob(mob.getRow(), mob.getCol());
@@ -89,7 +89,7 @@ class MobsManager {
         }
         return ret;
     }
-    
+
     /**
      * Turns the mob, when required
      * @param {Mob} mob
@@ -111,7 +111,7 @@ class MobsManager {
         }
         return result;
     }
-    
+
     /**
      * Removes the Mob when it reached the Exit
      * @param {Mob} mob
@@ -124,37 +124,37 @@ class MobsManager {
         this.parent.sounds.exit();
         mob.destroy();
     }
-    
+
     /**
      * Removes the Mob when it's life is lower or equal to cero
      * @param {Mob} mob
      */
     killMob(mob) {
         let gold = mob.getGold();
-        
+
         if (gold > 0) {
             this.parent.score.incGold(gold);
             this.parent.score.incScore(gold);
             this.parent.alerts.gold(mob);
         }
         this.parent.create.createBlood(mob);
-        
+
         if (mob.canSpawnChildren()) {
             this.parent.create.childs(mob);
         }
-        
+
         this.parent.board.removeMob(mob.getRow(), mob.getCol());
         this.parent.panel.destroyMob(mob);
         this.parent.waves.reduceMob(mob.getWave());
         this.parent.sounds.death();
         mob.destroy();
-        
+
         if (this.parent.waves.isLastWave() && this.isEmpty()) {
             this.parent.score.gameOver();
         }
     }
-    
-    
+
+
     /**
      * Adds all the mobs in the array to the create list
      * @param {Array.<Mob>} mobs
@@ -164,7 +164,7 @@ class MobsManager {
             this.creating.addLast(mob);
         });
     }
-    
+
     /**
      * Iterates through the create list reducing the time of the mobs in it.
      * When the timer of a mob reaches 0, the mob is moved to the moving list
@@ -185,8 +185,8 @@ class MobsManager {
             }
         }
     }
-    
-    
+
+
     /**
      * Adds all the mobs in the array to the spawn list
      * @param {Array.<Mob>} mobs
@@ -197,7 +197,7 @@ class MobsManager {
             mob.startSpawn();
         });
     }
-    
+
     /**
      * Iterates through the spawn list moving the mob to the original cell.
      * When it reaches it, the mob is moved to the moving list, and the spawn
@@ -220,8 +220,8 @@ class MobsManager {
             }
         }
     }
-    
-    
+
+
     /**
      * Adds all the mobs in the array to the slow list, to slow them for a short period
      * @param {Array.<Mob>} mobs
@@ -235,7 +235,7 @@ class MobsManager {
             }
         });
     }
-    
+
     /**
      * Iterates through the slow list reducing the time of the slow event.
      * When the time reaches 0, the mob
@@ -256,8 +256,8 @@ class MobsManager {
             }
         }
     }
-    
-    
+
+
     /**
      * Adds all the mobs in the array to the stun list, to stun them for a short period
      * @param {Array.<Mob>} mobs
@@ -271,7 +271,7 @@ class MobsManager {
             }
         });
     }
-    
+
     /**
      * Iterates through the stun list reducing the time of the stun event.
      * When the time reaches 0, the mob
@@ -292,8 +292,8 @@ class MobsManager {
             }
         }
     }
-    
-    
+
+
     /**
      * Adds all the mobs in the array to the bleed list, to make them bleed for a short period
      * @param {Array.<Mob>} mobs
@@ -309,7 +309,7 @@ class MobsManager {
             }
         });
     }
-    
+
     /**
      * Iterates through the bleed list reducing the time of the bleed events.
      * When all the bleeding times reached 0, the mob stops bleeding. If it dies before,
@@ -322,7 +322,7 @@ class MobsManager {
             while (it.hasNext()) {
                 let mob = it.getNext();
                 mob.decBleed(time);
-                
+
                 this.parent.panel.updateMob(mob);
                 if (mob.getLife() <= 0) {
                     this.killMob(mob);
@@ -336,8 +336,8 @@ class MobsManager {
             }
         }
     }
-    
-    
+
+
     /**
      * Returns true if there are no Mobs in the Game
      * @return {boolean}
@@ -345,7 +345,7 @@ class MobsManager {
     isEmpty() {
         return this.list.isEmpty();
     }
-    
+
     /**
      * Returns the next ID for a new Mob
      * @return {number}
@@ -353,7 +353,7 @@ class MobsManager {
     getNextID() {
         return this.id;
     }
-    
+
     /**
      * Returns the list with all the Mobs
      * @return {List.<Mob>}
@@ -361,7 +361,7 @@ class MobsManager {
     getList() {
         return this.list;
     }
-    
+
     /**
      * Returns the list with the Mobs that are moving
      * @return {List.<Iterator>}

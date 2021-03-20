@@ -2,7 +2,7 @@
  * The Game Keyboard
  */
 class Keyboard {
-    
+
     /**
      * The Game Keyboard constructor
      * @param {Display} display
@@ -14,15 +14,15 @@ class Keyboard {
         this.shortcuts  = shortcuts;
         this.keyPressed = null;
         this.count      = 0;
-        
+
         this.display    = display;
         this.scores     = scores;
-        
+
         document.addEventListener("keydown", (e) => this.onKeyDown(e));
         document.addEventListener("keyup",   (e) => this.onKeyUp(e));
     }
-    
-    
+
+
     /**
      * Called when holding a key
      */
@@ -35,15 +35,15 @@ class Keyboard {
             }
         }
     }
-    
+
     /**
      * Resets the counter
      */
     reset() {
         this.count = 0;
     }
-    
-    
+
+
     /**
      * Key Press Event
      * @param {number} key
@@ -59,7 +59,7 @@ class Keyboard {
             if (!this.display.isPlaying()) {
                 event.preventDefault();
             }
-            
+
             if ([8, 66, 78].indexOf(key) > -1) {            // Backspace / B / N
                 key = "B";
             } else if ([13, 79, 84].indexOf(key) > -1) {    // Enter / O / T
@@ -86,7 +86,7 @@ class Keyboard {
                 }
                 key = String.fromCharCode(key);
             }
-            
+
             if (number !== null) {
                 this.shortcuts.number(number);
             }
@@ -95,7 +95,7 @@ class Keyboard {
             }
         }
     }
-    
+
     /**
      * Key handler for the on key down event
      * @param {Event} event
@@ -110,7 +110,7 @@ class Keyboard {
         }
         this.pressKey(event.keyCode, event);
     }
-    
+
     /**
      * Key handler for the on key up event
      * @param {Event} event
@@ -119,7 +119,7 @@ class Keyboard {
         this.keyPressed = null;
         this.count      = 0;
     }
-    
+
     /**
      * When a key is pressed, this is called on each frame for fast key movements
      */

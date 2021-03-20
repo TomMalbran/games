@@ -3,7 +3,7 @@
  * The Game Canvas Class
  */
 class GameCanvas extends Canvas {
-    
+
     /**
      * The Game Canvas constructor
      */
@@ -11,7 +11,7 @@ class GameCanvas extends Canvas {
         super();
         this.init("game");
     }
-    
+
     /**
      * Draws the Ghosts Targets for testing
      * @param {Array.<Ghost>} ghosts
@@ -21,7 +21,7 @@ class GameCanvas extends Canvas {
         ghosts.forEach((ghost) => {
             this.ctx.fillStyle   = ghost.getBodyColor();
             this.ctx.strokeStyle = ghost.getBodyColor();
-            
+
             let tile = Board.getTileXYCenter(ghost.getTargetTile());
             this.ctx.beginPath();
             this.ctx.moveTo(ghost.getX(), ghost.getY());

@@ -2,7 +2,7 @@
  * The Towers Manager Class
  */
 class TowersManager {
-    
+
     /**
      * The Towers Manager constructor
      * @param {Towers} parent
@@ -14,11 +14,11 @@ class TowersManager {
         this.selling   = new List();
         this.shooting  = new List();
         this.count     = this.parent.board.getTowerStart();
-        
+
         this.container = document.querySelector(".defenses");
         this.container.innerHTML = "";
     }
-    
+
     /**
      * Adds the given Tower to the list to the List
      * @param {{type: string, row: number, col: number}} data
@@ -29,7 +29,7 @@ class TowersManager {
         this.list[this.count] = tower;
         return tower;
     }
-    
+
     /**
      * Retrieves a Tower by its ID
      * @param {number} id
@@ -38,7 +38,7 @@ class TowersManager {
     get(id) {
         return this.list[id];
     }
-    
+
     /**
      * Removes the last Tower
      */
@@ -47,8 +47,8 @@ class TowersManager {
         this.list[this.count] = null;
         this.count -= 1;
     }
-    
-    
+
+
     /**
      * Build the given Tower
      * @param {{type: string, row: number, col: number, content: string}} data
@@ -56,7 +56,7 @@ class TowersManager {
      */
     build(data) {
         let tower = this.add(data);
-        
+
         this.parent.board.buildTower(tower);
         if (!this.parent.mobs.createPath()) {
             this.parent.board.sellTower(tower);
@@ -70,8 +70,8 @@ class TowersManager {
         }
         return tower;
     }
-    
-    
+
+
     /**
      * Sells the selected Tower
      * @param {Tower} tower
@@ -86,7 +86,7 @@ class TowersManager {
             this.selling.addLast(tower.getID());
         }
     }
-    
+
     /**
      * Sells all the Towers
      */
@@ -100,7 +100,7 @@ class TowersManager {
         this.parent.sounds.endMute();
         this.parent.sounds.sell();
     }
-    
+
     /**
      * Upgrades the Selected Tower
      * @param {Tower} tower
@@ -117,8 +117,8 @@ class TowersManager {
             }
         }
     }
-    
-    
+
+
     /**
      * Process the Sale
      * @param {Tower} tower
@@ -128,26 +128,26 @@ class TowersManager {
         this.parent.sounds.sell();
         this.destroyTower(tower);
     }
-    
+
     /**
      * Process the Upgrade
      * @param {Tower} tower
      */
     processUpgrade(tower) {
         tower.upgrade();
-        
+
         if (tower.getActualRange(-1) !== tower.getActualRange()) {
             this.parent.ranges.remove(tower);
             tower.setLists(this.parent.ranges.add(tower));
         }
         this.upgradeBoost(tower);
-        
+
         this.parent.selection.showDescription(tower.getID());
         this.parent.board.upgradeTower(tower);
         this.parent.sounds.upgrade();
     }
-    
-    
+
+
     /**
      * Destroys a Tower
      * @param {Tower} tower
@@ -159,12 +159,12 @@ class TowersManager {
         this.parent.selection.hideDescription(tower.getID());
         this.parent.board.sellTower(tower);
         this.parent.mobs.createPath();
-        
+
         this.list[tower.getID()].destroy();
         this.list[tower.getID()] = null;
     }
-    
-    
+
+
     /**
      * Adds the Boosts to the given Tower
      * @param {Tower} tower
@@ -176,7 +176,7 @@ class TowersManager {
             this.normalTower(tower);
         }
     }
-    
+
     /**
      * Special case for Boost Towers, adding the bosts ot the Towers around it
      * @param {Tower} tower
@@ -186,7 +186,7 @@ class TowersManager {
             this.get(element).addBoost(tower.getActualDamage());
         });
     }
-    
+
     /**
      * General case for the other Towers, adding the boost from the Boost Towers around it
      * @param {Tower} tower
@@ -194,18 +194,18 @@ class TowersManager {
     normalTower(tower) {
         let list  = this.parent.ranges.getBoostsList(tower),
             boost = 0;
-        
+
         list.forEach((element) => {
             let btower = self.get(element);
             btower.getLists().towers.push(tower.getID());
             boost += btower.getActualDamage();
         });
-        
+
         if (boost > 0) {
             tower.addBoost(boost);
         }
     }
-    
+
     /**
      * Removes the Boost from the towers around the Boost Tower
      * @param {Tower} tower
@@ -220,7 +220,7 @@ class TowersManager {
             });
         }
     }
-    
+
     /**
      * Upgrades the Boost in the Boost Tower
      * @param {Tower} tower
@@ -230,8 +230,8 @@ class TowersManager {
             this.boostTower(tower);
         }
     }
-    
-    
+
+
     /**
      * Adds a new Tower to the shooting list
      * @param {number} id
@@ -240,7 +240,7 @@ class TowersManager {
         let it = this.shooting.addLast(id);
         this.list[id].setShootIt(it);
     }
-    
+
     /**
      * Decreases the timers from the upgrading Towers
      */
@@ -249,7 +249,7 @@ class TowersManager {
             let it = this.upgrading.iterate();
             while (it.hasNext()) {
                 let tower = this.list[it.getNext()];
-                
+
                 tower.incLoader();
                 this.parent.selection.showDescription(it.getNext());
                 if (!tower.isLoading()) {
@@ -263,7 +263,7 @@ class TowersManager {
             }
         }
     }
-    
+
     /**
      * Decreases the timers from the selling Towers
      */
@@ -272,7 +272,7 @@ class TowersManager {
             let it = this.selling.iterate();
             while (it.hasNext()) {
                 let tower = this.list[it.getNext()];
-                
+
                 tower.decLoader();
                 this.parent.selection.showDescription(it.getNext());
                 if (!tower.isLoading()) {
@@ -284,7 +284,7 @@ class TowersManager {
             }
         }
     }
-    
+
     /**
      * Decreases the timers from the shooting Towers
      * @param {number} time
@@ -294,7 +294,7 @@ class TowersManager {
             let it = this.shooting.iterate();
             while (it.hasNext()) {
                 let tower = this.list[it.getNext()];
-                
+
                 if (tower.decTimer(time)) {
                     if (!tower.isLoading()) {
                         this.parent.ranges.endShoot(tower);
@@ -307,8 +307,8 @@ class TowersManager {
             }
         }
     }
-    
-    
+
+
     /**
      * Returns the amount of towers
      * @return {number}
@@ -316,7 +316,7 @@ class TowersManager {
     getAmount() {
         return this.count;
     }
-    
+
     /**
      * Returns true when there are no towers
      * @param {boolean}
@@ -324,7 +324,7 @@ class TowersManager {
     isEmpty() {
         return this.list.length === 0;
     }
-    
+
     /**
      * Returns an Array with all the towers
      * @return {Array.<Tower>}

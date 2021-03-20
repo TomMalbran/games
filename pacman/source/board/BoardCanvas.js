@@ -3,19 +3,19 @@
  * The Board Canvas Class
  */
 class BoardCanvas extends Canvas {
-    
+
     /**
      * The Board Canvas constructor
      */
     constructor() {
         super();
-        
+
         this.init("board");
-        
+
         this.ctx.lineWidth   = Board.lineWidth;
         this.ctx.strokeStyle = Board.boardColor;
-        
-        
+
+
         this.drawTShapes = {
             "down"  : { radians: 0,   x:  0, y:  0 },
             "left"  : { radians: 0.5, x:  0, y: -5 },
@@ -53,52 +53,52 @@ class BoardCanvas extends Canvas {
             }
         };
     }
-    
-    
+
+
     /**
      * Draw the Board
      * @param {boolean} newLevel
      */
     drawBoard(newLevel) {
         this.drawGhostsPen();
-        
+
         this.ctx.save();
         this.ctx.strokeStyle = newLevel ? "white" : Board.boardColor;
         this.drawOuterBorder();
         this.drawInnerBorder();
-        
+
         // First Row
         this.drawRectangle(2,  2,  4, 3);
         this.drawRectangle(7,  2,  5, 3);
         this.drawRectangle(16, 2,  5, 3);
         this.drawRectangle(22, 2,  4, 3);
-        
+
         // Second Row
         this.drawRectangle(2,  6, 4, 2);
         this.drawTShape(7,     6, 4, 4, "right");
         this.drawTShape(10,    6, 4, 4, "down");
         this.drawTShape(16,    6, 4, 4, "left");
         this.drawRectangle(22, 6, 4, 2);
-        
+
         // Third Row
         this.drawRectangle(7,  15, 2, 5);
         this.drawTShape(10,    18, 4, 4, "down");
         this.drawRectangle(19, 15, 2, 5);
-        
+
         // Fourth Row
         this.drawLShape(2,     21, false);
         this.drawRectangle(7,  21, 5, 2);
         this.drawRectangle(16, 21, 5, 2);
         this.drawLShape(22,    21, true);
-        
+
         // Fith Row
         this.drawTShape(2,  24, 4, 6, "up");
         this.drawTShape(10, 24, 4, 4, "down");
         this.drawTShape(16, 24, 6, 4, "up");
-        
+
         this.ctx.restore();
     }
-    
+
     /**
      * Draws the Ghosts Pen House
      */
@@ -107,23 +107,23 @@ class BoardCanvas extends Canvas {
         this.ctx.strokeRect(11   * Board.tileSize - Board.halfLine, 13   * Board.tileSize - Board.halfLine, 6 * Board.tileSize + Board.lineWidth, 3 * Board.tileSize + Board.lineWidth);
         this.ctx.strokeRect(13   * Board.tileSize - Board.halfLine, 12.5 * Board.tileSize,                  2 * Board.tileSize + Board.lineWidth, Board.tileSize / 2 - Board.halfLine);
         this.ctx.clearRect(13    * Board.tileSize,                  12.5 * Board.tileSize - Board.halfLine, 2 * Board.tileSize,                   Board.tileSize / 2 + Board.halfLine);
-        
+
         this.ctx.save();
         this.ctx.strokeStyle = "white";
         this.ctx.strokeRect(13   * Board.tileSize + Board.halfLine, 12.5 * Board.tileSize + Board.lineWidth, 2 * Board.tileSize - Board.lineWidth, Board.halfLine);
         this.ctx.restore();
     }
-    
+
     /**
      * Draws the Board outer border
      */
     drawOuterBorder() {
         this.ctx.beginPath();
-        
+
         // Top Corners
         this.drawOuterBigCorner(0,  0, "top-left");
         this.drawOuterBigCorner(27, 0, "top-right");
-        
+
         // Right Tunnel
         this.drawOuterBigCorner(27,    9, "bottom-right");
         this.drawOuterSmallCorner(22,  9, "top-left");
@@ -133,11 +133,11 @@ class BoardCanvas extends Canvas {
         this.drawOuterSmallCorner(22, 15, "top-left");
         this.drawOuterSmallCorner(22, 19, "bottom-left");
         this.drawOuterBigCorner(27,   19, "top-right");
-        
+
         // Bottom Corners
         this.drawOuterBigCorner(27,   30, "bottom-right");
         this.drawOuterBigCorner(0,    30, "bottom-left");
-        
+
         // Left Tunnel
         this.drawOuterBigCorner(0,    19, "top-left");
         this.drawOuterSmallCorner(5,  19, "bottom-right");
@@ -147,17 +147,17 @@ class BoardCanvas extends Canvas {
         this.drawOuterSmallCorner(5,  13, "bottom-right");
         this.drawOuterSmallCorner(5,   9, "top-right");
         this.drawOuterBigCorner(0,     9, "bottom-left");
-        
+
         this.ctx.lineTo(Board.halfLine, Board.bigRadius + Board.halfLine);
         this.ctx.stroke();
     }
-    
+
     /**
      * Draws the Board inner border
      */
     drawInnerBorder() {
         this.ctx.beginPath();
-        
+
         // Top Border
         this.drawInnerCorner(0,   0, "top-left",     false, false);
         this.drawInnerCorner(13,  0, "top-right",    false, false);
@@ -165,7 +165,7 @@ class BoardCanvas extends Canvas {
         this.drawInnerCorner(14,  4, "bottom-right", true,  true);
         this.drawInnerCorner(14,  0, "top-left",     false, false);
         this.drawInnerCorner(27,  0, "top-right",    false, false);
-        
+
         // Right Border
         this.drawInnerCorner(27,  9, "bottom-right", false, false);
         this.drawInnerCorner(22,  9, "top-left",     true,  true);
@@ -179,11 +179,11 @@ class BoardCanvas extends Canvas {
         this.drawInnerCorner(25, 24, "top-left",     true,  true);
         this.drawInnerCorner(25, 25, "bottom-left",  true,  true);
         this.drawInnerCorner(27, 25, "top-right",    false, false);
-        
+
         // Bottom Border
         this.drawInnerCorner(27, 30, "bottom-right", false, false);
         this.drawInnerCorner(0,  30, "bottom-left",  false, false);
-        
+
         // Left Border
         this.drawInnerCorner(0,  25, "top-left",     false, false);
         this.drawInnerCorner(2,  25, "bottom-right", true,  true);
@@ -198,11 +198,11 @@ class BoardCanvas extends Canvas {
         this.drawInnerCorner(5,   9, "top-right",    true,  true);
         this.drawInnerCorner(0,   9, "bottom-left",  false, false);
         this.ctx.lineTo(Board.tileSize / 2, Board.tileSize / 2 + Board.smallRadius);
-        
+
         this.ctx.stroke();
     }
-    
-    
+
+
     /**
      * Draws a drawRectangle at the given position with the given size
      * @param {number} x
@@ -213,18 +213,18 @@ class BoardCanvas extends Canvas {
     drawRectangle(x, y, width, height) {
         this.ctx.save();
         this.ctx.translate(x * Board.tileSize, y * Board.tileSize);
-        
+
         this.ctx.beginPath();
         this.drawInnerCorner(0,                  0, "top-left",     true, false);
         this.drawInnerCorner(width - 1,          0, "top-right",    true, false);
         this.drawInnerCorner(width - 1, height - 1, "bottom-right", true, false);
         this.drawInnerCorner(0,         height - 1, "bottom-left",  true, false);
         this.ctx.closePath();
-        
+
         this.ctx.stroke();
         this.ctx.restore();
     }
-    
+
     /**
      * Draws a t shape at the given position and with the given properties
      * @param {number} x
@@ -236,12 +236,12 @@ class BoardCanvas extends Canvas {
     drawTShape(x, y, left, right, type) {
         let data  = this.drawTShapes[type],
             width = left + right;
-        
+
         this.ctx.save();
         this.ctx.translate(x * Board.tileSize, y * Board.tileSize);
         this.ctx.rotate(data.radians * Math.PI);
         this.ctx.translate(data.x * width * Board.tileSize, data.y * Board.tileSize);
-        
+
         this.ctx.beginPath();
         this.drawInnerCorner(0,         0, "top-left",     true,  false);
         this.drawInnerCorner(width - 1, 0, "top-right",    true,  false);
@@ -251,11 +251,11 @@ class BoardCanvas extends Canvas {
         this.drawInnerCorner(left - 1,  4, "bottom-left",  true,  false);
         this.drawInnerCorner(left - 1,  1, "top-right",    false, true);
         this.drawInnerCorner(0,         1, "bottom-left",  true,  false);
-        
+
         this.ctx.stroke();
         this.ctx.restore();
     }
-    
+
     /**
      * Draws an l shape at the given position
      * @param {number} x
@@ -265,12 +265,12 @@ class BoardCanvas extends Canvas {
     drawLShape(x, y, reflect) {
         this.ctx.save();
         this.ctx.translate(x * Board.tileSize, y * Board.tileSize);
-        
+
         if (reflect) {
             this.ctx.transform(-1, 0, 0, 1, 0, 0);
             this.ctx.translate(-4 * Board.tileSize, 0);
         }
-        
+
         this.ctx.beginPath();
         this.drawInnerCorner(0, 0, "top-left",     true,  false);
         this.drawInnerCorner(3, 0, "top-right",    true,  false);
@@ -278,12 +278,12 @@ class BoardCanvas extends Canvas {
         this.drawInnerCorner(2, 4, "bottom-left",  true,  false);
         this.drawInnerCorner(2, 1, "top-right",    false, true);
         this.drawInnerCorner(0, 1, "bottom-left",  true,  false);
-        
+
         this.ctx.stroke();
         this.ctx.restore();
     }
-    
-    
+
+
     /**
      * Draws a corner for the outer line with a big angle
      * @param {number} x
@@ -296,10 +296,10 @@ class BoardCanvas extends Canvas {
                 x : x * Board.tileSize + Board.bigRadius + data.x * Board.halfLine,
                 y : y * Board.tileSize + Board.bigRadius + data.y * Board.halfLine
             };
-        
+
         this.corner(pos, Board.bigRadius, type, false);
     }
-    
+
     /**
      * Draws a corner for the outer line with a small angle
      * @param {number} x
@@ -313,10 +313,10 @@ class BoardCanvas extends Canvas {
                 x : (x + data.x.cell) * Board.tileSize + radius.x * Board.smallRadius + data.x.line * Board.halfLine,
                 y : (y + data.y.cell) * Board.tileSize + radius.y * Board.smallRadius + data.y.line * Board.halfLine
             };
-        
+
         this.corner(pos, Board.smallRadius, type, true);
     }
-    
+
     /**
      * Draws a corner for the board
      * @param {number} x
@@ -332,10 +332,10 @@ class BoardCanvas extends Canvas {
                 x : (x + 0.5) * Board.tileSize + data.x * radius,
                 y : (y + 0.5) * Board.tileSize + data.y * radius
             };
-        
+
         this.corner(pos, radius, type, anitclockwise);
     }
-    
+
     /**
      * Draws a corner at the given position and with the given radius and type
      * @param {{x: number, y: number}} pos
@@ -346,16 +346,16 @@ class BoardCanvas extends Canvas {
     corner(pos, radius, type, anitclockwise) {
         let rad    = this.radians[type],
             result = [rad.from * Math.PI, rad.to * Math.PI];
-        
+
         if (anitclockwise) {
             result.reverse();
         }
         rad = { from: result[0], to: result[1] };
-        
+
         this.ctx.arc(pos.x, pos.y, radius, rad.from, rad.to, anitclockwise);
     }
-    
-    
+
+
     /**
      * Draws lines over the board for testing
      */
@@ -363,7 +363,7 @@ class BoardCanvas extends Canvas {
         this.ctx.strokeStyle = "#CCC";
         this.ctx.lineWidth   = 1;
         this.ctx.beginPath();
-        
+
         for (let i = 0; i < Board.rows; i += 1) {
             this.ctx.moveTo(0,           i * Board.tileSize);
             this.ctx.lineTo(Board.width, i * Board.tileSize);
@@ -374,7 +374,7 @@ class BoardCanvas extends Canvas {
         }
         this.ctx.stroke();
     }
-    
+
     /**
      * Draws the intersections over the board for testing
      */
@@ -383,16 +383,16 @@ class BoardCanvas extends Canvas {
             let coords = key.replace("x", "").split("y"),
                 x      = Board.getTileCorner(Number(coords[0])),
                 y      = Board.getTileCorner(Number(coords[1]));
-            
+
             this.ctx.fillRect(x, y, Board.tileSize, Board.tileSize);
             this.ctx.save();
             this.ctx.strokeStyle = "white";
-            
+
             Board.boardTurns[key].forEach((value) => {
                 let dir = Board.numberToDir(value),
                     bx  = Board.getTileCorner(Number(coords[0]) + dir.x),
                     by  = Board.getTileCorner(Number(coords[1]) + dir.y);
-                
+
                 this.ctx.strokeRect(bx, by, Board.tileSize, Board.tileSize);
             });
             this.ctx.restore();

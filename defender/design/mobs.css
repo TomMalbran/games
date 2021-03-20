@@ -218,10 +218,10 @@
     width: 10px;
     height: 13px;
     overflow: hidden;
-}	
+}
     .spawnHead { top: 0; left:  7px; }
     .spawnTail { top: 0; left: -3px; }
-    
+
     .spawnHead:after {
         content: "";
         position: absolute;

@@ -2,7 +2,7 @@
  * The Mobs Waves Class
  */
 class Waves {
-    
+
     /**
      * The Mobs Waves constructor
      * @param {Mobs} parent
@@ -17,13 +17,13 @@ class Waves {
             "Spawn",     "Flying", "Decoy",  "Hopper", "Morth",  "Fast",   "Dark",   "FlyingBoss",
             "SpawnBoss", "Normal"
         ];
-        
+
         this.parent    = parent;
         this.container = document.querySelector(".waves");
         this.waver     = document.querySelector(".currentWave");
         this.total     = document.querySelector(".totalWaves");
         this.button    = document.querySelector(".nextButton");
-        
+
         this.maxWaves  = 3;
         this.elemWidth = 79;
         this.elements  = [];
@@ -31,19 +31,19 @@ class Waves {
         this.count     = Math.min(8, this.waves.length);
         this.simWaves  = this.maxWaves - 1;
         this.mobCount  = [];
-        
+
         this.setWave();
-        
+
         this.container.innerHTML = "";
         for (let i = 0; i < this.count; i += 1) {
             this.createElement(i);
         }
-        
+
         this.button.style.display = "";
         this.total.innerHTML      = this.waves.length;
     }
-    
-    
+
+
     /**
      * Moves to the next Wave
      */
@@ -55,7 +55,7 @@ class Waves {
             this.showButton();
         }
     }
-    
+
     /**
      * Sends the mobs from the new Wave
      */
@@ -69,7 +69,7 @@ class Waves {
         this.parent.score.startTimer();
         this.parent.sounds.enter();
     }
-    
+
     /**
      * Reduces the mob count for the given wave
      * @param {number} wave
@@ -81,8 +81,8 @@ class Waves {
             this.showButton();
         }
     }
-    
-    
+
+
     /**
      * Moves all the waves elements
      */
@@ -99,7 +99,7 @@ class Waves {
             this.setLeft();
         }
     }
-    
+
     /**
      * Adds a new Wave element
      */
@@ -107,14 +107,14 @@ class Waves {
         if (this.wave + this.count < this.waves.length) {
             this.createElement(this.count);
         }
-        
+
         this.removeElement();
         this.left  = 0;
         this.wave += 1;
         this.setWave();
         this.sendMobs();
     }
-        
+
     /**
      * Creates the Wave element
      * @param {number} add
@@ -122,7 +122,7 @@ class Waves {
     createElement(add) {
         let mob = Mob.create(this.getType(add), { boss : this.isBossWave(add) }),
             div = document.createElement("DIV");
-        
+
         div.style.backgroundColor = mob.getColor();
         div.style.left = this.getLeft(this.wave + add, 0) + "px";
         div.className  = "wave";
@@ -130,11 +130,11 @@ class Waves {
             "<h3>" + (this.wave + add + 1) + ". " +
             (mob.isBoss() ? "Boss" : mob.getName()) + "</h3>" +
             "<p>"  + mob.getSlogan() + "</p>";
-        
+
         this.container.appendChild(div);
         this.elements[this.elements.length] = div;
     }
-    
+
     /**
      * Removes the first Wave element
      */
@@ -142,27 +142,27 @@ class Waves {
         Utils.removeElement(this.elements[0]);
         this.elements = this.elements.splice(1);
     }
-    
+
     /**
      * Sets the left position of the waves elements
      */
     setLeft() {
         let timer = this.parent.score.getTimer(),
             start = (timer - 25) * this.elemWidth / 25;
-        
+
         this.elements.forEach((element, index) => {
             element.style.left = this.getLeft(index, start) + "px";
         });
     }
-    
+
     /**
      * Sets the display of the button
      */
     showButton() {
         this.button.style.display = this.simWaves <= 0 ? "none" : "block";
     }
-    
-    
+
+
     /**
      * Returns the type of the current + add wave
      * @param {number} add
@@ -171,7 +171,7 @@ class Waves {
     getType(add) {
         return this.waves[this.wave + (add || 0)].replace("Boss", "");
     }
-    
+
     /**
      * Returns true if the wave of the current + add is a boss wave
      * @param {number} add
@@ -180,7 +180,7 @@ class Waves {
     isBossWave(add) {
         return this.waves[this.wave + (add || 0)].indexOf("Boss") > -1;
     }
-    
+
     /**
      * Returns the left property for the element at the given index
      * @param {number} index
@@ -190,14 +190,14 @@ class Waves {
     getLeft(index, start) {
         return Math.round(start + index * this.elemWidth);
     }
-    
+
     /**
      * Returns true if this is the last wave
      */
     isLastWave() {
         return this.wave + 1 === this.waves.length;
     }
-    
+
     /**
      * Sets the inner HTML for the current wave
      */

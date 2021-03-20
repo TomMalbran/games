@@ -2,7 +2,7 @@
  * Matrix Manager
  */
 class Matrix {
-    
+
     /**
      * Matrix Manager constructor
      * @param {Board}    board
@@ -14,11 +14,11 @@ class Matrix {
     constructor(board, instance, matrix, head, tail) {
         this.board    = board;
         this.instance = instance;
-        
+
         this.head     = head !== undefined ? head : 0;
         this.tail     = tail !== undefined ? tail : 0;
         this.matrix   = matrix || [];
-        
+
         if (!matrix) {
             for (let i = 0; i < this.board.matrixRows; i += 1) {
                 this.matrix[i] = [];
@@ -28,7 +28,7 @@ class Matrix {
             }
         }
     }
-    
+
     /**
      * Adds a snake body element
      * @param {number} top
@@ -37,13 +37,13 @@ class Matrix {
     addSnake(top, left) {
         this.matrix[top][left] = this.tail;
         this.instance.addToMatrix(top, left, this.tail);
-        
+
         this.tail += 1;
         if (this.tail > this.board.totalCells) {
             this.tail = 0;
         }
     }
-    
+
     /**
      * Removes a snake body element
      * @param {number} top
@@ -51,14 +51,14 @@ class Matrix {
      */
     removeSnake(top, left) {
         this.matrix[top][left] = this.board.emptyValue;
-        
+
         this.head += 1;
         if (this.head > this.board.totalCells) {
             this.head = 0;
         }
         this.instance.removeFromMatrix(top, left, this.head);
     }
-    
+
     /**
      * Adds a new food element to the board in the first possible random position
      * @return {{top: number, left: number}}
@@ -70,13 +70,13 @@ class Matrix {
             left  = Utils.rand(1, this.board.matrixColumns - 2);
             found = this.matrix[top][left] >= this.board.borderValue;
         } while (found);
-        
+
         this.matrix[top][left] = this.board.foodValue;
         this.instance.addToMatrix(top, left, this.board.foodValue);
-        
+
         return { top : top, left : left };
     }
-    
+
     /**
      * Returns true if the snake crashed a wall or it's own body
      * @param {number} top
@@ -86,7 +86,7 @@ class Matrix {
     crashed(top, left) {
         return this.matrix[top][left] >= this.board.borderValue;
     }
-    
+
     /**
      * Returns true if the snake ate the food
      * @param {number} top

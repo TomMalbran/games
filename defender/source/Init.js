@@ -1,6 +1,6 @@
 (function () {
     "use strict";
-    
+
     let display, score, maps, board, panel, towers, mobs, sounds,
         audio, animation, startTime, actions, shortcuts,
         soundFiles = [
@@ -21,9 +21,9 @@
         },
         gameMap   = "classic",
         gameLevel = 0;
-    
-        
-    
+
+
+
     /**
      * Request an animation frame
      */
@@ -33,24 +33,24 @@
             let time  = new Date().getTime() - startTime,
                 speed = time / 16,
                 dec   = score.decTimer(time);
-            
+
             towers.animate(time, speed);
             mobs.animate(time, speed, dec);
-                
+
             if (display.isPlaying()) {
                 requestAnimation();
             }
         });
     }
-    
+
     /**
      * Cancel an animation frame
      */
     function cancelAnimation() {
         window.cancelAnimationFrame(animation);
     }
-    
-    
+
+
     /**
      * Destroys the Game
      */
@@ -59,7 +59,7 @@
         board.destroy();
         towers.destroy();
     }
-    
+
     /**
      * Shows the Game Over Screen
      */
@@ -69,8 +69,8 @@
         maps.saveScore(score.getLives(), score.getTotal());
         score.showFinal();
     }
-    
-    
+
+
     /**
      * Starts a new Game
      * @param {number} level
@@ -78,23 +78,23 @@
     function newGame(level) {
         display.set("planning");
         gameLevel = level;
-        
+
         maps.saveMap(gameMap, gameLevel);
-        
+
         score  = new Score(gameLevel, showGameOver);
         board  = new Board(gameMap);
         panel  = new Panel();
         mobs   = new Mobs(score, board, panel, sounds, gameLevel);
         towers = new Towers(score, board, panel, mobs, sounds);
     }
-    
+
     /**
      * Show the Main Screen
      */
     function showMainScreen() {
         display.set("mainScreen");
     }
-    
+
     /**
      * Shows the Maps selection Screen
      */
@@ -102,7 +102,7 @@
         display.set("selectMap");
         maps.display();
     }
-    
+
     /**
      * Play the last played Map
      */
@@ -110,7 +110,7 @@
         gameMap = maps.getMap() || gameMap;
         newGame(maps.getLevel() || gameLevel);
     }
-    
+
     /**
      * Shows the Level Selection Screen
      * @param {string} map
@@ -119,15 +119,15 @@
         display.set("selectLevel");
         gameMap = maps.codeToMap(map);
     }
-    
+
     /**
      * Show the Controls
      */
     function showControls() {
         display.set("controls");
     }
-    
-    
+
+
     /**
      * Start Playing
      */
@@ -137,10 +137,10 @@
         board.gameStarted();
         towers.gameStarted();
         mobs.gameStarted();
-        
+
         requestAnimation();
     }
-    
+
     /**
      * Starts the Game and or sends the next wave
      */
@@ -151,8 +151,8 @@
             mobs.sendNextWave();
         }
     }
-     
-    
+
+
     /**
      * Start the Game Again
      */
@@ -160,7 +160,7 @@
         destroyGame();
         newGame(gameLevel);
     }
-    
+
     /**
      * Ends the current Game
      */
@@ -168,8 +168,8 @@
         destroyGame();
         showMainScreen();
     }
-    
-    
+
+
     /**
      * Starts the pause
      */
@@ -177,7 +177,7 @@
         display.setPause();
         cancelAnimation();
     }
-    
+
     /**
      * Pause the Game
      */
@@ -193,15 +193,15 @@
             cancelAnimation();
         }
     }
-    
-    
+
+
     /**
      * Sets the text of the Audio button
      */
     function setAudioText() {
         audio.innerHTML = sounds.isMute() ? "Unmute" : "Mute";
     }
-    
+
     /**
      * Toggles the sound on and off
      */
@@ -209,7 +209,7 @@
         sounds.toggle();
         setAudioText();
     }
-    
+
     /**
      * Ends the tower selections and hides the descriptions
      */
@@ -217,8 +217,8 @@
         towers.drop();
         panel.hide();
     }
-    
-    
+
+
     /**
      * Creates an actions object
      */
@@ -242,7 +242,7 @@
             sellAll     : ()  => towers.sellAll()
         };
     }
-    
+
     /**
      * Creates a shortcut object
      */
@@ -276,7 +276,7 @@
                 PD    : ()  => towers.selectNextPrev(+5),
                 Esc   : ()  => endSelection()
             };
-        
+
         shortcuts = {
             mainScreen : {
                 N  : "selectMap",
@@ -306,13 +306,13 @@
             playingPaused  : paused
         };
     }
-    
+
     /**
      * Stores the used DOM elements and initializes the Event Handlers
      */
     function initDomListeners() {
         audio = document.querySelector(".audioButton");
-        
+
         document.body.addEventListener("click", (e) => {
             let element = Utils.getTarget(e);
             if (actions[element.dataset.action]) {
@@ -320,13 +320,13 @@
                 e.preventDefault();
             }
         });
-        
+
         document.addEventListener("keydown", (e) => {
             let dec, hexa,
                 key  = e.keyCode,
                 code = specialKeys[key] || String.fromCharCode(key),
                 data = code;
-            
+
             if (key >= 48 && key <= 57) {
                 dec  = key - 48;
                 hexa = dec;
@@ -336,7 +336,7 @@
             } else if ([ "A", "B", "C", "D", "E", "F" ].indexOf(code) > -1) {
                 hexa = code;
             }
-            
+
             if (shortcuts[display.get()].HN && hexa !== undefined) {
                 code = "HN";
                 data = hexa;
@@ -344,7 +344,7 @@
                 code = "DN";
                 data = dec;
             }
-            
+
             if (shortcuts[display.get()][code]) {
                 if (typeof shortcuts[display.get()][code] === "string") {
                     actions[shortcuts[display.get()][code]](data);
@@ -355,7 +355,7 @@
             }
         });
     }
-    
+
     /**
      * The main Function
      */
@@ -363,15 +363,15 @@
         createActions();
         createShortcuts();
         initDomListeners();
-        
+
         display = new Display();
         maps    = new Maps();
         sounds  = new Sounds(soundFiles, "defender.sound", false);
-        
+
         setAudioText();
     }
-    
-    
+
+
     // Load the game
     window.addEventListener("load", main, false);
 

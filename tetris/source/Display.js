@@ -2,7 +2,7 @@
  * The Game Display
  */
 class Display {
-    
+
     /**
      * The Game Display constructor
      */
@@ -11,7 +11,7 @@ class Display {
         this.container = document.querySelector("#container");
         this.header    = document.querySelector(".messages h2");
         this.paragraph = document.querySelector(".messages p");
-        
+
         this.messages  = {
             mainScreen : [ "Tetris",     "Select the starting level" ],
             paused     : [ "Pause",      "Continue with the game?"   ],
@@ -21,8 +21,8 @@ class Display {
             help       : [ "Help",       "Game controlls"            ]
         };
     }
-    
-    
+
+
     /**
      * Gets the Game Display
      * @return {string}
@@ -30,7 +30,7 @@ class Display {
     get() {
         return this.display;
     }
-    
+
     /**
      * Sets the Game Display
      * @param {string} display
@@ -40,8 +40,8 @@ class Display {
         this.display = display;
         return this;
     }
-    
-    
+
+
     /**
      * Show the message
      */
@@ -50,15 +50,15 @@ class Display {
         this.header.innerHTML    = this.messages[this.display][0];
         this.paragraph.innerHTML = this.messages[this.display][1];
     }
-    
+
     /**
      * Hide the message
      */
     hide() {
         this.container.className = "playing";
     }
-    
-    
+
+
     /**
      * Returns true if the display is in the main screen
      * @return {boolean}
@@ -66,7 +66,7 @@ class Display {
     inMainScreen() {
         return this.display === "mainScreen";
     }
-    
+
     /**
      * Returns true if the display is in playing mode
      * @return {boolean}
@@ -74,7 +74,7 @@ class Display {
     isPlaying() {
         return this.display === "playing";
     }
-    
+
     /**
      * Returns true if the display is in paused mode
      * @return {boolean}

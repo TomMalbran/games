@@ -2,7 +2,7 @@
  * The Game Display
  */
 class Display {
-    
+
     /**
      * The Game Display constructor
      */
@@ -11,7 +11,7 @@ class Display {
         this.container = document.querySelector("#container");
         this.header    = document.querySelector(".messages h2");
         this.paragraph = document.querySelector(".messages p");
-        
+
         this.messages  = {
             mainScreen : [ "Snake",      "Select a level"     ],
             paused     : [ "Pause",      "Continue the game?" ],
@@ -21,8 +21,8 @@ class Display {
             help       : [ "Help",       "Game controlls"     ]
         };
     }
-    
-    
+
+
     /**
      * Gets the Game Display
      * @return {string}
@@ -30,7 +30,7 @@ class Display {
     get() {
         return this.display;
     }
-    
+
     /**
      * Sets the Game Display
      * @param {string} display
@@ -40,8 +40,8 @@ class Display {
         this.display = display;
         return this;
     }
-    
-    
+
+
     /**
      * Sets the container class
      */
@@ -57,7 +57,7 @@ class Display {
         this.paragraph.innerHTML = this.messages[this.display][1];
         this.setClass();
     }
-    
+
     /**
      * Hide the message
      */
@@ -65,7 +65,7 @@ class Display {
         this.container.className = "playing";
     }
 
-    
+
     /**
      * Returns true if is starting the game
      * @return {boolean}
@@ -73,7 +73,7 @@ class Display {
     isStarting() {
         return this.display === "starting";
     }
-    
+
     /**
      * Returns true if is playing the game
      * @return {boolean}
@@ -81,7 +81,7 @@ class Display {
     isPlaying() {
         return this.display === "playing";
     }
-    
+
     /**
      * Returns true if is demoing the game
      * @return {boolean}

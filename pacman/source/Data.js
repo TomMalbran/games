@@ -1,6 +1,6 @@
 let Data = (function (){
     "use strict";
-    
+
     const levelsData = [
         { // 1
             ghostSpeed        : 0.75,                           // Normal Ghost speed
@@ -422,7 +422,7 @@ let Data = (function (){
             penForceTime      : 3,
             penLeavingLimit   : [ 0, 0, 0, 0 ]
         }],
-    
+
     /** @const Data */
         fruitNames     = [ "Cherries", "Strawberry", "Peach", "Apple", "Grapes", "Galaxian", "Bell", "Key" ],
         fruitDots1     = 174,
@@ -443,13 +443,13 @@ let Data = (function (){
             exitPen  : exitPenSpeed,
             enterPen : eyesSpeed
         };
-    
+
     /** @type {number} the current game level */
     let gameLevel = 1;
-    
-    
-    
-    
+
+
+
+
     /** The public API */
     return {
         /**
@@ -459,8 +459,8 @@ let Data = (function (){
         set level(level) {
             gameLevel = level;
         },
-        
-        
+
+
         /**
          * The amount of time a fruit stays in the board
          * @return {number}
@@ -468,7 +468,7 @@ let Data = (function (){
         get fruitTime() {
             return Math.round(Math.random() * 1000) + 9000;
         },
-        
+
         /**
          * The amount of dots left before showing the fruit
          * @return {number}
@@ -476,7 +476,7 @@ let Data = (function (){
         get fruitDots1() {
             return fruitDots1;
         },
-        
+
         /**
          * The amount of dots left before showing the fruit
          * @return {number}
@@ -484,7 +484,7 @@ let Data = (function (){
         get fruitDots2() {
             return fruitDots2;
         },
-        
+
         /**
          * The value for the energizer
          * @return {number}
@@ -492,7 +492,7 @@ let Data = (function (){
         get energizerValue() {
             return energizerValue;
         },
-        
+
         /**
          * The value for the pill
          * @return {number}
@@ -500,8 +500,8 @@ let Data = (function (){
         get pillValue() {
             return pillValue;
         },
-        
-        
+
+
         /**
          * The score required for each extra life
          * @return {number}
@@ -509,7 +509,7 @@ let Data = (function (){
         get extraLife() {
             return extraLife;
         },
-        
+
         /**
          * Returns the pills multiplier
          * @return {number}
@@ -517,7 +517,7 @@ let Data = (function (){
         get pillMult() {
             return pillMult;
         },
-        
+
         /**
          * Returns the eves bonus score
          * @return {number}
@@ -525,7 +525,7 @@ let Data = (function (){
         get eyesBonus() {
             return eyesBonus;
         },
-        
+
         /**
          * Returns the total amount of Ghost's mode switchs
          * @return {number}
@@ -533,7 +533,7 @@ let Data = (function (){
         get totalSwitchs() {
             return totalSwitchs;
         },
-        
+
         /**
          * Returns the Ghost's blink time
          * @return {number}
@@ -541,7 +541,7 @@ let Data = (function (){
         get blinksTimer() {
             return blinksTimer;
         },
-        
+
         /**
          * Returns the Ghost's eyes mode speed
          * @return {number}
@@ -549,8 +549,8 @@ let Data = (function (){
         get eyesSpeed() {
             return eyesSpeed;
         },
-        
-        
+
+
         /**
          * Returns the value asociated with the given key for the current level
          * @param {string} variable
@@ -566,7 +566,7 @@ let Data = (function (){
             }
             return value;
         },
-            
+
         /**
          * Returns the fruit name for the current level
          * @return {string}
@@ -574,7 +574,7 @@ let Data = (function (){
         getFruitName() {
             return fruitNames[Data.getLevelData("fruitType") - 1];
         },
-        
+
         /**
          * Returns the Pen Force time in miliseconds
          * @return {number}
@@ -582,7 +582,7 @@ let Data = (function (){
         getPenForceTime() {
             return Data.getLevelData("penForceTime") * 1000;
         },
-        
+
         /**
          * Returns the switch time at the given mode in miliseconds
          * @param {number} mode
@@ -591,7 +591,7 @@ let Data = (function (){
         getSwitchTime(mode) {
             return Data.getLevelData("switchTimes")[mode] * 1000;
         },
-        
+
         /**
          * Returns the Fright time in miliseconds
          * @return {number}
@@ -599,7 +599,7 @@ let Data = (function (){
         getFrightTime() {
             return Data.getLevelData("frightTime") * 1000;
         },
-        
+
         /**
          * Returns the amount of switchs when blinking in fright mode
          * @return {number}
@@ -607,7 +607,7 @@ let Data = (function (){
         getBlinks() {
             return Data.getLevelData("frightBlinks") * 2;
         },
-        
+
         /**
          * Returns the ghost speed
          * @param {boolean} inPen
@@ -616,7 +616,7 @@ let Data = (function (){
         getGhostSpeed(inPen) {
             return inPen ? inPenSpeed : Data.getLevelData("ghostSpeed");
         },
-        
+
         /**
          * Returns the ghost speed inside a path
          * @param {string} path
@@ -625,7 +625,7 @@ let Data = (function (){
         getPathSpeed(path) {
             return pathSpeeds[path];
         },
-        
+
         /**
          * Returns the Score for a dead Ghost
          * @param {number} amount
@@ -634,7 +634,7 @@ let Data = (function (){
         getGhostScore(amount) {
             return Math.pow(2, amount) * 100;
         },
-        
+
         /**
          * Returns the amount of dots required before exiting the Pen for the given ghost
          * @param {number} ghost
@@ -643,7 +643,7 @@ let Data = (function (){
         getPenDotsCount(ghost) {
             return penDotsCount[ghost];
         },
-        
+
         /**
          * Returns true if the given mode is Frighten
          * @param {number} mode
@@ -653,5 +653,5 @@ let Data = (function (){
             return mode === "blue" || mode === "white";
         }
     };
-    
+
 }());

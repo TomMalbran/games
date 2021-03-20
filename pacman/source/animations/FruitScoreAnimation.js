@@ -3,7 +3,7 @@
  * The Fruit Score Animation
  */
 class FruitScoreAnimation extends Animation {
-    
+
     /**
      * The Fruit Score Animation constructor
      * @param {Canvas} canvas
@@ -12,14 +12,14 @@ class FruitScoreAnimation extends Animation {
      */
     constructor(canvas, text, pos) {
         super();
-        
+
         this.canvas     = canvas;
         this.text       = text;
         this.pos        = pos;
         this.blocksGame = true;
         this.endTime    = 2400;
     }
-    
+
     /**
      * Does the Fruit Score animation
      */
@@ -29,7 +29,7 @@ class FruitScoreAnimation extends Animation {
             let alpha = this.time < 1000 ? 1 : 1 - Math.round((this.time - 1000) * 1.25) / 2000;
             color = "rgba(255, 184, 255, " + alpha + ")";
         }
-        
+
         this.canvas.clear();
         this.canvas.drawText({
             size  : 1,
@@ -40,7 +40,7 @@ class FruitScoreAnimation extends Animation {
                 y : this.pos.y + 0.5
             }
         });
-        
+
         if (this.time > 200) {
             this.blocksGame = false;
         }

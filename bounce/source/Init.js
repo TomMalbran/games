@@ -1,14 +1,14 @@
 (function () {
     "use strict";
-    
+
     let mode, display, score, keyboard,
         board, ship, ball, tail, bricks, sound, scores,
         soundFiles = [ "bounce", "brick", "end" ],
         hasStarted = false,
         startTime  = 0;
-    
-    
-    
+
+
+
     /**
      * Moves the ball
      * @param {number} speed
@@ -16,7 +16,7 @@
     function moveBall(speed) {
         let crash = false;
         ball.move(speed);
-        
+
         if (mode.isBricksMode() && bricks.crash(ball)) {
             sound.brick();
             score.inc();
@@ -52,7 +52,7 @@
             }
         }
     }
-    
+
     /**
      * Request an animation frame
      */
@@ -61,35 +61,35 @@
         window.requestAnimationFrame(() => {
             let time  = new Date().getTime() - startTime,
                 speed = time / 16;
-            
+
             if (speed < 0) {
                 speed = 0;
             }
             if (speed > 5) {
                 return requestAnimation();
             }
-            
+
             if (hasStarted) {
                 tail.move(ball);
                 moveBall(speed);
             }
             keyboard.onKeyHold();
-            
+
             if (display.isPlaying()) {
                 requestAnimation();
             }
         });
     }
-    
-    
-    
+
+
+
     /**
      * Show the Main Screen
      */
     function showMainScreen() {
         display.set("mainScreen").show();
     }
-    
+
     /**
      * Start the Game
      */
@@ -97,7 +97,7 @@
         hasStarted = true;
         ball.start();
     }
-    
+
     /**
      * Finish the Game
      */
@@ -108,7 +108,7 @@
         }
         showMainScreen();
     }
-    
+
     /**
      * Hide the required game parts
      */
@@ -116,7 +116,7 @@
         display.show();
         board.end();
     }
-    
+
     /**
      * Pauses the game
      */
@@ -124,19 +124,19 @@
         display.set("paused");
         hideGame();
     }
-    
+
     /**
      * Unpauses the game
      */
     function endPause() {
         display.set("playing").hide();
         board.start((e) => ship.mouseMove(e));
-        
+
         if (hasStarted) {
             requestAnimation();
         }
     }
-    
+
     /**
      * Game Over
      */
@@ -145,19 +145,19 @@
         hideGame();
         scores.setInput();
         board.end();
-        
+
         if (mode.isBricksMode()) {
             bricks.destroy();
         }
     }
-    
+
     /**
      * Show the High Scores
      */
     function showHighScores() {
         display.set("highScores").show();
     }
-    
+
     /**
      * Saves a High Score
      */
@@ -166,16 +166,16 @@
             showHighScores();
         }
     }
-    
+
     /**
      * Show the Help
      */
     function showHelp() {
         display.set("help").show();
     }
-    
-    
-    
+
+
+
     /**
      * Callback used when the ship moves
      */
@@ -185,34 +185,34 @@
             tail.start(ball);
         }
     }
-    
+
     /**
      * Starts a new game
      * @param {string} gameMode
      */
     function newGame(gameMode) {
         hasStarted = false;
-        
+
         display.set("playing").hide();
         mode.set(gameMode);
         score.restart();
-        
+
         ship = new Ship(board, mode.getShipWidth(), onShipMove);
         ball = new Ball(board.getWidth(), board.getHeight());
         tail = new Tail();
-        
+
         board.start((e) => ship.mouseMove(e));
         ball.setStartTop(ship);
         ball.setStartLeft(ship);
         tail.start(ball);
-        
+
         if (mode.isBricksMode()) {
             bricks = new Bricks();
         }
         requestAnimation();
     }
-    
-    
+
+
     /**
      * Stores the used DOM elements and initializes the Event Handlers
      */
@@ -230,13 +230,13 @@
                     showScores : () => scores.show(element.dataset.mode),
                     sound      : () => sound.toggle(),
                 };
-            
+
             if (actions[element.dataset.action]) {
                 actions[element.dataset.action]();
             }
         });
     }
-    
+
     /**
      * Returns the shortcuts functions
      * @return {Object}
@@ -278,7 +278,7 @@
             }
         };
     }
-    
+
     /**
      * Called when the board is clicked
      */
@@ -289,13 +289,13 @@
             startPause();
         }
     }
-    
+
     /**
      * The main Function
      */
     function main() {
         initDomListeners();
-        
+
         display  = new Display();
         mode     = new Mode();
         score    = new Score();
@@ -304,8 +304,8 @@
         scores   = new HighScores();
         keyboard = new Keyboard(display, scores, getShortcuts());
     }
-    
-    
+
+
     // Load the game
     window.addEventListener("load", main, false);
 

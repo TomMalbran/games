@@ -235,7 +235,7 @@ a:hover {
     }
     .main li:nth-last-child(3)    { left: 0.5em;  }
     .main li:nth-last-child(-n+2) { right: 0.5em; }
-    
+
 .main.help li:nth-last-child(1),
 .main.continue li:nth-last-child(2) { display: none; }
 
@@ -267,7 +267,7 @@ a:hover {
         z-index: 2;
     }
     .input input:focus { outline: none; }
-    .input input::-webkit-input-placeholder { 
+    .input input::-webkit-input-placeholder {
         color: #999;
         text-shadow: #CCC 0.1em 0.1em 0.1em;
     }
@@ -275,7 +275,7 @@ a:hover {
         color: #999;
         text-shadow: #CCC 0.1em 0.1em 0.1em;
     }
-    
+
     .submit {
         position: absolute;
         top: 0.45em;
@@ -308,7 +308,7 @@ a:hover {
     margin: 0;
     padding: 0;
     list-style: none;
-    
+
 }
     .high li {
         display: inline-block;
@@ -455,8 +455,8 @@ a:hover {
         width:  0.6em;
         height: 0.6em;
     }
-    
-    .audio:hover .waves div { 
+
+    .audio:hover .waves div {
         background-color: black;
     }
     .waves div:before {
@@ -551,7 +551,7 @@ a:hover {
         position: absolute;
         background-color: #7C9774;
     }
-    
+
     .foodBody div:nth-child(1),
     .foodShadow div:nth-child(1) {
         top: 0;

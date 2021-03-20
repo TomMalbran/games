@@ -2,7 +2,7 @@
  * The Mobs Class
  */
 class Mobs {
-    
+
     /**
      * The Mobs constructor
      * @param {Score}  score
@@ -21,10 +21,10 @@ class Mobs {
         this.alerts     = new Alerts();
         this.paths      = new Paths(this);
         this.waves      = new Waves(this);
-        
+
         this.gameLevel  = gameLevel;
         this.hasStarted = false;
-        
+
         this.board.addListener("mob", (event, element) => {
             this.panel.showMob(this.manager.get(element.parentNode.dataset.id));
         });
@@ -32,18 +32,18 @@ class Mobs {
             this.panel.hide();
         });
     }
-    
-    
+
+
     /**
      * Updates the inner started state when the game starts
      */
     gameStarted() {
         this.hasStarted = true;
-        
+
         this.paths.hidePreview();
         this.waves.sendMobs();
     }
-    
+
     /**
      * Called on each animation frame to decreases the timers from the different lists,
      * update the build status and move the ammos
@@ -59,12 +59,12 @@ class Mobs {
         this.manager.reduceBleed(time);
         this.manager.reduceStun(time);
         this.alerts.move(time);
-        
+
         if (moveWave) {
             this.waves.move();
         }
     }
-    
+
     /**
      * Creates the new Paths
      * @return {boolean}
@@ -72,14 +72,14 @@ class Mobs {
     createPath() {
         return this.paths.createPaths();
     }
-    
+
     /**
      * Sends the next Wave
      */
     sendNextWave() {
         this.waves.next();
     }
-    
+
     /**
      * Returns the list with the Mobs that are moving
      * @return {List}
@@ -87,7 +87,7 @@ class Mobs {
     getMovingMobs() {
         return this.manager.getMovingMobs();
     }
-    
+
     /**
      * Removes the Mob when it's life is lower or equal to cero
      * @param {Mob} mob
@@ -95,7 +95,7 @@ class Mobs {
     killMob(mob) {
         this.manager.killMob(mob);
     }
-    
+
     /**
      * Adds all the mobs to one of the lists, if possible
      * @param {Array.<Mob>} mobs

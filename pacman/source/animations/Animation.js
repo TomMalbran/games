@@ -2,14 +2,14 @@
  * The Animation Base Class
  */
 class Animation {
-    
+
     /**
      * The Animation Base constructor
      */
     constructor() {
         this.time = 0;
     }
-    
+
     /**
      * Increases the timer
      * @param {number} time
@@ -17,7 +17,7 @@ class Animation {
     incTimer(time) {
         this.time += time;
     }
-    
+
     /**
      * Returns true if the animation hasn't ended
      * @return {boolean}
@@ -25,7 +25,7 @@ class Animation {
     isAnimating() {
         return this.endTime > this.time;
     }
-    
+
     /**
      * Returns true if the game loop stops while the animation is running
      * @return {boolean}
@@ -33,7 +33,7 @@ class Animation {
     blocksGameLoop() {
         return this.blocksGame;
     }
-    
+
     /**
      * Does the Animation
      * @param {number} time
@@ -41,7 +41,7 @@ class Animation {
     animate() {
         return undefined;
     }
-    
+
     /**
      * Called when the animation ends
      */
@@ -53,7 +53,7 @@ class Animation {
                 this.canvas.clearSavedRects();
             }
         }
-        
+
         if (this.callback) {
             this.callback();
         }

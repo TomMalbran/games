@@ -2,7 +2,7 @@
  * The Tetriminos Class
  */
 class Tetriminos {
-    
+
     /**
      * The Tetriminos constructor
      * @param {Board}    board
@@ -84,7 +84,7 @@ class Tetriminos {
                 cols : 3
             }
         ];
-        
+
         this.board      = board;
         this.sound      = sound;
         this.score      = score;
@@ -92,11 +92,11 @@ class Tetriminos {
         this.onGameOver = onGameOver;
         this.sequence   = [ 0, 1, 2, 3, 4, 5, 6 ];
         this.pointer    = this.sequence.length;
-        
+
         this.actual     = this.createTetrimino().fall();
         this.next       = this.createTetrimino();
     }
-    
+
     /**
      * Creates a new Tetrimino
      * @return {Tetrimino}
@@ -105,7 +105,7 @@ class Tetriminos {
         let type = this.getNextType();
         return new Tetrimino(this.board, type, this.tetriminos[type], this.size);
     }
-    
+
     /**
      * Increase the current pointer and if required it creates a new permutation of the 7 Tetriminos
      * and then it returns the next type
@@ -118,7 +118,7 @@ class Tetriminos {
             for (let i = 0; i < this.sequence.length; i += 1) {
                 let pos = Utils.rand(0, this.sequence.length - 1),
                     aux = this.sequence[pos];
-                
+
                 this.sequence[pos] = this.sequence[i];
                 this.sequence[i]   = aux;
             }
@@ -126,8 +126,8 @@ class Tetriminos {
         }
         return this.sequence[this.pointer];
     }
-    
-    
+
+
     /**
      * Soft drops the actual tetrimino
      */
@@ -136,7 +136,7 @@ class Tetriminos {
             this.crashed();
         }
     }
-    
+
     /**
      * Hard drops the actual tetrimino
      */
@@ -145,7 +145,7 @@ class Tetriminos {
         this.crashed();
         this.sound.drop();
     }
-    
+
     /**
      * Called when the actual tetrimino crashes
      */
@@ -154,7 +154,7 @@ class Tetriminos {
             this.onGameOver();
             return;
         }
-        
+
         this.score.piece(this.actual.getDrop());
         let lines = this.actual.addElements();
         if (lines) {
@@ -164,7 +164,7 @@ class Tetriminos {
         this.sound.crash();
         this.dropNext();
     }
-    
+
     /**
      * Drops the next tetrimino and creates a new one
      */
@@ -172,8 +172,8 @@ class Tetriminos {
         this.actual = this.next.fall();
         this.next   = this.createTetrimino();
     }
-    
-    
+
+
     /**
      * Rotates the actual tetrimino to the right
      */
@@ -205,15 +205,15 @@ class Tetriminos {
     moveLeft() {
         this.actual.moveLeft();
     }
-    
-    
+
+
     /**
      * Sets the hard drop position of the actual tetrimino
      */
     setHardDrop() {
         this.actual.setHardDrop();
     }
-    
+
     /**
      * Clears the elements
      */

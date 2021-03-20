@@ -2,7 +2,7 @@
  * The Game Keyboard
  */
 class Keyboard {
-    
+
     /**
      * The Game Keyboard constructor
      * @param {Display} display
@@ -13,7 +13,7 @@ class Keyboard {
         this.display   = display;
         this.scores    = scores;
         this.shortcuts = shortcuts;
-        
+
         document.addEventListener("keydown", e => this.pressKey(e));
     }
 
@@ -56,7 +56,7 @@ class Keyboard {
             } else {
                 key = String.fromCharCode(key);
             }
-            
+
             if (this.shortcuts[this.display.get()][key]) {
                 this.shortcuts[this.display.get()][key]();
             }

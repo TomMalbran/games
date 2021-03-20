@@ -3,7 +3,7 @@
  * The Ready Animation
  */
 class ReadyAnimation extends Animation {
-    
+
     /**
      * The Ready Animation constructor
      * @param {Canvas}   canvas
@@ -11,12 +11,12 @@ class ReadyAnimation extends Animation {
      */
     constructor(canvas, callback) {
         super();
-        
+
         this.canvas     = canvas;
         this.callback   = callback;
         this.blocksGame = true;
         this.endTime    = 3000;
-        
+
         this.canvas.drawText({
             color : "rgb(255, 255, 51)",
             text  : "Ready!",

@@ -2,7 +2,7 @@
  * The Towers Ranges Class
  */
 class Ranges {
-    
+
     /**
      * The Towers Ranges Class
      * @param {Towers} parent
@@ -13,8 +13,8 @@ class Ranges {
         this.complete = {};
         this.boosts   = {};
     }
-    
-    
+
+
     /**
      * It adds the Tower to the diferent cells in the matrices of Iterators where its range reaches it
      * @return {({boosts: Array.<Iterator>, towers: Array.<Iterator>} | {complete: Array.<Iterator>, reduced: Array.<Iterator>})}
@@ -24,12 +24,12 @@ class Ranges {
             reduce = (matrix.length - tower.getSize()) / 2,
             list1  = [],
             list2  = [];
-        
+
         matrix.forEach((line, i) => {
             line.forEach((cell, j) => {
                 let row = tower.getRow() - reduce + i,
                     col = tower.getCol() - reduce + j;
-                
+
                 if (cell === 1 && this.parent.board.inBoard(row, col)) {
                     if (tower.isBoost()) {
                         this.addBoost(list1, list2, tower.getID(), row, col);
@@ -39,13 +39,13 @@ class Ranges {
                 }
             });
         });
-        
+
         if (tower.isBoost()) {
             return { boosts: list1, towers: list2 };
         }
         return { complete: list1, reduced: list2 };
     }
-    
+
     /**
      * Adds the boost Tower to the "boost" list and if there is a tower in the given position,
      * it adds it's id to the second given array
@@ -59,13 +59,13 @@ class Ranges {
         let cell    = this.getCell(row, col),
             towerID = this.parent.board.getContent(row, col),
             tower   = this.parent.manager.get(towerID);
-        
+
         list1.push(this.addTower("boosts", cell, id));
         if (tower && !tower.isBoost() && list2.indexOf(towerID) === -1) {
             list2.push(towerID);
         }
     }
-    
+
     /**
      * Adds a non-boost Tower to the "complete" and "reduced" lists in the given position,
      * updating the given arrays
@@ -80,7 +80,7 @@ class Ranges {
         list1.push(this.addTower("complete", cell, id));
         list2.push(this.addTower("reduced",  cell, id));
     }
-    
+
     /**
      * Adds the tower with the given ID, to the given list in the given cell
      * @param {string} list
@@ -94,8 +94,8 @@ class Ranges {
         }
         return this[list][cell].addLast({ id: id, cell: cell });
     }
-    
-    
+
+
     /**
      * Removes the Tower from all the internal lists
      * @param {Tower} tower
@@ -110,8 +110,8 @@ class Ranges {
             });
         });
     }
-    
-    
+
+
     /**
      * When starting to shoot, it removes the Tower from the reduced array
      * @param {Tower} tower
@@ -123,7 +123,7 @@ class Ranges {
             }
         });
     }
-    
+
     /**
      * When ending a shoot, it readds the Tower to the reduced array
      * @param {Tower} tower
@@ -135,8 +135,8 @@ class Ranges {
         });
         tower.setList("reduced", list);
     }
-    
-    
+
+
     /**
      * Returns all the Boost Towers where it's range reaches the given Tower
      * @param {Tower} tower
@@ -148,7 +148,7 @@ class Ranges {
             endRow   = startRow + tower.getSize(),
             endCol   = startCol + tower.getSize(),
             list     = [];
-        
+
         for (let i = startRow; i < endRow; i += 1) {
             for (let j = startCol; j < endCol; j += 1) {
                 let pos = this.getCell(i, j);
@@ -165,8 +165,8 @@ class Ranges {
         }
         return list;
     }
-    
-    
+
+
     /**
      * Returns a string that represents a position
      * @param {number} row
@@ -176,7 +176,7 @@ class Ranges {
     getCell(row, col) {
         return "r" + row + "c" + col;
     }
-    
+
     /**
      * Returns true if there is a Tower in the "reduced" list in the given position
      * @param {number} row
@@ -187,7 +187,7 @@ class Ranges {
         let pos = this.getCell(row, col);
         return this.reduced[pos] && !this.reduced[pos].isEmpty();
     }
-    
+
     /**
      * Returns all the Towers in the "reduced" list in the given position
      * @return {?Array.<Iterator>}

@@ -11,7 +11,7 @@ let Utils = (function () {
         rand(from, to) {
             return Math.floor(Math.random() * (to - from + 1) + from);
         },
-        
+
         /**
          * Returns the value higher than the min and lower than the max
          * @param {number} value
@@ -22,7 +22,7 @@ let Utils = (function () {
         clamp(value, min, max) {
             return Math.max(min, Math.min(max, value));
         },
-    
+
         /**
          * Adds the separator every 3 decimals
          * @param {number} number
@@ -32,12 +32,12 @@ let Utils = (function () {
         formatNumber(number, separator) {
             let result = "", count = 0, char;
             number = String(number);
-            
+
             for (let i = number.length - 1; i >= 0; i -= 1) {
                 char   = number.charAt(i);
                 count += 1;
                 result = char + result;
-                
+
                 if (count === 3 && i > 0) {
                     result = separator + result;
                     count  = 0;
@@ -45,7 +45,7 @@ let Utils = (function () {
             }
             return result;
         },
-        
+
         /**
          * Returns the angle between two values
          * @param {number} x
@@ -63,8 +63,8 @@ let Utils = (function () {
             }
             return angle;
         },
-        
-        
+
+
         /**
          * Returns the closest element with an action
          * @param {Event}
@@ -77,7 +77,7 @@ let Utils = (function () {
             }
             return element;
         },
-        
+
         /**
          * Returns the position of an Element in the document
          * @param {DOMElement} element
@@ -88,7 +88,7 @@ let Utils = (function () {
             if (element.offsetParent !== undefined) {
                 top  = element.offsetTop;
                 left = element.offsetLeft;
-                
+
                 while (element.offsetParent && typeof element.offsetParent === "object") {
                     element = element.offsetParent;
                     top  += element.offsetTop;
@@ -100,7 +100,7 @@ let Utils = (function () {
             }
             return { top, left };
         },
-        
+
         /**
          * Sets the position of the given element or elements
          * @param {DOMElement} element
@@ -111,7 +111,7 @@ let Utils = (function () {
             element.style.top  = top  + "px";
             element.style.left = left + "px";
         },
-        
+
         /**
          * Removes the Element from the DOM
          * @param {DOMElement} element
@@ -120,8 +120,8 @@ let Utils = (function () {
             var parent = element.parentNode;
             parent.removeChild(element);
         },
-    
-    
+
+
         /**
          * Returns the Mouse Position
          * @param {Event} event
@@ -141,7 +141,7 @@ let Utils = (function () {
             }
             return { top, left };
         },
-    
+
         /**
          * Unselects the elements
          */

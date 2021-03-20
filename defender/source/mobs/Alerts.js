@@ -2,20 +2,20 @@
  * The Mobs Alerts Class
  */
 class Alerts {
-    
+
     /**
      * The Mobs Alerts constructor
      */
     constructor() {
         this.moveX  = [  0, -1, -1, -1, -1,  0,  0,  0 ];
         this.moveY  = [ -1, -1,  0,  0,  1,  1,  1,  0 ];
-        
+
         this.list   = new List();
         this.alerts = document.querySelector(".alerts");
         this.alerts.innerHTML = "";
     }
-    
-    
+
+
     /**
      * Adds a minus 1 life alert
      * @param {Mob} mob
@@ -23,7 +23,7 @@ class Alerts {
     life(mob) {
         this.add(mob, "alertRed", "-1");
     }
-    
+
     /**
      * Adds a plus gold amount alert
      * @param {Mob} mob
@@ -31,8 +31,8 @@ class Alerts {
     gold(mob) {
         this.add(mob, "alertYellow", "+" + mob.getGold());
     }
-    
-    
+
+
     /**
      * Used to add any type of alert to thealert list
      * @param {Mob} mob
@@ -48,7 +48,7 @@ class Alerts {
             pointer: 0
         });
     }
-    
+
     /**
      * Creates, appends and returns the element for the alert
      * @param {Mob} mob
@@ -61,11 +61,11 @@ class Alerts {
         element.style.left = mob.getPos().left + "px";
         element.className  = "alert " + className;
         element.innerHTML  = text;
-        
+
         this.alerts.appendChild(element);
         return element;
     }
-    
+
     /**
      * It iterates through the alerts moving them and removing them from the list when done
      * @param {number} time

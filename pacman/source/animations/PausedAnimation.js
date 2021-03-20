@@ -3,14 +3,14 @@
  * The Paused Animation
  */
 class PausedAnimation extends Animation {
-    
+
     /**
      * The Paused Animation
      * @param {Canvas} canvas
      */
     constructor(canvas) {
         super();
-        
+
         this.canvas     = canvas;
         this.blocksGame = true;
         this.timePart   = 500;
@@ -19,7 +19,7 @@ class PausedAnimation extends Animation {
         this.minSize    = 1.5;
         this.clearAll   = true;
     }
-    
+
     /**
      * Returns true if the animation hasn't ended
      * @param {number} time
@@ -28,7 +28,7 @@ class PausedAnimation extends Animation {
     isAnimating() {
         return true;
     }
-    
+
     /**
      * Animates the Paused text alternating sizes increases and decreases
      */
@@ -37,10 +37,10 @@ class PausedAnimation extends Animation {
             anim = Math.floor(this.time / this.timePart) % 2,
             part = time * (this.maxSize - this.minSize) / this.timePart,
             size = anim ? this.maxSize - part : this.minSize + part;
-        
+
         this.canvas.clear();
         this.canvas.fill(0.8);
-        
+
         this.canvas.drawText({
             size  : size,
             color : "rgb(255, 255, 51)",

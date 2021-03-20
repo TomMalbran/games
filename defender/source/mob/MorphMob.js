@@ -3,19 +3,19 @@
  * The Morph Mob Class
  */
 class MorphMob extends Mob {
-    
+
     /**
      * The Morph Mob constructor
      * @param {Object} data
      */
     constructor(data) {
         super();
-        
+
         this.name     = "Morph";
         this.slogan   = "Cannot decide";
         this.text     = "They change of type after a few seconds";
         this.color    = "rgb(0, 128, 128)";
-        
+
         this.interval = 400;
         this.amount   = 10;
         this.bosses   = 1;
@@ -25,13 +25,13 @@ class MorphMob extends Mob {
         this.defense  = 0;
         this.morph    = [ "Normal", "Dark", "Inmune", "Fast" ];
         this.content  = "<div class='normalMob'></div>";
-        
+
         this.morphTime = 5000;
-        
+
         this.init(data);
     }
-    
-    
+
+
     /**
      * Changes the type of the Mob, after some time
      * @param {number}  time
@@ -48,7 +48,7 @@ class MorphMob extends Mob {
             this.inmune      = !!mob.inmune;
             this.defense     = mob.defense || 0;
             this.timer       = 0;
-            
+
             this.mbody.innerHTML = mob.content;
         }
     }

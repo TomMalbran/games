@@ -2,7 +2,7 @@
  * The Score Panel Class
  */
 class Score {
-    
+
     /**
      * The Score Panel constructor
      * @param {number}   level
@@ -13,16 +13,16 @@ class Score {
         this.onGameOver   = onGameOver;
         this.enable       = () => {};
         this.disable      = () => {};
-        
+
         this.goldElem     = document.querySelector(".goldScore");
         this.livesElem    = document.querySelector(".livesScore");
         this.timeElem     = document.querySelector(".timeScore");
         this.scoreElem    = document.querySelector(".scoreScore");
         this.finalElem    = document.querySelector(".finalScore");
-        
+
         this.initialTimer = 25;
         this.initialSecs  = 800;
-        
+
         this.gold         = 100;
         this.lives        = 20;
         this.timer        = this.initialTimer;
@@ -30,18 +30,18 @@ class Score {
         this.bonus        = 0;
         this.seconds      = this.initialSecs;
         this.livesMult    = 25;
-        
+
         this.showScores();
     }
-    
-    
+
+
     /**
      * Calls the on Game Over function
      */
     gameOver() {
         this.onGameOver();
     }
-    
+
     /**
      * Sets the functions that are called when the gold is increased or decreased
      * @param {function} enable
@@ -51,7 +51,7 @@ class Score {
         this.enable  = enable;
         this.disable = disable;
     }
-        
+
     /**
      * Increases the Gold by the given amount
      * @param {number} amount
@@ -61,7 +61,7 @@ class Score {
         this.showScores();
         this.enable();
     }
-    
+
     /**
      * Decreases the Gold by the given amount
      * @param {number} amount
@@ -71,21 +71,21 @@ class Score {
         this.showScores();
         this.disable();
     }
-    
+
     /**
      * Decreases one Life
      */
     decLives() {
         this.lives -= 1;
         this.showScores();
-        
+
         if (this.lives <= 0) {
             this.lives = 0;
             this.onGameOver();
         }
     }
-    
-    
+
+
     /**
      * Starts the Timer for a new Wave
      */
@@ -94,7 +94,7 @@ class Score {
         this.timer = this.initialTimer;
         this.showScores();
     }
-    
+
     /**
      * Decreases the Timer by the given amount
      * @param {number} time
@@ -110,7 +110,7 @@ class Score {
         }
         return false;
     }
-    
+
     /**
      * Removes the Timer for the last wave
      */
@@ -118,7 +118,7 @@ class Score {
         this.timer = "";
         this.showScores();
     }
-            
+
     /**
      * Increases the Score byt the given amount
      * @param {number} amount
@@ -127,14 +127,14 @@ class Score {
         this.score += amount;
         this.showScores();
     }
-        
+
     /**
      * Adds the bonus for calling a new wave before the time ended
      */
     addBonus() {
         this.bonus += this.timer;
     }
-    
+
     /**
      * Returns the final Bonus for the Final Score
      * @return {number}
@@ -142,7 +142,7 @@ class Score {
     getBonus() {
         return this.bonus * (this.lives <= 0 ? 0 : 1);
     }
-    
+
     /**
      * Returns the total Score for the Final Score
      * @return {number}
@@ -150,8 +150,8 @@ class Score {
     getTotal() {
         return (this.score + this.lives * this.livesMult + this.getBonus()) * this.level;
     }
-    
-    
+
+
     /**
      * Sets the Scores
      */
@@ -161,7 +161,7 @@ class Score {
         this.timeElem.innerHTML  = "Time:  " + this.timer;
         this.scoreElem.innerHTML = "Score: " + this.score;
     }
-    
+
     /**
      * Sets the Final Score
      */
@@ -173,8 +173,8 @@ class Score {
             "<dt>x Multiplier</dt><dd>" + this.level + "</dd>" +
             "<dt>Total Score</dt><dd>" + this.getTotal() + "</dd>";
     }
-    
-    
+
+
     /**
      * Returns the current Gold
      * @return {number}
@@ -182,7 +182,7 @@ class Score {
     getGold () {
         return this.gold;
     }
-    
+
     /**
      * Returns the current Lives
      * @return {number}
@@ -190,7 +190,7 @@ class Score {
     getLives() {
         return this.lives;
     }
-    
+
     /**
      * Returns the current Timer
      * @return {number}
@@ -198,7 +198,7 @@ class Score {
     getTimer() {
         return this.timer;
     }
-    
+
     /**
      * Returns the current Score
      * @return {number}

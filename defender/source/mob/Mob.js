@@ -2,7 +2,7 @@
  * The Mob Base Class
  */
 class Mob {
-    
+
     /**
      * The Mob Base constructor
      * @param {Object} data
@@ -14,7 +14,7 @@ class Mob {
         this.element     = null;
         this.mbody       = null;
         this.lifeElem    = null;
-        
+
         this.gameLevel   = data.gameLevel;
         this.boss        = data.boss;
         this.wave        = data.wave;
@@ -22,7 +22,7 @@ class Mob {
         this.hitPoints   = this.getTotalLife();
         this.dead        = false;
         this.actualSpeed = this.speed;
-        
+
         this.boardSize   = data.boardSize;
         this.timer       = this.getCreationTimer(data.pos);
         this.counter     = 0;
@@ -42,7 +42,7 @@ class Mob {
         this.pointer     = 0;
         this.targetPos   = data.targetPos;
         this.targetValue = data.targetValue;
-        
+
         this.moveIt      = null;
         this.spawning    = 0;
         this.spawnTo     = data.spawnTo;
@@ -54,21 +54,21 @@ class Mob {
         this.stunIt      = null;
         this.bleed       = new List();
         this.bleedIt     = null;
-        
+
         this.spawnTime   = 500;
         this.slowTime    = 3000;
         this.stunTime    = 1000;
         this.bleedTime   = 2000;
     }
-    
-    
+
+
     /**
      * Creates the element for the Mob
      * @return {DOMElement}
      */
     createElement() {
         this.element = document.createElement("DIV");
-        
+
         this.element.dataset.id    = this.id;
         this.element.className     = "mob";
         this.element.style.display = "none";
@@ -80,15 +80,15 @@ class Mob {
             "<div class='mobSlow'></div>" +
             "<div class='mobBleed'></div>" +
             "<div class='mobBody' data-type='mob'>" + this.content + "</div>";
-        
+
         this.mbody    = this.element.querySelector(".mobBody");
         this.lifeElem = this.element.querySelector(".mobLife");
         this.setTransform();
-        
+
         return this.element;
     }
-    
-    
+
+
     /**
      * Decreases the Creation time. Once it reaches cero the mob will start moving in the board
      * @param {number} time
@@ -97,7 +97,7 @@ class Mob {
         this.timer -= time;
         return this.timer <= 0;
     }
-    
+
     /**
      * Shows the Mob in the board, as it will start moving
      * @param {Iterator} it
@@ -107,7 +107,7 @@ class Mob {
         this.moveIt = it;
         this.element.style.display = "block";
     }
-    
+
     /**
      * Moves the Mob according to the given speed
      * @param {number} spped
@@ -118,7 +118,7 @@ class Mob {
             this.realLeft + this.actualSpeed / 2.5 * this.dirLeft * speed
         );
     }
-    
+
     /**
      * Moves the Mob to the given position
      * @param {number} top
@@ -131,11 +131,11 @@ class Mob {
         this.centerLeft = this.left + this.boardSize / 2;
         this.realTop    = top;
         this.realLeft   = left;
-        
+
         this.element.style.top  = this.top  + "px";
         this.element.style.left = this.left + "px";
     }
-    
+
     /**
      * Makes the mob change its direction
      * @param {{top: number, left: number}}
@@ -147,7 +147,7 @@ class Mob {
         this.moveTo(this.row * this.boardSize, this.col * this.boardSize);
         this.setTransform(deg);
     }
-    
+
     /**
      * The Mob reached a new cell in the board
      * @param {number} row
@@ -159,7 +159,7 @@ class Mob {
         this.atCenter = false;
         this.pointer += 1;
     }
-    
+
     /**
      * Gives the Mob a new path and direction
      * @param {string} path
@@ -168,13 +168,13 @@ class Mob {
     newPath(path, newDir) {
         this.path    = path;
         this.pointer = 0;
-        
+
         if (this.atCenter && this.shouldTurn(newDir)) {
             this.turn(newDir);
         }
     }
-    
-        
+
+
     /**
      * Hits the Mob reducing its actual life
      * @param {number} dmg
@@ -183,10 +183,10 @@ class Mob {
         let life = Math.max(this.actualLife - dmg, 0);
         this.lifeElem.style.width = (life * this.boardSize / this.getTotalLife()) + "px";
         this.actualLife -= dmg;
-        
+
         this.element.classList.add("hit");
     }
-    
+
     /**
      * Destroys the Mob, and it removes it from all the required lists
      */
@@ -200,14 +200,14 @@ class Mob {
         if (this.bleedIt) {
             this.bleedIt.removePrev();
         }
-        
+
         this.dead = true;
         Utils.removeElement(this.element);
         this.moveIt.removePrev();
         this.iterator.removePrev();
     }
-    
-    
+
+
     /**
      * Triggers the special behaviour of certain types of mobs. Extended by those
      * @param {number} time
@@ -217,8 +217,8 @@ class Mob {
     specialPower(time, newCell, turned) {
         return undefined;
     }
-    
-    
+
+
     /**
      * After some mobs die, they spawn into a few offsprings which are spreaded aroung the
      * parent position. Each offspring is then moved to the its new position
@@ -227,7 +227,7 @@ class Mob {
         this.spawning = this.spawnTime;
         this.element.style.display = "block";
     }
-    
+
     /**
      * Mobs the mob slowly to the new position. Returns true when it reached this position
      * @param {number} time
@@ -235,12 +235,12 @@ class Mob {
     moveSpawn(time) {
         let top  = this.top  + this.getDist(this.spawnTo.top  - this.top, time),
             left = this.left + this.getDist(this.spawnTo.left - this.left, time);
-        
+
         this.spawning -= time;
         this.moveTo(top, left);
         return this.spawning <= 0;
     }
-    
+
     /**
      * The mob reached its spawn position and will start moving like the rest of the mobs
      * @param {Iterator} it
@@ -251,7 +251,7 @@ class Mob {
         this.row    = this.getCell(this.centerTop);
         this.col    = this.getCell(this.centerLeft);
     }
-    
+
     /**
      * Calculates the distance to move the mob depending on the time
      * @param {number} time
@@ -259,8 +259,8 @@ class Mob {
     getDist(dist, time) {
         return dist * time / this.spawning;
     }
-    
-    
+
+
     /**
      * Starts a slow period where the speed of the mob is reduced by halth
      * @param {Iterator}
@@ -271,7 +271,7 @@ class Mob {
         this.actualSpeed = this.speed * 0.5;
         this.element.classList.add("slowed");
     }
-    
+
     /**
      * Decreases the slow timer by the given time. Returns true if the slow period is done
      * @param {number} time
@@ -281,7 +281,7 @@ class Mob {
         this.slowed -= time;
         return this.slowed <= 0;
     }
-    
+
     /**
      * Ends the slow period making the mob go back to it's original speed
      */
@@ -290,7 +290,7 @@ class Mob {
         this.actualSpeed = this.speed;
         this.element.classList.remove("slowed");
     }
-    
+
     /**
      * Returns true if the mob is already slowed
      * @return {boolean}
@@ -298,8 +298,8 @@ class Mob {
     isSlowed() {
         return this.slowed > 0;
     }
-    
-    
+
+
     /**
      * Starts a stun period, where the mob can't move for some time
      * @param {Iterator}
@@ -311,7 +311,7 @@ class Mob {
         this.transDir    = 1;
         this.actualSpeed = 0;
     }
-    
+
     /**
      * Decreases the stun timer by the given time, while moving the mob side to side.
      * Returns true if the stun period is done
@@ -327,7 +327,7 @@ class Mob {
         this.setTransform();
         return this.stunned < 0;
     }
-    
+
     /**
      * Ends the stun period making the mob start moving again
      */
@@ -337,7 +337,7 @@ class Mob {
         this.actualSpeed = this.speed;
         this.setTransform();
     }
-    
+
     /**
      * Returns true if the mob is already stunned
      * @return {boolean}
@@ -345,8 +345,8 @@ class Mob {
     isStunned() {
         return this.stunned > 0;
     }
-    
-    
+
+
     /**
      * Makes the mob start bleeding, which decreases its life over some time
      * @param {Iterator} id
@@ -357,7 +357,7 @@ class Mob {
         this.addBleed(damage);
         this.element.classList.add("bleeding");
     }
-    
+
     /**
      * Adds a new Bleed period to this mob. Bleeds periods are applied simultaneously
      * @param {number} damage
@@ -365,7 +365,7 @@ class Mob {
     addBleed(damage) {
         this.bleed.addLast({ time: this.bleedTime, damage: damage });
     }
-    
+
     /**
      * Decreases the bleed timers for all the bleeds and reduces the hit points of the mob.
      * Returns true once the bleed list is empty
@@ -378,10 +378,10 @@ class Mob {
                 bleed = it.getNext();
                 bleed.time -= time;
                 dmg = time / this.bleedTime * bleed.damage;
-                
+
                 this.decHitPoints(dmg);
                 this.hit(dmg);
-                
+
                 if (bleed.time <= 0) {
                     it.removeNext();
                 } else {
@@ -391,7 +391,7 @@ class Mob {
         }
         return this.bleed.isEmpty();
     }
-    
+
     /**
      * Ends the bleed period making the mob stop recieving damage over time
      */
@@ -399,7 +399,7 @@ class Mob {
         this.bleedIt = null;
         this.element.classList.remove("bleeding");
     }
-    
+
     /**
      * Returns true if the mob is already bleeding
      * @return {boolean}
@@ -407,8 +407,8 @@ class Mob {
     isBleeding() {
         return !this.bleed.isEmpty();
     }
-    
-    
+
+
     /**
      * Rotates, scales and/or translates the mob
      * @param {number} angle
@@ -426,7 +426,7 @@ class Mob {
         }
         this.mbody.style.transform = transform;
     }
-    
+
     /**
      * Calculates the total amout of life of the mob
      * @return {number}
@@ -436,10 +436,10 @@ class Mob {
             gmult = mults[this.gameLevel],
             bmult = this.boss ? 10 : 1,
             life  = 20 + Math.pow(1.2, this.wave - 1);
-        
+
         return Math.round(life * gmult * bmult * this.life);
     }
-    
+
     /**
      * Calculates the amount of gold given by the mob once is dead
      * @return {number}
@@ -447,10 +447,10 @@ class Mob {
     getGold() {
         let mult = this.boss ? 20 : 1,
             gold = 1 + this.gameLevel / 5;
-        
+
         return Math.floor(gold * mult);
     }
-    
+
     /**
      * Returns true if the mob should turn
      * @param {{top: number, left: number}} newDir
@@ -459,7 +459,7 @@ class Mob {
     shouldTurn(newDir) {
         return this.dirTop !== newDir.top || this.dirLeft !== newDir.left;
     }
-    
+
     /**
      * Returns true if the mob passed the center of a cell
      * @return {boolean}
@@ -472,7 +472,7 @@ class Mob {
             (this.dirTop  < 0 && this.centerTop  <= this.getMiddle(this.row))
         );
     }
-    
+
     /**
      * Calculates the center position of a cell (col/row)
      * @param {number} cell
@@ -481,7 +481,7 @@ class Mob {
     getMiddle(cell) {
         return (cell + 0.5) * this.boardSize;
     }
-    
+
     /**
      * Calculates the Cell (col/row) for the given X/Y position
      * @param {number} pos
@@ -490,8 +490,8 @@ class Mob {
     getCell(pos) {
         return Math.floor(pos / this.boardSize);
     }
-    
-    
+
+
     /**
      * Returns the Mob ID
      * @return {number}
@@ -499,7 +499,7 @@ class Mob {
     getID() {
         return this.id;
     }
-    
+
     /**
      * Returns an iterator that points to the Mobs list
      * @return {Iterator}
@@ -507,7 +507,7 @@ class Mob {
     getIterator() {
         return this.iterator;
     }
-    
+
     /**
      * Sets the iterator that points to the Mobs list
      * @param {Iterator} it
@@ -515,7 +515,7 @@ class Mob {
     setIterator(it) {
         this.iterator = it;
     }
-    
+
     /**
      * Returns the wave number for this mob
      * @return {number}
@@ -523,7 +523,7 @@ class Mob {
     getWave() {
         return this.wave;
     }
-    
+
     /**
      * Returns true if the Mob is a Boss type
      * @return {boolean}
@@ -531,7 +531,7 @@ class Mob {
     isBoss() {
         return this.boss;
     }
-    
+
     /**
      * Returns the column where the Mob is in the matrix
      * @return {number}
@@ -539,7 +539,7 @@ class Mob {
     getCol() {
         return this.col;
     }
-    
+
     /**
      * Returns the row where the Mob is in the matrix
      * @return {number}
@@ -547,7 +547,7 @@ class Mob {
     getRow() {
         return this.row;
     }
-    
+
     /**
      * Returns the position of the top left corner of the Mob
      * @return {{top: number, left: number}}
@@ -555,7 +555,7 @@ class Mob {
     getPos() {
         return { top: this.top, left: this.left };
     }
-    
+
     /**
      * Returns the position of the center of the Mob
      * @return {{top: number, left: number}}
@@ -563,7 +563,7 @@ class Mob {
     getCenterPos() {
         return { top: this.centerTop, left: this.centerLeft };
     }
-    
+
     /**
      * Returns the direction of the Mob
      * @return {{top: number, left: number}}
@@ -571,7 +571,7 @@ class Mob {
     getDirection() {
         return { top: this.dirTop, left: this.dirLeft };
     }
-    
+
     /**
      * Returns true if the mob is at the center of the cell
      * @return {boolean}
@@ -579,14 +579,14 @@ class Mob {
     isAtCenter() {
         return this.atCenter;
     }
-    
+
     /**
      * Sets as true the center property
      */
     setAtCenter() {
         this.atCenter = true;
     }
-    
+
     /**
      * Returns the Actual Life of the mob
      * @return {number}
@@ -594,7 +594,7 @@ class Mob {
     getLife() {
         return this.actualLife;
     }
-    
+
     /**
      * Returns the hit points of mob. This is the life before the ammos reached it
      * @return {number}
@@ -602,7 +602,7 @@ class Mob {
     getHitPoints() {
         return this.hitPoints;
     }
-    
+
     /**
      * Decreases the hit points of the mob, right after a ammo leaves a tower
      * @param {number}
@@ -610,7 +610,7 @@ class Mob {
     decHitPoints(points) {
         this.hitPoints -= points;
     }
-    
+
     /**
      * Returns the name of the path the mob is using
      * @return {string}
@@ -618,7 +618,7 @@ class Mob {
     getPath() {
         return this.path;
     }
-    
+
     /**
      * Returns a index of the path array representing the position of the mob inside this array
      * @return {number}
@@ -626,7 +626,7 @@ class Mob {
     getPointer() {
         return this.pointer;
     }
-    
+
     /**
      * Returns the path target for the mob
      * @return {Array.<number>}
@@ -634,7 +634,7 @@ class Mob {
     getTargetPos() {
         return this.targetPos;
     }
-    
+
     /**
      * Returns the path target value for the mob
      * @return {number}
@@ -642,7 +642,7 @@ class Mob {
     getTargetValue() {
         return this.targetValue;
     }
-    
+
     /**
      * Returns true if the Mob is walking dead. Will die once the ammos reach it
      * @return {boolean}
@@ -650,7 +650,7 @@ class Mob {
     isDead() {
         return this.dead;
     }
-    
+
     /**
      * Returns true if the Mob spawns childs after dyieing
      * @return {boolean}
@@ -658,7 +658,7 @@ class Mob {
     canSpawnChildren() {
         return !!this.child;
     }
-    
+
     /**
      * Returns true if the Mob spawns childs after dyieing
      * @return {boolean}
@@ -666,8 +666,8 @@ class Mob {
     getChildName() {
         return this.child;
     }
-    
-    
+
+
     /**
      * Returns true if the Mob is inmune to Slows
      * @return {boolean}
@@ -675,7 +675,7 @@ class Mob {
     isInmune() {
         return !!this.inmune;
     }
-    
+
     /**
      * Returns true if the Mob can Fly
      * @return {boolean}
@@ -683,7 +683,7 @@ class Mob {
     isFlyer() {
         return !!this.flyer;
     }
-    
+
     /**
      * Returns true if the Mob is goes faster in straight lines
      * @return {boolean}
@@ -691,7 +691,7 @@ class Mob {
     isArrow() {
         return !!this.arrow;
     }
-    
+
     /**
      * Returns true if the Mob can jump through corners
      * @return {boolean}
@@ -699,7 +699,7 @@ class Mob {
     isHopper() {
         return !!this.hopper;
     }
-    
+
     /**
      * Returns true if the Mob changes its Type
      * @return {boolean}
@@ -707,7 +707,7 @@ class Mob {
     isMorph() {
         return !!this.morph;
     }
-    
+
     /**
      * Returns the name of the Mob
      * @return {string}
@@ -715,7 +715,7 @@ class Mob {
     getName() {
         return this.name;
     }
-    
+
     /**
      * Returns the slogan of the Mob
      * @return {string}
@@ -723,7 +723,7 @@ class Mob {
     getSlogan() {
         return this.slogan;
     }
-    
+
     /**
      * Returns the description of the Mob
      * @return {string}
@@ -731,7 +731,7 @@ class Mob {
     getText() {
         return this.text;
     }
-    
+
     /**
      * Returns the color of the Mob
      * @return {string}
@@ -739,7 +739,7 @@ class Mob {
     getColor() {
         return this.color;
     }
-    
+
     /**
      * Returns the actual speed of the mob
      * @return {number}
@@ -747,7 +747,7 @@ class Mob {
     getSpeed() {
         return this.actualSpeed;
     }
-    
+
     /**
      * Returns the amount of the Mob
      * @param {boolean} isLast
@@ -756,7 +756,7 @@ class Mob {
     getAmount(isLast) {
         return this.boss ? this.bosses : (this.amount * (isLast ? 3 : 1));
     }
-    
+
     /**
      * Returns the defence of the Mob. Towers that do less than this amount can't hit the mob
      * @return {number}
@@ -764,7 +764,7 @@ class Mob {
     getDefense() {
         return this.defense;
     }
-    
+
     /**
      * Returns the initial creation timer for the mob
      * @param {number} pos
@@ -773,9 +773,9 @@ class Mob {
     getCreationTimer(pos) {
         return (this.interval * pos) + Utils.rand(0, this.interval);
     }
-    
-    
-    
+
+
+
     /**
      * Creates a new Mob given is type
      * @param {string} type

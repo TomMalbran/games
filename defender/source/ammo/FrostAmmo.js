@@ -3,7 +3,7 @@
  * The Frost Ammo Class
  */
 class FrostAmmo extends Ammo {
-    
+
     /**
      * The Frost Ammo constructor
      * @param {Tower} tower
@@ -12,15 +12,15 @@ class FrostAmmo extends Ammo {
      */
     constructor(tower, targets, boardSize) {
         super();
-        
+
         this.center      = 0.5;
         this.rotateTower = true;
         this.rotateAmmo  = false;
         this.className   = "frostAmmo";
-        
+
         this.init(tower, targets, boardSize);
     }
-    
+
     /**
      * Moves the ammo according to the given time. Returns true if it reached the target
      * @param {number} time
@@ -30,7 +30,7 @@ class FrostAmmo extends Ammo {
         this.changeAngle();
         this.changePos(time);
         this.changeDisplay();
-            
+
         if (this.decTimer(time)) {
             this.destroy();
             return true;

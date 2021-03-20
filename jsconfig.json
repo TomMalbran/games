@@ -1,0 +1,7 @@
+{
+    "compilerOptions": {
+        "checkJs" : false,
+        "target"  : "es6",
+        "lib"     : [ "es2018", "dom" ]
+    }
+}

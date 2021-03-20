@@ -2,7 +2,7 @@
  * The Game High Scores
  */
 class HighScores {
-    
+
     /**
      * High Scores constructor
      */
@@ -15,11 +15,11 @@ class HighScores {
         this.total     = 0;
         this.maxScores = 5;
         this.focused   = false;
-    
+
         this.input.onfocus = () => this.focused = true;
         this.input.onblur  = () => this.focused = false;
     }
-    
+
     /**
      * Creates the high scores for the given mode
      * @param {string} mode
@@ -29,8 +29,8 @@ class HighScores {
         this.data  = new Storage("bounce.hs." + this.mode);
         this.total = this.data.get("total") || 0;
     }
-    
-    
+
+
     /**
      * Show the Scores for the given mode
      * @param {string} mode
@@ -39,12 +39,12 @@ class HighScores {
         this.scores.innerHTML = "";
         this.create(mode);
         this.showHideNone(this.total === 0);
-        
+
         if (this.total > 0) {
             this.displayScores();
         }
     }
-    
+
     /**
      * Create each score line and place it in the DOM
      */
@@ -53,16 +53,16 @@ class HighScores {
             let data  = this.data.get(i),
                 div   = document.createElement("DIV"),
                 score = Utils.formatNumber(data.score, ",");
-            
+
             div.className = "highScore";
             div.innerHTML = "<div class='hsName'>" + data.name + "</div>" +
                             "<div class='hsScore'>" + score + "</div>";
-            
+
             this.scores.appendChild(div);
         }
     }
-    
-    
+
+
     /**
      * Tries to save a score, when possible
      * @param {string} mode
@@ -78,7 +78,7 @@ class HighScores {
         }
         return false;
     }
-    
+
     /**
      * Gets the scores and adds the new one in the right position, updating the total, when possible
      * @param {number} score
@@ -90,7 +90,7 @@ class HighScores {
                 name  : this.input.value,
                 score : score
             };
-        
+
         for (let i = 1; i <= this.total; i += 1) {
             let hs = this.data.get(i);
             if (!saved && hs.score < actual.score) {
@@ -104,21 +104,21 @@ class HighScores {
         if (!saved && data.length <= this.maxScores) {
             data.push(actual);
         }
-        
+
         this.data.set("total", data.length);
         data.forEach((element, index) => {
             this.data.set(index + 1, element);
         });
     }
-    
+
     /**
      * Shows or hides the no results element
      */
     showHideNone(show) {
         this.none.style.display = show ? "block" : "none";
     }
-    
-    
+
+
     /**
      * Sets the input value and focus it
      */
@@ -126,7 +126,7 @@ class HighScores {
         this.input.value = "";
         this.input.focus();
     }
-    
+
     /**
      * Returns true if the input is focus
      */

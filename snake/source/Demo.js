@@ -2,7 +2,7 @@
  * Speed Demo
  */
 class Demo {
-    
+
     /**
      * Speed Demo constructor
      * @param {Board} board
@@ -16,14 +16,14 @@ class Demo {
         this.pointer      = -2;
         this.rows         = 5;
         this.initialParts = 3;
-        
+
         for (let i = 0; i < this.rows; i += 1) {
             this.createElement(i, 0, this.rows - i - 1);
             this.createElement(i, 2, this.rows + i + 1);
         }
         this.createElement(0, 1, this.rows);
     }
-    
+
     /**
      * Create each snake link element
      * @param {number} top
@@ -36,11 +36,11 @@ class Demo {
         element.style.left    = this.board.getPosition(left + 1);
         element.style.display = "none";
         this.container.appendChild(element);
-        
+
         this.elements[pos] = element;
     }
-    
-    
+
+
     /**
      * Start the demo
      * @param {number} level
@@ -49,7 +49,7 @@ class Demo {
         this.pointer = -this.initialParts;
         this.container.className = "demo demo" + level;
     }
-    
+
     /**
      * End the demo
      */
@@ -60,8 +60,8 @@ class Demo {
             }
         }
     }
-    
-    
+
+
     /**
      * Move the Snake
      */
@@ -72,7 +72,7 @@ class Demo {
         if (this.pointer + this.initialParts < this.elements.length) {
             this.elements[this.pointer + this.initialParts].style.display = "block";
         }
-        
+
         this.pointer += 1;
         if (this.pointer >= this.elements.length) {
             this.pointer = -this.initialParts;

@@ -2,7 +2,7 @@
  * The Level Class
  */
 class Level {
-    
+
     /**
      * The Level constructor
      * @param {number} maxLevels
@@ -12,8 +12,8 @@ class Level {
         this.maxLevels   = maxLevels;
         this.level       = 1;
     }
-    
-    
+
+
     /**
      * Returns the initial level
      * @return {number}
@@ -21,8 +21,8 @@ class Level {
     get() {
         return this.level;
     }
-    
-    
+
+
     /**
      * Increases the initial level
      */
@@ -33,7 +33,7 @@ class Level {
             this.show();
         }
     }
-    
+
     /**
      * Decreases the initial level
      */
@@ -44,7 +44,7 @@ class Level {
             this.show();
         }
     }
-    
+
     /**
      * Sets the initial level
      * @param {number}
@@ -55,8 +55,8 @@ class Level {
             this.show();
         }
     }
-    
-    
+
+
     /**
      * Sets the initial level
      */

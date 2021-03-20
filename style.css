@@ -73,15 +73,15 @@ header p {
     font-style: italic;
     transition: opacity 0.5s;
 }
-    #select { 
-        position: relative;
-        left: -115px;
-        opacity: 0;
-    }
-    
-    header.expand #expand { opacity: 0; }
-    header.expand #select { opacity: 1; }
-    
+#select {
+    position: relative;
+    left: -115px;
+    opacity: 0;
+}
+
+header.expand #expand { opacity: 0; }
+header.expand #select { opacity: 1; }
+
 
 
 /**
@@ -109,36 +109,36 @@ header p {
     opacity: 0;
     transition: opacity 0.5s;
 }
-    header.expand #nav a {
-        opacity: 1;
-    }
-    #nav a:hover {
-        color: white;
-    }
-    
-    #nav a::after {
-        content: "//";
-        position: absolute;
-        top: 1px;
-        right: -8px;
-        width: 10px;
-        height: 20px;
-        font-size: 18px;
-        letter-spacing: -4px;
-        color: #646464;
-    }
-    #nav li:first-child a::before {
-        content: "//";
-        position: absolute;
-        top: 1px;
-        left: -8px;
-        width: 10px;
-        height: 20px;
-        font-size: 18px;
-        letter-spacing: -4px;
-        color: #646464;
-    }
-    
-    #nav li.selected a {
-        color: white;
-    }
+header.expand #nav a {
+    opacity: 1;
+}
+#nav a:hover {
+    color: white;
+}
+
+#nav a::after {
+    content: "//";
+    position: absolute;
+    top: 1px;
+    right: -8px;
+    width: 10px;
+    height: 20px;
+    font-size: 18px;
+    letter-spacing: -4px;
+    color: #646464;
+}
+#nav li:first-child a::before {
+    content: "//";
+    position: absolute;
+    top: 1px;
+    left: -8px;
+    width: 10px;
+    height: 20px;
+    font-size: 18px;
+    letter-spacing: -4px;
+    color: #646464;
+}
+
+#nav li.selected a {
+    color: white;
+}

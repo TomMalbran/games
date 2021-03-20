@@ -2,7 +2,7 @@
  * The Board Class
  */
 class Board {
-    
+
     /**
      * The Board constructor
      * @param {string} gameMap
@@ -13,7 +13,7 @@ class Board {
         this.pos        = Utils.getPosition(this.board);
         this.width      = this.board.offsetWidth;
         this.height     = this.board.offsetHeight;
-        
+
         this.map        = new Map(gameMap);
         this.matrix     = [];
         this.starts     = [];
@@ -22,26 +22,26 @@ class Board {
         this.defaults   = [];
         this.handler    = this.clickListener.bind(this);
         this.hasStarted = false;
-        
+
         this.board.addEventListener("click", this.handler);
         this.create();
     }
-    
-    
+
+
     /**
      * Updates the inner started state when the game starts
      */
     gameStarted() {
         this.hasStarted = true;
     }
-    
+
     /**
      * Removes the event listener
      */
     destroy() {
         this.board.removeEventListener("click", this.handler);
     }
-    
+
     /**
      * Returns the Towers that will be built when starting this map
      * @return {Array.<{type: string, col: number, row: number, level: number}>}
@@ -49,7 +49,7 @@ class Board {
     getInitialSetup() {
         return this.map.getInitialSetup();
     }
-    
+
     /**
      * Adds a new function for the board event listener
      * @param {string} name
@@ -62,7 +62,7 @@ class Board {
             this.listeners[name] = callback;
         }
     }
-    
+
     /**
      * The click listern in the Board DOM element
      * @param {Event} event
@@ -70,7 +70,7 @@ class Board {
     clickListener(event) {
         let target = event.target.parentNode,
             type   = target.dataset.type;
-        
+
         if (this.listeners[type]) {
             this.listeners[type](event, target);
         } else {
@@ -79,8 +79,8 @@ class Board {
             });
         }
     }
-    
-    
+
+
     /**
      * Creates the Board and Map
      */
@@ -89,7 +89,7 @@ class Board {
             this.starts[i]  = [];
             this.targets[i] = [];
         }
-        
+
         for (let i = 0; i < this.map.getRowsAmount(); i += 1) {
             this.matrix[i] = [];
             for (let j = 0; j < this.map.getColsAmount(); j += 1) {
@@ -97,11 +97,11 @@ class Board {
                 this.addPaths(this.matrix[i][j], j, i);
             }
         }
-        
+
         this.fixPaths();
         this.createWalls();
     }
-    
+
     /**
      * Adds the paths starts and targets
      * @param {number} value
@@ -111,18 +111,18 @@ class Board {
     addPaths(value, col, row) {
         if (this.map.isStart1(value)) {
             this.starts[0].push({ pos: [ col, row ], value: value });
-        
+
         } else if (this.map.isStart2(value)) {
             this.starts[1].push({ pos: [ col, row ], value: value });
-        
+
         } else if (this.map.isTarget1(value)) {
             this.targets[0].push({ pos: [ col, row ], value: value });
-        
+
         } else if (this.map.isTarget2(value)) {
             this.targets[1].push({ pos: [ col, row ], value: value });
         }
     }
-    
+
     /**
      * Fixes the paths starts and targets to have equal amount of starts and targets
      */
@@ -139,14 +139,14 @@ class Board {
             }
         }
     }
-    
+
     /**
      * Create the element for a Wall, Entrance or Exit
      */
     createWalls() {
         let walls = this.map.getWalls();
         this.walls.innerHTML = "";
-        
+
         for (let i = 1; i < walls.length; i += 1) {
             let el = document.createElement("div");
             el.className    = walls[i].cl;
@@ -157,8 +157,8 @@ class Board {
             this.walls.appendChild(el);
         }
     }
-    
-    
+
+
     /**
      * Adds the given Tower to the board matrix and map setup, if required
      * @param {Tower} tower
@@ -168,18 +168,18 @@ class Board {
             col  = tower.getCol(),
             rows = row + tower.getSize(),
             cols = col + tower.getSize();
-        
+
         for (let i = row; i < rows; i += 1) {
             for (let j = col; j < cols; j += 1) {
                 this.matrix[i][j] = tower.getID();
             }
         }
-        
+
         if (!this.hasStarted) {
             this.map.buildTower(tower);
         }
     }
-    
+
     /**
      * Upgrades the level of the given Tower in the map setup, if required
      * @param {Tower} tower
@@ -189,7 +189,7 @@ class Board {
             this.map.upgradeTower(tower);
         }
     }
-    
+
     /**
      * Removes the given Tower from the board matrix and from the map setup, if required
      * @param {Tower} tower
@@ -199,18 +199,18 @@ class Board {
             col  = tower.getCol(),
             rows = row + tower.getSize(),
             cols = col + tower.getSize();
-        
+
         for (let i = row; i < rows; i += 1) {
             for (let j = col; j < cols; j += 1) {
                 this.matrix[i][j] = this.map.getNothingValue();
             }
         }
-        
+
         if (!this.hasStarted) {
             this.map.sellTower(tower);
         }
     }
-    
+
     /**
      * Returns true if a Tower with the given size can be build in the given position
      * @param {number} row
@@ -228,8 +228,8 @@ class Board {
         }
         return true;
     }
-    
-    
+
+
     /**
      * Substracts 1 from the given position in the board matrix. We can then know how many mobs are in a given cell
      * @param {number} row
@@ -240,7 +240,7 @@ class Board {
             this.matrix[row][col] -= 1;
         }
     }
-    
+
     /**
      * Adds 1 to the given position in the board matrix
      * @param {number} row
@@ -251,8 +251,8 @@ class Board {
             this.matrix[row][col] += 1;
         }
     }
-    
-    
+
+
     /**
      * Returns true if the given position corresponds to a border in the matrix
      * @param {number} row
@@ -262,7 +262,7 @@ class Board {
     isBorder(row, col) {
         return row < 1 || col < 1 || row > this.map.getRowsAmount() - 2 || col > this.map.getColsAmount() - 2;
     }
-    
+
     /**
      * Returns true if the given position is not a border
      * @param {number} row
@@ -272,7 +272,7 @@ class Board {
     inMatrix(row, col, dim) {
         return !this.isBorder(row, col) && !this.isBorder(row + (dim || 0), col + (dim || 0));
     }
-    
+
     /**
      * Returns true if the given position is inside the board, including borders
      * @param {number} row
@@ -282,7 +282,7 @@ class Board {
     inBoard(row, col) {
         return row >= 0 && col >= 0 && row < this.map.getRowsAmount() && col < this.map.getColsAmount();
     }
-    
+
     /**
      * Returns true if the given position corresponds to a target
      * @param {number} row
@@ -292,7 +292,7 @@ class Board {
     isTarget(row, col) {
         return this.map.isTarget(this.matrix[row][col]);
     }
-    
+
     /**
      * Returns true if the content at the given position is equal to the given value
      * @param {number} row
@@ -303,7 +303,7 @@ class Board {
     isEqualTo(row, col, value) {
         return this.matrix[row][col] === value;
     }
-    
+
     /**
      * Returns the content of a cell in the board at the given position
      * @param {number} row
@@ -313,8 +313,8 @@ class Board {
     getContent(row, col) {
         return this.matrix[row][col];
     }
-    
-    
+
+
     /**
      * Returns the position of the board in the DOM
      * @return {{top: number, left: number}}
@@ -322,7 +322,7 @@ class Board {
     getPos() {
         return this.pos;
     }
-    
+
     /**
      * Returns the board matrix
      * @return {Array.<Array.<number>>}
@@ -330,7 +330,7 @@ class Board {
     getMatrix() {
         return this.matrix;
     }
-    
+
     /**
      * Returns the positions of the starting cells
      * @return {Array.<Array.<Array.<number>>>}
@@ -338,7 +338,7 @@ class Board {
     getStarts() {
         return this.starts;
     }
-    
+
     /**
      * Returns the positions of the target cells
      * @return {Array.<Array.<Array.<number>>>}
@@ -346,8 +346,8 @@ class Board {
     getTargets() {
         return this.targets;
     }
-    
-    
+
+
     /**
      * Returns the size of a square in the map
      * @return {boolean}
@@ -355,7 +355,7 @@ class Board {
     getSize() {
         return this.map.getSquareSize();
     }
-        
+
     /**
      * Returns the ID for the first Tower
      * @return {number}
@@ -363,7 +363,7 @@ class Board {
     getTowerStart() {
         return this.map.getTowerStart();
     }
-    
+
     /**
      * Returns the value for Nothing in the board
      * @return {number}
@@ -371,7 +371,7 @@ class Board {
     getNothingValue() {
         return this.map.getNothingValue();
     }
-    
+
     /**
      * Returns the ID for the Walls in the board
      * @return {number}

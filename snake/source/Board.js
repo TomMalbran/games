@@ -2,7 +2,7 @@
  * Board Manager
  */
 class Board {
-    
+
     /**
      * Board Manager constructor
      */
@@ -15,7 +15,7 @@ class Board {
         this._borderValue   = -1;
         this._emptyValue    = -2;
     }
-    
+
     /**
      * Returns the amount of rows in the matrix
      * @return {number}
@@ -23,7 +23,7 @@ class Board {
     get matrixRows() {
         return this._matrixRows;
     }
-    
+
     /**
      * Returns the amount of columns in the matrix
      * @return {number}
@@ -31,7 +31,7 @@ class Board {
     get matrixColumns() {
         return this._matrixColumns;
     }
-    
+
     /**
      * Returns the amount of cells in the matrix
      * @return {number}
@@ -39,7 +39,7 @@ class Board {
     get totalCells() {
         return this._totalCells;
     }
-    
+
     /**
      * Returns the cell size
      * @return {number}
@@ -47,7 +47,7 @@ class Board {
     get cellSize() {
         return this._cellSize;
     }
-    
+
     /**
      * Returns the food value in the matrix
      * @return {number}
@@ -55,7 +55,7 @@ class Board {
     get foodValue() {
         return this._foodValue;
     }
-    
+
     /**
      * Returns the border value in the matrix
      * @return {number}
@@ -63,7 +63,7 @@ class Board {
     get borderValue() {
         return this._borderValue;
     }
-    
+
     /**
      * Returns the empty value in the matrix
      * @return {number}
@@ -71,8 +71,8 @@ class Board {
     get emptyValue() {
         return this._emptyValue;
     }
-    
-    
+
+
     /**
      * Returns the default value to use in the matrix depending if is a border or not
      * @param {number} top
@@ -85,7 +85,7 @@ class Board {
         }
         return this.emptyValue;
     }
-    
+
     /**
      * Transforms an x or y coordinate in the matrix into a pixel position relative to the board
      * @param {number} pos
@@ -94,7 +94,7 @@ class Board {
     getPosition(pos) {
         return ((pos - 1) * this.cellSize) + "em";
     }
-    
+
     /**
      * Creates a new snake link and returns the element
      * @return {DOMElement}

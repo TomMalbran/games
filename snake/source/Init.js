@@ -1,12 +1,12 @@
 (function () {
     "use strict";
-    
+
     let display, demo, board, sound, keyboard,
         score, matrix, snake, food, scores, instance,
         navigator, starter, animation, startTime,
         soundFiles = [ "start", "eat", "end" ];
-    
-    
+
+
     /**
      * Destroys the game elements
      */
@@ -16,14 +16,14 @@
         food   = null;
         instance.destroyGame();
     }
-    
-    
+
+
     /**
      * Reduces by 1 the initial count until it changes the mode to playing
      */
     function nextCount() {
         let content = "";
-        
+
         score.decCount();
         if (score.count > 0) {
             content = score.count;
@@ -35,10 +35,10 @@
         } else {
             display.set("playing").setClass();
         }
-        
+
         starter.innerHTML = content;
     }
-    
+
     /**
      * Request an animation frame
      */
@@ -47,12 +47,12 @@
         animation = window.requestAnimationFrame(() => {
             let time  = new Date().getTime() - startTime,
                 speed = time / 16;
-            
+
             score.decTime(time);
             if (speed <= 0 || speed > 5) {
                 return requestAnimation();
             }
-            
+
             if (score.time < 0) {
                 if (display.isDemoing()) {
                     demo.move();
@@ -77,29 +77,29 @@
                 food.reduceTime(time);
                 score.showFoodTimer(food.getTimer());
             }
-            
+
             if (display.isDemoing() || display.isStarting() || display.isPlaying()) {
                 requestAnimation();
             }
         });
     }
-    
+
     /**
      * Cancel an animation frame
      */
     function cancelAnimation() {
         window.cancelAnimationFrame(animation);
     }
-    
-    
-    
+
+
+
     /**
      * Show the Main Screen
      */
     function showMainScreen() {
         display.set("mainScreen").show();
     }
-    
+
     /**
      * Pause the Game
      */
@@ -107,7 +107,7 @@
         display.set("paused").show();
         cancelAnimation();
     }
-    
+
     /**
      * Unpause the Game
      */
@@ -115,7 +115,7 @@
         display.set("playing").setClass();
         requestAnimation();
     }
-    
+
     /**
      * Finish the Game
      */
@@ -125,7 +125,7 @@
         cancelAnimation();
         instance.destroyGame();
     }
-    
+
     /**
      * Game Over
      */
@@ -135,7 +135,7 @@
         scores.setInput();
         instance.destroyGame();
     }
-    
+
     /**
      * Svae scores and restart
      */
@@ -147,8 +147,8 @@
             showMainScreen();
         }
     }
-    
-    
+
+
     /**
      * Starts the speed demo
      * @param {number} level
@@ -159,7 +159,7 @@
         demo.start(level);
         requestAnimation();
     }
-    
+
     /**
      * Ends the speed demo
      */
@@ -170,14 +170,14 @@
         }
         demo.end();
     }
-    
+
     /**
      * Show the High Scores
      */
     function showHighScores() {
         display.set("highScores").show();
     }
-    
+
     /**
      * Saves a High Score
      */
@@ -186,32 +186,32 @@
             showHighScores();
         }
     }
-    
+
     /**
      * Show the Help
      */
     function showHelp() {
         display.set("help").show();
     }
-    
-    
-    
+
+
+
     /**
      * Restores a saved Game
      */
     function restoreGame() {
         if (instance.hasGame()) {
             let data = instance.getData();
-            
+
             display.set("continuing").show();
             score.set(data.level, data.score).show();
-            
+
             matrix = new Matrix(board, instance, data.matrix, data.head,   data.tail);
             snake  = new Snake(board, matrix, data.links, data.dirTop, data.dirLeft);
             food   = new Food(board, null, data.foodTop, data.foodLeft);
         }
     }
-    
+
     /**
      * Starts a new game
      * @param {number} level
@@ -219,17 +219,17 @@
     function newGame(level) {
         display.set("starting").setClass();
         score.set(level).show();
-        
+
         matrix = new Matrix(board, instance);
         snake  = new Snake(board, matrix);
         food   = new Food(board, matrix.addFood());
-        
+
         instance.newGame(level);
         requestAnimation();
     }
-    
-    
-    
+
+
+
     /**
      * Returns the shortcut functions
      * @return {Object}
@@ -240,7 +240,7 @@
                 instance.saveDirection(snake.getDirection());
             }
         };
-        
+
         return {
             mainScreen : {
                 O : () => newGame(score.level),
@@ -282,14 +282,14 @@
             saveHighScore : () => saveHighScore()
         };
     }
-    
+
     /**
      * Stores the used DOM elements and initializes the Event Handlers
      */
     function initDomListeners() {
         navigator = document.querySelector(".main ul");
         starter   = document.querySelector(".start");
-        
+
         document.body.addEventListener("click", (e) => {
             let element = Utils.getTarget(e),
                 actions = {
@@ -305,12 +305,12 @@
                     showScores : () => scores.show(element.dataset.level),
                     sound      : () => sound.toggle()
                 };
-            
+
             if (actions[element.dataset.action]) {
                 actions[element.dataset.action]();
             }
         });
-        
+
         navigator.addEventListener("mouseover", (e) => {
             let element = e.target.dataset.action ? e.target : e.target.parentElement;
             if (element.dataset.action === "play") {
@@ -323,7 +323,7 @@
                 endDemo();
             }
         });
-        
+
         document.querySelector(".snake").addEventListener("click", (e) => {
             if (display.isPlaying()) {
                 if (snake.mouseTurn(e)) {
@@ -332,13 +332,13 @@
             }
         });
     }
-    
+
     /**
      * The main Function
      */
     function main() {
         initDomListeners();
-        
+
         display  = new Display();
         score    = new Score(display);
         board    = new Board();
@@ -348,9 +348,9 @@
         scores   = new HighScores();
         keyboard = new Keyboard(display, scores, getShortcuts());
     }
-    
-    
+
+
     // Load the game
     window.addEventListener("load", main, false);
-    
+
 }());

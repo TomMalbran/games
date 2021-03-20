@@ -2,7 +2,7 @@
  * The Fruit Class
  */
 class Fruit {
-    
+
     /**
      * The Fruit constructor
      */
@@ -10,8 +10,8 @@ class Fruit {
         this.ctx   = Board.boardCanvas.context;
         this.timer = 0;
     }
-    
-    
+
+
     /**
      * Try to add a fruit in the board
      * @param {number} dotsLeft
@@ -22,7 +22,7 @@ class Fruit {
             this.draw(Board.fruitTile);
         }
     }
-    
+
     /**
      * Reduces the fruit timer when there is one
      * @param {number} time
@@ -35,7 +35,7 @@ class Fruit {
             }
         }
     }
-    
+
     /**
      * Eats the Fruit
      */
@@ -43,7 +43,7 @@ class Fruit {
         this.clear();
         this.timer = 0;
     }
-    
+
     /**
      * Returns true if the given tile is at the fruit position
      * @param {{x: number, y: number}}
@@ -53,7 +53,7 @@ class Fruit {
         if (this.timer > 0) {
             let rect = Board.getFruitRect(),
                 pos  = Board.tileToPos(tile);
-            
+
             return (
                 pos.x >= rect.left && pos.x <= rect.right &&
                 pos.y >= rect.top  && pos.y <= rect.bottom
@@ -61,8 +61,8 @@ class Fruit {
         }
         return false;
     }
-    
-    
+
+
     /**
      * Draws a Fruit
      * @param {{x: number, y: number}}
@@ -74,7 +74,7 @@ class Fruit {
         this["draw" + Data.getFruitName()]();
         this.ctx.restore();
     }
-    
+
     /**
      * Clears the Fruit
      */
@@ -82,8 +82,8 @@ class Fruit {
         let pos = Board.fruitPos;
         this.ctx.clearRect(pos.x - 1, pos.y - 1, Board.fruitSize, Board.fruitSize);
     }
-    
-    
+
+
     /**
      * Draws the Cherries Fruit
      */
@@ -93,13 +93,13 @@ class Fruit {
         this.ctx.arc(10, 14, 4, 0, 2 * Math.PI);
         this.ctx.arc(4, 10, 4, 0, 2 * Math.PI);
         this.ctx.fill();
-        
+
         this.ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
         this.ctx.beginPath();
         this.ctx.arc(8, 15.5, 1.5, 0, 2 * Math.PI);
         this.ctx.arc(1.5, 11, 1.5, 0, 2 * Math.PI);
         this.ctx.fill();
-        
+
         this.ctx.strokeStyle = "rgb(0, 153, 0)";
         this.ctx.lineWidth = 2;
         this.ctx.beginPath();
@@ -108,7 +108,7 @@ class Fruit {
         this.ctx.moveTo(17, 1);
         this.ctx.quadraticCurveTo(12, 3, 10, 12);
         this.ctx.stroke();
-        
+
         this.ctx.strokeStyle = "rgb(222, 151, 81)";
         this.ctx.lineWidth = 3;
         this.ctx.lineCap = "round";
@@ -117,13 +117,13 @@ class Fruit {
         this.ctx.lineTo(16, 2);
         this.ctx.stroke();
     }
-    
+
     /**
      * Draws the Strawberry Fruit
      */
     drawStrawberry() {
         let dots = [ 3, 7, 5, 6, 4, 10, 7, 8, 6, 11, 7, 13, 9, 10, 9, 14, 10, 12, 11, 8, 12, 11, 14, 6, 14, 9 ];
-        
+
         this.ctx.fillStyle = "rgb(222, 0, 0)";
         this.ctx.beginPath();
         this.ctx.moveTo(9, 3);
@@ -132,7 +132,7 @@ class Fruit {
         this.ctx.quadraticCurveTo(1, 14, 1, 7);
         this.ctx.quadraticCurveTo(1, 3, 9, 3);
         this.ctx.fill();
-        
+
         this.ctx.fillStyle = "rgb(0, 222, 0)";
         this.ctx.beginPath();
         this.ctx.moveTo(5, 3);
@@ -141,15 +141,15 @@ class Fruit {
         this.ctx.lineTo(9, 7);
         this.ctx.lineTo(4, 4);
         this.ctx.fill();
-        
+
         this.ctx.fillStyle = "rgb(255, 255, 255)";
         this.ctx.fillRect(8, 0, 2, 4);
-        
+
         for (let i = 0; i < dots.length; i += 2) {
             this.ctx.fillRect(dots[i], dots[i + 1], 1, 1);
         }
     }
-    
+
     /**
      * Draws the Peach Fruit
      */
@@ -161,7 +161,7 @@ class Fruit {
         this.ctx.arc(10, 11, 7, 0, 0.5 * Math.PI, false);
         this.ctx.arc(8, 11, 7, 0.5 * Math.PI, Math.PI, false);
         this.ctx.fill();
-        
+
         this.ctx.strokeStyle = "rgb(0, 222, 0)";
         this.ctx.lineCap = "round";
         this.ctx.beginPath();
@@ -171,7 +171,7 @@ class Fruit {
         this.ctx.quadraticCurveTo(11, 0, 10, 7);
         this.ctx.stroke();
     }
-    
+
     /**
      * Draws the Apple Fruit
      */
@@ -185,20 +185,20 @@ class Fruit {
         this.ctx.arc(6, 15, 3, 0, 0.5 * Math.PI, false);
         this.ctx.arc(8, 11, 7, 0.5 * Math.PI, Math.PI, false);
         this.ctx.fill();
-        
+
         this.ctx.strokeStyle = "rgb(0, 222, 0)";
         this.ctx.lineCap = "round";
         this.ctx.beginPath();
         this.ctx.arc(3, 7, 7, 1.5 * Math.PI, 2 * Math.PI, false);
         this.ctx.arc(13, 4, 4, Math.PI, 1.5 * Math.PI, false);
         this.ctx.stroke();
-        
+
         this.ctx.strokeStyle = "rgba(255, 255, 255, 0.8)";
         this.ctx.beginPath();
         this.ctx.arc(7, 9, 4, Math.PI, 1.5 * Math.PI, false);
         this.ctx.stroke();
     }
-    
+
     /**
      * Draws the Grapes Fruit
      */
@@ -207,7 +207,7 @@ class Fruit {
         this.ctx.beginPath();
         this.ctx.arc(9, 11, 8, 0, 2 * Math.PI);
         this.ctx.fill();
-        
+
         this.ctx.strokeStyle = "rgb(74, 74, 0)";
         this.ctx.beginPath();
         this.ctx.moveTo(9, 4);
@@ -222,7 +222,7 @@ class Fruit {
         this.ctx.moveTo(10, 14);
         this.ctx.lineTo(4, 18);
         this.ctx.stroke();
-        
+
         this.ctx.strokeStyle = "rgb(222, 148, 74)";
         this.ctx.beginPath();
         this.ctx.moveTo(4, 0);
@@ -232,7 +232,7 @@ class Fruit {
         this.ctx.lineTo(9, 4);
         this.ctx.stroke();
     }
-    
+
     /**
      * Draws the Galaxian Fruit
      */
@@ -248,7 +248,7 @@ class Fruit {
         this.ctx.moveTo(9, 11);
         this.ctx.lineTo(9, 18);
         this.ctx.stroke();
-        
+
         this.ctx.strokeStyle = "rgb(0, 51, 255)";
         this.ctx.beginPath();
         this.ctx.moveTo(1, 1);
@@ -258,7 +258,7 @@ class Fruit {
         this.ctx.lineTo(17, 6);
         this.ctx.lineTo(10, 12);
         this.ctx.stroke();
-        
+
         this.ctx.fillStyle   = "rgb(255, 0, 0)";
         this.ctx.strokeStyle = "rgb(255, 0, 0)";
         this.ctx.beginPath();
@@ -271,7 +271,7 @@ class Fruit {
         this.ctx.lineTo(9, 6);
         this.ctx.stroke();
     }
-    
+
     /**
      * Draws the Bell Fruit
      */
@@ -282,19 +282,19 @@ class Fruit {
         this.ctx.quadraticCurveTo(1, 1, 9, 1);
         this.ctx.quadraticCurveTo(17, 1, 17, 15);
         this.ctx.fill();
-        
+
         this.ctx.fillStyle = "rgb(0, 222, 222)";
         this.ctx.fillRect(3, 14, 12, 3);
         this.ctx.fillStyle = "rgb(255, 255, 255)";
         this.ctx.fillRect(9, 14, 3, 3);
-        
+
         this.ctx.strokeStyle = "rgb(255, 255, 255)";
         this.ctx.beginPath();
         this.ctx.moveTo(8, 4);
         this.ctx.quadraticCurveTo(4, 4, 4, 13);
         this.ctx.stroke();
     }
-    
+
     /**
      * Draws the Key Fruit
      */
@@ -307,7 +307,7 @@ class Fruit {
         this.ctx.arc(6, 5, 3, 0.5 * Math.PI, Math.PI, false);
         this.ctx.fill();
         this.ctx.clearRect(6, 2, 6, 2);
-        
+
         this.ctx.strokeStyle = "rgb(255, 255, 255)";
         this.ctx.beginPath();
         this.ctx.moveTo(8, 8);

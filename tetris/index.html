@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title>qTetris</title>
     <link rel="stylesheet" href="design/style.css" />
-    
+
     <script src="source/Board.js"></script>
     <script src="source/Display.js"></script>
     <script src="source/HighScores.js"></script>
@@ -14,7 +14,7 @@
     <script src="source/Tetrimino.js"></script>
     <script src="source/Tetriminos.js"></script>
     <script src="source/Init.js"></script>
-    
+
     <script src="../utils/Utils.js"></script>
     <script src="../utils/Storage.js"></script>
     <script src="../utils/Sounds.js"></script>
@@ -29,13 +29,13 @@
                 <div id="ghost"></div>
                 <div id="piece"></div>
             </div>
-            
+
             <div class="messages">
                 <div class="text">
                     <h2>Tetris</h2>
                     <p>Select the level</p>
                 </div>
-                
+
                 <div class="levels">
                     choose level:<br />
                     <div class="left" data-action="decrease"></div>
@@ -47,26 +47,26 @@
                         <li><a href="#" data-action="help"><u>h</u>elp</a></li>
                     </ul>
                 </div>
-                
+
                 <ul class="pause">
                     <li><a href="#" data-action="endPause"><u>c</u>ontinue</a></li>
                     <li><a href="#" data-action="finishGame"><u>n</u>ew game</a></li>
                 </ul>
-                
+
                 <div class="input">
                     <p>your name:</p>
                     <input type="text" />
                     <a href="#" data-action="save"><u>o</u>k</a>
                     <a class="restart" href="#" data-action="mainScreen"><u>n</u>ew game</a>
                 </div>
-                
+
                 <div class="high">
                     <div class="scores"></div>
                     <div class="none">no scores available</div>
                     <a class="restore" href="#" data-action="restore"><u>r</u>estore</a>
                     <a class="back" href="#" data-action="mainScreen"><u>b</u>ack</a>
                 </div>
-                
+
                 <div class="controls">
                     <div class="left">
                         <b>Left Arrow</b><br />
@@ -99,7 +99,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="rightSide">
             <div class="next">
                 <div class="content">
@@ -119,7 +119,7 @@
                 <div class="content">0</div>
                 <div class="title">lines</div>
             </div>
-            
+
             <div class="audio" data-action="sound">
                 <div class="waves">
                     <div></div><div></div>
@@ -130,97 +130,97 @@
             </div>
             <a class="pauser" href="#" data-action="pause"><u>p</u>ause</a>
         </div>
-    </div>  
-    
-    
+    </div>
+
+
     <div class="tetriminos">
         <div id="i">
             <div class="r1"    data-top="0" data-left="2"></div>
             <div class="r3"    data-top="0" data-left="1"></div>
-            
+
             <div class="r0"    data-top="1" data-left="0"></div>
             <div class="r0 r3" data-top="1" data-left="1"></div>
             <div class="r0 r1" data-top="1" data-left="2"></div>
             <div class="r0"    data-top="1" data-left="3"></div>
-            
+
             <div class="r2"    data-top="2" data-left="0"></div>
             <div class="r2 r3" data-top="2" data-left="1"></div>
             <div class="r1 r2" data-top="2" data-left="2"></div>
             <div class="r2"    data-top="2" data-left="3"></div>
-            
+
             <div class="r1"    data-top="3" data-left="2"></div>
             <div class="r3"    data-top="3" data-left="1"></div>
         </div>
-        
+
         <div id="j">
             <div class="r0"    data-top="0" data-left="0"></div>
             <div class="r1 r3" data-top="0" data-left="1"></div>
             <div class="r1"    data-top="0" data-left="2"></div>
-            
+
             <div class="r0 r2" data-top="1" data-left="0"></div>
             <div class="r0 r1 r2 r3" data-top="1" data-left="1"></div>
             <div class="r0 r2" data-top="1" data-left="2"></div>
-            
+
             <div class="r3"    data-top="2" data-left="0"></div>
             <div class="r1 r3" data-top="2" data-left="1"></div>
             <div class="r2"    data-top="2" data-left="2"></div>
         </div>
-        
+
         <div id="l">
             <div class="r3"    data-top="0" data-left="0"></div>
             <div class="r1 r3" data-top="0" data-left="1"></div>
             <div class="r0"    data-top="0" data-left="2"></div>
-            
+
             <div class="r0 r2" data-top="1" data-left="0"></div>
             <div class="r0 r1 r2 r3" data-top="1" data-left="1"></div>
             <div class="r0 r2" data-top="1" data-left="2"></div>
-            
+
             <div class="r2"    data-top="2" data-left="0"></div>
             <div class="r1 r3" data-top="2" data-left="1"></div>
             <div class="r1"    data-top="2" data-left="2"></div>
         </div>
-        
+
         <div id="o">
             <div class="r0 r1 r2 r3" data-top="0" data-left="1"></div>
             <div class="r0 r1 r2 r3" data-top="0" data-left="2"></div>
-            
+
             <div class="r0 r1 r2 r3" data-top="1" data-left="1"></div>
             <div class="r0 r1 r2 r3" data-top="1" data-left="2"></div>
         </div>
-        
+
         <div id="s">
             <div class="r3"    data-top="0" data-left="0"></div>
             <div class="r0 r1" data-top="0" data-left="1"></div>
             <div class="r0"    data-top="0" data-left="2"></div>
-            
+
             <div class="r0 r3" data-top="1" data-left="0"></div>
             <div class="r0 r1 r2 r3" data-top="1" data-left="1"></div>
             <div class="r1 r2" data-top="1" data-left="2"></div>
-            
+
             <div class="r2"    data-top="2" data-left="0"></div>
             <div class="r2 r3" data-top="2" data-left="1"></div>
             <div class="r1"    data-top="2" data-left="2"></div>
         </div>
-        
+
         <div id="t">
             <div class="r0 r1 r3"    data-top="0" data-left="1"></div>
-            
+
             <div class="r0 r2 r3"    data-top="1" data-left="0"></div>
             <div class="r0 r1 r2 r3" data-top="1" data-left="1"></div>
             <div class="r0 r1 r2"    data-top="1" data-left="2"></div>
-            
+
             <div class="r1 r2 r3"    data-top="2" data-left="1"></div>
         </div>
-        
+
         <div id="z">
             <div class="r0"    data-top="0" data-left="0"></div>
             <div class="r0 r3" data-top="0" data-left="1"></div>
             <div class="r1"    data-top="0" data-left="2"></div>
-            
+
             <div class="r2 r3" data-top="1" data-left="0"></div>
             <div class="r0 r1 r2 r3" data-top="1" data-left="1"></div>
             <div class="r0 r1" data-top="1" data-left="2"></div>
-            
+
             <div class="r3"    data-top="2" data-left="0"></div>
             <div class="r1 r2" data-top="2" data-left="1"></div>
             <div class="r2"    data-top="2" data-left="2"></div>

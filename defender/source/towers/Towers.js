@@ -2,7 +2,7 @@
  * The Towers Class
  */
 class Towers {
-    
+
     /**
      * The Towers constructor
      * @param {Score}  score
@@ -23,14 +23,14 @@ class Towers {
         this.selection  = new Selection(this);
         this.ranges     = new Ranges(this);
         this.hasStarted = false;
-        
+
         this.score.setFunctions(this.enable.bind(this), this.disable.bind(this));
         this.enable();
         this.disable();
         this.createInitialSetup();
     }
-    
-    
+
+
     /**
      * Enables the Tower Build and Upgrade
      */
@@ -38,7 +38,7 @@ class Towers {
         this.builder.enableBuilds(this.score.getGold());
         this.selection.enableUpgrades(this.score.getGold());
     }
-    
+
     /**
      * Disables the Tower Build and Upgrade
      */
@@ -46,14 +46,14 @@ class Towers {
         this.builder.disableBuilds(this.score.getGold());
         this.selection.disableUpgrades(this.score.getGold());
     }
-    
-    
+
+
     /**
      * Creates the initial Towers Setup for the current map
      */
     createInitialSetup() {
         let list = this.board.getInitialSetup();
-        
+
         this.sounds.startMute();
         list.forEach((data) => {
             let tower = this.manager.build(data);
@@ -63,19 +63,19 @@ class Towers {
         });
         this.sounds.endMute();
     }
-    
-    
+
+
     /**
      * Updates the inner started state when the game starts
      */
     gameStarted() {
         this.hasStarted = true;
-        
+
         if (this.selection.hasSelected()) {
             this.selection.showDescription();
         }
     }
-    
+
     /**
      * Called on each animation frame to decreases the timers from the different lists,
      * update the build status and move the ammos
@@ -85,12 +85,12 @@ class Towers {
         this.manager.decUpgrades();
         this.manager.decSales();
         this.manager.decShoots(time);
-        
+
         this.shooter.shoot();
         this.shooter.moveAmmos(time);
         this.builder.updateBuild();
     }
-    
+
     /**
      * Destroys the event listeners and Ends the required events
      */
@@ -98,7 +98,7 @@ class Towers {
         this.builder.removeListeners();
         this.drop();
     }
-    
+
     /**
      * Ends the Tower Build and Selection
      */
@@ -106,8 +106,8 @@ class Towers {
         this.builder.drop();
         this.selection.drop();
     }
-    
-    
+
+
     /**
      * Sells the Selected Tower
      */
@@ -116,7 +116,7 @@ class Towers {
             this.manager.sell(this.selection.getTower());
         }
     }
-    
+
     /**
      * Sells all the Towers
      */
@@ -125,7 +125,7 @@ class Towers {
             this.manager.sellAll();
         }
     }
-    
+
     /**
      * Upgrades the Selected Tower
      */
@@ -135,35 +135,35 @@ class Towers {
             this.selection.showDescription();
         }
     }
-    
+
     /**
      * Locks the Selected Tower
      */
     lock() {
         if (this.selection.hasSelected()) {
             let tower = this.selection.getTower();
-            
+
             if (tower.canLock()) {
                 tower.toggleLock();
                 this.selection.showDescription();
             }
         }
     }
-    
+
     /**
      * Fires the Selected Tower
      */
     fire() {
         if (this.selection.hasSelected() && this.hasStarted) {
             let tower = this.selection.getTower();
-            
+
             if (tower.canFire() && tower.canDestroy()) {
                 this.shooter.processShot(tower);
                 this.selection.hideDescription();
             }
         }
     }
-    
+
     /**
      * Starts building a Tower
      * @param {number} type
@@ -171,7 +171,7 @@ class Towers {
     startBuilding(type) {
         this.builder.selectByType(type);
     }
-    
+
     /**
      * Moves the building element with the keyboard
      * @param {number} deltaX
@@ -182,7 +182,7 @@ class Towers {
             this.builder.move(deltaX, deltaY);
         }
     }
-    
+
     /**
      * Builds the Tower in the builder
      */
@@ -191,8 +191,8 @@ class Towers {
             this.builder.build();
         }
     }
-    
-    
+
+
     /**
      * Selects the first Tower
      */
@@ -201,7 +201,7 @@ class Towers {
             this.selection.first();
         }
     }
-    
+
     /**
      * Selects the last Tower
      */
@@ -210,7 +210,7 @@ class Towers {
             this.selection.last();
         }
     }
-    
+
     /**
      * Selects the previows or next Tower
      * @param {number} add

@@ -2,7 +2,7 @@
  * The Game Score
  */
 class Score {
-    
+
     /**
      * The Game Score constructor
      */
@@ -10,8 +10,8 @@ class Score {
         this.score     = 0;
         this.container = document.querySelector(".count");
     }
-    
-    
+
+
     /**
      * Returns the current Score
      * @return {number}
@@ -19,8 +19,8 @@ class Score {
     get() {
         return this.score;
     }
-    
-    
+
+
     /**
      * Restarts the Score
      */
@@ -28,7 +28,7 @@ class Score {
         this.score = -1;
         this.inc();
     }
-    
+
     /**
      * Increases the Score
      */

@@ -128,7 +128,7 @@ input {
         background-color: black;
         opacity: 0.8;
     }
-    
+
     .messages .text h2 {
         position: absolute;
         top: 0;
@@ -201,7 +201,7 @@ input {
         font-size: 3em;
     }
     .input input:focus { outline: none; }
-    .input input::-webkit-input-placeholder { 
+    .input input::-webkit-input-placeholder {
         color: #666;
         text-shadow: none;
     }
@@ -373,8 +373,8 @@ input {
         width:  0.6em;
         height: 0.6em;
     }
-    
-    .audio:hover .waves div { 
+
+    .audio:hover .waves div {
         background-color: black;
     }
     .waves div:before {
@@ -445,7 +445,7 @@ input {
         background-color: #121212;
         border-radius: 0.5em;
     }
-    
+
     .ball, .tail div {
         position: absolute;
         display: none;
@@ -455,7 +455,7 @@ input {
         box-shadow: inset 0 0 0 1.5em #121212;
         box-sizing: border-box;
     }
-    
+
     .tail div:nth-child(1) {
         border: 0.1em solid transparent;
         opacity: 0.95;

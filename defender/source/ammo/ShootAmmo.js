@@ -3,7 +3,7 @@
  * The Shoot Ammo Class
  */
 class ShootAmmo extends Ammo {
-    
+
     /**
      * The Shoot Ammo constructor
      * @param {Tower}  tower
@@ -12,16 +12,16 @@ class ShootAmmo extends Ammo {
      */
     constructor(tower, targets, boardSize) {
         super();
-        
+
         this.center      = 3;
         this.rotateTower = true;
         this.rotateAmmo  = false;
         this.className   = "shootAmmo";
         this.hitSound    = "hit";
-        
+
         this.init(tower, targets, boardSize);
     }
-    
+
     /**
      * Moves the ammo according to the given time. Returns true if it reached the target
      * @param {number} time
@@ -31,7 +31,7 @@ class ShootAmmo extends Ammo {
         this.changeAngle();
         this.changePos(time);
         this.changeDisplay();
-                        
+
         if (this.decTimer(time)) {
             this.destroy();
             return true;

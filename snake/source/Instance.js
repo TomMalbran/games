@@ -2,7 +2,7 @@
  * A local storage saved version of the Instance
  */
 class Instance {
-    
+
     /**
      * The Instance constructor
      * @param {Board} board
@@ -11,21 +11,21 @@ class Instance {
         this.board = board;
         this.data  = new Storage("snake.game");
         this.main  = document.querySelector(".main");
-        
+
         if (this.hasGame()) {
             this.main.classList.remove("help");
             this.main.classList.add("continue");
         }
     }
-    
-    
+
+
     /**
      * Saves the initial values for a new game
      * @param {number} level
      */
     newGame(level) {
         this.destroyGame();
-        
+
         this.data.set("playing",     1);
         this.data.set("level",       level);
         this.data.set("dirTop",      1);
@@ -33,7 +33,7 @@ class Instance {
         this.data.set("matrix.head", 0);
         this.data.set("matrix.tail", 0);
     }
-    
+
     /**
      * Remove the data for this game
      */
@@ -46,7 +46,7 @@ class Instance {
                 }
             }
         }
-        
+
         this.data.set("playing", 0);
         this.data.remove("matrix.head");
         this.data.remove("matrix.tail");
@@ -54,12 +54,12 @@ class Instance {
         this.data.remove("dirLeft");
         this.data.remove("score");
         this.data.remove("level");
-        
+
         this.main.classList.add("help");
         this.main.classList.remove("continue");
     }
-    
-    
+
+
     /**
      * Returns the saved data of a game
      */
@@ -68,14 +68,14 @@ class Instance {
             matrix  = [],
             links   = [],
             foodPos = {};
-        
+
         for (let i = 0; i < this.board.matrixRows; i += 1) {
             matrix[i] = [];
             for (let j = 0; j < this.board.matrixColumns; j += 1) {
                 let value = this.data.get("matrix." + i + "." + j);
                 if (value) {
                     matrix[i][j] = value;
-                    
+
                     if (value >= 0) {
                         let pointer;
                         if (value - head >= 0) {
@@ -92,7 +92,7 @@ class Instance {
                 }
             }
         }
-        
+
         return {
             level    : this.data.get("level"),
             score    : this.data.get("score"),
@@ -106,8 +106,8 @@ class Instance {
             foodLeft : foodPos.left
         };
     }
-    
-    
+
+
     /**
      * Adds the given value in the given position in the matrix
      * @param {number} top
@@ -120,7 +120,7 @@ class Instance {
             this.data.set("matrix.tail", value);
         }
     }
-    
+
     /**
      * Removes the given value in the given position in the matrix
      * @param {number} top
@@ -133,7 +133,7 @@ class Instance {
             this.data.set("matrix.head", value);
         }
     }
-    
+
     /**
      * Saves the score
      * @param {number} score
@@ -141,7 +141,7 @@ class Instance {
     saveScore(score) {
         this.data.set("score", score);
     }
-    
+
     /**
      * Saves the Snake directions
      * @param {{top: number, left: number}} dir
@@ -150,7 +150,7 @@ class Instance {
         this.data.set("dirTop",  dir.top);
         this.data.set("dirLeft", dir.left);
     }
-    
+
     /**
      * Returns true if there is a saved Game
      */

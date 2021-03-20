@@ -4,8 +4,8 @@
  */
 var List = (function () {
     "use strict";
-    
-    
+
+
     /**
      * @constructor
      * @private
@@ -19,8 +19,8 @@ var List = (function () {
         this.prev = prev;
         this.next = next;
     }
-    
-    
+
+
     /**
      * @constructor
      * @private
@@ -34,7 +34,7 @@ var List = (function () {
         this.previows  = prev;
         this.following = next;
     }
-    
+
     /**
      * Moves to the next element if there is one
      */
@@ -44,7 +44,7 @@ var List = (function () {
             this.following = this.following.next;
         }
     };
-    
+
     /**
      * Moves to the previews element if there is one
      */
@@ -54,7 +54,7 @@ var List = (function () {
             this.previows  = this.previows.prev;
         }
     };
-        
+
     /**
      * Checks if there is a next elements (from the current one)
      * @return {boolean}
@@ -62,7 +62,7 @@ var List = (function () {
     Iterator.prototype.hasNext = function () {
         return this.following !== null;
     };
-        
+
     /**
      * Checks if there is a previews element (from the current one)
      * @return {boolean}
@@ -70,7 +70,7 @@ var List = (function () {
     Iterator.prototype.hasPrev = function () {
         return this.previows !== null;
     };
-        
+
     /**
      * Returns the following elements data
      * @return {*}
@@ -80,7 +80,7 @@ var List = (function () {
             return this.following.data;
         }
     };
-        
+
     /**
      * Returns the previws elements data
      * @param {*}
@@ -90,8 +90,8 @@ var List = (function () {
             return this.previows.data;
         }
     };
-    
-    
+
+
     /**
      * Removes the follwing element and sets the next one as the new following element
      */
@@ -100,23 +100,23 @@ var List = (function () {
         if (!this.hasNext()) {
             return;
         }
-        
+
         if (this.following.next) {
             this.following.next.prev = this.following.prev;
         } else {
             this.list.tail = this.following.prev;
         }
-        
+
         if (this.following.prev) {
             this.following.prev.next = this.following.next;
         } else {
             this.list.head = this.following.next;
         }
-        
+
         this.following    = this.following.next;
         this.list.length -= 1;
     };
-    
+
     /**
      * Removes the previows element and sets the prev one as the new previows element
      */
@@ -126,9 +126,9 @@ var List = (function () {
             this.removeNext();
         }
     };
-    
-    
-    
+
+
+
     /**
      * @constructor
      * The List Class
@@ -138,7 +138,7 @@ var List = (function () {
         this.tail   = null;
         this.length = 0;
     }
-    
+
     /**
      * @private
      * Adds the element between the previows and following
@@ -149,7 +149,7 @@ var List = (function () {
      */
     List.prototype.add = function (item, prev, next) {
         var node = new Node(item, prev, next);
-        
+
         if (this.head === null) {
             this.head = node;
             this.tail = node;
@@ -160,11 +160,11 @@ var List = (function () {
             this.head.prev = node;
             this.head      = node;
         }
-        
+
         this.length += 1;
         return node;
     };
-    
+
     /**
      * Adds the item at the beggining of the list
      * @param {*} item
@@ -174,7 +174,7 @@ var List = (function () {
         this.add(item, null, this.head);
         return this.iterate();
     };
-    
+
     /**
      * Adds the item at the end of the list
      * @param {*} item
@@ -184,8 +184,8 @@ var List = (function () {
         this.add(item, this.tail, null);
         return this.iterateLast();
     };
-    
-    
+
+
     /**
      * Returns the data from the first element
      * @return {*}
@@ -196,7 +196,7 @@ var List = (function () {
         }
         return null;
     };
-    
+
     /**
      * Returns the data from the last element
      * @return {*}
@@ -207,8 +207,8 @@ var List = (function () {
         }
         return null;
     };
-    
-    
+
+
     /**
      * Returns true if the queue is empty, and false otherwise
      * @return {boolean}
@@ -216,7 +216,7 @@ var List = (function () {
     List.prototype.isEmpty = function () {
         return this.head === null;
     };
-    
+
     /**
      * Returns the size of the list
      * @return {number}
@@ -224,7 +224,7 @@ var List = (function () {
     List.prototype.size = function () {
         return this.length;
     };
-    
+
     /**
      * Creates and returns a new Iterator at the start of the list
      * @return {Iterator}
@@ -235,7 +235,7 @@ var List = (function () {
         }
         return null;
     };
-    
+
     /**
      * Creates and returns a new Iterator at the end of the list
      * @return {Iterator}
@@ -246,8 +246,8 @@ var List = (function () {
         }
         return null;
     };
-    
-    
+
+
     /**
      * Iterates througth the list calling the callback with the data as parameter
      * @param {function(*, number)}
@@ -262,7 +262,7 @@ var List = (function () {
             }
         }
     };
-    
+
     /**
      * Iterates througth the list calling the callback with the data as parameter,
      * but it breaks the loop if the function returns true
@@ -282,7 +282,7 @@ var List = (function () {
         }
         return false;
     };
-    
-    
+
+
     return List;
 }());

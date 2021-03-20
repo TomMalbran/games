@@ -19,7 +19,7 @@
         "Score": true,
         "Shooter": true,
         "Waves": true,
-        
+
         "Tower": true,
         "ShootTower": true,
         "FastTower": true,
@@ -31,7 +31,7 @@
         "SnapTower": true,
         "LaserTower": true,
         "BoostTower": true,
-        
+
         "Ammo": true,
         "ShootAmmo": true,
         "FastAmmo": true,
@@ -42,7 +42,7 @@
         "InkAmmo": true,
         "SnapAmmo": true,
         "LaserAmmo": true,
-        
+
         "Mob": true,
         "NormalMob": true,
         "InmuneMob": true,

@@ -2,7 +2,7 @@
  * The Panel Class
  */
 class Panel {
-    
+
     /**
      * The Panel constructor
      */
@@ -13,14 +13,14 @@ class Panel {
         this.mobSel     = null;
         this.width      = 161;
     }
-    
+
     /**
      * Updates the inner started state when the game starts
      */
     gameStarted() {
         this.hasStarted = true;
     }
-    
+
     /**
      * Shows the Tower Preview Description
      * @param {Tower} tower
@@ -29,7 +29,7 @@ class Panel {
         this.create(
             tower.getName(true),
             tower.getText(),
-            
+
             this.towerInfo({
                 aCost   : tower.getActualCost(),
                 aDamage : tower.getActualDamage(),
@@ -41,8 +41,8 @@ class Panel {
         this.towerSel = null;
         this.mobSel   = null;
     }
-    
-    
+
+
     /**
      * Shows the given Tower Loading bar or Information
      * @param {Tower} tower
@@ -57,7 +57,7 @@ class Panel {
         this.towerSel = tower;
         this.mobSel   = null;
     }
-    
+
     /**
      * Shows the given Tower Loading Bar
      * @param {Tower} tower
@@ -69,7 +69,7 @@ class Panel {
             this.towerLoading(tower.getLoad())
         );
     }
-    
+
     /**
      * Shows the given Tower Information
      * @param {Tower} tower
@@ -79,7 +79,7 @@ class Panel {
         this.create(
             tower.getName(),
             tower.getText(),
-            
+
             this.towerInfo({
                 aCost   : tower.getActualCost(),
                 uCost   : tower.getUpgradeCost(),
@@ -92,7 +92,7 @@ class Panel {
                 aSpeed  : tower.getActualSpeed(),
                 uSpeed  : tower.getUpgradeSpeed()
             }),
-            
+
             this.towerButtons({
                 cantUpgrade : tower.getUpgradeCost() > gold,
                 isMaxed     : tower.isMaxLevel(),
@@ -103,8 +103,8 @@ class Panel {
             })
         );
     }
-    
-    
+
+
     /**
      * Shows the given Mob Information
      * @param {Mob} mob
@@ -118,8 +118,8 @@ class Panel {
         this.towerSel = null;
         this.mobSel   = mob;
     }
-    
-    
+
+
     /**
      * Creates the Description HTML
      * @param {string} name
@@ -134,10 +134,10 @@ class Panel {
             "    <p>" + text + "</p>" +
             "    <div class='information'>" + information + "</div>" + (buttons || "") +
             "</div>";
-        
+
         this.container.className = "description fadeIn";
     }
-    
+
     /**
      * Creates the Tower Information HTML
      * @param {Object} data
@@ -166,10 +166,10 @@ class Panel {
             "    <div class='next'>" + (data.uSpeed || "") + "</div>" +
             "</div>" +
             "<div class='towerBoost'>" + (data.boost ? "Boost: " + data.boost + "%" : "") + "</div>";
-        
+
         return content;
     }
-    
+
     /**
      * Creates the Tower Buttons HTML
      * @param {Object} data
@@ -177,7 +177,7 @@ class Panel {
      */
     towerButtons(data) {
         let classes = [], button = "", content;
-        
+
         if (data.isMaxed) {
             classes.push("hideButtons");
         }
@@ -187,22 +187,22 @@ class Panel {
         if (data.canFire) {
             classes.push("extraButton");
         }
-        
+
         if (data.canFire) {
             button = "<button class='actionButton menuButton' data-action='fire'>Fire!</button>";
         } else if (data.canLock) {
             button = "<button class='actionButton menuButton' data-action='lock'>" + (data.isLocked ? "Unlock" : "Lock") + "</button>";
         }
-        
+
         content =
             "<div class='" + classes.join(" ") + "'>" +
             "    <button class='upgradeButton menuButton' data-action='upgrade'>Upgrade</button>" + button +
             "    <button class='sellButton menuButton' data-action='sell'>Sell &#36;" + data.price + "</button>" +
             "</div>";
-        
+
         return content;
     }
-    
+
     /**
      * Creates the Tower Loading HTML
      * @param {number} data
@@ -213,10 +213,10 @@ class Panel {
             "<div class='descLoad'>" +
             "    <div class='descLoadBar' style='width: " + (loaded * this.width) + "px'></div>" +
             "</div>";
-        
+
         return content;
     }
-    
+
     /**
      * Creates the Mob Information HTML
      * @param {number} life
@@ -238,11 +238,11 @@ class Panel {
             "    <div class='text'>Speed:</div>" +
             "    <div class='actual'>" + speed + "</div>" +
             "</div>";
-        
+
         return content;
     }
-    
-    
+
+
     /**
      * Hides the Panel after a few seconds
      */
@@ -251,7 +251,7 @@ class Panel {
         this.mobSel   = null;
         this.container.className = "description delayedFadeOut";
     }
-    
+
     /**
      * Hides the Panel inmediatelly
      */
@@ -260,8 +260,8 @@ class Panel {
         this.mobSel   = null;
         this.container.className = "description fadeOut";
     }
-    
-    
+
+
     /**
      * Updates the Description of the currently selected Mob
      */
@@ -270,7 +270,7 @@ class Panel {
             this.showMob(mob);
         }
     }
-    
+
     /**
      * Hides the Description of the Mob
      */

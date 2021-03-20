@@ -1,6 +1,6 @@
 var DemoData = (function () {
     "use strict";
-    
+
     return {
         /**
          * Returns the list of animations
@@ -9,8 +9,8 @@ var DemoData = (function () {
         get animations() {
             return [ "title", "chase", "frighten", "present" ];
         },
-        
-        
+
+
         /**
          * Returns the title data
          * @return {Object}
@@ -27,7 +27,7 @@ var DemoData = (function () {
                 blobRadius : 2.5
             };
         },
-        
+
         /**
          * Returns the chase data
          * @return {Object}
@@ -43,7 +43,7 @@ var DemoData = (function () {
                 enerY      : 14.5
             };
         },
-        
+
         /**
          * Returns the frighten data
          * @return {Object}
@@ -56,7 +56,7 @@ var DemoData = (function () {
                 textTile   : 15
             };
         },
-        
+
         /**
          * Returns the present data
          * @return {Object}

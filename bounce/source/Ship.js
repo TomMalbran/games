@@ -15,19 +15,19 @@ class Ship {
         this.decreaseAmount = 1;
         this.keyMovement    = 10;
         this.onMove         = onMove;
-        
+
         this.board   = board;
         this.element = document.querySelector(".ship");
         this.emWidth = shipWidth;
         this.setWidth();
-        
+
         this.top     = this.board.getHeight() - this.element.offsetHeight - 5;
         this.left    = (this.board.getWidth() - this.width) / 2;
-        
+
         Utils.setPosition(this.element, this.top, this.left);
     }
-    
-    
+
+
     /**
      * Set the width property of the element
      */
@@ -35,7 +35,7 @@ class Ship {
         this.element.style.width = this.emWidth + "em";
         this.width = this.element.offsetWidth;
     }
-    
+
     /**
      * Set the top property of the element
      * @param {number=} top
@@ -43,14 +43,14 @@ class Ship {
     setTop(top) {
         this.element.style.top = (top || this.top) + "px";
     }
-    
+
     /**
      * Set the left property of the element
      */
     setLeft() {
         this.element.style.left = this.left + "px";
     }
-    
+
     /**
      * Move the Ship using the mouse
      * @param {Event} e
@@ -63,7 +63,7 @@ class Ship {
             leftSide   = this.board.getLeft() + halfWidth,
             rightSide  = this.board.getLeft() + this.board.getWidth() - halfWidth,
             shipLeft   = 0;
-        
+
         if (mouseLeft < boardLeft || mouseLeft > boardRight) {
             return;
         }
@@ -74,7 +74,7 @@ class Ship {
         }
         this.doMove(shipLeft);
     }
-    
+
     /**
      * Move the Ship using the keyboard
      * @param {number} direction
@@ -82,11 +82,11 @@ class Ship {
     keyMove(direction) {
         let left  = this.left + this.keyMovement * direction,
             maxim = this.board.getWidth() - this.width;
-        
+
         left = Utils.clamp(left, 0, maxim);
         this.doMove(left);
     }
-    
+
     /**
      * Move the Ship
      */
@@ -97,7 +97,7 @@ class Ship {
             this.onMove();
         }
     }
-    
+
     /**
      * Change the Style when the ball crashes the ship
      */
@@ -105,8 +105,8 @@ class Ship {
         this.setTop(this.top + 2);
         window.setTimeout(() => this.setTop(), 100);
     }
-    
-    
+
+
     /**
      * Reduce the width of the ship
      */
@@ -114,13 +114,13 @@ class Ship {
         if (this.emWidth > this.minWidth) {
             this.emWidth -= this.decreaseAmount;
             this.left    -= this.decreaseAmount / 2;
-            
+
             this.setWidth();
             this.setLeft();
         }
     }
-    
-    
+
+
     /**
      * Returns the position of the Ship
      * @return {{top: number, left: number}}
@@ -131,7 +131,7 @@ class Ship {
             left : this.left - this.extraWidth / 2
         };
     }
-    
+
     /**
      * Returns the width of the Ship
      * @return {number}

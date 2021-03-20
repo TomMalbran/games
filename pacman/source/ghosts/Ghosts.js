@@ -2,7 +2,7 @@
  * The Ghosts Class
  */
 class Ghosts {
-    
+
     /**
      * The Ghosts constructor
      * @param {?oldManager} Ghosts
@@ -15,7 +15,7 @@ class Ghosts {
         this.frightTimer = 0;                           // Frigthen timer
         this.blinksCount = 0;                           // Amount of blinks at frighten end
         this.eyesCounter = 0;                           // Amount of dead Ghost during a fright mode
-        
+
         // The Ghosts
         var canvas       = Board.gameCanvas;
         this.blinky      = new Blinky(canvas, oldManager ? oldManager.blinky.getDots() : null);
@@ -23,20 +23,20 @@ class Ghosts {
         this.inky        = new Inky(canvas, oldManager ? oldManager.inky.getDots() : null, this.blinky);
         this.clyde       = new Clyde(canvas, oldManager ? oldManager.clyde.getDots() : null);
         this.ghosts      = [ this.blinky, this.pinky, this.inky, this.clyde ];
-        
+
         // Pen Data
         this.penType     = !!oldManager;               // Type used to force ghosts out of the pen (false = using
                                                        // ... ghost's dot counters | true = using global dot counter)
         this.penTimer    = 0;                          // Pen Leaving Force Timer
         this.globalDots  = 0;                          // Global dots counter
         this.inPen       = [ this.pinky, this.inky, this.clyde ];
-        
+
         if (!this.penType) {
             this.inPen.forEach(() => this.checkDotLimit());
         }
     }
-    
-    
+
+
     /**
      * Animates all the Ghosts, and reduces the ghosts modes timers
      * @param {number} time
@@ -49,12 +49,12 @@ class Ghosts {
         } else if (this.modeCounter < Data.totalSwitchs && this.modeTimer > 0) {
             this.modeTimer -= time;
         }
-        
+
         this.switchMode(blob);
         this.move(speed, blob);
         this.increasePenTimer(time);
     }
-    
+
     /**
      * Changes the Ghosts mode
      * @param {Blob} blob
@@ -63,7 +63,7 @@ class Ghosts {
         let oldMode = this.globalMode;
         if (Data.isFrighten(this.globalMode) && this.frightTimer <= 0) {
             this.blinksCount -= 1;
-            
+
             if (this.blinksCount >= 0) {
                 this.frightTimer = Data.blinksTimer;
                 this.globalMode  = this.globalMode === "white" ? "blue" : "white";
@@ -71,7 +71,7 @@ class Ghosts {
                 this.globalMode  = this.getSwitchMode();
             }
             this.switchGhostsMode(oldMode, blob);
-        
+
         } else if (this.modeTimer <= 0) {
             this.modeCounter += 1;
             this.globalMode   = this.getSwitchMode();
@@ -79,7 +79,7 @@ class Ghosts {
             this.switchGhostsMode(oldMode, blob);
         }
     }
-    
+
     /**
      * Changes the mode of each Ghost
      * @param {number} oldMode
@@ -90,7 +90,7 @@ class Ghosts {
             ghost.switchMode(oldMode, this.globalMode, blob);
         });
     }
-    
+
     /**
      * Moves all the Ghosts
      * @param {number} speed
@@ -104,14 +104,14 @@ class Ghosts {
             }
         });
     }
-    
+
     /**
      * Draws all The Ghosts
      */
     draw() {
         this.ghosts.forEach((ghost) => ghost.draw());
     }
-    
+
     /**
      * Sets the Ghosts targets when the Blob reached a new Tile
      * @param {Blob} blob
@@ -123,7 +123,7 @@ class Ghosts {
             }
         });
     }
-    
+
     /**
      * Sets Blinky's "Cruise Elroy" Mode when the number of dots left reaches the target
      * @param {number} dots
@@ -131,7 +131,7 @@ class Ghosts {
     checkElroyDots(dots) {
         this.blinky.checkElroyDots(dots);
     }
-    
+
     /**
      * Switches to Frighten mode
      * @param {Blob} blob
@@ -142,10 +142,10 @@ class Ghosts {
         this.frightTimer = Data.getFrightTime();
         this.blinksCount = Data.getBlinks();
         this.eyesCounter = 0;
-        
+
         this.switchGhostsMode(oldMode, blob);
     }
-    
+
     /**
      * The Ghost kills the Blob or Dies from it. Returns true if the Blob died
      * @param {{x: number, y: number}} blobTile
@@ -164,7 +164,7 @@ class Ghosts {
             return !!result;
         });
     }
-    
+
     /**
      * Returns the current Scatter or Chase mode
      * @return {string}
@@ -172,7 +172,7 @@ class Ghosts {
     getSwitchMode() {
         return this.modeCounter % 2 === 0 ? "scatter" : "chase";
     }
-    
+
     /**
      * Returns the current Mode, including the Fright variations
      * @return {number}
@@ -180,7 +180,7 @@ class Ghosts {
     getMode() {
         return this.globalMode;
     }
-    
+
     /**
      * Returns true if the current mode is a Fright
      * @return {boolean}
@@ -188,8 +188,8 @@ class Ghosts {
     areFrighten() {
         return Data.isFrighten(this.globalMode);
     }
-    
-    
+
+
     /**
      * Increases the global dots or the first Ghost internal dots depending on the mode
      */
@@ -200,7 +200,7 @@ class Ghosts {
             this.incGlobalDots();
         }
     }
-    
+
     /**
      * Increases the internal dots counter for the Ghost in the Pen array
      */
@@ -210,25 +210,25 @@ class Ghosts {
             this.checkDotLimit();
         }
     }
-    
+
     /**
      * Checks if a ghost can leave pen
      */
     checkDotLimit() {
         let limits = Data.getLevelData("penLeavingLimit"),
             ghost  = this.inPen[0];
-        
+
         if (limits[ghost.getID()] <= ghost.getDots()) {
             this.releaseGhostFromPen();
         }
     }
-    
+
     /**
      * Increases the global dot counter and release ghosts changes type when required
      */
     incGlobalDots() {
         this.globalDots += 1;
-        
+
         this.inPen.forEach((ghost) => {
             if (this.globalDots === Data.getPenDotsCount(ghost.getID())) {
                 if (ghost.getID() <= 2) {
@@ -240,7 +240,7 @@ class Ghosts {
             }
         });
     }
-    
+
     /**
      * Increases the Pen Timer
      * @param {number} time
@@ -252,7 +252,7 @@ class Ghosts {
             this.penTimer = 0;
         }
     }
-    
+
     /**
      * Resents the Pen Timer to cero, since the Blob ate a pill and checks the Dots counters
      */
@@ -260,7 +260,7 @@ class Ghosts {
         this.penTimer = 0;
         this.incDotCounter();
     }
-    
+
     /**
      * Releases the first Ghost in the vector from Pen
      */
@@ -268,10 +268,10 @@ class Ghosts {
         let ghost = this.inPen[0];
         ghost.setPath("exitPen");
         ghost.activateElroy();
-        
+
         this.inPen = this.inPen.slice(1);
     }
-    
+
     /**
      * Adds the given Ghost to Pen
      * @param {Ghost} ghost
@@ -287,7 +287,7 @@ class Ghosts {
             }
             this.inPen.splice(i, 0, ghost);
             ghost.setPath("inPen");
-            
+
             if (!this.penType) {
                 this.checkDotLimit();
             }

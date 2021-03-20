@@ -2,7 +2,7 @@
  * The Map Class
  */
 class Map {
-    
+
     /**
      * The Map Class
      * @param {string} gameMap
@@ -11,7 +11,7 @@ class Map {
         this.mapData = MapsData.maps[gameMap];
         this.storage = new Storage("defender.maps." + gameMap);
     }
-    
+
     /**
      * Returns the amount of paths in the current map
      * @return {number}
@@ -19,7 +19,7 @@ class Map {
     getPathsAmount() {
         return this.mapData.paths;
     }
-    
+
     /**
      * Returns the value in the map matrix at the given position
      * @param {number} row
@@ -29,8 +29,8 @@ class Map {
     getMatrixXY(row, col) {
         return this.mapData.matrix[row][col];
     }
-    
-    
+
+
     /**
      * Returns the Size of a Square in the map
      * @return {number}
@@ -38,7 +38,7 @@ class Map {
     getSquareSize() {
         return MapsData.squareSize;
     }
-    
+
     /**
      * Returns the Amount of columns in a map
      * @return {number}
@@ -46,7 +46,7 @@ class Map {
     getColsAmount() {
         return MapsData.colsAmount;
     }
-    
+
     /**
      * Returns the Amount of rows in a map
      * @return {number}
@@ -54,7 +54,7 @@ class Map {
     getRowsAmount() {
         return MapsData.rowsAmount;
     }
-    
+
     /**
      * Returns the value used for nothing
      * @return {number}
@@ -62,7 +62,7 @@ class Map {
     getNothingValue() {
         return MapsData.nothing;
     }
-    
+
     /**
      * Returns the value used for the walls
      * @return {number}
@@ -70,7 +70,7 @@ class Map {
     getWallsValue() {
         return MapsData.wall;
     }
-    
+
     /**
      * Returns the value used as the ID for the first tower
      * @return {number}
@@ -78,8 +78,8 @@ class Map {
     getTowerStart() {
         return MapsData.towerStart;
     }
-    
-    
+
+
     /**
      * Returns true if the given value is equal to the start 1 value
      * @param {number} value
@@ -88,7 +88,7 @@ class Map {
     isStart1(value) {
         return value === MapsData.start1;
     }
-    
+
     /**
      * Returns true if the given value is equal to the start 2 value
      * @param {number} value
@@ -97,7 +97,7 @@ class Map {
     isStart2(value) {
         return value === MapsData.start2;
     }
-    
+
     /**
      * Returns true if the given value is equal to the target 1 or 2 value
      * @param {number} value
@@ -106,7 +106,7 @@ class Map {
     isTarget(value) {
         return value === MapsData.target1 || value === MapsData.target2;
     }
-    
+
     /**
      * Returns true if the given value is equal to the target 1 value
      * @param {number} value
@@ -115,7 +115,7 @@ class Map {
     isTarget1(value) {
         return value === MapsData.target1;
     }
-    
+
     /**
      * Returns true if the given value is equal to the target 2 value
      * @param {number} value
@@ -124,8 +124,8 @@ class Map {
     isTarget2(value) {
         return value === MapsData.target2;
     }
-    
-    
+
+
     /**
      * Returns all the map Walls
      * @return {Array.<Object>}
@@ -134,7 +134,7 @@ class Map {
         let className,
             walls  = [null],
             matrix = [];
-        
+
         for (let i = 0; i < this.mapData.matrix.length; i += 1) {
             matrix[i] = [];
             for (let j = 0; j < this.mapData.matrix[i].length; j += 1) {
@@ -153,7 +153,7 @@ class Map {
                 default:
                     className = null;
                 }
-                
+
                 if (className) {
                     this.processWall(walls, matrix, i, j, className);
                 }
@@ -162,7 +162,7 @@ class Map {
         this.compressWalls(walls);
         return walls;
     }
-    
+
     /**
      * Process the walls to reduce the amount of diva
      * @param {Array.<Object>} walls
@@ -180,7 +180,7 @@ class Map {
             id   = matrix[i][j - 1];
             type = "vertical";
         }
-                
+
         if (type) {
             if (!walls[id].type) {
                 walls[id].type = type;
@@ -192,7 +192,7 @@ class Map {
                 walls[id].width += 1;
             }
             matrix[i][j] = id;
-        
+
         } else {
             walls.push({
                 cl:     cl,
@@ -205,7 +205,7 @@ class Map {
             matrix[i][j] = walls.length - 1;
         }
     }
-    
+
     /**
      * Process the walls to reduce the amount of diva
      * @param {Array.<Object>} walls
@@ -218,7 +218,7 @@ class Map {
                     walls[i].height += walls[j].height;
                     walls.splice(j, 1);
                     j -= 1;
-                
+
                 } else if (this.canIncreaseWidth(walls[i], walls[j])) {
                     walls[i].width += walls[j].width;
                     walls.splice(j, 1);
@@ -227,8 +227,8 @@ class Map {
             }
         }
     }
-    
-    
+
+
     /**
      * Expands a Wall Horizontally
      * @param {Array.<Object>} walls
@@ -245,7 +245,7 @@ class Map {
         }
         return false;
     }
-    
+
     /**
      * Expands a Wall Vertically
      * @param {Array.<Object>} walls
@@ -259,7 +259,7 @@ class Map {
         let id = matrix[i][j - 1];
         return id && (!walls[id].type || walls[id].type === "vertical") && walls[id].cl === cl;
     }
-    
+
     /**
      * Checks if it can increase the height of the wall
      * @param {Array.<Object>} w1
@@ -269,7 +269,7 @@ class Map {
     canIncreaseHeight(w1, w2) {
         return w1.cl === w2.cl && w1.width === w2.width && w1.left === w2.left && w1.top + w1.height === w2.top;
     }
-    
+
     /**
      * Checks if it can increase the width of the wall
      * @param {Array.<Object>} w1
@@ -279,8 +279,8 @@ class Map {
     canIncreaseWidth(w1, w2) {
         return w1.cl === w2.cl && w1.height === w2.height && w1.top === w2.top && w1.left + w1.width === w2.left;
     }
-    
-    
+
+
     /**
      * Returns the Towers that will be built when starting this map
      * @return {Array.<{type: string, col: number, row: number, level: number}>}
@@ -288,7 +288,7 @@ class Map {
     getInitialSetup() {
         let amount = this.storage.get("towers"),
             list   = [];
-        
+
         if (amount) {
             for (let i = MapsData.towerStart; i <= amount; i += 1) {
                 let data = this.storage.get("tower." + i);
@@ -300,7 +300,7 @@ class Map {
         }
         return list;
     }
-    
+
     /**
      * Saves a the given Tower in the map storage for the initial setup
      * @param {Tower} tower
@@ -314,7 +314,7 @@ class Map {
         });
         this.storage.set("towers", tower.getID());
     }
-    
+
     /**
      * Upgrades the level of the given Tower in the map storage for the initial setup
      * @param {Tower} tower
@@ -326,7 +326,7 @@ class Map {
             this.storage.set("tower." + tower.getID(), data);
         }
     }
-    
+
     /**
      * Removes the given Tower from the map storage for the initial setup
      * @param {Tower} tower

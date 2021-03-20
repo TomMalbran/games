@@ -23,7 +23,7 @@ html, body {
     background-color: transparent;
     color: white;
     font: 10px Verdana, Arial, Helvetica, sans-serif;
-    
+
     -webkit-font-smoothing: antialiased;
     backface-visibility: hidden;
 }
@@ -264,7 +264,7 @@ dt, dd {
         margin-top: -162px;
         margin-left: -155px;
     }
-    
+
     .menu button {
         font-size: 18px;
         line-height: 1.5;
@@ -335,7 +335,7 @@ dt, dd {
         padding-left: 10px;
         font-weight: bold;
     }
-    
+
     .finalScore dt:nth-of-type(3),
     .finalScore dd:nth-of-type(3) {
         color: rgb(235, 95, 2);
@@ -446,16 +446,16 @@ dt, dd {
         width: 30px;
         height: 30px;
     }
-    
+
     .towersPanel .row1 { top:  10px;  }
     .towersPanel .row2 { top:  45px;  }
-    
+
     .towersPanel .col1 { left: 0;     }
     .towersPanel .col2 { left: 35px;  }
     .towersPanel .col3 { left: 70px;  }
     .towersPanel .col4 { left: 105px; }
     .towersPanel .col5 { left: 140px; }
-    
+
     .towersPanel .selected { box-shadow: 0 0 10px 2px rgb(0, 153, 0); }
     .towersPanel .disabled {
         background-color: rgba(0, 0, 0, 0.8);
@@ -467,7 +467,7 @@ dt, dd {
 /**
  * Description Design
  */
-.description { 
+.description {
     position: absolute;
     top: 180px;
     left: 10px;
@@ -488,7 +488,7 @@ dt, dd {
         opacity: 0;
         transition: opacity 1s;
     }
-    
+
     .description p { margin-top: 5px; }
     .description .information {
         position: absolute;
@@ -521,7 +521,7 @@ dt, dd {
     }
 
 
-.towerCost { 
+.towerCost {
     position: absolute;
     top: 0;
     left: 0;
@@ -574,14 +574,14 @@ dt, dd {
         left: 62px;
         width: 46px;
     }
-    .extraButton .sellButton, 
+    .extraButton .sellButton,
     .extraButton .upgradeButton { width:   59px;  }
     .extraButton .actionButton  { display: block; }
     .hideButtons .upgradeButton { display: none;  }
     .cantUpgrade .upgradeButton { opacity: 0.5; cursor: not-allowed; }
 
-    
-.mobPoints { 
+
+.mobPoints {
     position: absolute;
     top: 10px;
     left: 10px;
@@ -666,7 +666,7 @@ dt, dd {
         opacity: .8;
         background: linear-gradient(to bottom, black, transparent);
     }
-    
+
     .wave {
         position: absolute;
         top: 0;

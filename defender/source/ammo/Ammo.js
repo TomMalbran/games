@@ -2,7 +2,7 @@
  * The Ammo Base Class
  */
 class Ammo {
-    
+
     /**
      * Initializes the Ammo
      * @param {Tower} tower
@@ -21,7 +21,7 @@ class Ammo {
         this.element   = null;
         this.iterator  = null;
     }
-    
+
     /**
      * Creates the element for the Ammo
      * @return {DOMElement}
@@ -33,10 +33,10 @@ class Ammo {
         this.element.style.left   = this.left + "px";
         this.element.style.zIndex = 2;
         this.element.innerHTML    = this.content || "";
-        
+
         return this.element;
     }
-    
+
     /**
      * Destroys the Ammo
      */
@@ -44,7 +44,7 @@ class Ammo {
         Utils.removeElement(this.element);
         this.iterator.removePrev();
     }
-    
+
     /**
      * Sets the iterator pointing to the Ammos list
      * @param {Iterator}
@@ -52,7 +52,7 @@ class Ammo {
     setIterator(it) {
         this.iterator = it;
     }
-    
+
     /**
      * Decreases the timer on the ammo. Returns true when reaching 0
      * @param {number} time
@@ -62,8 +62,8 @@ class Ammo {
         this.timer -= time;
         return this.timer <= 0;
     }
-        
-    
+
+
     /**
      * Rotates the Tower Canon, and or the Ammo
      */
@@ -76,7 +76,7 @@ class Ammo {
             this.rotate(angle);
         }
     }
-    
+
     /**
      * Rotates the Ammo
      * @param {number} angle
@@ -84,7 +84,7 @@ class Ammo {
     rotate(angle) {
         this.element.style.transform = "rotate(" + angle + "deg)";
     }
-    
+
     /**
      * Changes the position of the Ammo
      * @param {number} time
@@ -93,11 +93,11 @@ class Ammo {
         let targetPos = this.targets[0].getCenterPos();
         this.top     += this.getDist(targetPos.top  - this.top, time);
         this.left    += this.getDist(targetPos.left - this.left, time);
-        
+
         this.element.style.top  = Math.round(this.top)  + "px";
         this.element.style.left = Math.round(this.left) + "px";
     }
-    
+
     /**
      * Returns the distance to move the ammo depending on the time
      * @param {number} dist
@@ -107,7 +107,7 @@ class Ammo {
     getDist(dist, time) {
         return dist * time / this.timer;
     }
-    
+
     /**
      * Changes the display of the Ammo
      */
@@ -116,14 +116,14 @@ class Ammo {
             let size = this.tower.getSize() * this.boardSize / 2,
                 pos  = this.tower.getCenterPos(),
                 dist = Math.hypot(this.top - pos.top, this.left - pos.left);
-            
+
             if (dist > size) {
                 this.element.style.display = "block";
                 this.display = true;
             }
         }
     }
-    
+
     /**
      * Returns the center of the Ammo
      * @param {number} cell
@@ -133,8 +133,8 @@ class Ammo {
         let center = this.tower.getTowerCenter(cell);
         return center - this.center;
     }
-    
-    
+
+
     /**
      * Returns the Tower which shoot this ammo
      * @return {Tower}
@@ -142,7 +142,7 @@ class Ammo {
     getTower() {
         return this.tower;
     }
-    
+
     /**
      * Returns the Mobs that this ammo will hit
      * @return {Array.<Mob>}
@@ -150,7 +150,7 @@ class Ammo {
     getTargets() {
         return this.targets;
     }
-    
+
     /**
      * Sets the missle index
      * @param {number} index
@@ -158,7 +158,7 @@ class Ammo {
     setMissile(index) {
         this.missile = index;
     }
-    
+
     /**
      * Returns the missle index
      * @return {number}
@@ -166,7 +166,7 @@ class Ammo {
     getMissile() {
         return this.missile;
     }
-    
+
     /**
      * Returns the sound made when hitting the target, if it has one
      * @return {string}

@@ -3,7 +3,7 @@
  * The Blinky Class
  */
 class Blinky extends Ghost {
-    
+
     /**
      * The Blinky constructor
      * @param {Canvas}  canvas
@@ -11,7 +11,7 @@ class Blinky extends Ghost {
      */
     constructor(canvas, dots) {
         super();
-        
+
         this.paths = {
             exitPen : [
                 { dir : { x:  0, y: -1 }, disty : 138, next : null }
@@ -21,7 +21,7 @@ class Blinky extends Ghost {
                 { dir : { x:  0, y:  1 }, disty : 174, next : null }
             ]
         };
-        
+
         this.id      = 0;
         this.x       = 168;
         this.y       = 138;
@@ -29,13 +29,13 @@ class Blinky extends Ghost {
         this.scatter = { x: 25, y: -3 };
         this.inPen   = false;
         this.color   = Blinky.color;
-        
+
         this.init(canvas, dots);
-        
+
         this.elroyMode   = 0;
         this.activeElroy = dots !== null;
     }
-    
+
     /**
      * Returns the Ghost's name
      * @return {string}
@@ -43,7 +43,7 @@ class Blinky extends Ghost {
     static get name() {
         return "Blinky";
     }
-    
+
     /**
      * Returns the Ghost's color
      * @return {string}
@@ -51,8 +51,8 @@ class Blinky extends Ghost {
     static get color() {
         return "rgb(221, 0, 0)";
     }
-    
-    
+
+
     /**
      * Blinky's target is always the current tile of the Blob
      * @param {Blob} blob
@@ -61,7 +61,7 @@ class Blinky extends Ghost {
     chase(blob) {
         return blob.getTile();
     }
-    
+
     /**
      * Sets Blinky's "Cruise Elroy" Mode when the number of dots left reaches the target
      * @param {number} dots
@@ -72,7 +72,7 @@ class Blinky extends Ghost {
             this.elroy += 1;
         }
     }
-    
+
     /**
      * Returns true when Blinky is in "Cruise Elroy" Mode. Only used for Blinky
      * @return {boolean}
@@ -80,7 +80,7 @@ class Blinky extends Ghost {
     isElroy() {
         return this.activeElroy && this.elroy > 0;
     }
-    
+
     /**
      * Makes it possible for Blinky to switch to "Cruise Elroy" Mode
      */
