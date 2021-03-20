@@ -34,8 +34,8 @@ class GhostScoreAnimation extends Animation {
             text  : this.text,
             pos   : {
                 x : this.pos.x + 0.5,
-                y : this.pos.y + 0.5
-            }
+                y : this.pos.y + 0.5,
+            },
         });
 
         if (this.time > 200) {

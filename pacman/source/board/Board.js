@@ -42,7 +42,7 @@ let Board = (function () {
         [ 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0 ],
         [ 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0 ],
         [ 0, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 0 ],
-        [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+        [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
     ];
 
     /**
@@ -113,58 +113,15 @@ let Board = (function () {
         x1y29  : [ 0, 3       ],
         x12y29 : [ 0, 1, 3    ],
         x15y29 : [ 0, 1, 3    ],
-        x26y29 : [ 0, 1       ]
+        x26y29 : [ 0, 1       ],
     };
 
     /** Board data */
-    const energizers    = [{ x: 1, y: 3 }, { x: 26, y: 3 }, { x: 1, y: 23 }, { x: 26, y: 23 }];
-    const pillAmount    = 244;
-    const fruitTile     = { x: 13.25, y: 16.8333 };
-    const fruitSize     = 20;
-    const tileSize      = 12;
-    const lineWidth     = 2;
-    const halfLine      = lineWidth / 2;
-    const bigRadius     = tileSize / 2;
-    const smallRadius   = tileSize / 4;
-    const eraseSize     = tileSize * 2;
-    const boardCols     = boardMatrix[0].length;
-    const boardRows     = boardMatrix.length;
-    const canvasWidth   = tileSize * boardCols;
-    const canvasHeight  = tileSize * boardRows;
-    const scoreHeight   = tileSize * 2;
-    const totalHeight   = canvasHeight + scoreHeight;
-    const tunnelStart   = -tileSize / 2;
-    const tunnelEnd     = tileSize * boardCols + tunnelStart;
-    const ghostSize     = tileSize * 1.5;
-    const blobRadius    = Math.round(tileSize / 1.5);
-    const pillSize      = Math.round(tileSize * 0.16666);
-    const energizerSize = Math.round(tileSize * 0.41666);
-    const boardColor    = "rgb(0, 51, 255)";
-    const startingPos   = { x: 14, y: 23 };
-    const startingDir   = { x: -1, y:  0 };
-    const eyesTarget    = { x: 13, y: 11 };
+    const tileSize  = 18;
+    const lineWidth = 2;
 
     /** @type {Canvas} The Game Canvas */
     let boardCanvas, screenCanvas, gameCanvas;
-
-
-    /**
-     * Returns the position at the middle of a tile
-     * @param {Number} tile
-     * @returns {Number}
-     */
-    function getTileCenter(tile) {
-        return Math.round((tile + 0.5) * tileSize);
-    }
-
-    /**
-     * Converts an x,y tile into an x,y position
-     * @param {{x: Number, y: Number}} tile
-     * @returns {{x: Number, y: Number}}
-     */
-    function tileToPos(tile) {
-        return { x: tile.x * tileSize, y: tile.y * tileSize };
-    }
 
 
 
@@ -242,7 +199,7 @@ let Board = (function () {
          * @returns {Number}
          */
         get width() {
-            return canvasWidth;
+            return tileSize * Board.cols;
         },
 
         /**
@@ -250,7 +207,9 @@ let Board = (function () {
          * @returns {Number}
          */
         get height() {
-            return totalHeight;
+            const canvasHeight = tileSize * Board.rows;
+            const scoreHeight  = tileSize * 2;
+            return canvasHeight + scoreHeight;
         },
 
         /**
@@ -258,7 +217,7 @@ let Board = (function () {
          * @returns {Number}
          */
         get cols() {
-            return boardCols;
+            return boardMatrix[0].length;
         },
 
         /**
@@ -266,7 +225,7 @@ let Board = (function () {
          * @returns {Number}
          */
         get rows() {
-            return boardRows;
+            return boardMatrix.length;
         },
 
         /**
@@ -290,7 +249,7 @@ let Board = (function () {
          * @returns {Number}
          */
         get halfLine() {
-            return halfLine;
+            return lineWidth / 2;
         },
 
         /**
@@ -298,7 +257,7 @@ let Board = (function () {
          * @returns {Number}
          */
         get bigRadius() {
-            return bigRadius;
+            return tileSize / 2;
         },
 
         /**
@@ -306,7 +265,7 @@ let Board = (function () {
          * @returns {Number}
          */
         get smallRadius() {
-            return smallRadius;
+            return tileSize / 4;
         },
 
         /**
@@ -314,7 +273,7 @@ let Board = (function () {
          * @returns {Number}
          */
         get eraseSize() {
-            return eraseSize;
+            return tileSize * 2;
         },
 
         /**
@@ -322,15 +281,30 @@ let Board = (function () {
          * @returns {String}
          */
         get boardColor() {
-            return boardColor;
+            return "rgb(0, 51, 255)";
         },
+
+        /**
+         * Returns the Center Text tile
+         * @returns {Number}
+         */
+        get centerTextTop() {
+            return 17.5;
+        },
+
+
 
         /**
          * Returns an array with the position of the energizers
          * @returns {Array.<{x: Number, y: Number}>}
          */
         get energizers() {
-            return energizers;
+            return [
+                { x:  1, y:  3 },
+                { x: 26, y:  3 },
+                { x:  1, y: 23 },
+                { x: 26, y: 23 },
+            ];
         },
 
         /**
@@ -338,31 +312,7 @@ let Board = (function () {
          * @returns {Number}
          */
         get pillAmount() {
-            return pillAmount;
-        },
-
-        /**
-         * The tile of the fruit in the board
-         * @returns {{x: Number, y: Number}}
-         */
-        get fruitTile() {
-            return fruitTile;
-        },
-
-        /**
-         * The position of the fruit in the board
-         * @returns {{x: Number, y: Number}}
-         */
-        get fruitPos() {
-            return tileToPos(fruitTile);
-        },
-
-        /**
-         * The size of the fruit in the board
-         * @returns {Number}
-         */
-        get fruitSize() {
-            return fruitSize;
+            return 244;
         },
 
         /**
@@ -370,7 +320,7 @@ let Board = (function () {
          * @returns {Number}
          */
         get pillSize() {
-            return pillSize;
+            return Utils.toEven(tileSize * 0.16666);
         },
 
         /**
@@ -378,23 +328,58 @@ let Board = (function () {
          * @returns {Number}
          */
         get energizerSize() {
-            return energizerSize;
+            return Utils.toEven(tileSize * 0.41666);
+        },
+
+
+        /**
+         * The tile of the fruit in the board
+         * @returns {{x: Number, y: Number}}
+         */
+        get fruitTile() {
+            return { x: 13.25, y: 16.8333 };
         },
 
         /**
-         * The ghost size in the board
+         * The position of the fruit in the board
+         * @returns {{x: Number, y: Number}}
+         */
+        get fruitPos() {
+            return Board.tileToPos(Board.fruitTile);
+        },
+
+        /**
+         * The size of the fruit in the board
          * @returns {Number}
          */
-        get ghostSize() {
-            return ghostSize;
+        get fruitSize() {
+            return Math.round(tileSize * 1.6);
         },
+
+        /**
+         * Returns the rectangle for the Fruit
+         * @returns {{left: Number, right: Number, top: Number, bottom: Number}}
+         */
+        get fruitRect() {
+            const pos  = Board.fruitPos;
+            const size = Board.fruitSize / 3;
+
+            return {
+                left   : pos.x - size,
+                right  : pos.x + size,
+                top    : pos.y - size,
+                bottom : pos.y + size,
+            };
+        },
+
+
 
         /**
          * The blob radius in the board
          * @returns {Number}
          */
-        get blobRadius() {
-            return blobRadius;
+         get blobRadius() {
+            return Utils.toEven(tileSize / 1.5);
         },
 
         /**
@@ -402,7 +387,7 @@ let Board = (function () {
          * @returns {{x: Number, y: Number}}
          */
         get startingPos() {
-            return { x: startingPos.x, y: startingPos.y };
+            return { x: 14, y: 23 };
         },
 
         /**
@@ -410,16 +395,25 @@ let Board = (function () {
          * @returns {{x: Number, y: Number}}
          */
         get startingDir() {
-            return { x: startingDir.x, y: startingDir.y };
+            return { x: -1, y: 0 };
         },
 
+
+
+        /**
+         * The ghost size in the board
+         * @returns {Number}
+         */
+        get ghostSize() {
+            return Utils.toEven(tileSize * 1.5);
+        },
 
         /**
          * Returns the eyes target
          * @returns {{x: Number, y: Number}}
          */
         get eyesTarget() {
-            return eyesTarget;
+            return { x: 13, y: 11 };
         },
 
         /**
@@ -441,6 +435,25 @@ let Board = (function () {
         },
 
 
+
+        /**
+         * Converts an x,y tile into an x,y position
+         * @param {{x: Number, y: Number}} tile
+         * @returns {{x: Number, y: Number}}
+         */
+        tileToPos(tile) {
+            return { x: tile.x * tileSize, y: tile.y * tileSize };
+        },
+
+        /**
+         * Returns the position at the middle of a tile
+         * @param {Number} tile
+         * @returns {Number}
+         */
+        getTileCenter(tile) {
+            return Math.round((tile + 0.5) * tileSize);
+        },
+
         /**
          * Returns the position at the middle of a tile
          * @param {{x: Number, y: Number}} tile
@@ -448,8 +461,8 @@ let Board = (function () {
          */
         getTileXYCenter(tile) {
             return {
-                x : getTileCenter(tile.x),
-                y : getTileCenter(tile.y)
+                x : Board.getTileCenter(tile.x),
+                y : Board.getTileCenter(tile.y)
             };
         },
 
@@ -511,21 +524,6 @@ let Board = (function () {
             };
         },
 
-        /**
-         * Returns the rectangle for the Fruit
-         * @returns {{left: Number, right: Number, top: Number, bottom: Number}}
-         */
-        getFruitRect() {
-            const pos  = Board.fruitPos;
-            const size = Board.fruitSize / 3;
-
-            return {
-                left   : pos.x - size,
-                right  : pos.x + size,
-                top    : pos.y - size,
-                bottom : pos.y + size
-            };
-        },
 
 
         /**
@@ -534,6 +532,9 @@ let Board = (function () {
          * @returns {Number}
          */
         tunnelEnds(x) {
+            const tunnelStart = -tileSize / 2;
+            const tunnelEnd   = tileSize * Board.cols + tunnelStart;
+
             if (x < tunnelStart) {
                 return tunnelEnd;
             }
@@ -543,7 +544,6 @@ let Board = (function () {
             return x;
         },
 
-
         /**
          * Returns true if there is a wall at the given position
          * @param {Number} col
@@ -551,7 +551,7 @@ let Board = (function () {
          * @returns {Boolean}
          */
         inBoard(col, row) {
-            return row >= 0 && col >= 0 && row < boardRows && col < boardCols;
+            return row >= 0 && col >= 0 && row < Board.rows && col < Board.cols;
         },
 
         /**
@@ -594,7 +594,6 @@ let Board = (function () {
             return boardMatrix[row][col] === pillPathValue || boardMatrix[row][col] === interPillValue;
         },
 
-
         /**
          * Returns all the possible turns at a given position
          * @param {String} pos
@@ -603,6 +602,8 @@ let Board = (function () {
         getTurns(pos) {
             return boardTurns[pos] || null;
         },
+
+
 
         /**
          * Converts a x,y object into a string
@@ -649,8 +650,34 @@ let Board = (function () {
             }
         },
 
+        /**
+         * Returns an object of numbers used in drawing
+         * @return {Object}
+         */
+        get numbers() {
+            return {
+                n18 : Board.tileSize * 1.5,
+                n17 : Board.tileSize * 1.4166,
+                n16 : Board.tileSize * 1.3333,
+                n15 : Board.tileSize * 1.25,
+                n14 : Board.tileSize * 1.1666,
+                n13 : Board.tileSize * 1.0833,
+                n12 : Board.tileSize,
+                n11 : Board.tileSize * 0.9166,
+                n10 : Board.tileSize * 0.8333,
+                n9  : Board.tileSize * 0.75,
+                n8  : Board.tileSize * 0.6666,
+                n7  : Board.tileSize * 0.5833,
+                n6  : Board.tileSize * 0.5,
+                n5  : Board.tileSize * 0.4166,
+                n4  : Board.tileSize * 0.3333,
+                n3  : Board.tileSize * 0.25,
+                n2  : Board.tileSize * 0.1666,
+                n1  : Board.tileSize * 0.0833,
 
-        getTileCenter,
-        tileToPos
+                r1  : Board.tileSize * 0.25,
+                r2  : Board.tileSize * 0.125,
+            };
+        },
     };
 }());

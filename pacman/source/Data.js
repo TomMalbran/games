@@ -421,28 +421,29 @@ let Data = (function (){
             switchTimes       : [ 5, 20, 5, 20, 5, 1037, 1 / 60, 1 ],
             penForceTime      : 3,
             penLeavingLimit   : [ 0, 0, 0, 0 ]
-        }],
+        },
+    ];
 
     /** @const Data */
-        fruitNames     = [ "Cherries", "Strawberry", "Peach", "Apple", "Grapes", "Galaxian", "Bell", "Key" ],
-        fruitDots1     = 174,
-        fruitDots2     = 74,
-        energizerValue = 5,
-        pillValue      = 1,
-        extraLife      = 10000,
-        pillMult       = 10,
-        eyesBonus      = 12000,
-        totalSwitchs   = 7,
-        blinksTimer    = 200,
-        penDotsCount   = [ 0, 7, 17, 32 ],
-        inPenSpeed     = 0.6,
-        eyesSpeed      = 2,
-        exitPenSpeed   = 0.4,
-        pathSpeeds     = {
-            inPen    : inPenSpeed,
-            exitPen  : exitPenSpeed,
-            enterPen : eyesSpeed
-        };
+    const fruitNames     = [ "Cherries", "Strawberry", "Peach", "Apple", "Grapes", "Galaxian", "Bell", "Key" ];
+    const fruitDots1     = 174;
+    const fruitDots2     = 74;
+    const energizerValue = 5;
+    const pillValue      = 1;
+    const extraLife      = 10000;
+    const pillMult       = 10;
+    const eyesBonus      = 12000;
+    const totalSwitches  = 7;
+    const blinksTimer    = 200;
+    const penDotsCount   = [ 0, 7, 17, 32 ];
+    const inPenSpeed     = 0.6;
+    const eyesSpeed      = 2;
+    const exitPenSpeed   = 0.4;
+    const pathSpeeds     = {
+        inPen    : inPenSpeed,
+        exitPen  : exitPenSpeed,
+        enterPen : eyesSpeed,
+    };
 
     /** @type {Number} the current game level */
     let gameLevel = 1;
@@ -527,11 +528,11 @@ let Data = (function (){
         },
 
         /**
-         * Returns the total amount of Ghost's mode switchs
+         * Returns the total amount of Ghost's mode switches
          * @returns {Number}
          */
-        get totalSwitchs() {
-            return totalSwitchs;
+        get totalSwitches() {
+            return totalSwitches;
         },
 
         /**
@@ -549,6 +550,7 @@ let Data = (function (){
         get eyesSpeed() {
             return eyesSpeed;
         },
+
 
 
         /**
@@ -571,7 +573,7 @@ let Data = (function (){
          * Returns the fruit name for the current level
          * @returns {String}
          */
-        getFruitName() {
+        get fruitName() {
             return fruitNames[Data.getLevelData("fruitType") - 1];
         },
 
@@ -579,7 +581,7 @@ let Data = (function (){
          * Returns the Pen Force time in miliseconds
          * @returns {Number}
          */
-        getPenForceTime() {
+        get penForceTime() {
             return Data.getLevelData("penForceTime") * 1000;
         },
 
@@ -596,7 +598,7 @@ let Data = (function (){
          * Returns the Fright time in miliseconds
          * @returns {Number}
          */
-        getFrightTime() {
+        get frightTime() {
             return Data.getLevelData("frightTime") * 1000;
         },
 
@@ -604,7 +606,7 @@ let Data = (function (){
          * Returns the amount of switchs when blinking in fright mode
          * @returns {Number}
          */
-        getBlinks() {
+        get blinks() {
             return Data.getLevelData("frightBlinks") * 2;
         },
 
@@ -651,7 +653,7 @@ let Data = (function (){
          */
         isFrighten(mode) {
             return mode === "blue" || mode === "white";
-        }
+        },
     };
 
 }());

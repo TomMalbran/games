@@ -46,8 +46,8 @@ class PausedAnimation extends Animation {
             size  : size,
             color : "rgb(255, 255, 51)",
             text  : "Paused!",
-            pos   : { x: 14, y: 17.3 },
-            alpha : 0.8
+            pos   : { x: 14, y: Board.centerTextTop },
+            alpha : 0.8,
         });
     }
 }

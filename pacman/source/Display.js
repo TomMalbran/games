@@ -13,7 +13,6 @@ class Display {
         this.callback  = callback;
     }
 
-
     /**
      * Gets the Game Display
      * @returns {String}
@@ -33,6 +32,7 @@ class Display {
     }
 
 
+
     /**
      * Adds the class to the design to show the Display
      * @returns {Void}
@@ -41,7 +41,6 @@ class Display {
         this.container.className = this.display;
         this.callback();
     }
-
 
     /**
      * Returns true if the game is in the main screen

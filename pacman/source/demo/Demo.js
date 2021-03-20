@@ -158,7 +158,7 @@ class Demo {
     chaseAnimation(speed) {
         this.animatePlayers(speed, true);
 
-        if (this.blob.getX() >= this.endPos) {
+        if (this.blob.x >= this.endPos) {
             this.nextAnimation();
         }
     }
@@ -192,21 +192,21 @@ class Demo {
         this.animatePlayers(speed);
         this.drawScores(time);
 
-        if (this.ghosts.length > 0 && this.blob.getX() <= this.ghosts[0].getX()) {
+        if (this.ghosts.length > 0 && this.blob.x <= this.ghosts[0].x) {
             this.ghosts.shift();
-            this.text = this.blob.getX();
+            this.text = this.blob.x;
             this.scores.push({
                 timer : 0,
                 size  : 1,
                 color : "rgb(51, 255, 255)",
                 text  : Data.getGhostScore(4 - this.ghosts.length),
                 pos   : {
-                    x : this.blob.getX() / Board.tileSize,
-                    y : DemoData.frighten.textTile
-                }
+                    x : this.blob.x / Board.tileSize,
+                    y : DemoData.frighten.textTile,
+                },
             });
         }
-        if (this.blob.getX() < this.endPos) {
+        if (this.blob.x < this.endPos) {
             this.nextAnimation();
         }
     }
@@ -258,7 +258,7 @@ class Demo {
         if (this.timer <= 0) {
             this.animatePlayers(speed);
 
-            if (this.count > 0 && this.ghosts[0].getX() > this.presentX) {
+            if (this.count > 0 && this.ghosts[0].x > this.presentX) {
                 this.drawName(this.ghosts[0]);
                 if (this.others.length) {
                     this.ghosts.unshift(this.others[0]);
@@ -267,7 +267,7 @@ class Demo {
                 this.timer  = DemoData.present.timer;
                 this.count -= 1;
 
-            } else if (this.ghosts[this.ghosts.length - 1].getX() > this.exitX) {
+            } else if (this.ghosts[this.ghosts.length - 1].x > this.exitX) {
                 this.ghosts.pop();
                 if (!this.ghosts.length) {
                     this.nextAnimation();
@@ -287,9 +287,9 @@ class Demo {
     drawName(ghost) {
         this.canvas.drawText({
             size  : 2,
-            color : ghost.getBodyColor(),
-            text  : `‘${ghost.getName()}’`,
-            pos   : DemoData.present.namePos
+            color : ghost.bodyColor,
+            text  : `‘${ghost.name}’`,
+            pos   : DemoData.present.namePos,
         });
     }
 

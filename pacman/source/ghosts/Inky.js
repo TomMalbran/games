@@ -15,24 +15,23 @@ class Inky extends Ghost {
 
         this.paths = {
             inPen    : [
-                { dir : { x:  0, y: -1 }, disty : 168, next : 1 },
-                { dir : { x:  0, y:  1 }, disty : 180, next : 0 }
+                { dir : { x:  0, y: -1 }, targetY : 14, next : 1 },
+                { dir : { x:  0, y:  1 }, targetY : 15, next : 0 },
             ],
             exitPen  : [
-                { dir : { x:  1, y:  0 }, distx : 168, next : 1    },
-                { dir : { x:  0, y: -1 }, disty : 138, next : null }
+                { dir : { x:  1, y:  0 }, targetX : 14,   next : 1    },
+                { dir : { x:  0, y: -1 }, targetY : 11.5, next : null },
             ],
             enterPen : [
-                { dir : { x: -1, y:  0 }, distx : 168, next : 1    },
-                { dir : { x:  0, y:  1 }, disty : 174, next : 2    },
-                { dir : { x: -1, y:  0 }, distx : 144, next : null }
-            ]
+                { dir : { x: -1, y:  0 }, targetX : 14,   next : 1    },
+                { dir : { x:  0, y:  1 }, targetY : 14.5, next : 2    },
+                { dir : { x: -1, y:  0 }, targetX : 12,   next : null },
+            ],
         };
 
         this.id      = 2;
-        this.x       = 144;
-        this.y       = 174;
-        this.scatter = { x: 27, y: 31 };
+        this.start   = { x: 12, y: 14.5 };
+        this.scatter = { x: 27, y:   31 };
         this.inPen   = true;
         this.color   = Inky.color;
         this.blinky  = blinky;
@@ -58,22 +57,23 @@ class Inky extends Ghost {
     }
 
 
+
     /**
      * Inky's target is an average of Blinky's position and the Blob's position
      * @param {Blob} blob
      * @returns {{x: Number, y: Number}}
      */
     chase(blob) {
-        const offsety = blob.getTile().y + 2 * blob.getDir().y;
-        let   offsetx = blob.getTile().x + 2 * blob.getDir().x;
+        const offsety = blob.tile.y + 2 * blob.dir.y;
+        let   offsetx = blob.tile.x + 2 * blob.dir.x;
 
         // Recreating bug where Up = Up+Left
-        if (blob.getDir().y === -1) {
+        if (blob.dir.y === -1) {
             offsetx -= 2;
         }
         return {
-            x : offsetx * 2 - this.blinky.getTile().x,
-            y : offsety * 2 - this.blinky.getTile().y
+            x : offsetx * 2 - this.blinky.tile.x,
+            y : offsety * 2 - this.blinky.tile.y
         };
     }
 }

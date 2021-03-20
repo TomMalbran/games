@@ -14,19 +14,18 @@ class Blinky extends Ghost {
 
         this.paths = {
             exitPen : [
-                { dir : { x:  0, y: -1 }, disty : 138, next : null }
+                { dir : { x:  0, y: -1 }, targetY : 11.5, next : null },
             ],
             enterPen : [
-                { dir : { x: -1, y:  0 }, distx : 168, next : 1    },
-                { dir : { x:  0, y:  1 }, disty : 174, next : null }
-            ]
+                { dir : { x: -1, y:  0 }, targetX : 14,   next : 1    },
+                { dir : { x:  0, y:  1 }, targetY : 14.5, next : null },
+            ],
         };
 
         this.id      = 0;
-        this.x       = 168;
-        this.y       = 138;
-        this.dir     = { x: -1, y:  0 };
-        this.scatter = { x: 25, y: -3 };
+        this.start   = { x: 14, y: 11.5 };
+        this.dir     = { x: -1, y:    0 };
+        this.scatter = { x: 25, y:   -3 };
         this.inPen   = false;
         this.color   = Blinky.color;
 
@@ -53,13 +52,14 @@ class Blinky extends Ghost {
     }
 
 
+
     /**
      * Blinky's target is always the current tile of the Blob
      * @param {Blob} blob
      * @returns {{x: Number, y: Number}}
      */
     chase(blob) {
-        return blob.getTile();
+        return blob.tile;
     }
 
     /**

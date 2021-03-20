@@ -19,8 +19,8 @@ class DeathAnimation extends Animation {
         this.callback   = callback;
         this.blocksGame = true;
         this.endTime    = 1350;
-        this.x          = blob.getX();
-        this.y          = blob.getY();
+        this.x          = blob.x;
+        this.y          = blob.y;
     }
 
     /**

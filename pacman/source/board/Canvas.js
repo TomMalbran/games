@@ -43,7 +43,7 @@ class Canvas {
      */
     fill(alpha, x, y, width, height) {
         this.ctx.save();
-        this.ctx.fillStyle = `rgba(0, 0, 0, ${alpha})`;
+        this.ctx.fillStyle = Utils.rgba(0, 0, 0, alpha);
         this.ctx.fillRect(x || 0, y || 0, width || Board.width, height || Board.height);
         this.ctx.restore();
     }
@@ -82,7 +82,7 @@ class Canvas {
             x      : x - Board.eraseSize / 2,
             y      : y - Board.eraseSize / 2,
             width  : Board.eraseSize,
-            height : Board.eraseSize
+            height : Board.eraseSize,
         });
     }
 
@@ -124,7 +124,7 @@ class Canvas {
             y      : data.pos.y * Board.tileSize - height / 2,
             width  : width,
             height : height,
-            alpha  : data.alpha || 0
+            alpha  : data.alpha || 0,
         });
     }
 }

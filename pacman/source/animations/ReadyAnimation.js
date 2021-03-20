@@ -20,7 +20,7 @@ class ReadyAnimation extends Animation {
         this.canvas.drawText({
             color : "rgb(255, 255, 51)",
             text  : "Ready!",
-            pos   : { x: 14, y: 17.3 }
+            pos   : { x: 14, y: Board.centerTextTop },
         });
     }
 }

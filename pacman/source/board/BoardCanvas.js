@@ -304,8 +304,7 @@ class BoardCanvas extends Canvas {
             x : x * Board.tileSize + Board.bigRadius + data.x * Board.halfLine,
             y : y * Board.tileSize + Board.bigRadius + data.y * Board.halfLine
         };
-
-        this.corner(pos, Board.bigRadius, type, false);
+        this.drawCorner(pos, Board.bigRadius, type, false);
     }
 
     /**
@@ -322,8 +321,7 @@ class BoardCanvas extends Canvas {
             x : (x + data.x.cell) * Board.tileSize + radius.x * Board.smallRadius + data.x.line * Board.halfLine,
             y : (y + data.y.cell) * Board.tileSize + radius.y * Board.smallRadius + data.y.line * Board.halfLine
         };
-
-        this.corner(pos, Board.smallRadius, type, true);
+        this.drawCorner(pos, Board.smallRadius, type, true);
     }
 
     /**
@@ -342,8 +340,7 @@ class BoardCanvas extends Canvas {
             x : (x + 0.5) * Board.tileSize + data.x * radius,
             y : (y + 0.5) * Board.tileSize + data.y * radius
         };
-
-        this.corner(pos, radius, type, anitclockwise);
+        this.drawCorner(pos, radius, type, anitclockwise);
     }
 
     /**
@@ -354,7 +351,7 @@ class BoardCanvas extends Canvas {
      * @param {Boolean}                anitclockwise
      * @returns {Void}
      */
-    corner(pos, radius, type, anitclockwise) {
+    drawCorner(pos, radius, type, anitclockwise) {
         let   rad    = this.radians[type];
         const result = [ rad.from * Math.PI, rad.to * Math.PI ];
 
@@ -365,6 +362,7 @@ class BoardCanvas extends Canvas {
 
         this.ctx.arc(pos.x, pos.y, radius, rad.from, rad.to, anitclockwise);
     }
+
 
 
     /**

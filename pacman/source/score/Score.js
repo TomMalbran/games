@@ -16,7 +16,7 @@ class Score {
         this.bonus  = 0;
         this.ghosts = 0;
 
-        this.textTop     = 32.5;
+        this.textTop     = 32.25;
         this.scoreLeft   = 3.2;
         this.livesLeft   = 16.3;
         this.scoreMargin = 0.5;
@@ -28,7 +28,6 @@ class Score {
         this.blobs = [ new ScoreBlob(0), new ScoreBlob(1) ];
         this.food  = new Fruit();
     }
-
 
     /**
      * Draws the Score, Blobs and Fruit in the board
@@ -43,6 +42,7 @@ class Score {
         });
         this.food.draw(this.fruitTile);
     }
+
 
 
     /**
@@ -78,6 +78,7 @@ class Score {
             blob.clear();
         }
     }
+
 
 
     /**
@@ -137,6 +138,7 @@ class Score {
     }
 
 
+
     /**
      * Draws the texts in the board
      * @returns {Void}
@@ -145,12 +147,12 @@ class Score {
         this.canvas.drawText({
             text : "Score",
             size : 1.8,
-            pos  : { x: this.scoreLeft, y: this.textTop }
+            pos  : { x: this.scoreLeft, y: this.textTop },
         });
         this.canvas.drawText({
             text : "Lives",
             size : 1.8,
-            pos  : { x: this.livesLeft, y: this.textTop }
+            pos  : { x: this.livesLeft, y: this.textTop },
         });
     }
 
@@ -172,22 +174,5 @@ class Score {
         this.ctx.clearRect(left + margin / 2, top - height / 2 - 2, width, height + 2);
         this.ctx.fillText(this.score, left + margin, top);
         this.ctx.restore();
-    }
-
-
-    /**
-     * Returns the current level
-     * @returns {Number}
-     */
-    getLevel() {
-        return this.level;
-    }
-
-    /**
-     * Returns the current score
-     * @returns {Number}
-     */
-    getScore() {
-        return this.score;
     }
 }

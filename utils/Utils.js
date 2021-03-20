@@ -64,7 +64,29 @@ let Utils = (function () {
             return angle;
         },
 
+        /**
+         * Returns the given number as Even
+         * @param {Number} number
+         * @returns {Number}
+         */
+        toEven(number) {
+            const rounded = Math.round(number);
+            return rounded % 2 === 1 ? rounded + 1 : rounded;
+        },
 
+
+
+        /**
+         * Returns an rgba string
+         * @param {Number} red
+         * @param {Number} green
+         * @param {Number} blue
+         * @param {Number} alpha
+         * @returns {String}
+         */
+        rgba(red, green, blue, alpha) {
+            return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+        },
 
         /**
          * Returns the number with a px prefix

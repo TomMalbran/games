@@ -34,6 +34,7 @@ class Blob {
     }
 
 
+
     /**
      * Animates the Blob
      * @param {Number} speed
@@ -121,6 +122,7 @@ class Blob {
     }
 
 
+
     /**
      * Does a faster turn by turnning a bit before the corner.
      * Only when a turn is asked before reaching an intersection
@@ -157,7 +159,6 @@ class Blob {
         if (!atPill) {
             this.sound = 1;
         }
-
         let key;
         if (frightenGhosts) {
             key = atPill ? "eatingFrightSpeed" : "pmFrightSpeed";
@@ -193,6 +194,7 @@ class Blob {
             this.turn = turn;
         }
     }
+
 
 
     /**
@@ -255,6 +257,7 @@ class Blob {
         ctx.arc(0, 0, radius, 0, 2 * Math.PI, true);
         ctx.stroke();
     }
+
 
 
     /**
@@ -326,38 +329,5 @@ class Blob {
             angle = 1.5 * Math.PI;
         }
         return angle;
-    }
-
-
-    /**
-     * Returns the Blob x position
-     * @returns {Number}
-     */
-    getX() {
-        return this.x;
-    }
-
-    /**
-     * Returns the Blob y position
-     * @returns {Number}
-     */
-    getY() {
-        return this.y;
-    }
-
-    /**
-     * Returns the Blob direction
-     * @returns {{x: Number, y: Number}}
-     */
-    getDir() {
-        return this.dir;
-    }
-
-    /**
-     * Returns the Blob tile
-     * @returns {{x: Number, y: Number}}
-     */
-    getTile() {
-        return this.tile;
     }
 }

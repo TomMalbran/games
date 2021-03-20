@@ -18,10 +18,10 @@ class Ghosts {
 
         // The Ghosts
         const canvas     = Board.gameCanvas;
-        this.blinky      = new Blinky(canvas, oldManager ? oldManager.blinky.getDots() : null);
-        this.pinky       = new Pinky(canvas, oldManager ? oldManager.pinky.getDots() : null);
-        this.inky        = new Inky(canvas, oldManager ? oldManager.inky.getDots() : null, this.blinky);
-        this.clyde       = new Clyde(canvas, oldManager ? oldManager.clyde.getDots() : null);
+        this.blinky      = new Blinky(canvas, oldManager ? oldManager.blinky.dotsCount : null);
+        this.pinky       = new Pinky(canvas, oldManager ? oldManager.pinky.dotsCount : null);
+        this.inky        = new Inky(canvas, oldManager ? oldManager.inky.dotsCount : null, this.blinky);
+        this.clyde       = new Clyde(canvas, oldManager ? oldManager.clyde.dotsCount : null);
         this.ghosts      = [ this.blinky, this.pinky, this.inky, this.clyde ];
 
         // Pen Data
@@ -47,7 +47,7 @@ class Ghosts {
     animate(time, speed, blob) {
         if (this.frightTimer > 0) {
             this.frightTimer -= time;
-        } else if (this.modeCounter < Data.totalSwitchs && this.modeTimer > 0) {
+        } else if (this.modeCounter < Data.totalSwitches && this.modeTimer > 0) {
             this.modeTimer -= time;
         }
 
@@ -147,8 +147,8 @@ class Ghosts {
     frighten(blob) {
         const oldMode    = this.globalMode;
         this.globalMode  = "blue";
-        this.frightTimer = Data.getFrightTime();
-        this.blinksCount = Data.getBlinks();
+        this.frightTimer = Data.frightTime;
+        this.blinksCount = Data.blinks;
         this.eyesCounter = 0;
 
         this.switchGhostsMode(oldMode, blob);
@@ -166,7 +166,7 @@ class Ghosts {
             const result = ghost.killOrDie(blobTile);
             if (result === "kill") {
                 this.eyesCounter += 1;
-                onKill(this.eyesCounter, ghost.getTile());
+                onKill(this.eyesCounter, ghost.target);
             } else if (result === "die") {
                 onDie();
             }
@@ -230,7 +230,7 @@ class Ghosts {
         const limits = Data.getLevelData("penLeavingLimit");
         const ghost  = this.inPen[0];
 
-        if (limits[ghost.getID()] <= ghost.getDots()) {
+        if (limits[ghost.id] <= ghost.dotsCount) {
             this.releaseGhostFromPen();
         }
     }
@@ -243,8 +243,8 @@ class Ghosts {
         this.globalDots += 1;
 
         this.inPen.forEach((ghost) => {
-            if (this.globalDots === Data.getPenDotsCount(ghost.getID())) {
-                if (ghost.getID() <= 2) {
+            if (this.globalDots === Data.getPenDotsCount(ghost.id)) {
+                if (ghost.id <= 2) {
                     this.releaseGhostFromPen();
                 } else {
                     this.penType    = false;
@@ -261,7 +261,7 @@ class Ghosts {
      */
     increasePenTimer(time) {
         this.penTimer += time;
-        if (this.inPen.length > 0 && this.penTimer >= Data.getPenForceTime()) {
+        if (this.inPen.length > 0 && this.penTimer >= Data.penForceTime) {
             this.releaseGhostFromPen();
             this.penTimer = 0;
         }
@@ -295,11 +295,11 @@ class Ghosts {
      */
     addGhostToPen(ghost) {
         // Blinky never stays in the Pen
-        if (ghost.getID() === 0) {
+        if (ghost.id === 0) {
             ghost.setPath("exitPen");
         } else {
             let i = 0;
-            while (i < this.inPen.length && this.inPen[i].getID() <= ghost.getID()) {
+            while (i < this.inPen.length && this.inPen[i].id <= ghost.id) {
                 i += 1;
             }
             this.inPen.splice(i, 0, ghost);

@@ -41,13 +41,13 @@ class NewLevelAnimation extends Animation {
             color : "rgb(255,255,255)",
             align : "right",
             text  : "Level",
-            pos   : { x: pos, y: 17.3 }
+            pos   : { x: pos, y: Board.centerTextTop },
         });
         this.canvas.drawText({
             color : "rgb(255,255,51)",
             align : "left",
             text  : lvl,
-            pos   : { x: right - pos + 2, y: 17.3 }
+            pos   : { x: right - pos + 2, y: Board.centerTextTop },
         });
     }
 }

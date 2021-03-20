@@ -40,12 +40,13 @@
     }
 
 
+
     /**
      * Called when the Blob enters a new tile
      * @returns {Void}
      */
     function blobEating() {
-        const tile   = blob.getTile();
+        const tile   = blob.tile;
         const atPill = food.isAtPill(tile);
 
         if (atPill) {
@@ -75,7 +76,7 @@
      * @returns {Void}
      */
     function ghostCrash() {
-        ghosts.crash(blob.getTile(), (eyesCounter, tile) => {
+        ghosts.crash(blob.tile, (eyesCounter, tile) => {
             const text = score.kill(eyesCounter);
             animations.ghostScore(text, tile);
             sounds.kill();
@@ -85,6 +86,7 @@
             sounds.death();
         });
     }
+
 
 
     /**
@@ -105,7 +107,7 @@
      * @returns {Void}
      */
     function newLevel() {
-        animations.newLevel(score.getLevel(), () => {
+        animations.newLevel(score.level, () => {
             food  = new Food();
             fruit = new Fruit();
 
@@ -115,6 +117,7 @@
             createPlayers(false);
         });
     }
+
 
 
     /**
@@ -164,6 +167,7 @@
     function cancelAnimation() {
         window.cancelAnimationFrame(animation);
     }
+
 
 
     /**
@@ -216,7 +220,7 @@
      * @returns {Void}
      */
     function saveHighScore() {
-        if (scores.save(score.getLevel(), score.getScore())) {
+        if (scores.save(score.level, score.score)) {
             showHighScores();
         }
     }

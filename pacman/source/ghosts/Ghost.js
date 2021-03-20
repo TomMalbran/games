@@ -17,6 +17,8 @@ class Ghost {
         this.tile       = Board.getGhostStartTile(this.inPen);
         this.tileCenter = Board.getTileXYCenter(this.tile);
         this.turn       = Board.getGhostStartTurn(this.inPen);
+        this.x          = this.start.x * Board.tileSize;
+        this.y          = this.start.y * Board.tileSize;
         this.center     = false;
         this.dotsCount  = dots || 0;
         this.target     = this.scatter;
@@ -25,6 +27,7 @@ class Ghost {
         this.path       = null;
         this.pathName   = null;
         this.pathStep   = 0;
+
     }
 
     /**
@@ -86,10 +89,10 @@ class Ghost {
         const step = this.path[this.pathStep];
         if (this.passedDist()) {
             if (this.dir.x) {
-                this.x = step.distx;
+                this.x = step.targetX * Board.tileSize;
             }
             if (this.dir.y) {
-                this.y = step.disty;
+                this.y = step.targetY * Board.tileSize;
             }
 
             if (step.next !== null) {
@@ -135,7 +138,6 @@ class Ghost {
         }
     }
 
-
     /**
      * The Ghost moved to a new Tile
      * @param {Blob} blob
@@ -153,6 +155,7 @@ class Ghost {
             }
         }
     }
+
 
 
     /**
@@ -175,6 +178,7 @@ class Ghost {
     isEnteringPen() {
         return this.mode === "eyes" && Board.equalTiles(this.tile, Board.eyesTarget);
     }
+
 
 
     /**
@@ -317,10 +321,10 @@ class Ghost {
     passedDist() {
         const path = this.path[this.pathStep];
         return (
-            (this.dir.x ===  1 && this.x >= path.distx) ||
-            (this.dir.x === -1 && this.x <= path.distx) ||
-            (this.dir.y ===  1 && this.y >= path.disty) ||
-            (this.dir.y === -1 && this.y <= path.disty)
+            (this.dir.x ===  1 && this.x >= path.targetX * Board.tileSize) ||
+            (this.dir.x === -1 && this.x <= path.targetX * Board.tileSize) ||
+            (this.dir.y ===  1 && this.y >= path.targetY * Board.tileSize) ||
+            (this.dir.y === -1 && this.y <= path.targetY * Board.tileSize)
         );
     }
 
@@ -367,6 +371,7 @@ class Ghost {
     }
 
 
+
     /**
      * Returns true if the Ghost is in "Cruise Elroy" Mode. Only used for Blinky
      * @returns {Boolean}
@@ -400,7 +405,6 @@ class Ghost {
         this.target = this.chase(blob);
     }
 
-
     /**
      * Changes the Drawing for the Ghosts feet
      * @returns {Void}
@@ -408,6 +412,8 @@ class Ghost {
     moveFeet() {
         this.feet = (this.feet + 0.3) % 2;
     }
+
+
 
     /**
      * Draws the Ghost
@@ -433,51 +439,41 @@ class Ghost {
      * @returns {Void}
      */
     ghostBody() {
-        this.ctx.fillStyle = this.getBodyColor();
+        const nums = Board.numbers;
+
+        this.ctx.fillStyle = this.bodyColor;
         this.ctx.beginPath();
-        this.ctx.arc(8,  8, 8, Math.PI, 1.5 * Math.PI, false);
-        this.ctx.arc(10, 8, 8, 1.5 * Math.PI, 2 * Math.PI, false);
+        this.ctx.arc(nums.n8, nums.n8, nums.n8, Math.PI, 1.5 * Math.PI, false);
+        this.ctx.arc(nums.n10, nums.n8, nums.n8, 1.5 * Math.PI, 2 * Math.PI, false);
 
         if (!Math.floor(this.feet)) {
-            this.ghostFeet0();
+            this.ghostFeet(true);
         } else {
-            this.ghostFeet1();
+            this.ghostFeet(false);
         }
         this.ctx.fill();
     }
 
     /**
      * Draws one of the variations of the Ghost's Feet
+     * @param {Boolean} firstVariant
      * @returns {Void}
      */
-    ghostFeet0() {
-        this.ctx.lineTo(18, 16);
-        this.ctx.lineTo(16, 18);
-        this.ctx.lineTo(15, 18);
-        this.ctx.lineTo(12, 15);
-        this.ctx.lineTo(9, 18);
-        this.ctx.lineTo(6, 15);
-        this.ctx.lineTo(3, 18);
-        this.ctx.lineTo(2, 18);
-        this.ctx.lineTo(0, 16);
-        this.ctx.lineTo(0, 8);
-    }
+    ghostFeet(firstVariant) {
+        const nums   = Board.numbers;
+        const first  = firstVariant ? nums.n16 : nums.n18;
+        const second = firstVariant ? nums.n18 : nums.n16;
 
-    /**
-     * Draws the other variation of the Ghost's Feet
-     * @returns {Void}
-     */
-    ghostFeet1() {
-        this.ctx.lineTo(18, 18);
-        this.ctx.lineTo(15, 15);
-        this.ctx.lineTo(12, 18);
-        this.ctx.lineTo(11, 18);
-        this.ctx.lineTo(9, 15);
-        this.ctx.lineTo(7, 18);
-        this.ctx.lineTo(6, 18);
-        this.ctx.lineTo(3, 15);
-        this.ctx.lineTo(0, 18);
-        this.ctx.lineTo(0, 8);
+        this.ctx.lineTo(nums.n18, first);
+        this.ctx.lineTo(nums.n15, second);
+        this.ctx.lineTo(nums.n13, first);
+        this.ctx.lineTo(nums.n11, second);
+        this.ctx.lineTo(nums.n9, first);
+        this.ctx.lineTo(nums.n7, second);
+        this.ctx.lineTo(nums.n5, first);
+        this.ctx.lineTo(nums.n3, second);
+        this.ctx.lineTo(0, first);
+        this.ctx.lineTo(0, nums.n8);
     }
 
     /**
@@ -485,16 +481,18 @@ class Ghost {
      * @returns {Void}
      */
     ghostNormalFace() {
+        const nums = Board.numbers;
+
         this.ctx.fillStyle = "rgb(255, 255, 255)";
         this.ctx.beginPath();
-        this.ctx.arc(6    + this.dir.x * 2, 7 + this.dir.y * 2, 3, 0, 2 * Math.PI);
-        this.ctx.arc(12.5 + this.dir.x * 2, 7 + this.dir.y * 2, 3, 0, 2 * Math.PI);
+        this.ctx.arc(nums.n6  + this.dir.x * nums.n2, nums.n7 + this.dir.y * nums.n2, nums.r1, 0, 2 * Math.PI);
+        this.ctx.arc(nums.n12 + this.dir.x * nums.n2, nums.n7 + this.dir.y * nums.n2, nums.r1, 0, 2 * Math.PI);
         this.ctx.fill();
 
         this.ctx.fillStyle = "rgb(0, 51, 255)";
         this.ctx.beginPath();
-        this.ctx.arc(6    + this.dir.x * 4, 7 + this.dir.y * 4, 1.5, 0, 2 * Math.PI);
-        this.ctx.arc(12.5 + this.dir.x * 4, 7 + this.dir.y * 4, 1.5, 0, 2 * Math.PI);
+        this.ctx.arc(nums.n6  + this.dir.x * nums.n4, nums.n7 + this.dir.y * nums.n4, nums.r2, 0, 2 * Math.PI);
+        this.ctx.arc(nums.n12 + this.dir.x * nums.n4, nums.n7 + this.dir.y * nums.n4, nums.r2, 0, 2 * Math.PI);
         this.ctx.fill();
     }
 
@@ -503,21 +501,23 @@ class Ghost {
      * @returns {Void}
      */
     ghostFrightenFace() {
-        this.ctx.fillStyle = this.getFaceColor();
+        const nums = Board.numbers;
+
+        this.ctx.fillStyle = this.faceColor;
         this.ctx.beginPath();
-        this.ctx.arc(6, 7, 1.5, 0, 2 * Math.PI);
-        this.ctx.arc(12.5, 7, 1.5, 0, 2 * Math.PI);
+        this.ctx.arc(nums.n6,  nums.n7, nums.r2, 0, 2 * Math.PI);
+        this.ctx.arc(nums.n12, nums.n7, nums.r2, 0, 2 * Math.PI);
         this.ctx.fill();
 
-        this.ctx.strokeStyle = this.getFaceColor();
+        this.ctx.strokeStyle = this.faceColor;
         this.ctx.beginPath();
-        this.ctx.moveTo(3, 14);
-        this.ctx.lineTo(5, 11);
-        this.ctx.lineTo(7, 14);
-        this.ctx.lineTo(9, 11);
-        this.ctx.lineTo(11, 14);
-        this.ctx.lineTo(13, 11);
-        this.ctx.lineTo(15, 14);
+        this.ctx.moveTo(nums.n3, nums.n13);
+        this.ctx.lineTo(nums.n5, nums.n11);
+        this.ctx.lineTo(nums.n7, nums.n13);
+        this.ctx.lineTo(nums.n9, nums.n11);
+        this.ctx.lineTo(nums.n11, nums.n13);
+        this.ctx.lineTo(nums.n13, nums.n11);
+        this.ctx.lineTo(nums.n15, nums.n13);
         this.ctx.stroke();
     }
 
@@ -525,7 +525,7 @@ class Ghost {
      * Returns the color for the Ghosts body depending on the mode
      * @returns {String}
      */
-    getBodyColor() {
+    get bodyColor() {
         switch (this.mode) {
         case "blue":
             return "rgb(0, 51, 255)";
@@ -542,56 +542,7 @@ class Ghost {
      * Returns the color used for the Ghosts face depending on the mode
      * @returns {String}
      */
-    getFaceColor() {
+    get faceColor() {
         return this.mode === "blue" ? "rgb(255, 255, 255)" : "rgb(255, 0, 0)";
-    }
-
-
-    /**
-     * Returns the Ghost's ID
-     * @returns {Number}
-     */
-    getID() {
-        return this.id;
-    }
-
-    /**
-     * Returns the Ghost's x position
-     * @returns {Number}
-     */
-    getX() {
-        return this.x;
-    }
-
-    /**
-     * Returns the Ghost's y position
-     * @returns {Number}
-     */
-    getY() {
-        return this.y;
-    }
-
-    /**
-     * Returns the Ghost's tile position
-     * @returns {{x: Number, y: Number}}
-     */
-    getTile() {
-        return this.tile;
-    }
-
-    /**
-     * Returns the Ghost's interntal dots counter
-     * @returns {Number}
-     */
-    getDots() {
-        return this.dotsCount;
-    }
-
-    /**
-     * Returns the Ghost's current target tile
-     * @returns {Number}
-     */
-    getTargetTile() {
-        return this.target;
     }
 }

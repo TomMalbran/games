@@ -14,22 +14,21 @@ class Pinky extends Ghost {
 
         this.paths = {
             inPen    : [
-                { dir : { x:  0, y: -1 }, disty : 168, next : 1 },
-                { dir : { x:  0, y:  1 }, disty : 180, next : 0 }
+                { dir : { x:  0, y: -1 }, targetY : 14, next : 1 },
+                { dir : { x:  0, y:  1 }, targetY : 15, next : 0 },
             ],
             exitPen  : [
-                { dir : { x:  0, y: -1 }, disty : 138, next : null }
+                { dir : { x:  0, y: -1 }, targetY : 11.5, next : null },
             ],
             enterPen : [
-                { dir : { x: -1, y:  0 }, distx : 168, next : 1    },
-                { dir : { x:  0, y:  1 }, disty : 174, next : null }
-            ]
+                { dir : { x: -1, y:  0 }, targetX : 14,   next : 1    },
+                { dir : { x:  0, y:  1 }, targetY : 14.5, next : null },
+            ],
         };
 
         this.id      = 1;
-        this.x       = 168;
-        this.y       = 174;
-        this.scatter = { x: 2, y: -3 };
+        this.start   = { x: 14, y: 14.5 };
+        this.scatter = { x:  2, y:   -3 };
         this.inPen   = true;
         this.color   = Pinky.color;
 
@@ -61,11 +60,11 @@ class Pinky extends Ghost {
      * @returns {{x: Number, y: Number}}
      */
     chase(blob) {
-        const targety = blob.getTile().y + 4 * blob.getDir().y;
-        let   targetx = blob.getTile().x + 4 * blob.getDir().x;
+        const targety = blob.tile.y + 4 * blob.dir.y;
+        let   targetx = blob.tile.x + 4 * blob.dir.x;
 
         // Recreating bug where Up = Up+Left
-        if (blob.getDir().y === -1) {
+        if (blob.dir.y === -1) {
             targetx -= 4;
         }
         return { x: targetx, y: targety };

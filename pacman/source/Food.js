@@ -60,6 +60,7 @@ class Food {
     }
 
 
+
     /**
      * Does the Enerigizers animation
      * @returns {Void}
@@ -82,6 +83,7 @@ class Food {
             this.mult = -1;
         }
     }
+
 
 
     /**
@@ -123,7 +125,6 @@ class Food {
         this.ctx.clearRect(rect.x, rect.y, rect.size, rect.size);
     }
 
-
     /**
      * Draws all the remaining Energizers with the given radius
      * @returns {Void}
@@ -163,6 +164,7 @@ class Food {
     }
 
 
+
     /**
      * Returns true if there is a Pill at the given cell
      * @param {{x: Number, y: Number}} tile
@@ -191,7 +193,6 @@ class Food {
         }
         return value;
     }
-
 
     /**
      * Returns the amount of Pîlls left

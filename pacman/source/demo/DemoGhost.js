@@ -20,13 +20,6 @@ class DemoGhost extends Ghost {
         this.color  = color;
     }
 
-    /**
-     * Returns the Ghost's name
-     * @returns {Number}
-     */
-    getName() {
-        return this.name;
-    }
 
 
     /**

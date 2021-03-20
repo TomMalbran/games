@@ -12,6 +12,7 @@ class Fruit {
     }
 
 
+
     /**
      * Try to add a fruit in the board
      * @param {Number} dotsLeft
@@ -53,17 +54,17 @@ class Fruit {
      * @returns {Boolean}
      */
     isAtPos(tile) {
-        if (this.timer > 0) {
-            const rect = Board.getFruitRect();
-            const pos  = Board.tileToPos(tile);
-
-            return (
-                pos.x >= rect.left && pos.x <= rect.right &&
-                pos.y >= rect.top  && pos.y <= rect.bottom
-            );
+        if (this.timer <= 0) {
+            return false;
         }
-        return false;
+        const rect = Board.fruitRect;
+        const pos  = Board.tileToPos(tile);
+        return (
+            pos.x >= rect.left && pos.x <= rect.right &&
+            pos.y >= rect.top  && pos.y <= rect.bottom
+        );
     }
+
 
 
     /**
@@ -75,7 +76,7 @@ class Fruit {
         const pos = Board.tileToPos(tile);
         this.ctx.save();
         this.ctx.translate(pos.x, pos.y);
-        this[`draw${Data.getFruitName()}`]();
+        this[`draw${Data.fruitName}`]();
         this.ctx.restore();
     }
 
@@ -89,38 +90,41 @@ class Fruit {
     }
 
 
+
     /**
      * Draws the Cherries Fruit
      * @returns {Void}
      */
     drawCherries() {
+        const nums = Board.numbers;
+
         this.ctx.fillStyle = "rgb(255, 0, 0)";
         this.ctx.beginPath();
-        this.ctx.arc(10, 14, 4, 0, 2 * Math.PI);
-        this.ctx.arc(4, 10, 4, 0, 2 * Math.PI);
+        this.ctx.arc(nums.n10, nums.n14, nums.n4, 0, 2 * Math.PI);
+        this.ctx.arc(nums.n4, nums.n10, nums.n4, 0, 2 * Math.PI);
         this.ctx.fill();
 
         this.ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
         this.ctx.beginPath();
-        this.ctx.arc(8, 15.5, 1.5, 0, 2 * Math.PI);
-        this.ctx.arc(1.5, 11, 1.5, 0, 2 * Math.PI);
+        this.ctx.arc(nums.n8, nums.n15, nums.r2, 0, 2 * Math.PI);
+        this.ctx.arc(nums.r2, nums.n11, nums.r2, 0, 2 * Math.PI);
         this.ctx.fill();
 
         this.ctx.strokeStyle = "rgb(0, 153, 0)";
-        this.ctx.lineWidth = 2;
+        this.ctx.lineWidth = nums.n2;
         this.ctx.beginPath();
-        this.ctx.moveTo(17, 1);
-        this.ctx.quadraticCurveTo(9, 1, 5, 9);
-        this.ctx.moveTo(17, 1);
-        this.ctx.quadraticCurveTo(12, 3, 10, 12);
+        this.ctx.moveTo(nums.n17, nums.n1);
+        this.ctx.quadraticCurveTo(nums.n9, nums.n1, nums.n5, nums.n9);
+        this.ctx.moveTo(nums.n17, nums.n1);
+        this.ctx.quadraticCurveTo(nums.n12, nums.n3, nums.n10, nums.n12);
         this.ctx.stroke();
 
         this.ctx.strokeStyle = "rgb(222, 151, 81)";
-        this.ctx.lineWidth = 3;
+        this.ctx.lineWidth = nums.n3;
         this.ctx.lineCap = "round";
         this.ctx.beginPath();
-        this.ctx.moveTo(17, 1);
-        this.ctx.lineTo(16, 2);
+        this.ctx.moveTo(nums.n17, nums.n1);
+        this.ctx.lineTo(nums.n16, nums.n2);
         this.ctx.stroke();
     }
 
@@ -129,28 +133,34 @@ class Fruit {
      * @returns {Void}
      */
     drawStrawberry() {
-        const dots = [ 3, 7, 5, 6, 4, 10, 7, 8, 6, 11, 7, 13, 9, 10, 9, 14, 10, 12, 11, 8, 12, 11, 14, 6, 14, 9 ];
+        const nums = Board.numbers;
+        const dots = [
+            nums.n3, nums.n7, nums.n5, nums.n6, nums.n4, nums.n10, nums.n7,
+            nums.n8, nums.n6, nums.n11, nums.n7, nums.n13, nums.n9, nums.n10,
+            nums.n9, nums.n14, nums.n10, nums.n12, nums.n11, nums.n8, nums.n12,
+            nums.n11, nums.n14, nums.n6, nums.n14, nums.n9,
+        ];
 
         this.ctx.fillStyle = "rgb(222, 0, 0)";
         this.ctx.beginPath();
-        this.ctx.moveTo(9, 3);
-        this.ctx.quadraticCurveTo(17, 3, 17, 7);
-        this.ctx.quadraticCurveTo(17, 14, 9, 17);
-        this.ctx.quadraticCurveTo(1, 14, 1, 7);
-        this.ctx.quadraticCurveTo(1, 3, 9, 3);
+        this.ctx.moveTo(nums.n9, nums.n3);
+        this.ctx.quadraticCurveTo(nums.n17, nums.n3, nums.n17, nums.n7);
+        this.ctx.quadraticCurveTo(nums.n17, nums.n14, nums.n9, nums.n17);
+        this.ctx.quadraticCurveTo(nums.n1, nums.n14, nums.n1, nums.n7);
+        this.ctx.quadraticCurveTo(nums.n1, nums.n3, nums.n9, nums.n3);
         this.ctx.fill();
 
         this.ctx.fillStyle = "rgb(0, 222, 0)";
         this.ctx.beginPath();
-        this.ctx.moveTo(5, 3);
-        this.ctx.lineTo(13, 3);
-        this.ctx.lineTo(14, 4);
-        this.ctx.lineTo(9, 7);
-        this.ctx.lineTo(4, 4);
+        this.ctx.moveTo(nums.n5, nums.n3);
+        this.ctx.lineTo(nums.n13, nums.n3);
+        this.ctx.lineTo(nums.n14, nums.n4);
+        this.ctx.lineTo(nums.n9, nums.n7);
+        this.ctx.lineTo(nums.n4, nums.n4);
         this.ctx.fill();
 
         this.ctx.fillStyle = "rgb(255, 255, 255)";
-        this.ctx.fillRect(8, 0, 2, 4);
+        this.ctx.fillRect(nums.n8, 0, nums.n2, nums.n4);
 
         for (let i = 0; i < dots.length; i += 2) {
             this.ctx.fillRect(dots[i], dots[i + 1], 1, 1);
@@ -162,21 +172,23 @@ class Fruit {
      * @returns {Void}
      */
     drawPeach() {
+        const nums = Board.numbers;
+
         this.ctx.fillStyle = "rgb(255, 181, 33)";
         this.ctx.beginPath();
-        this.ctx.arc(6, 10, 5, Math.PI, 1.5 * Math.PI, false);
-        this.ctx.arc(12, 10, 5, 1.5 * Math.PI, 2 * Math.PI, false);
-        this.ctx.arc(10, 11, 7, 0, 0.5 * Math.PI, false);
-        this.ctx.arc(8, 11, 7, 0.5 * Math.PI, Math.PI, false);
+        this.ctx.arc(nums.n6,  nums.n10, nums.n5, Math.PI, 1.5 * Math.PI, false);
+        this.ctx.arc(nums.n12, nums.n10, nums.n5, 1.5 * Math.PI, 2 * Math.PI, false);
+        this.ctx.arc(nums.n10, nums.n11, nums.n7, 0, 0.5 * Math.PI, false);
+        this.ctx.arc(nums.n8,  nums.n11, nums.n7, 0.5 * Math.PI, Math.PI, false);
         this.ctx.fill();
 
         this.ctx.strokeStyle = "rgb(0, 222, 0)";
         this.ctx.lineCap = "round";
         this.ctx.beginPath();
-        this.ctx.moveTo(6, 5);
-        this.ctx.lineTo(14, 4);
-        this.ctx.moveTo(14, 0);
-        this.ctx.quadraticCurveTo(11, 0, 10, 7);
+        this.ctx.moveTo(nums.n6, nums.n5);
+        this.ctx.lineTo(nums.n14, nums.n4);
+        this.ctx.moveTo(nums.n14, 0);
+        this.ctx.quadraticCurveTo(nums.n11, 0, nums.n10, nums.n7);
         this.ctx.stroke();
     }
 
@@ -185,26 +197,28 @@ class Fruit {
      * @returns {Void}
      */
     drawApple() {
+        const nums = Board.numbers;
+
         this.ctx.fillStyle = "rgb(222, 0, 0)";
         this.ctx.beginPath();
-        this.ctx.arc(6, 8, 5, Math.PI, 1.5 * Math.PI, false);
-        this.ctx.arc(12, 8, 5, 1.5 * Math.PI, 2 * Math.PI, false);
-        this.ctx.arc(10, 11, 7, 0, 0.5 * Math.PI, false);
-        this.ctx.arc(13, 15, 3, 0.5 * Math.PI, Math.PI, false);
-        this.ctx.arc(6, 15, 3, 0, 0.5 * Math.PI, false);
-        this.ctx.arc(8, 11, 7, 0.5 * Math.PI, Math.PI, false);
+        this.ctx.arc(nums.n6,  nums.n8,  nums.n5, Math.PI, 1.5 * Math.PI, false);
+        this.ctx.arc(nums.n12, nums.n8,  nums.n5, 1.5 * Math.PI, 2 * Math.PI, false);
+        this.ctx.arc(nums.n10, nums.n11, nums.n7, 0, 0.5 * Math.PI, false);
+        this.ctx.arc(nums.n13, nums.n15, nums.n3, 0.5 * Math.PI, Math.PI, false);
+        this.ctx.arc(nums.n6,  nums.n15, nums.n3, 0, 0.5 * Math.PI, false);
+        this.ctx.arc(nums.n8,  nums.n11, nums.n7, 0.5 * Math.PI, Math.PI, false);
         this.ctx.fill();
 
         this.ctx.strokeStyle = "rgb(0, 222, 0)";
         this.ctx.lineCap = "round";
         this.ctx.beginPath();
-        this.ctx.arc(3, 7, 7, 1.5 * Math.PI, 2 * Math.PI, false);
-        this.ctx.arc(13, 4, 4, Math.PI, 1.5 * Math.PI, false);
+        this.ctx.arc(nums.n3,  nums.n7, nums.n7, 1.5 * Math.PI, 2 * Math.PI, false);
+        this.ctx.arc(nums.n13, nums.n4, nums.n4, Math.PI, 1.5 * Math.PI, false);
         this.ctx.stroke();
 
         this.ctx.strokeStyle = "rgba(255, 255, 255, 0.8)";
         this.ctx.beginPath();
-        this.ctx.arc(7, 9, 4, Math.PI, 1.5 * Math.PI, false);
+        this.ctx.arc(nums.n7, nums.n9, nums.n4, Math.PI, 1.5 * Math.PI, false);
         this.ctx.stroke();
     }
 
@@ -213,33 +227,35 @@ class Fruit {
      * @returns {Void}
      */
     drawGrapes() {
+        const nums = Board.numbers;
+
         this.ctx.fillStyle = "rgb(0, 222, 0)";
         this.ctx.beginPath();
-        this.ctx.arc(9, 11, 8, 0, 2 * Math.PI);
+        this.ctx.arc(nums.n9, nums.n10, nums.n8, 0, 2 * Math.PI);
         this.ctx.fill();
 
         this.ctx.strokeStyle = "rgb(74, 74, 0)";
         this.ctx.beginPath();
-        this.ctx.moveTo(9, 4);
-        this.ctx.lineTo(2, 11);
-        this.ctx.lineTo(7, 16);
-        this.ctx.moveTo(14, 6);
-        this.ctx.lineTo(8, 12);
-        this.ctx.lineTo(14, 18);
-        this.ctx.moveTo(9, 6);
-        this.ctx.lineTo(15, 12);
-        this.ctx.lineTo(10, 17);
-        this.ctx.moveTo(10, 14);
-        this.ctx.lineTo(4, 18);
+        this.ctx.moveTo(nums.n9, nums.n3);
+        this.ctx.lineTo(nums.n2, nums.n10);
+        this.ctx.lineTo(nums.n7, nums.n15);
+        this.ctx.moveTo(nums.n14, nums.n5);
+        this.ctx.lineTo(nums.n8, nums.n11);
+        this.ctx.lineTo(nums.n14, nums.n17);
+        this.ctx.moveTo(nums.n9, nums.n5);
+        this.ctx.lineTo(nums.n15, nums.n11);
+        this.ctx.lineTo(nums.n10, nums.n16);
+        this.ctx.moveTo(nums.n10, nums.n13);
+        this.ctx.lineTo(nums.n4, nums.n17);
         this.ctx.stroke();
 
         this.ctx.strokeStyle = "rgb(222, 148, 74)";
         this.ctx.beginPath();
-        this.ctx.moveTo(4, 0);
-        this.ctx.lineTo(5, 1);
-        this.ctx.lineTo(12, 1);
-        this.ctx.moveTo(9, 1);
-        this.ctx.lineTo(9, 4);
+        this.ctx.moveTo(nums.n4, 0);
+        this.ctx.lineTo(nums.n5, nums.n1);
+        this.ctx.lineTo(nums.n12, nums.n1);
+        this.ctx.moveTo(nums.n9, nums.n1);
+        this.ctx.lineTo(nums.n9, nums.n4);
         this.ctx.stroke();
     }
 
@@ -247,39 +263,41 @@ class Fruit {
      * Draws the Galaxian Fruit
      * @returns {Void}
      */
-    darwGalaxian() {
+    drawGalaxian() {
+        const nums = Board.numbers;
+
         this.ctx.fillStyle   = "rgb(255, 250, 55)";
         this.ctx.strokeStyle = "rgb(255, 250, 55)";
         this.ctx.beginPath();
-        this.ctx.moveTo(1, 4);
-        this.ctx.lineTo(17, 4);
-        this.ctx.lineTo(9, 11);
+        this.ctx.moveTo(nums.n1, nums.n4);
+        this.ctx.lineTo(nums.n17, nums.n4);
+        this.ctx.lineTo(nums.n9, nums.n11);
         this.ctx.fill();
         this.ctx.beginPath();
-        this.ctx.moveTo(9, 11);
-        this.ctx.lineTo(9, 18);
+        this.ctx.moveTo(nums.n9, nums.n11);
+        this.ctx.lineTo(nums.n9, nums.n18);
         this.ctx.stroke();
 
         this.ctx.strokeStyle = "rgb(0, 51, 255)";
         this.ctx.beginPath();
-        this.ctx.moveTo(1, 1);
-        this.ctx.lineTo(1, 6);
-        this.ctx.lineTo(8, 12);
-        this.ctx.moveTo(17, 1);
-        this.ctx.lineTo(17, 6);
-        this.ctx.lineTo(10, 12);
+        this.ctx.moveTo(nums.n1, nums.n1);
+        this.ctx.lineTo(nums.n1, nums.n6);
+        this.ctx.lineTo(nums.n8, nums.n12);
+        this.ctx.moveTo(nums.n17, nums.n1);
+        this.ctx.lineTo(nums.n17, nums.n6);
+        this.ctx.lineTo(nums.n10, nums.n12);
         this.ctx.stroke();
 
         this.ctx.fillStyle   = "rgb(255, 0, 0)";
         this.ctx.strokeStyle = "rgb(255, 0, 0)";
         this.ctx.beginPath();
-        this.ctx.moveTo(3, 5);
-        this.ctx.lineTo(9, 0);
-        this.ctx.lineTo(15, 5);
+        this.ctx.moveTo(nums.n3, nums.n5);
+        this.ctx.lineTo(nums.n9, 0);
+        this.ctx.lineTo(nums.n15, nums.n5);
         this.ctx.fill();
         this.ctx.beginPath();
-        this.ctx.moveTo(9, 3);
-        this.ctx.lineTo(9, 6);
+        this.ctx.moveTo(nums.n9, nums.n3);
+        this.ctx.lineTo(nums.n9, nums.n6);
         this.ctx.stroke();
     }
 
@@ -288,22 +306,24 @@ class Fruit {
      * @returns {Void}
      */
     drawBell() {
+        const nums = Board.numbers;
+
         this.ctx.fillStyle = "rgb(255, 255, 33)";
         this.ctx.beginPath();
-        this.ctx.moveTo(1, 15);
-        this.ctx.quadraticCurveTo(1, 1, 9, 1);
-        this.ctx.quadraticCurveTo(17, 1, 17, 15);
+        this.ctx.moveTo(nums.n1, nums.n15);
+        this.ctx.quadraticCurveTo(nums.n1, nums.n1, nums.n9, nums.n1);
+        this.ctx.quadraticCurveTo(nums.n17, nums.n1, nums.n17, nums.n15);
         this.ctx.fill();
 
         this.ctx.fillStyle = "rgb(0, 222, 222)";
-        this.ctx.fillRect(3, 14, 12, 3);
+        this.ctx.fillRect(nums.n3, nums.n14, nums.n12, nums.n3);
         this.ctx.fillStyle = "rgb(255, 255, 255)";
-        this.ctx.fillRect(9, 14, 3, 3);
+        this.ctx.fillRect(nums.n9, nums.n14, nums.n3, nums.n3);
 
         this.ctx.strokeStyle = "rgb(255, 255, 255)";
         this.ctx.beginPath();
-        this.ctx.moveTo(8, 4);
-        this.ctx.quadraticCurveTo(4, 4, 4, 13);
+        this.ctx.moveTo(nums.n8, nums.n4);
+        this.ctx.quadraticCurveTo(nums.n4, nums.n4, nums.n4, nums.n13);
         this.ctx.stroke();
     }
 
@@ -312,25 +332,27 @@ class Fruit {
      * @returns {Void}
      */
     drawKey() {
+        const nums = Board.numbers;
+
         this.ctx.fillStyle = "rgb(0, 222, 222)";
         this.ctx.beginPath();
-        this.ctx.arc(6, 3, 3, Math.PI, 1.5 * Math.PI, false);
-        this.ctx.arc(12, 3, 3, 1.5 * Math.PI, 2 * Math.PI, false);
-        this.ctx.arc(12, 5, 3, 0, 0.5 * Math.PI, false);
-        this.ctx.arc(6, 5, 3, 0.5 * Math.PI, Math.PI, false);
+        this.ctx.arc(nums.n6,  nums.n3, nums.n3, Math.PI, 1.5 * Math.PI, false);
+        this.ctx.arc(nums.n12, nums.n3, nums.n3, 1.5 * Math.PI, 2 * Math.PI, false);
+        this.ctx.arc(nums.n12, nums.n5, nums.n3, 0, 0.5 * Math.PI, false);
+        this.ctx.arc(nums.n6,  nums.n5, nums.n3, 0.5 * Math.PI, Math.PI, false);
         this.ctx.fill();
-        this.ctx.clearRect(6, 2, 6, 2);
+        this.ctx.clearRect(nums.n6, nums.n2, nums.n6, nums.n2);
 
         this.ctx.strokeStyle = "rgb(255, 255, 255)";
         this.ctx.beginPath();
-        this.ctx.moveTo(8, 8);
-        this.ctx.lineTo(8, 15);
-        this.ctx.arc(9.5, 13.5, 1.5, Math.PI, 0, true);
-        this.ctx.lineTo(11, 8);
-        this.ctx.moveTo(11, 10);
-        this.ctx.lineTo(14, 10);
-        this.ctx.moveTo(11, 13);
-        this.ctx.lineTo(14, 13);
+        this.ctx.moveTo(nums.n8, nums.n8);
+        this.ctx.lineTo(nums.n8, nums.n15);
+        this.ctx.arc(nums.n8 + nums.r2, nums.n15 - nums.r2, nums.r2, Math.PI, 0, true);
+        this.ctx.lineTo(nums.n11, nums.n8);
+        this.ctx.moveTo(nums.n11, nums.n10);
+        this.ctx.lineTo(nums.n14, nums.n10);
+        this.ctx.moveTo(nums.n11, nums.n13);
+        this.ctx.lineTo(nums.n14, nums.n13);
         this.ctx.stroke();
     }
 }
