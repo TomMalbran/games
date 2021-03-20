@@ -1,4 +1,4 @@
-var DemoData = (function () {
+let DemoData = (function () {
     "use strict";
 
     return {

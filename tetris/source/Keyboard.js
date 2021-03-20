@@ -60,21 +60,21 @@ class Keyboard {
                 event.preventDefault();
             }
 
-            if ([8, 66, 78].indexOf(key) > -1) {            // Backspace / B / N
+            if ([ 8, 66, 78 ].indexOf(key) > -1) {            // Backspace / B / N
                 key = "B";
-            } else if ([13, 79, 84].indexOf(key) > -1) {    // Enter / O / T
+            } else if ([ 13, 79, 84 ].indexOf(key) > -1) {    // Enter / O / T
                 key = "O";
-            } else if ([80, 67].indexOf(key) > -1) {        // P / C
+            } else if ([ 80, 67 ].indexOf(key) > -1) {        // P / C
                 key = "P";
-            } else if ([17, 32].indexOf(key) > -1) {        // Ctrl / Space
+            } else if ([ 17, 32 ].indexOf(key) > -1) {        // Ctrl / Space
                 key = "C";
-            } else if ([38, 87].indexOf(key) > -1) {        // Up    / W
+            } else if ([ 38, 87 ].indexOf(key) > -1) {        // Up    / W
                 key = "W";
-            } else if ([37, 65].indexOf(key) > -1) {        // Left  / A
+            } else if ([ 37, 65 ].indexOf(key) > -1) {        // Left  / A
                 key = "A";
-            } else if ([40, 83].indexOf(key) > -1) {        // Down  / S
+            } else if ([ 40, 83 ].indexOf(key) > -1) {        // Down  / S
                 key = "S";
-            } else if ([39, 68].indexOf(key) > -1) {        // Right / D
+            } else if ([ 39, 68 ].indexOf(key) > -1) {        // Right / D
                 key = "D";
             } else {
                 if (key === 48 || key === 96) {

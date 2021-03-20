@@ -3,8 +3,7 @@
 
     let display, demo, board, sound, keyboard,
         score, matrix, snake, food, scores, instance,
-        navigator, starter, animation, startTime,
-        soundFiles = [ "start", "eat", "end" ];
+        navigator, starter, animation, startTime;
 
 
     /**
@@ -48,8 +47,8 @@
     function requestAnimation() {
         startTime = new Date().getTime();
         animation = window.requestAnimationFrame(() => {
-            let time  = new Date().getTime() - startTime,
-                speed = time / 16;
+            const time  = new Date().getTime() - startTime;
+            const speed = time / 16;
 
             score.decTime(time);
             if (speed <= 0 || speed > 5) {
@@ -63,7 +62,7 @@
                 if (display.isStarting()) {
                     nextCount();
                 } else if (display.isPlaying()) {
-                    let res = snake.move();
+                    const res = snake.move();
                     if (res === "crashed") {
                         sound.end();
                         gameOver();
@@ -217,7 +216,7 @@
      */
     function restoreGame() {
         if (instance.hasGame()) {
-            let data = instance.getData();
+            const data = instance.getData();
 
             display.set("continuing").show();
             score.set(data.level, data.score).show();
@@ -252,7 +251,7 @@
      * @returns {Object}
      */
     function getShortcuts() {
-        let turnSnake = (dirTop, dirLeft) => {
+        const turnSnake = (dirTop, dirLeft) => {
             if (snake.turn(dirTop, dirLeft)) {
                 instance.saveDirection(snake.getDirection());
             }
@@ -309,20 +308,20 @@
         starter   = document.querySelector(".start");
 
         document.body.addEventListener("click", (e) => {
-            let element = Utils.getTarget(e),
-                actions = {
-                    play       : () => newGame(element.dataset.level),
-                    mainScreen : () => showMainScreen(),
-                    highScores : () => showHighScores(),
-                    help       : () => showHelp(),
-                    restore    : () => restoreGame(),
-                    endPause   : () => endPause(),
-                    finishGame : () => finishGame(),
-                    save       : () => endGameOver(true),
-                    newGame    : () => endGameOver(false),
-                    showScores : () => scores.show(element.dataset.level),
-                    sound      : () => sound.toggle()
-                };
+            const element = Utils.getTarget(e);
+            const actions = {
+                play       : () => newGame(element.dataset.level),
+                mainScreen : () => showMainScreen(),
+                highScores : () => showHighScores(),
+                help       : () => showHelp(),
+                restore    : () => restoreGame(),
+                endPause   : () => endPause(),
+                finishGame : () => finishGame(),
+                save       : () => endGameOver(true),
+                newGame    : () => endGameOver(false),
+                showScores : () => scores.show(element.dataset.level),
+                sound      : () => sound.toggle()
+            };
 
             if (actions[element.dataset.action]) {
                 actions[element.dataset.action]();
@@ -330,13 +329,13 @@
         });
 
         navigator.addEventListener("mouseover", (e) => {
-            let element = e.target.dataset.action ? e.target : e.target.parentElement;
+            const element = e.target.dataset.action ? e.target : e.target.parentElement;
             if (element.dataset.action === "play") {
                 startDemo(element.dataset.level);
             }
         });
         navigator.addEventListener("mouseout", (e) => {
-            let element = e.target.dataset.action ? e.target : e.target.parentElement;
+            const element = e.target.dataset.action ? e.target : e.target.parentElement;
             if (element.dataset.action === "play") {
                 endDemo();
             }
@@ -363,7 +362,7 @@
         board    = new Board();
         demo     = new Demo(board);
         instance = new Instance(board);
-        sound    = new Sounds(soundFiles, "snake.sound", true);
+        sound    = new Sounds([ "start", "eat", "end" ], "snake.sound", true);
         scores   = new HighScores();
         keyboard = new Keyboard(display, scores, getShortcuts());
     }

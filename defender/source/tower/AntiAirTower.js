@@ -49,9 +49,9 @@ class AntiAirTower extends Tower {
      * @returns {Array.<Array.<Mob>>}
      */
     getTargets(mobs, mob) {
-        let targets = this.getCloseTargets(mobs, mob),
-            total   = Math.min(targets.length, 4),
-            result  = [];
+        const targets = this.getCloseTargets(mobs, mob);
+        const total   = Math.min(targets.length, 4);
+        const result  = [];
 
         for (let i = 0; i < total; i += 1) {
             result.push([targets[i]]);

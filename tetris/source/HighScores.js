@@ -36,7 +36,7 @@ class HighScores {
      * Create the titles and place it in the DOM
      */
     displayTitles() {
-        let div = this.createContent("name", "lvl", "score");
+        const div = this.createContent("name", "lvl", "score");
         div.className = "titles";
         this.scores.appendChild(div);
     }
@@ -46,8 +46,8 @@ class HighScores {
      */
     displayScores() {
         for (let i = 1; i <= this.total; i += 1) {
-            let data = this.data.get(i),
-                div  = this.createContent(data.name, data.level, Utils.formatNumber(data.score, ","));
+            const data = this.data.get(i);
+            const div  = this.createContent(data.name, data.level, Utils.formatNumber(data.score, ","));
 
             div.className = "highScore";
             this.scores.appendChild(div);
@@ -87,16 +87,16 @@ class HighScores {
      * @param {Number} score
      */
     saveData(level, score) {
-        let data   = [],
-            saved  = false,
-            actual = {
-                name  : this.input.value,
-                level : level,
-                score : score
-            };
+        const data   = [];
+        const actual = {
+            name  : this.input.value,
+            level : level,
+            score : score
+        };
+        let saved = false;
 
         for (let i = 1; i <= this.total; i += 1) {
-            let hs = this.data.get(i);
+            const hs = this.data.get(i);
             if (!saved && hs.score < actual.score) {
                 data.push(actual);
                 saved = true;

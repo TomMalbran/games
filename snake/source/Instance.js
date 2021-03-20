@@ -42,7 +42,7 @@ class Instance {
     destroyGame() {
         for (let i = 0; i < this.board.matrixRows; i += 1) {
             for (let j = 0; j < this.board.matrixColumns; j += 1) {
-                let name = `matrix.${i}.${j}`;
+                const name = `matrix.${i}.${j}`;
                 if (this.data.get(name)) {
                     this.data.remove(name);
                 }
@@ -67,15 +67,15 @@ class Instance {
      * @returns {Object}
      */
     getData() {
-        let head    = this.data.get("matrix.head"),
-            matrix  = [],
-            links   = [],
-            foodPos = {};
+        const head    = this.data.get("matrix.head");
+        const matrix  = [];
+        const links   = [];
+        let   foodPos = {};
 
         for (let i = 0; i < this.board.matrixRows; i += 1) {
             matrix[i] = [];
             for (let j = 0; j < this.board.matrixColumns; j += 1) {
-                let value = this.data.get(`matrix.${i}.${j}`);
+                const value = this.data.get(`matrix.${i}.${j}`);
                 if (value) {
                     matrix[i][j] = value;
 

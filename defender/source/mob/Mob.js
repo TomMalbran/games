@@ -190,7 +190,7 @@ class Mob {
      * @returns {Void}
      */
     hit(dmg) {
-        let life = Math.max(this.actualLife - dmg, 0);
+        const life = Math.max(this.actualLife - dmg, 0);
         this.lifeElem.style.width = Utils.toPX(life * this.boardSize / this.getTotalLife());
         this.actualLife -= dmg;
 
@@ -247,8 +247,8 @@ class Mob {
      * @returns {Void}
      */
     moveSpawn(time) {
-        let top  = this.top  + this.getDist(this.spawnTo.top  - this.top, time),
-            left = this.left + this.getDist(this.spawnTo.left - this.left, time);
+        const top  = this.top  + this.getDist(this.spawnTo.top  - this.top, time);
+        const left = this.left + this.getDist(this.spawnTo.left - this.left, time);
 
         this.spawning -= time;
         this.moveTo(top, left);
@@ -395,11 +395,11 @@ class Mob {
      */
     decBleed(time) {
         if (!this.bleed.isEmpty()) {
-            let it = this.bleed.iterate(), bleed, dmg;
+            const it = this.bleed.iterate();
             while (it.hasNext()) {
-                bleed = it.getNext();
+                const bleed = it.getNext();
+                const dmg   = time / this.bleedTime * bleed.damage;
                 bleed.time -= time;
-                dmg = time / this.bleedTime * bleed.damage;
 
                 this.decHitPoints(dmg);
                 this.hit(dmg);
@@ -456,10 +456,10 @@ class Mob {
      * @returns {Number}
      */
     getTotalLife() {
-        let mults = [ 1, 1.5, 2 ],
-            gmult = mults[this.gameLevel],
-            bmult = this.boss ? 10 : 1,
-            life  = 20 + Math.pow(1.2, this.wave - 1);
+        const mults = [ 1, 1.5, 2 ];
+        const gmult = mults[this.gameLevel];
+        const bmult = this.boss ? 10 : 1;
+        const life  = 20 + Math.pow(1.2, this.wave - 1);
 
         return Math.round(life * gmult * bmult * this.life);
     }
@@ -469,8 +469,8 @@ class Mob {
      * @returns {Number}
      */
     getGold() {
-        let mult = this.boss ? 20 : 1,
-            gold = 1 + this.gameLevel / 5;
+        const mult = this.boss ? 20 : 1;
+        const gold = 1 + this.gameLevel / 5;
 
         return Math.floor(gold * mult);
     }
@@ -810,7 +810,7 @@ class Mob {
      * @returns {Mob}
      */
     static create(type, ...params) {
-        let Mob = {
+        const Mob = {
             Normal     : NormalMob,
             Inmune     : InmuneMob,
             Group      : GroupMob,

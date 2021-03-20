@@ -74,9 +74,9 @@ class Maps {
         this.maps.innerHTML = "";
 
         Object.keys(MapsData.maps).forEach((id) => {
-            let score   = this.storage.get(`${id}.score`) || 0,
-                won     = this.storage.get(`${id}.won`),
-                element = document.createElement("button");
+            const score   = this.storage.get(`${id}.score`) || 0;
+            const won     = this.storage.get(`${id}.won`);
+            const element = document.createElement("button");
 
             element.dataset.action = "selectLevel";
             element.dataset.data   = id;
@@ -99,8 +99,8 @@ class Maps {
      * @returns {Void}
      */
     saveScore(lives, score) {
-        let old = this.storage.get(`${this.gameMap}.score`),
-            won = lives > 0;
+        const old = this.storage.get(`${this.gameMap}.score`);
+        const won = lives > 0;
 
         if (!old || old < score) {
             this.storage.set(`${this.gameMap}.score`, score);

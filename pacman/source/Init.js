@@ -1,22 +1,9 @@
 (function () {
     "use strict";
 
-    var display, demo, animations, sounds, scores,
+    let display, demo, animations, sounds, scores,
         score, food, fruit, ghosts, blob,
-        animation, startTime, actions, shortcuts,
-        soundFiles  = [ "start", "death", "eat1", "eat2", "kill" ],
-        specialKeys = {
-            "8"  : "BS",
-            "13" : "Enter",
-            "37" : "Left",
-            "65" : "Left",
-            "38" : "Up",
-            "87" : "Up",
-            "39" : "Right",
-            "68" : "Right",
-            "40" : "Down",
-            "83" : "Down"
-        };
+        animation, startTime, actions, shortcuts;
 
 
 
@@ -58,12 +45,12 @@
      * @returns {Void}
      */
     function blobEating() {
-        let tile   = blob.getTile(),
-            atPill = food.isAtPill(tile);
+        const tile   = blob.getTile();
+        const atPill = food.isAtPill(tile);
 
         if (atPill) {
-            let value = food.eatPill(tile),
-                total = food.getLeftPills();
+            const value = food.eatPill(tile);
+            const total = food.getLeftPills();
 
             fruit.add(total);
             score.pill(value);
@@ -76,7 +63,7 @@
             sounds[blob.getSound()]();
 
         } else if (fruit.isAtPos(tile)) {
-            let text = score.fruit();
+            const text = score.fruit();
             fruit.eat();
             animations.fruitScore(text, Board.fruitTile);
         }
@@ -89,7 +76,7 @@
      */
     function ghostCrash() {
         ghosts.crash(blob.getTile(), (eyesCounter, tile) => {
-            let text = score.kill(eyesCounter);
+            const text = score.kill(eyesCounter);
             animations.ghostScore(text, tile);
             sounds.kill();
         }, () => {
@@ -137,8 +124,8 @@
     function requestAnimation() {
         startTime = new Date().getTime();
         animation = window.requestAnimationFrame(() => {
-            let time  = new Date().getTime() - startTime,
-                speed = time / 16;
+            const time  = new Date().getTime() - startTime;
+            const speed = time / 16;
 
             if (speed > 5) {
                 return requestAnimation();
@@ -153,7 +140,7 @@
                 food.wink();
                 fruit.reduceTimer(time);
                 ghosts.animate(time, speed, blob);
-                let newTile = blob.animate(speed);
+                const newTile = blob.animate(speed);
                 animations.animate(time);
 
                 if (newTile) {
@@ -289,8 +276,21 @@
      * @returns {Void}
      */
     function initDomListeners() {
+        const specialKeys = {
+            "8"  : "BS",
+            "13" : "Enter",
+            "37" : "Left",
+            "65" : "Left",
+            "38" : "Up",
+            "87" : "Up",
+            "39" : "Right",
+            "68" : "Right",
+            "40" : "Down",
+            "83" : "Down"
+        };
+
         document.body.addEventListener("click", (e) => {
-            let element = Utils.getTarget(e);
+            const element = Utils.getTarget(e);
             if (actions[element.dataset.action]) {
                 actions[element.dataset.action](element.dataset.data || undefined);
                 e.preventDefault();
@@ -298,8 +298,8 @@
         });
 
         document.addEventListener("keydown", (e) => {
-            var key  = e.keyCode,
-                code = specialKeys[key] || String.fromCharCode(key);
+            const key  = e.keyCode;
+            const code = specialKeys[key] || String.fromCharCode(key);
 
             if (shortcuts[display.get()] && shortcuts[display.get()][code]) {
                 if (typeof shortcuts[display.get()][code] === "string") {
@@ -331,7 +331,7 @@
         display    = new Display(onShow);
         demo       = new Demo();
         animations = new Animations();
-        sounds     = new Sounds(soundFiles, "pacman.sound", true);
+        sounds     = new Sounds([ "start", "death", "eat1", "eat2", "kill" ], "pacman.sound", true);
         scores     = new HighScores();
 
         createActionsShortcuts();

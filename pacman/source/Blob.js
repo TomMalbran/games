@@ -63,7 +63,7 @@ class Blob {
 
         this.moveMouth();
         this.newTile();
-        let newTile = this.atCenter();
+        const newTile = this.atCenter();
 
         this.x = Board.tunnelEnds(this.x);
         return newTile;
@@ -82,7 +82,7 @@ class Blob {
      * @returns {Void}
      */
     newTile() {
-        let tile = Board.getTilePos(this.x, this.y);
+        const tile = Board.getTilePos(this.x, this.y);
         if (!Board.equalTiles(this.tile, tile)) {
             this.tile       = tile;
             this.tileCenter = Board.getTileXYCenter(tile);
@@ -200,9 +200,9 @@ class Blob {
      * @returns {Void}
      */
     draw() {
-        let values = [ 0, 0.2, 0.4, 0.2 ],
-            mouth  = Math.floor(this.mouth / 5),
-            delta  = values[mouth];
+        const values = [ 0, 0.2, 0.4, 0.2 ];
+        const mouth  = Math.floor(this.mouth / 5);
+        const delta  = values[mouth];
 
         this.savePos();
         this.ctx.save();
@@ -231,7 +231,7 @@ class Blob {
      * @returns {Void}
      */
     drawDeath(ctx, count) {
-        let delta = count / 50;
+        const delta = count / 50;
 
         ctx.fillStyle = "rgb(255, 255, 51)";
         ctx.beginPath();
@@ -247,7 +247,7 @@ class Blob {
      * @returns {Void}
      */
     drawCircle(ctx, count) {
-        let radius = Math.round(count / 2);
+        const radius = Math.round(count / 2);
 
         ctx.strokeStyle = "rgb(159, 159, 31)";
         ctx.lineWidth   = 3;
@@ -296,7 +296,7 @@ class Blob {
      * @returns {Boolean}
      */
     isWall(turn) {
-        let tile = Board.sumTiles(this.tile, turn);
+        const tile = Board.sumTiles(this.tile, turn);
         return Board.isWall(tile.x, tile.y);
     }
 
@@ -306,7 +306,7 @@ class Blob {
      * @returns {Boolean}
      */
     inBoard(turn) {
-        let tile = Board.sumTiles(this.tile, turn);
+        const tile = Board.sumTiles(this.tile, turn);
         return Board.inBoard(tile.x, tile.y);
     }
 

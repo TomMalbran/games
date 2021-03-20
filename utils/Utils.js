@@ -147,7 +147,7 @@ let Utils = (function () {
          * @returns {Void}
          */
         removeElement(element) {
-            var parent = element.parentNode;
+            const parent = element.parentNode;
             parent.removeChild(element);
         },
 

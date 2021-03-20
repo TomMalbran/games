@@ -64,8 +64,8 @@ class Inky extends Ghost {
      * @returns {{x: Number, y: Number}}
      */
     chase(blob) {
-        let offsetx = blob.getTile().x + 2 * blob.getDir().x,
-            offsety = blob.getTile().y + 2 * blob.getDir().y;
+        const offsety = blob.getTile().y + 2 * blob.getDir().y;
+        let   offsetx = blob.getTile().x + 2 * blob.getDir().x;
 
         // Recreating bug where Up = Up+Left
         if (blob.getDir().y === -1) {

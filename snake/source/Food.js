@@ -80,7 +80,8 @@ class Food {
      * @returns {Void}
      */
     setTransform() {
-        let time = (1000 - this.time) / 10, deg;
+        const time = (1000 - this.time) / 10;
+        let   deg  = 0;
         if (time < 21) {
             deg = time * 360 / 20;
         } else if (time < 51) {

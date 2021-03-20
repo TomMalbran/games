@@ -60,13 +60,13 @@ class Ship {
      * @returns {Void}
      */
     mouseMove(e) {
-        let mouseLeft  = Utils.getMousePos(e).left,
-            halfWidth  = this.width / 2,
-            boardLeft  = this.board.getLeft() - this.board.getBorder(),
-            boardRight = this.board.getLeft() + this.board.getWidth() + this.board.getBorder(),
-            leftSide   = this.board.getLeft() + halfWidth,
-            rightSide  = this.board.getLeft() + this.board.getWidth() - halfWidth,
-            shipLeft   = 0;
+        const mouseLeft  = Utils.getMousePos(e).left;
+        const halfWidth  = this.width / 2;
+        const boardLeft  = this.board.getLeft() - this.board.getBorder();
+        const boardRight = this.board.getLeft() + this.board.getWidth() + this.board.getBorder();
+        const leftSide   = this.board.getLeft() + halfWidth;
+        const rightSide  = this.board.getLeft() + this.board.getWidth() - halfWidth;
+        let   shipLeft   = 0;
 
         if (mouseLeft < boardLeft || mouseLeft > boardRight) {
             return;
@@ -85,8 +85,8 @@ class Ship {
      * @returns {Void}
      */
     keyMove(direction) {
-        let left  = this.left + this.keyMovement * direction,
-            maxim = this.board.getWidth() - this.width;
+        const maxim = this.board.getWidth() - this.width;
+        let   left  = this.left + this.keyMovement * direction;
 
         left = Utils.clamp(left, 0, maxim);
         this.doMove(left);

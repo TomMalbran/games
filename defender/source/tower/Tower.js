@@ -42,8 +42,8 @@ class Tower {
      * @returns {HTMLElement}
      */
     createElement() {
-        let content  = document.querySelector(`.towersPanel .towerBuild[data-type="${this.type}"]`).parentNode.innerHTML;
-        this.element = document.createElement("DIV");
+        const content = document.querySelector(`.towersPanel .towerBuild[data-type="${this.type}"]`).parentNode.innerHTML;
+        this.element  = document.createElement("DIV");
 
         this.element.dataset.type   = "tower";
         this.element.dataset.id     = this.id;
@@ -295,12 +295,12 @@ class Tower {
      * @returns {Array.<Mob>}
      */
     getCloseTargets(mobs, mob) {
-        let list = [];
+        const list = [];
 
         mobs.forEach((it) => {
-            let nmob     = it.getPrev(),
-                isClose  = this.isClose(nmob, mob),
-                canShoot = this.canShoot(nmob);
+            const nmob     = it.getPrev();
+            const isClose  = this.isClose(nmob, mob);
+            const canShoot = this.canShoot(nmob);
 
             if (nmob.getHitPoints() > 0 && isClose && canShoot) {
                 list.push(nmob);
@@ -315,12 +315,12 @@ class Tower {
      * @returns {Array.<Mob>}
      */
     getRangeTargets(mobs) {
-        let list = [];
+        const list = [];
 
         mobs.forEach((it) => {
-            let mob      = it.getPrev(),
-                inRange  = this.inRange(mob, 1),
-                canShoot = this.canShoot(mob);
+            const mob      = it.getPrev();
+            const inRange  = this.inRange(mob, 1);
+            const canShoot = this.canShoot(mob);
 
             if (mob.getHitPoints() > 0 && inRange && canShoot) {
                 list.push(mob);
@@ -336,8 +336,8 @@ class Tower {
      * @returns {Boolean}
      */
     isClose(target, mob) {
-        let yDis  = Math.abs(target.getPos().top  - mob.getPos().top),
-            xDist = Math.abs(target.getPos().left - mob.getPos().left);
+        const yDis  = Math.abs(target.getPos().top  - mob.getPos().top);
+        const xDist = Math.abs(target.getPos().left - mob.getPos().left);
 
         return yDis < this.ammoRange && xDist < this.ammoRange;
     }
@@ -349,10 +349,10 @@ class Tower {
      * @returns {Boolean}
      */
     inRange(mob, mult) {
-        let mobPos = mob.getCenterPos(),
-            yDis   = Math.abs(this.centerTop  - mobPos.top),
-            xDist  = Math.abs(this.centerLeft - mobPos.left),
-            range  = this.getRealRange() * mult;
+        const mobPos = mob.getCenterPos();
+        const yDis   = Math.abs(this.centerTop  - mobPos.top);
+        const xDist  = Math.abs(this.centerLeft - mobPos.left);
+        const range  = this.getRealRange() * mult;
 
         return yDis < range && xDist < range;
     }
@@ -363,9 +363,9 @@ class Tower {
      * @returns {Number}
      */
     getMobAngle(mob) {
-        let mobPos = mob.getCenterPos(),
-            xDist  = mobPos.left - this.centerLeft,
-            yDist  = mobPos.top  - this.centerTop;
+        const mobPos = mob.getCenterPos();
+        const xDist  = mobPos.left - this.centerLeft;
+        const yDist  = mobPos.top  - this.centerTop;
 
         return Utils.calcAngle(xDist, yDist);
     }
@@ -603,7 +603,7 @@ class Tower {
      * @returns {Number}
      */
     getPrice(hasStarted) {
-        let cost = this.getActualCost();
+        const cost = this.getActualCost();
         return hasStarted ? Math.floor(cost * 0.75) : cost;
     }
 
@@ -628,7 +628,7 @@ class Tower {
      * @returns {Number}
      */
     getActualDamage() {
-        let value = this.damages[this.level - 1];
+        const value = this.damages[this.level - 1];
         return this.getBoostDamage(value);
     }
 
@@ -637,7 +637,7 @@ class Tower {
      * @returns {Number}
      */
     getUpgradeDamage() {
-        let value = this.damages[this.level] - this.damages[this.level - 1];
+        const value = this.damages[this.level] - this.damages[this.level - 1];
         return this.getBoostDamage(value);
     }
 
@@ -706,7 +706,7 @@ class Tower {
      * @returns {Number}
      */
     getUpgradeSpeed() {
-        let diff = this.speeds[this.level] - this.speeds[this.level - 1] !== 0;
+        const diff = this.speeds[this.level] - this.speeds[this.level - 1] !== 0;
         return diff ? this.speeds[this.level] : "";
     }
 
@@ -770,7 +770,7 @@ class Tower {
      * @returns {Tower}
      */
     static create(type, ...params) {
-        let Tower = {
+        const Tower = {
             Shoot      : ShootTower,
             Fast       : FastTower,
             Missile    : MissileTower,

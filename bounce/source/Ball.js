@@ -62,9 +62,7 @@ class Ball {
      * @returns {Void}
      */
     move(speed) {
-        let movey    = this.angle / 90,
-            crash    = false,
-            gameOver = false;
+        const movey = this.angle / 90;
 
         this.top  += this.speed * this.dirTop * movey * speed;
         this.left += this.speed * this.dirLeft * (1 - movey) * speed;
@@ -138,12 +136,12 @@ class Ball {
      * @returns {Boolean}
      */
     onShip(ship) {
-        let pos    = ship.getPosition(),
-            sTop   = pos.top,
-            sLeft  = pos.left,
-            sWidth = ship.getWidth(),
-            bTop   = this.top + this.size,
-            bLeft  = this.left + this.size / 2;
+        const pos    = ship.getPosition();
+        const sTop   = pos.top;
+        const sLeft  = pos.left;
+        const sWidth = ship.getWidth();
+        const bTop   = this.top + this.size;
+        const bLeft  = this.left + this.size / 2;
 
         return (bTop >= sTop && bLeft >= sLeft && bLeft <= sLeft + sWidth);
     }
@@ -155,8 +153,8 @@ class Ball {
      * @returns {Void}
      */
     changeAngle(ship) {
-        let pos   = this.left + this.size / 2 - ship.getPosition().left,
-            width = ship.getWidth();
+        const pos   = this.left + this.size / 2 - ship.getPosition().left;
+        const width = ship.getWidth();
 
         this.angle = Math.floor(pos * 180 / width);
         if (this.angle > 90) {

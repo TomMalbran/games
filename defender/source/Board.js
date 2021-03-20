@@ -72,8 +72,8 @@ class Board {
      * @returns {Void}
      */
     clickListener(event) {
-        let target = event.target.parentNode,
-            type   = target.dataset.type;
+        const target = event.target.parentNode;
+        const type   = target.dataset.type;
 
         if (this.listeners[type]) {
             this.listeners[type](event, target);
@@ -152,11 +152,11 @@ class Board {
      * @returns {Void}
      */
     createWalls() {
-        let walls = this.map.getWalls();
+        const walls = this.map.getWalls();
         this.walls.innerHTML = "";
 
         for (let i = 1; i < walls.length; i += 1) {
-            let el = document.createElement("div");
+            const el = document.createElement("div");
             el.className    = walls[i].cl;
             el.style.top    = Utils.toPX(walls[i].top    * this.map.getSquareSize());
             el.style.left   = Utils.toPX(walls[i].left   * this.map.getSquareSize());
@@ -173,10 +173,10 @@ class Board {
      * @returns {Void}
      */
     buildTower(tower) {
-        let row  = tower.getRow(),
-            col  = tower.getCol(),
-            rows = row + tower.getSize(),
-            cols = col + tower.getSize();
+        const row  = tower.getRow();
+        const col  = tower.getCol();
+        const rows = row + tower.getSize();
+        const cols = col + tower.getSize();
 
         for (let i = row; i < rows; i += 1) {
             for (let j = col; j < cols; j += 1) {
@@ -206,10 +206,10 @@ class Board {
      * @returns {Void}
      */
     sellTower(tower) {
-        let row  = tower.getRow(),
-            col  = tower.getCol(),
-            rows = row + tower.getSize(),
-            cols = col + tower.getSize();
+        const row  = tower.getRow();
+        const col  = tower.getCol();
+        const rows = row + tower.getSize();
+        const cols = col + tower.getSize();
 
         for (let i = row; i < rows; i += 1) {
             for (let j = col; j < cols; j += 1) {

@@ -240,8 +240,8 @@ class BoardCanvas extends Canvas {
      * @returns {Void}
      */
     drawTShape(x, y, left, right, type) {
-        let data  = this.drawTShapes[type],
-            width = left + right;
+        const data  = this.drawTShapes[type];
+        const width = left + right;
 
         this.ctx.save();
         this.ctx.translate(x * Board.tileSize, y * Board.tileSize);
@@ -299,11 +299,11 @@ class BoardCanvas extends Canvas {
      * @returns {Void}
      */
     drawOuterBigCorner(x, y, type) {
-        let data = this.corners[type],
-            pos  = {
-                x : x * Board.tileSize + Board.bigRadius + data.x * Board.halfLine,
-                y : y * Board.tileSize + Board.bigRadius + data.y * Board.halfLine
-            };
+        const data = this.corners[type];
+        const pos  = {
+            x : x * Board.tileSize + Board.bigRadius + data.x * Board.halfLine,
+            y : y * Board.tileSize + Board.bigRadius + data.y * Board.halfLine
+        };
 
         this.corner(pos, Board.bigRadius, type, false);
     }
@@ -316,12 +316,12 @@ class BoardCanvas extends Canvas {
      * @returns {Void}
      */
     drawOuterSmallCorner(x, y, type) {
-        let radius = this.corners[type],
-            data   = this.smallCorners[type],
-            pos    = {
-                x : (x + data.x.cell) * Board.tileSize + radius.x * Board.smallRadius + data.x.line * Board.halfLine,
-                y : (y + data.y.cell) * Board.tileSize + radius.y * Board.smallRadius + data.y.line * Board.halfLine
-            };
+        const radius = this.corners[type];
+        const data   = this.smallCorners[type];
+        const pos    = {
+            x : (x + data.x.cell) * Board.tileSize + radius.x * Board.smallRadius + data.x.line * Board.halfLine,
+            y : (y + data.y.cell) * Board.tileSize + radius.y * Board.smallRadius + data.y.line * Board.halfLine
+        };
 
         this.corner(pos, Board.smallRadius, type, true);
     }
@@ -336,12 +336,12 @@ class BoardCanvas extends Canvas {
      * @returns {Void}
      */
     drawInnerCorner(x, y, type, isBig, anitclockwise) {
-        let radius = isBig ? Board.bigRadius : Board.smallRadius,
-            data   = this.corners[type],
-            pos    = {
-                x : (x + 0.5) * Board.tileSize + data.x * radius,
-                y : (y + 0.5) * Board.tileSize + data.y * radius
-            };
+        const radius = isBig ? Board.bigRadius : Board.smallRadius;
+        const data   = this.corners[type];
+        const pos    = {
+            x : (x + 0.5) * Board.tileSize + data.x * radius,
+            y : (y + 0.5) * Board.tileSize + data.y * radius
+        };
 
         this.corner(pos, radius, type, anitclockwise);
     }
@@ -355,8 +355,8 @@ class BoardCanvas extends Canvas {
      * @returns {Void}
      */
     corner(pos, radius, type, anitclockwise) {
-        let rad    = this.radians[type],
-            result = [rad.from * Math.PI, rad.to * Math.PI];
+        let   rad    = this.radians[type];
+        const result = [ rad.from * Math.PI, rad.to * Math.PI ];
 
         if (anitclockwise) {
             result.reverse();
@@ -393,18 +393,18 @@ class BoardCanvas extends Canvas {
      */
     drawIntersections() {
         Object.keys(Board.boardTurns).forEach((key) => {
-            let coords = key.replace("x", "").split("y"),
-                x      = Board.getTileCorner(Number(coords[0])),
-                y      = Board.getTileCorner(Number(coords[1]));
+            const coords = key.replace("x", "").split("y");
+            const x      = Board.getTileCorner(Number(coords[0]));
+            const y      = Board.getTileCorner(Number(coords[1]));
 
             this.ctx.fillRect(x, y, Board.tileSize, Board.tileSize);
             this.ctx.save();
             this.ctx.strokeStyle = "white";
 
             Board.boardTurns[key].forEach((value) => {
-                let dir = Board.numberToDir(value),
-                    bx  = Board.getTileCorner(Number(coords[0]) + dir.x),
-                    by  = Board.getTileCorner(Number(coords[1]) + dir.y);
+                const dir = Board.numberToDir(value);
+                const bx  = Board.getTileCorner(Number(coords[0]) + dir.x);
+                const by  = Board.getTileCorner(Number(coords[1]) + dir.y);
 
                 this.ctx.strokeRect(bx, by, Board.tileSize, Board.tileSize);
             });

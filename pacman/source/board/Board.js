@@ -516,8 +516,8 @@ let Board = (function () {
          * @returns {{left: Number, right: Number, top: Number, bottom: Number}}
          */
         getFruitRect() {
-            let pos  = Board.fruitPos,
-                size = Board.fruitSize / 3;
+            const pos  = Board.fruitPos;
+            const size = Board.fruitSize / 3;
 
             return {
                 left   : pos.x - size,

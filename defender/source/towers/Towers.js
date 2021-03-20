@@ -55,11 +55,11 @@ class Towers {
      * @returns {Void}
      */
     createInitialSetup() {
-        let list = this.board.getInitialSetup();
+        const list = this.board.getInitialSetup();
 
         this.sounds.startMute();
         list.forEach((data) => {
-            let tower = this.manager.build(data);
+            const tower = this.manager.build(data);
             for (let i = 2; i <= data.level; i += 1) {
                 this.manager.processUpgrade(tower);
             }
@@ -152,7 +152,7 @@ class Towers {
      */
     lock() {
         if (this.selection.hasSelected()) {
-            let tower = this.selection.getTower();
+            const tower = this.selection.getTower();
 
             if (tower.canLock()) {
                 tower.toggleLock();
@@ -167,7 +167,7 @@ class Towers {
      */
     fire() {
         if (this.selection.hasSelected() && this.hasStarted) {
-            let tower = this.selection.getTower();
+            const tower = this.selection.getTower();
 
             if (tower.canFire() && tower.canDestroy()) {
                 this.shooter.processShot(tower);

@@ -1,11 +1,10 @@
 (function () {
     "use strict";
 
-    let mode, display, score, keyboard,
-        board, ship, ball, tail, bricks, sound, scores,
-        soundFiles = [ "bounce", "brick", "end" ],
-        hasStarted = false,
-        startTime  = 0;
+    let mode, display, score, keyboard, board, ship, ball, tail, bricks, sound, scores;
+
+    let hasStarted = false;
+    let startTime  = 0;
 
 
 
@@ -61,8 +60,8 @@
     function requestAnimation() {
         startTime = new Date().getTime();
         window.requestAnimationFrame(() => {
-            let time  = new Date().getTime() - startTime,
-                speed = time / 16;
+            const time  = new Date().getTime() - startTime;
+            const speed = time / 16;
 
             if (speed < 0) {
                 speed = 0;
@@ -233,18 +232,18 @@
      */
     function initDomListeners() {
         document.body.addEventListener("click", (e) => {
-            let element = Utils.getTarget(e),
-                actions = {
-                    play       : () => newGame(element.dataset.mode),
-                    mainScreen : () => showMainScreen(),
-                    highScores : () => showHighScores(),
-                    help       : () => showHelp(),
-                    endPause   : () => endPause(),
-                    finishGame : () => finishGame(),
-                    save       : () => saveHighScore(),
-                    showScores : () => scores.show(element.dataset.mode),
-                    sound      : () => sound.toggle(),
-                };
+            const element = Utils.getTarget(e);
+            const actions = {
+                play       : () => newGame(element.dataset.mode),
+                mainScreen : () => showMainScreen(),
+                highScores : () => showHighScores(),
+                help       : () => showHelp(),
+                endPause   : () => endPause(),
+                finishGame : () => finishGame(),
+                save       : () => saveHighScore(),
+                showScores : () => scores.show(element.dataset.mode),
+                sound      : () => sound.toggle(),
+            };
 
             if (actions[element.dataset.action]) {
                 actions[element.dataset.action]();
@@ -316,7 +315,7 @@
         display  = new Display();
         mode     = new Mode();
         score    = new Score();
-        sound    = new Sounds(soundFiles, "bounce.sound", true);
+        sound    = new Sounds([ "bounce", "brick", "end" ], "bounce.sound", true);
         board    = new Board(onBoardClick);
         scores   = new HighScores();
         keyboard = new Keyboard(display, scores, getShortcuts());

@@ -70,11 +70,11 @@ class Score {
         this.lives += isIncrease ? 1 : -1;
 
         if (isIncrease) {
-            let blob = new ScoreBlob(this.lives - 1);
+            const blob = new ScoreBlob(this.lives - 1);
             this.blobs.push(blob);
             blob.draw();
         } else if (this.blobs.length) {
-            let blob = this.blobs.pop();
+            const blob = this.blobs.pop();
             blob.clear();
         }
     }
@@ -104,7 +104,7 @@ class Score {
      * @returns {Number}
      */
     fruit() {
-        let score = Data.getLevelData("fruitScore");
+        const score = Data.getLevelData("fruitScore");
         this.incScore(score);
         return score;
     }
@@ -115,7 +115,7 @@ class Score {
      * @returns {Number}
      */
     kill(amount) {
-        var score = Data.getGhostScore(amount);
+        const score = Data.getGhostScore(amount);
         this.incScore(score);
 
         if (amount === 4) {
@@ -159,11 +159,11 @@ class Score {
      * @returns {Void}
      */
     drawScore() {
-        let left   = this.ctx.measureText("Score").width,
-            margin = this.scoreMargin * Board.tileSize,
-            top    = this.textTop     * Board.tileSize,
-            width  = this.scoreWidth  * Board.tileSize + margin / 2,
-            height = this.scoreHeight * Board.tileSize;
+        const left   = this.ctx.measureText("Score").width;
+        const margin = this.scoreMargin * Board.tileSize;
+        const top    = this.textTop     * Board.tileSize;
+        const width  = this.scoreWidth  * Board.tileSize + margin / 2;
+        const height = this.scoreHeight * Board.tileSize;
 
         this.ctx.save();
         this.ctx.fillStyle = this.scoreColor;

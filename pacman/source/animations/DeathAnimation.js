@@ -28,7 +28,7 @@ class DeathAnimation extends Animation {
      * @returns {Void}
      */
     animate() {
-        let count = Math.round(this.time / 15);
+        const count = Math.round(this.time / 15);
 
         this.canvas.clearSavedRects();
         this.ctx.save();

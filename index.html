@@ -24,8 +24,8 @@
         function play(game) {
             "use strict";
 
-            var i, li = document.getElementById("nav").getElementsByTagName("li");
-            for (i = 0; i < li.length; i += 1) {
+            const li = document.getElementById("nav").getElementsByTagName("li");
+            for (let i = 0; i < li.length; i += 1) {
                 if (li[i].children[0].getAttribute("data-game") === game) {
                     li[i].className = "selected";
                 } else {
@@ -39,7 +39,7 @@
 
         function loader() {
             "use strict";
-            var header = document.querySelector("header");
+            const header = document.querySelector("header");
             play(location.hash.substring(1) || "bounce");
 
             header.addEventListener("mouseover", function (e) {

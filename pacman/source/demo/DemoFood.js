@@ -18,8 +18,8 @@ class DemoFood extends Food {
      * @returns {Void}
      */
     wink() {
-        let x = Board.getTileCenter(DemoData.chase.enerX),
-            y = Board.getTileCenter(DemoData.chase.enerY);
+        const x = Board.getTileCenter(DemoData.chase.enerX);
+        const y = Board.getTileCenter(DemoData.chase.enerY);
 
         this.calcRadius();
         this.clearEnergizer(x, y);

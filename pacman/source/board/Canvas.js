@@ -9,7 +9,7 @@ class Canvas {
      * @returns {Canvas}
      */
     init(name) {
-        let canvas    = document.querySelector(`.${name}`);
+        const canvas  = document.querySelector(`.${name}`);
         canvas.width  = Board.width;
         canvas.height = Board.height;
 
@@ -101,7 +101,7 @@ class Canvas {
      * @returns {Void}
      */
     drawText(data) {
-        let metrics, width, height, mult = 0.5;
+        let mult = 0.5;
 
         this.ctx.save();
         if (data.size) {
@@ -115,9 +115,9 @@ class Canvas {
         this.ctx.fillText(data.text, data.pos.x * Board.tileSize, data.pos.y * Board.tileSize);
         this.ctx.restore();
 
-        metrics = this.ctx.measureText(data.text);
-        width   = metrics.width + Board.tileSize;
-        height  = data.size ? (data.size + 0.5) * Board.tileSize : 2.5 * Board.tileSize;
+        const metrics = this.ctx.measureText(data.text);
+        const width   = metrics.width + Board.tileSize;
+        const height  = data.size ? (data.size + 0.5) * Board.tileSize : 2.5 * Board.tileSize;
 
         this.saveRect({
             x      : data.pos.x * Board.tileSize - mult * width,

@@ -24,9 +24,9 @@ class Create {
      * @returns {Void}
      */
     mobs(data) {
-        let starts  = this.parent.board.getStarts(),
-            targets = this.parent.board.getTargets(),
-            amount  = 0;
+        const starts  = this.parent.board.getStarts();
+        const targets = this.parent.board.getTargets();
+        let   amount  = 0;
 
         starts.forEach((element, index) => {
             amount += this.createMobs(data, starts[index], targets[index]);
@@ -42,13 +42,15 @@ class Create {
      * @returns {Void}
      */
     createMobs(data, starts, targets) {
-        let i = 0, mob, mobs = [];
+        const mobs = [];
+        let   mob  = null;
+        let   i    = 0;
 
         do {
-            let pos   = Utils.rand(0, starts.length - 1),
-                start = starts[pos].pos,
-                path  = this.parent.paths.getCellName(start[0], start[1], data.type === "Hopper"),
-                dir   = this.parent.paths.getMobDir(path, 0, data.type === "Flying");
+            const pos   = Utils.rand(0, starts.length - 1);
+            const start = starts[pos].pos;
+            const path  = this.parent.paths.getCellName(start[0], start[1], data.type === "Hopper");
+            const dir   = this.parent.paths.getMobDir(path, 0, data.type === "Flying");
 
             mob = Mob.create(data.type, {
                 id          : this.parent.manager.getNextID(),
@@ -87,21 +89,21 @@ class Create {
      * @returns {Void}
      */
     childs(parent) {
-        let cells  = this.getCloseCells(parent),
-            childs = [],
-            i      = 0,
-            mob;
+        const cells  = this.getCloseCells(parent);
+        const childs = [];
+        let   mob  = null;
+        let   i      = 0;
 
         do {
-            let dist  = Math.floor(this.parent.board.getSize() / 2),
-                move  = Utils.rand(-dist, dist),
-                dtop  = Utils.rand(0, 1),
-                dleft = 1 - dtop,
-                cell  = cells[i % cells.length],
-                dir   = {
-                    top  : move < 0 ? -dtop  : dtop,
-                    left : move < 0 ? -dleft : dleft
-                };
+            const dist  = Math.floor(this.parent.board.getSize() / 2);
+            const move  = Utils.rand(-dist, dist);
+            const dtop  = Utils.rand(0, 1);
+            const dleft = 1 - dtop;
+            const cell  = cells[i % cells.length];
+            const dir   = {
+                top  : move < 0 ? -dtop  : dtop,
+                left : move < 0 ? -dleft : dleft
+            };
 
             mob = Mob.create(parent.getChildName(), {
                 pos         : i,
@@ -143,7 +145,7 @@ class Create {
      * @returns {Void}
      */
     createBlood(mob) {
-        let element = document.createElement("DIV");
+        const element = document.createElement("DIV");
         element.className  = "blood";
         element.style.top  = Utils.toPX(mob.getPos().top);
         element.style.left = Utils.toPX(mob.getPos().left);
@@ -158,12 +160,12 @@ class Create {
      * @returns {Void}
      */
     getCloseCells(mob) {
-        let nothing = this.parent.board.getNothingValue(),
-            cells   = [];
+        const nothing = this.parent.board.getNothingValue();
+        const cells   = [];
 
         this.moveDirs.forEach((dir) => {
-            let row = mob.getRow() + dir[0],
-                col = mob.getCol() + dir[1];
+            const row = mob.getRow() + dir[0];
+            const col = mob.getCol() + dir[1];
 
             if (this.parent.board.inMatrix(row, col) &&
                     this.parent.board.getContent(row, col) <= nothing) {
@@ -172,7 +174,7 @@ class Create {
         });
 
         cells.forEach((cell, i) => {
-            let pos = Utils.rand(0, cells.length - 1);
+            const pos = Utils.rand(0, cells.length - 1);
 
             cells[i]   = cells[pos];
             cells[pos] = cell;

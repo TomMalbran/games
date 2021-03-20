@@ -102,7 +102,7 @@ class Tetriminos {
      * @returns {Tetrimino}
      */
     createTetrimino() {
-        let type = this.getNextType();
+        const type = this.getNextType();
         return new Tetrimino(this.board, type, this.tetriminos[type], this.size);
     }
 
@@ -116,8 +116,8 @@ class Tetriminos {
             this.pointer += 1;
         } else {
             for (let i = 0; i < this.sequence.length; i += 1) {
-                let pos = Utils.rand(0, this.sequence.length - 1),
-                    aux = this.sequence[pos];
+                const pos = Utils.rand(0, this.sequence.length - 1);
+                const aux = this.sequence[pos];
 
                 this.sequence[pos] = this.sequence[i];
                 this.sequence[i]   = aux;
@@ -156,7 +156,7 @@ class Tetriminos {
         }
 
         this.score.piece(this.actual.getDrop());
-        let lines = this.actual.addElements();
+        const lines = this.actual.addElements();
         if (lines) {
             this.sound.line();
             this.score.line(lines);

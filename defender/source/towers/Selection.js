@@ -24,8 +24,8 @@ class Selection {
         if (event.target.classList.contains("towerRange")) {
             this.drop();
         } else {
-            let id    = element.dataset.id,
-                tower = this.parent.manager.get(id);
+            const id    = element.dataset.id;
+            const tower = this.parent.manager.get(id);
             this.pick(tower);
         }
     }
@@ -98,11 +98,11 @@ class Selection {
      * @returns {Void}
      */
     nextPrev(add) {
-        let ids   = Object.keys(this.parent.manager.getList()),
-            pos   = this.tower ? ids.indexOf(String(this.tower.getID())) : (add < 0 ? ids.length : -1),
-            added = (pos + add) % ids.length,
-            index = added < 0 ? ids.length + added : added,
-            tower = this.parent.manager.get(ids[index]);
+        const ids   = Object.keys(this.parent.manager.getList());
+        const pos   = this.tower ? ids.indexOf(String(this.tower.getID())) : (add < 0 ? ids.length : -1);
+        const added = (pos + add) % ids.length;
+        const index = added < 0 ? ids.length + added : added;
+        const tower = this.parent.manager.get(ids[index]);
 
         this.pick(tower);
     }

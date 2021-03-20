@@ -23,7 +23,7 @@ class GameCanvas extends Canvas {
             this.ctx.fillStyle   = ghost.getBodyColor();
             this.ctx.strokeStyle = ghost.getBodyColor();
 
-            let tile = Board.getTileXYCenter(ghost.getTargetTile());
+            const tile = Board.getTileXYCenter(ghost.getTargetTile());
             this.ctx.beginPath();
             this.ctx.moveTo(ghost.getX(), ghost.getY());
             this.ctx.lineTo(tile.x, tile.y);

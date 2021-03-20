@@ -62,8 +62,8 @@ class Clyde extends Ghost {
      * @returns {{x: Number, y: Number}}
      */
     chase(blob) {
-        let x = Math.pow(this.tile.x - blob.getTile().x, 2),
-            y = Math.pow(this.tile.y - blob.getTile().y, 2);
+        const x = Math.pow(this.tile.x - blob.getTile().x, 2);
+        const y = Math.pow(this.tile.y - blob.getTile().y, 2);
 
         if (Math.sqrt(x + y) > 8) {
             return blob.getTile();

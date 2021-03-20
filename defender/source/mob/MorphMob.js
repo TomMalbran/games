@@ -44,7 +44,7 @@ class MorphMob extends Mob {
         if (this.timer > this.morphTime) {
             this.counter     = (this.counter + 1) % this.morph.length;
             this.type        = this.morph[this.counter];
-            let mob          = Mob.create(this.type, {});
+            const mob        = Mob.create(this.type, {});
             this.actualSpeed = mob.speed;
             this.inmune      = !!mob.inmune;
             this.defense     = mob.defense || 0;

@@ -100,7 +100,7 @@ class Board {
      * @returns {DOMElement}
      */
     createSnakeElement() {
-        let div = document.createElement("DIV");
+        const div = document.createElement("DIV");
         div.className = "link";
         div.innerHTML = `<div class="snakeShadow"></div><div class="snakeBody"></div>`;
         return div;

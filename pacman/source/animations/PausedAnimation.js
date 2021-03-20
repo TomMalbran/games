@@ -34,10 +34,10 @@ class PausedAnimation extends Animation {
      * @returns {Void}
      */
     animate() {
-        let time = this.time % this.timePart,
-            anim = Math.floor(this.time / this.timePart) % 2,
-            part = time * (this.maxSize - this.minSize) / this.timePart,
-            size = anim ? this.maxSize - part : this.minSize + part;
+        const time = this.time % this.timePart;
+        const anim = Math.floor(this.time / this.timePart) % 2;
+        const part = time * (this.maxSize - this.minSize) / this.timePart;
+        const size = anim ? this.maxSize - part : this.minSize + part;
 
         this.canvas.clear();
         this.canvas.fill(0.8);

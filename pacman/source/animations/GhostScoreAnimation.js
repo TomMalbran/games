@@ -25,7 +25,7 @@ class GhostScoreAnimation extends Animation {
      * @returns {Void}
      */
     animate() {
-        let size = Math.min(0.2 + Math.round(this.time * 100 / 500) / 100, 1);
+        const size = Math.min(0.2 + Math.round(this.time * 100 / 500) / 100, 1);
 
         this.canvas.clearSavedRects();
         this.canvas.drawText({

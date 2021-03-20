@@ -29,10 +29,10 @@ class NewLevelAnimation extends Animation {
      * @returns {Void}
      */
     animate() {
-        let calc  = Math.round(this.time * 0.03),
-            pos   = calc < 17.15 ? calc - 2 : 15,
-            lvl   = (this.level < 10 ? "0" : "") + this.level,
-            right = Board.cols;
+        const calc  = Math.round(this.time * 0.03);
+        const pos   = calc < 17.15 ? calc - 2 : 15;
+        const lvl   = (this.level < 10 ? "0" : "") + this.level;
+        const right = Board.cols;
 
         this.canvas.clear();
         this.canvas.fill(0.8);

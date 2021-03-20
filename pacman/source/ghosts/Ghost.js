@@ -83,7 +83,7 @@ class Ghost {
      * @returns {Boolean}
      */
     pathMove(blob, switchMode) {
-        let step = this.path[this.pathStep];
+        const step = this.path[this.pathStep];
         if (this.passedDist()) {
             if (this.dir.x) {
                 this.x = step.distx;
@@ -142,7 +142,7 @@ class Ghost {
      * @returns {Void}
      */
     newTile(blob) {
-        var tile = Board.getTilePos(this.x, this.y);
+        const tile = Board.getTilePos(this.x, this.y);
         if (!Board.equalTiles(this.tile, tile)) {
             this.tile       = tile;
             this.tileCenter = Board.getTileXYCenter(this.tile);
@@ -193,7 +193,7 @@ class Ghost {
      * @returns {Void}
      */
     decideTurn() {
-        let turns = this.getTurns();
+        const turns = this.getTurns();
         if (turns.length === 1) {
             this.turn = turns[0];
         } else if (Data.isFrighten(this.mode)) {
@@ -208,10 +208,10 @@ class Ghost {
      * @returns {Array.<{x: Number, y: Number}>}
      */
     getTurns() {
-        let tile   = this.getNextTile(),
-            pos    = Board.tileToString(tile),
-            turns  = Board.getTurns(pos),
-            result = [];
+        const tile   = this.getNextTile();
+        const pos    = Board.tileToString(tile);
+        const turns  = Board.getTurns(pos);
+        const result = [];
 
         turns.forEach((turn) => {
             if ((turn + 2) % 4 !== Board.dirToNumber(this.dir)) {
@@ -227,15 +227,15 @@ class Ghost {
      * @returns {{x: Number, y: Number}}
      */
     getTargetTurn(turns) {
-        let tile   = this.getNextTile(),
-            best   = 999999,
-            result = {};
+        const tile   = this.getNextTile();
+        let   best   = 999999;
+        let   result = {};
 
         turns.forEach((turn) => {
-            let ntile = Board.sumTiles(tile, turn),
-                distx = Math.pow(this.target.x - ntile.x, 2),
-                disty = Math.pow(this.target.y - ntile.y, 2),
-                dist  = Math.sqrt(distx + disty);
+            const ntile = Board.sumTiles(tile, turn);
+            const distx = Math.pow(this.target.x - ntile.x, 2);
+            const disty = Math.pow(this.target.y - ntile.y, 2);
+            const dist  = Math.sqrt(distx + disty);
 
             if (dist < best) {
                 best   = dist;
@@ -298,7 +298,6 @@ class Ghost {
      */
     getSpeed() {
         let speed = Data.getGhostSpeed(false);
-
         if (this.mode === "eyes") {
             speed = Data.eyesSpeed;
         } else if (Data.isFrighten(this.mode)) {
@@ -316,7 +315,7 @@ class Ghost {
      * @returns {Boolean}
      */
     passedDist() {
-        let path = this.path[this.pathStep];
+        const path = this.path[this.pathStep];
         return (
             (this.dir.x ===  1 && this.x >= path.distx) ||
             (this.dir.x === -1 && this.x <= path.distx) ||
@@ -351,7 +350,7 @@ class Ghost {
      * @returns {Boolean}
      */
     isNextIntersection() {
-        let tile = this.getNextTile();
+        const tile = this.getNextTile();
         return Board.isIntersection(tile.x, tile.y);
     }
 
@@ -415,7 +414,7 @@ class Ghost {
      * @returns {Void}
      */
     draw() {
-        let center = Board.ghostSize / 2;
+        const center = Board.ghostSize / 2;
         this.canvas.savePos(this.x, this.y);
         this.ctx.save();
         this.ctx.translate(Math.round(this.x) - center, Math.round(this.y) - center);

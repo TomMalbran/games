@@ -32,7 +32,7 @@ class Demo {
      * @returns {Void}
      */
     createElement(top, left, pos) {
-        let element = this.board.createSnakeElement();
+        const element = this.board.createSnakeElement();
         element.style.top     = this.board.getPosition(top  + 1);
         element.style.left    = this.board.getPosition(left + 1);
         element.style.display = "none";

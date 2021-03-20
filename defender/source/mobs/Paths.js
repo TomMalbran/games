@@ -27,7 +27,8 @@ class Paths {
      * @returns {Boolean}
      */
     createPaths() {
-        let paths = {}, blocking = false;
+        const paths    = {};
+        let   blocking = false;
         this.mobs = [];
 
         blocking = this.createNormalPaths(paths);
@@ -53,15 +54,15 @@ class Paths {
      * @returns {Void}
      */
     createNormalPaths(paths) {
-        let starts  = this.parent.board.getStarts(),
-            targets = this.parent.board.getTargets(),
-            wall    = this.parent.board.getWallsValue(),
-            matrix  = this.parent.board.getMatrix();
+        const starts  = this.parent.board.getStarts();
+        const targets = this.parent.board.getTargets();
+        const wall    = this.parent.board.getWallsValue();
+        const matrix  = this.parent.board.getMatrix();
 
         return starts.some((list, i) => {
             return list.some((start, j) => {
                 return [0, 1].some((k) => {
-                    let cell    = this.getCellName(start.pos[0], start.pos[1], k);
+                    const cell  = this.getCellName(start.pos[0], start.pos[1], k);
                     paths[cell] = new AStar(matrix, start.pos, targets[i][j].pos, this.getType(k), wall);
 
                     if (paths[cell].length === 0) {
@@ -81,7 +82,7 @@ class Paths {
     createMobsPaths(paths) {
         if (!this.parent.manager.isEmpty()) {
             this.parent.manager.getList().forEach((mob) => {
-                let cell = this.getCellName(mob.getCol(), mob.getRow(), mob.isHopper());
+                const cell = this.getCellName(mob.getCol(), mob.getRow(), mob.isHopper());
 
                 if (this.parent.board.inMatrix(mob.getRow(), mob.getCol()) && !mob.isFlyer()) {
                     paths[cell] = this.createMobPath(mob);
@@ -101,16 +102,16 @@ class Paths {
      * @returns {Void}
      */
     createFlyersPaths() {
-        let starts  = this.parent.board.getStarts(),
-            targets = this.parent.board.getTargets();
+        const starts  = this.parent.board.getStarts();
+        const targets = this.parent.board.getTargets();
 
         starts.forEach((list, i) => {
             list.forEach((start, j) => {
-                let p = this.getCellName(start.pos[0], start.pos[1], false),
-                    x = targets[i][j].pos[0] - start.pos[0],
-                    y = targets[i][j].pos[1] - start.pos[1],
-                    h = Math.hypot(x, y),
-                    d = Utils.calcAngle(x, y);
+                const p = this.getCellName(start.pos[0], start.pos[1], false);
+                const x = targets[i][j].pos[0] - start.pos[0];
+                const y = targets[i][j].pos[1] - start.pos[1];
+                const h = Math.hypot(x, y);
+                const d = Utils.calcAngle(x, y);
 
                 this.flyerPaths[p] = { dir: { top: y / h, left: x / h }, deg: d };
             });
@@ -146,7 +147,7 @@ class Paths {
      * @returns {String}
      */
     newPath(mob) {
-        let cell = this.getCellName(mob.getCol(), mob.getRow(), mob.isHopper());
+        const cell = this.getCellName(mob.getCol(), mob.getRow(), mob.isHopper());
         this.normalPaths[cell] = this.createMobPath(mob);
         return cell;
     }
@@ -157,10 +158,10 @@ class Paths {
      * @returns {Array.<[Number, Number]>}
      */
     createMobPath(mob) {
-        let start  = [ mob.getCol(), mob.getRow() ],
-            matrix = this.parent.board.getMatrix(),
-            type   = this.getType(mob.isHopper()),
-            wall   = this.parent.board.getWallsValue();
+        const start  = [ mob.getCol(), mob.getRow() ];
+        const matrix = this.parent.board.getMatrix();
+        const type   = this.getType(mob.isHopper());
+        const wall   = this.parent.board.getWallsValue();
 
         return new AStar(matrix, start, mob.getTargetPos(), type, wall);
     }
@@ -189,9 +190,9 @@ class Paths {
         Object.keys(this.normalPaths).forEach((name) => {
             if (name.substr(-1) !== "f") {
                 this.normalPaths[name].forEach((path, pos) => {
-                    let row  = path[1],
-                        col  = path[0],
-                        cell = this.getCellName(col, row, false);
+                    const row  = path[1];
+                    const col  = path[0];
+                    const cell = this.getCellName(col, row, false);
 
                     if (!this.arrows[cell] && !this.parent.board.isTarget(row, col)) {
                         this.createElement(name, pos, row, col);
@@ -220,8 +221,8 @@ class Paths {
      * @returns {Void}
      */
     createElement(path, pos, row, col) {
-        let angle   = this.getDeg(this.getPathDir(path, pos, false)),
-            element = document.createElement("DIV");
+        const angle   = this.getDeg(this.getPathDir(path, pos, false));
+        const element = document.createElement("DIV");
 
         element.style.top       = Utils.toPX(row * this.parent.board.getSize());
         element.style.left      = Utils.toPX(col * this.parent.board.getSize());
@@ -262,7 +263,7 @@ class Paths {
         if (isFlyer) {
             return this.flyerPaths[path].dir;
         }
-        let dir = this.getPathDir(path, pos);
+        const dir = this.getPathDir(path, pos);
         if (dir.top === 1 && dir.left === 1) {
             return { top: dir.top / 1.414, left: dir.left / 1.414 };
         }
@@ -323,7 +324,7 @@ class Paths {
         if (mob.isFlyer()) {
             return row !== mob.getRow() || col !== mob.getCol();
         }
-        let path = this.normalPaths[mob.getPath()][mob.getPointer() + 1];
+        const path = this.normalPaths[mob.getPath()][mob.getPointer() + 1];
         if (path) {
             return path[0] === col && path[1] === row;
         }

@@ -132,7 +132,7 @@ class Builder {
      * @returns {Void}
      */
     selectByType(type) {
-        let selects = this.getTowersElems();
+        const selects = this.getTowersElems();
         if (selects[type]) {
             this.pick(selects[type]);
         }
@@ -179,13 +179,13 @@ class Builder {
      */
     drag(event) {
         if (this.selected) {
-            let mouse = Utils.getMousePos(event),
-                board = this.parent.board.getPos(),
-                size  = this.parent.board.getSize(),
-                top   = mouse.top  - board.top,
-                left  = mouse.left - board.left,
-                row   = Math.floor(top  / size) - 1,
-                col   = Math.floor(left / size) - 1;
+            const mouse = Utils.getMousePos(event);
+            const board = this.parent.board.getPos();
+            const size  = this.parent.board.getSize();
+            const top   = mouse.top  - board.top;
+            const left  = mouse.left - board.left;
+            const row   = Math.floor(top  / size) - 1;
+            const col   = Math.floor(left / size) - 1;
 
             if (this.row !== row || this.col !== col) {
                 if (this.parent.board.inMatrix(row, col, this.size - 1)) {
@@ -298,12 +298,11 @@ class Builder {
      * @returns {Void}
      */
     enableBuilds(gold) {
-        let selects = this.getTowersElems();
+        const selects = this.getTowersElems();
 
         for (let i = 0; i < selects.length; i += 1) {
-            let type  = selects[i].dataset.type,
-                tower = Tower.create(type);
-
+            const type  = selects[i].dataset.type;
+            const tower = Tower.create(type);
 
             if (tower.getActualCost() <= gold) {
                 selects[i].classList.remove("disabled");
@@ -321,11 +320,11 @@ class Builder {
      * @returns {Void}
      */
     disableBuilds(gold) {
-        let selects = this.getTowersElems();
+        const selects = this.getTowersElems();
 
         for (let i = 0; i < selects.length; i += 1) {
-            let type  = selects[i].dataset.type,
-                tower = Tower.create(type);
+            const type  = selects[i].dataset.type;
+            const tower = Tower.create(type);
 
             if (tower.getActualCost() > gold) {
                 selects[i].classList.add("disabled");
@@ -359,7 +358,7 @@ class Builder {
      * @returns {Number}
      */
     cellToPx(pos) {
-        let center = (this.size * this.parent.board.getSize()) / 2;
+        const center = (this.size * this.parent.board.getSize()) / 2;
         return Utils.toPX((pos + this.size) * this.parent.board.getSize() - center);
     }
 

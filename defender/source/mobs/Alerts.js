@@ -60,7 +60,7 @@ class Alerts {
      * @returns {Void}
      */
     create(mob, className, text) {
-        let element = document.createElement("DIV");
+        const element = document.createElement("DIV");
         element.style.top  = Utils.toPX(mob.getPos().top);
         element.style.left = Utils.toPX(mob.getPos().left);
         element.className  = `alert ${className}`;
@@ -77,9 +77,9 @@ class Alerts {
      */
     move(time) {
         if (!this.list.isEmpty()) {
-            let it = this.list.iterate(), data;
+            const it = this.list.iterate();
             while (it.hasNext()) {
-                data = it.getNext();
+                const data = it.getNext();
                 data.timer -= time;
                 if (data.timer <= 0) {
                     data.top     += this.moveY[data.pointer];

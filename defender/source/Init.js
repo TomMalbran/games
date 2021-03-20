@@ -2,25 +2,10 @@
     "use strict";
 
     let display, score, maps, board, panel, towers, mobs, sounds,
-        audio, animation, startTime, actions, shortcuts,
-        soundFiles = [
-            "build", "upgrade", "sell", "blocking", "enter", "exit", "death", "shoot", "hit",
-            "fast", "missile", "antiair", "frost", "earth", "ink", "snap", "laser"
-        ],
-        specialKeys = {
-            "8"  : "BS",
-            "27" : "Esc",
-            "33" : "PD",
-            "34" : "PU",
-            "35" : "End",
-            "36" : "Home",
-            "37" : "Left",
-            "38" : "Up",
-            "39" : "Right",
-            "40" : "Down"
-        },
-        gameMap   = "classic",
-        gameLevel = 0;
+        audio, animation, startTime, actions, shortcuts;
+
+    let gameMap   = "classic";
+    let gameLevel = 0;
 
 
 
@@ -31,9 +16,9 @@
     function requestAnimation() {
         startTime = new Date().getTime();
         animation = window.requestAnimationFrame(() => {
-            let time  = new Date().getTime() - startTime,
-                speed = time / 16,
-                dec   = score.decTimer(time);
+            const time  = new Date().getTime() - startTime;
+            const speed = time / 16;
+            const dec   = score.decTimer(time);
 
             towers.animate(time, speed);
             mobs.animate(time, speed, dec);
@@ -268,35 +253,35 @@
      * @returns {Void}
      */
     function createShortcuts() {
-        let paused = {
-                P     : "pause",
-                C     : "pause",
-                R     : "restart",
-                Q     : "endGame"
-            },
-            game = {
-                P     : "pause",
-                M     : "mute",
-                N     : "next",
-                U     : "upgrade",
-                F     : "fire",
-                L     : "lock",
-                S     : "sell",
-                A     : "sellAll",
-                DN    : (d) => towers.startBuilding(d),
-                B     : ()  => towers.buildTower(),
-                Left  : ()  => towers.moveTower(-1, 0),
-                Up    : ()  => towers.moveTower(0, -1),
-                Right : ()  => towers.moveTower(1,  0),
-                Down  : ()  => towers.moveTower(0,  1),
-                Home  : ()  => towers.selectFirst(),
-                End   : ()  => towers.selectLast(),
-                Z     : ()  => towers.selectNextPrev(-1),
-                X     : ()  => towers.selectNextPrev(+1),
-                PU    : ()  => towers.selectNextPrev(-5),
-                PD    : ()  => towers.selectNextPrev(+5),
-                Esc   : ()  => endSelection()
-            };
+        const paused = {
+            P     : "pause",
+            C     : "pause",
+            R     : "restart",
+            Q     : "endGame"
+        };
+        const game = {
+            P     : "pause",
+            M     : "mute",
+            N     : "next",
+            U     : "upgrade",
+            F     : "fire",
+            L     : "lock",
+            S     : "sell",
+            A     : "sellAll",
+            DN    : (d) => towers.startBuilding(d),
+            B     : ()  => towers.buildTower(),
+            Left  : ()  => towers.moveTower(-1, 0),
+            Up    : ()  => towers.moveTower(0, -1),
+            Right : ()  => towers.moveTower(1,  0),
+            Down  : ()  => towers.moveTower(0,  1),
+            Home  : ()  => towers.selectFirst(),
+            End   : ()  => towers.selectLast(),
+            Z     : ()  => towers.selectNextPrev(-1),
+            X     : ()  => towers.selectNextPrev(+1),
+            PU    : ()  => towers.selectNextPrev(-5),
+            PD    : ()  => towers.selectNextPrev(+5),
+            Esc   : ()  => endSelection()
+        };
 
         shortcuts = {
             mainScreen : {
@@ -333,10 +318,23 @@
      * @returns {Void}
      */
     function initDomListeners() {
+        const specialKeys = {
+            "8"  : "BS",
+            "27" : "Esc",
+            "33" : "PD",
+            "34" : "PU",
+            "35" : "End",
+            "36" : "Home",
+            "37" : "Left",
+            "38" : "Up",
+            "39" : "Right",
+            "40" : "Down"
+        };
+
         audio = document.querySelector(".audioButton");
 
         document.body.addEventListener("click", (e) => {
-            let element = Utils.getTarget(e);
+            const element = Utils.getTarget(e);
             if (actions[element.dataset.action]) {
                 actions[element.dataset.action](element.dataset.data || undefined);
                 e.preventDefault();
@@ -344,10 +342,9 @@
         });
 
         document.addEventListener("keydown", (e) => {
-            let dec, hexa,
-                key  = e.keyCode,
-                code = specialKeys[key] || String.fromCharCode(key),
-                data = code;
+            const key  = e.keyCode;
+            const code = specialKeys[key] || String.fromCharCode(key);
+            let   data = code, dec, hexa;
 
             if (key >= 48 && key <= 57) {
                 dec  = key - 48;
@@ -389,7 +386,10 @@
 
         display = new Display();
         maps    = new Maps();
-        sounds  = new Sounds(soundFiles, "defender.sound", false);
+        sounds  = new Sounds([
+            "build", "upgrade", "sell", "blocking", "enter", "exit", "death", "shoot", "hit",
+            "fast", "missile", "antiair", "frost", "earth", "ink", "snap", "laser"
+        ], "defender.sound", false);
 
         setAudioText();
     }

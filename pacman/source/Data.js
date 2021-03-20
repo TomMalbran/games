@@ -557,9 +557,9 @@ let Data = (function (){
          * @returns {(Number|String|Array.<Number>)}
          */
         getLevelData(variable) {
-            var level = Math.min(gameLevel - 1, levelsData.length - 1),
-                data  = levelsData[level],
-                value = data[variable];
+            const level = Math.min(gameLevel - 1, levelsData.length - 1);
+            const data  = levelsData[level];
+            const value = data[variable];
 
             if (Array.isArray(value)) {
                 return Object.create(value);

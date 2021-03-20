@@ -54,8 +54,8 @@ class Fruit {
      */
     isAtPos(tile) {
         if (this.timer > 0) {
-            let rect = Board.getFruitRect(),
-                pos  = Board.tileToPos(tile);
+            const rect = Board.getFruitRect();
+            const pos  = Board.tileToPos(tile);
 
             return (
                 pos.x >= rect.left && pos.x <= rect.right &&
@@ -72,7 +72,7 @@ class Fruit {
      * @returns {Void}
      */
     draw(tile) {
-        let pos = Board.tileToPos(tile);
+        const pos = Board.tileToPos(tile);
         this.ctx.save();
         this.ctx.translate(pos.x, pos.y);
         this[`draw${Data.getFruitName()}`]();
@@ -84,7 +84,7 @@ class Fruit {
      * @returns {Void}
      */
     clear() {
-        let pos = Board.fruitPos;
+        const pos = Board.fruitPos;
         this.ctx.clearRect(pos.x - 1, pos.y - 1, Board.fruitSize, Board.fruitSize);
     }
 
@@ -129,7 +129,7 @@ class Fruit {
      * @returns {Void}
      */
     drawStrawberry() {
-        let dots = [ 3, 7, 5, 6, 4, 10, 7, 8, 6, 11, 7, 13, 9, 10, 9, 14, 10, 12, 11, 8, 12, 11, 14, 6, 14, 9 ];
+        const dots = [ 3, 7, 5, 6, 4, 10, 7, 8, 6, 11, 7, 13, 9, 10, 9, 14, 10, 12, 11, 8, 12, 11, 14, 6, 14, 9 ];
 
         this.ctx.fillStyle = "rgb(222, 0, 0)";
         this.ctx.beginPath();

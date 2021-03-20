@@ -20,15 +20,15 @@ class Ranges {
      * @returns {({boosts: Array.<Iterator>, towers: Array.<Iterator>} | {complete: Array.<Iterator>, reduced: Array.<Iterator>})}
      */
     add(tower) {
-        let matrix = tower.getRangeMatrix(),
-            reduce = (matrix.length - tower.getSize()) / 2,
-            list1  = [],
-            list2  = [];
+        const matrix = tower.getRangeMatrix();
+        const reduce = (matrix.length - tower.getSize()) / 2;
+        const list1  = [];
+        const list2  = [];
 
         matrix.forEach((line, i) => {
             line.forEach((cell, j) => {
-                let row = tower.getRow() - reduce + i,
-                    col = tower.getCol() - reduce + j;
+                const row = tower.getRow() - reduce + i;
+                const col = tower.getCol() - reduce + j;
 
                 if (cell === 1 && this.parent.board.inBoard(row, col)) {
                     if (tower.isBoost()) {
@@ -57,9 +57,9 @@ class Ranges {
      * @returns {Void}
      */
     addBoost(list1, list2, id, row, col) {
-        let cell    = this.getCell(row, col),
-            towerID = this.parent.board.getContent(row, col),
-            tower   = this.parent.manager.get(towerID);
+        const cell    = this.getCell(row, col);
+        const towerID = this.parent.board.getContent(row, col);
+        const tower   = this.parent.manager.get(towerID);
 
         list1.push(this.addTower("boosts", cell, id));
         if (tower && !tower.isBoost() && list2.indexOf(towerID) === -1) {
@@ -78,7 +78,7 @@ class Ranges {
      * @returns {Void}
      */
     addNormal(list1, list2, id, row, col) {
-        let cell = this.getCell(row, col);
+        const cell = this.getCell(row, col);
         list1.push(this.addTower("complete", cell, id));
         list2.push(this.addTower("reduced",  cell, id));
     }
@@ -104,7 +104,7 @@ class Ranges {
      * @returns {Void}
      */
     remove(tower) {
-        let lists = tower.getLists();
+        const lists = tower.getLists();
         Object.keys(lists).forEach((name) => {
             lists[name].forEach((it) => {
                 if (this[name]) {
@@ -134,7 +134,7 @@ class Ranges {
      * @returns {Void}
      */
     endShoot(tower) {
-        let list = [];
+        const list = [];
         tower.getLists().complete.forEach((it) => {
             list.push(this.addTower("reduced", it.getPrev().cell, it.getPrev().id));
         });
@@ -148,17 +148,17 @@ class Ranges {
      * @returns {Array.<Number>}
      */
     getBoostsList(tower) {
-        let startRow = tower.getRow(),
-            startCol = tower.getCol(),
-            endRow   = startRow + tower.getSize(),
-            endCol   = startCol + tower.getSize(),
-            list     = [];
+        const startRow = tower.getRow();
+        const startCol = tower.getCol();
+        const endRow   = startRow + tower.getSize();
+        const endCol   = startCol + tower.getSize();
+        const list     = [];
 
         for (let i = startRow; i < endRow; i += 1) {
             for (let j = startCol; j < endCol; j += 1) {
-                let pos = this.getCell(i, j);
+                const pos = this.getCell(i, j);
                 if (this.boosts[pos] && !this.boosts[pos].isEmpty()) {
-                    let it = this.boosts[pos].iterate();
+                    const it = this.boosts[pos].iterate();
                     while (it.hasNext()) {
                         if (list.indexOf(it.getNext()) !== -1) {
                             list.push(it.getNext());
@@ -189,7 +189,7 @@ class Ranges {
      * @returns {Boolean}
      */
     hasTowers(row, col) {
-        let pos = this.getCell(row, col);
+        const pos = this.getCell(row, col);
         return this.reduced[pos] && !this.reduced[pos].isEmpty();
     }
 

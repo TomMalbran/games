@@ -72,7 +72,7 @@ class Ammo {
      * @returns {Void}
      */
     changeAngle() {
-        let angle = this.tower.getMobAngle(this.targets[0]);
+        const angle = this.tower.getMobAngle(this.targets[0]);
         if (this.rotateTower) {
             this.tower.rotateCanon(angle);
         }
@@ -96,9 +96,9 @@ class Ammo {
      * @returns {Void}
      */
     changePos(time) {
-        let targetPos = this.targets[0].getCenterPos();
-        this.top     += this.getDist(targetPos.top  - this.top, time);
-        this.left    += this.getDist(targetPos.left - this.left, time);
+        const targetPos = this.targets[0].getCenterPos();
+        this.top       += this.getDist(targetPos.top  - this.top, time);
+        this.left      += this.getDist(targetPos.left - this.left, time);
 
         this.element.style.top  = Utils.toPX(this.top);
         this.element.style.left = Utils.toPX(this.left);
@@ -120,9 +120,9 @@ class Ammo {
      */
     changeDisplay() {
         if (!this.display) {
-            let size = this.tower.getSize() * this.boardSize / 2,
-                pos  = this.tower.getCenterPos(),
-                dist = Math.hypot(this.top - pos.top, this.left - pos.left);
+            const size = this.tower.getSize() * this.boardSize / 2;
+            const pos  = this.tower.getCenterPos();
+            const dist = Math.hypot(this.top - pos.top, this.left - pos.left);
 
             if (dist > size) {
                 this.element.style.display = "block";
@@ -137,7 +137,7 @@ class Ammo {
      * @returns {Number}
      */
     getPos(cell) {
-        let center = this.tower.getTowerCenter(cell);
+        const center = this.tower.getTowerCenter(cell);
         return center - this.center;
     }
 

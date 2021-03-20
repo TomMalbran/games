@@ -85,7 +85,7 @@ class Demo {
      */
     titleAnimation(time) {
         this.timer += time;
-        let alpha   = 1 - Math.round(10 * this.timer / DemoData.title.endTime) / 10;
+        const alpha = 1 - Math.round(10 * this.timer / DemoData.title.endTime) / 10;
 
         this.canvas.clear();
         this.bigBlob.animate(time);

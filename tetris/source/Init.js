@@ -2,11 +2,10 @@
     "use strict";
 
     let display, level, sound, scores, keyboard,
-        board, score, tetriminos,
-        animation, startTime,
-        soundFiles      = [ "pause", "crash", "drop", "line", "rotate", "end" ],
-        tetriminoSize   = 2,
-        maxInitialLevel = 10;
+        board, score, tetriminos, animation, startTime;
+
+    const tetriminoSize   = 2;
+    const maxInitialLevel = 10;
 
 
 
@@ -25,7 +24,7 @@
     function requestAnimation() {
         startTime = new Date().getTime();
         animation = window.requestAnimationFrame(() => {
-            let time = new Date().getTime() - startTime;
+            const time = new Date().getTime() - startTime;
 
             score.decTime(time);
             if (score.time < 0) {
@@ -205,21 +204,21 @@
      */
     function initDomListeners() {
         document.body.addEventListener("click", (e) => {
-            let element = Utils.getTarget(e),
-                actions = {
-                    decrease   : () => level.dec(),
-                    increase   : () => level.inc(),
-                    start      : () => newGame(),
-                    mainScreen : () => showMainScreen(),
-                    endPause   : () => endPause(),
-                    pause      : () => showPause(),
-                    finishGame : () => finishGame(),
-                    highScores : () => showHighScores(),
-                    help       : () => showHelp(),
-                    save       : () => saveHighScore(),
-                    restore    : () => scores.restore(),
-                    sound      : () => sound.toggle()
-                };
+            const element = Utils.getTarget(e);
+            const actions = {
+                decrease   : () => level.dec(),
+                increase   : () => level.inc(),
+                start      : () => newGame(),
+                mainScreen : () => showMainScreen(),
+                endPause   : () => endPause(),
+                pause      : () => showPause(),
+                finishGame : () => finishGame(),
+                highScores : () => showHighScores(),
+                help       : () => showHelp(),
+                save       : () => saveHighScore(),
+                restore    : () => scores.restore(),
+                sound      : () => sound.toggle()
+            };
 
             if (actions[element.dataset.action]) {
                 actions[element.dataset.action]();
@@ -235,7 +234,7 @@
 
         display  = new Display();
         level    = new Level(maxInitialLevel);
-        sound    = new Sounds(soundFiles, "tetris.sound", true);
+        sound    = new Sounds([ "pause", "crash", "drop", "line", "rotate", "end" ], "tetris.sound", true);
         scores   = new HighScores();
         keyboard = new Keyboard(display, scores, getShortcuts());
     }

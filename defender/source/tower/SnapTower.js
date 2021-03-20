@@ -49,8 +49,8 @@ class SnapTower extends Tower {
      * @returns {Array.<Array.<Mob>>}
      */
     getTargets(mobs, mob) {
-        let targets = this.getRangeTargets(mobs),
-            result  = [];
+        const targets = this.getRangeTargets(mobs);
+        const result  = [];
 
         for (let i = 0; i < targets.length; i += 1) {
             result.push([targets[i]]);

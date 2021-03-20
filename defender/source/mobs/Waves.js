@@ -126,8 +126,8 @@ class Waves {
      * @returns {Void}
      */
     createElement(add) {
-        let mob = Mob.create(this.getType(add), { boss : this.isBossWave(add) }),
-            div = document.createElement("DIV");
+        const mob = Mob.create(this.getType(add), { boss : this.isBossWave(add) });
+        const div = document.createElement("DIV");
 
         div.style.backgroundColor = mob.getColor();
         div.style.left = Utils.toPX(this.getLeft(this.wave + add, 0));
@@ -155,8 +155,8 @@ class Waves {
      * @returns {Void}
      */
     setLeft() {
-        let timer = this.parent.score.getTimer(),
-            start = (timer - 25) * this.elemWidth / 25;
+        const timer = this.parent.score.getTimer();
+        const start = (timer - 25) * this.elemWidth / 25;
 
         this.elements.forEach((element, index) => {
             element.style.left = Utils.toPX(this.getLeft(index, start));

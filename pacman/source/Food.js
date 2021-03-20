@@ -103,7 +103,7 @@ class Food {
 
         this.matrix.forEach((row, y) => {
             row.forEach((value, x) => {
-                let rect = Board.getPillRect(x, y);
+                const rect = Board.getPillRect(x, y);
                 if (value === Data.pillValue) {
                     this.ctx.fillRect(rect.x, rect.y, rect.size, rect.size);
                 }
@@ -119,7 +119,7 @@ class Food {
      * @returns {Void}
      */
     clearPill(x, y) {
-        let rect = Board.getPillRect(x, y);
+        const rect = Board.getPillRect(x, y);
         this.ctx.clearRect(rect.x, rect.y, rect.size, rect.size);
     }
 
@@ -158,7 +158,7 @@ class Food {
      * @returns {Void}
      */
     clearEnergizer(x, y) {
-        let radius = this.maxRadius;
+        const radius = this.maxRadius;
         this.ctx.clearRect(x - radius, y - radius, radius * 2, radius * 2);
     }
 
@@ -178,8 +178,8 @@ class Food {
      * @returns {Number}
      */
     eatPill(tile) {
-        let value = this.matrix[tile.y][tile.x],
-            pos   = Board.getTileXYCenter(tile);
+        const value = this.matrix[tile.y][tile.x];
+        const pos   = Board.getTileXYCenter(tile);
 
         this.clearPill(tile.x, tile.y);
         this.matrix[tile.y][tile.x] = 0;

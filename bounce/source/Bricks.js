@@ -54,7 +54,7 @@ class Bricks {
      * @returns {Void}
      */
     createBrick(row, column) {
-        let data = { element : document.createElement("DIV") };
+        const data = { element : document.createElement("DIV") };
 
         data.element.style.top  = Utils.toEM(this.brickHeight * row);
         data.element.style.left = Utils.toEM(this.brickWidth  * column);
@@ -98,7 +98,7 @@ class Bricks {
      * @returns {Boolean} True if the ball crashed the bottom part of the brick
      */
     bottomCrash(ball, brick) {
-        let pos = ball.getPosition();
+        const pos = ball.getPosition();
         if (this.isPointInElement(pos.top, pos.left + ball.getSize() / 2, brick)) {
             ball.setDirTop(1);
             return true;
@@ -113,9 +113,9 @@ class Bricks {
      * @returns {Boolean} True if the ball crashed the left part of the brick
      */
     leftCrash(ball, brick) {
-        let pos  = ball.getPosition(),
-            top  = pos.top  + ball.getSize() / 2,
-            left = pos.left + ball.getSize();
+        const pos  = ball.getPosition();
+        const top  = pos.top  + ball.getSize() / 2;
+        const left = pos.left + ball.getSize();
 
         if (this.isPointInElement(top, left, brick)) {
             ball.setDirLeft(-1);
@@ -131,7 +131,7 @@ class Bricks {
      * @returns {Boolean} True if the ball crashed the right part of the brick
      */
     rightCrash(ball, brick) {
-        let pos = ball.getPosition();
+        const pos = ball.getPosition();
         if (this.isPointInElement(pos.top + ball.getSize() / 2, pos.left, brick)) {
             ball.setDirLeft(-1);
             return true;
@@ -146,9 +146,9 @@ class Bricks {
      * @returns {Boolean} True if the ball crashed the top part of the brick
      */
     topCrash(ball, brick) {
-        let pos  = ball.getPosition(),
-            top  = pos.top  + ball.getSize(),
-            left = pos.left + ball.getSize() / 2;
+        const pos  = ball.getPosition();
+        const top  = pos.top  + ball.getSize();
+        const left = pos.left + ball.getSize() / 2;
 
         if (this.isPointInElement(top, left, brick)) {
             ball.setDirTop(-1);
@@ -166,7 +166,7 @@ class Bricks {
     remove(element, index) {
         this.elements.splice(index, 1);
 
-        let el = element.element;
+        const el = element.element;
         el.style.borderWidth = "1.5em";
 
         window.setTimeout(() => {

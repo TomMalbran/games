@@ -52,8 +52,8 @@ class HighScores {
      */
     displayScores() {
         for (let i = 1; i <= this.total; i += 1) {
-            let data = this.data.get(i),
-                div  = document.createElement("DIV");
+            const data = this.data.get(i);
+            const div  = document.createElement("DIV");
 
             div.className = "highScore";
             div.innerHTML = `
@@ -88,15 +88,15 @@ class HighScores {
      * @returns {Void}
      */
     saveData(score) {
-        let data   = [],
-            saved  = false,
-            actual = {
-                name  : this.input.value,
-                score : score
-            };
+        const data   = [];
+        const actual = {
+            name  : this.input.value,
+            score : score
+        };
+        let saved = false;
 
         for (let i = 1; i <= this.total; i += 1) {
-            let hs = this.data.get(i);
+            const hs = this.data.get(i);
             if (!saved && hs.score < actual.score) {
                 data.push(actual);
                 saved = true;

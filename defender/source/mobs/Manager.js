@@ -26,7 +26,7 @@ class MobsManager {
      * @returns {Mob}
      */
     add(mob) {
-        let it = this.list.addLast(mob);
+        const it = this.list.addLast(mob);
         mob.setIterator(it);
         this.id += 1;
         return mob;
@@ -59,11 +59,11 @@ class MobsManager {
     moveMobs(time, speed) {
         if (!this.moving.isEmpty()) {
             this.moving.forEach((it) => {
-                let mob = it.getPrev(), cell, turn;
+                const mob = it.getPrev();
                 mob.move(speed);
 
-                cell = this.moveToNewCell(mob);
-                turn = this.turnMob(mob);
+                const cell = this.moveToNewCell(mob);
+                const turn = this.turnMob(mob);
                 mob.specialPower(time, cell, turn);
             });
         }
@@ -75,10 +75,10 @@ class MobsManager {
      * @returns {Boolean}
      */
     moveToNewCell(mob) {
-        let pos = mob.getCenterPos(),
-            row = mob.getCell(pos.top),
-            col = mob.getCell(mob.left),
-            ret = false;
+        const pos = mob.getCenterPos();
+        const row = mob.getCell(pos.top);
+        const col = mob.getCell(mob.left);
+        let   ret = false;
 
         if (this.parent.paths.nextInPath(mob, row, col)) {
             if (!mob.isFlyer()) {
@@ -97,12 +97,12 @@ class MobsManager {
      * @returns {Boolean}
      */
     turnMob(mob) {
-        let dir, result = false;
+        let result = false;
         if (mob.passedCenter()) {
             if (this.parent.board.isEqualTo(mob.getRow(), mob.getCol(), mob.getTargetValue())) {
                 this.mobExits(mob);
             } else if (!mob.isFlyer()) {
-                dir = this.parent.paths.getMobDir(mob.getPath(), mob.getPointer(), mob.isFlyer());
+                const dir = this.parent.paths.getMobDir(mob.getPath(), mob.getPointer(), mob.isFlyer());
                 if (mob.shouldTurn(dir)) {
                     result = true;
                     mob.turn(dir, this.parent.paths.getDeg(dir));
@@ -133,8 +133,7 @@ class MobsManager {
      * @returns {Void}
      */
     killMob(mob) {
-        let gold = mob.getGold();
-
+        const gold = mob.getGold();
         if (gold > 0) {
             this.parent.score.incGold(gold);
             this.parent.score.incScore(gold);
@@ -177,11 +176,11 @@ class MobsManager {
      */
     reduceCreate(time) {
         if (!this.creating.isEmpty()) {
-            let it = this.creating.iterate();
+            const it = this.creating.iterate();
             while (it.hasNext()) {
-                let mob = it.getNext();
+                const mob = it.getNext();
                 if (mob.decTimer(time)) {
-                    let itm = this.moving.addLast(mob.getIterator());
+                    const itm = this.moving.addLast(mob.getIterator());
                     mob.create(itm);
                     it.removeNext();
                 } else {
@@ -213,11 +212,11 @@ class MobsManager {
      */
     reduceSpawn(time) {
         if (!this.spawning.isEmpty()) {
-            let it = this.spawning.iterate();
+            const it = this.spawning.iterate();
             while (it.hasNext()) {
-                let mob = it.getNext();
+                const mob = it.getNext();
                 if (mob.moveSpawn(time)) {
-                    let itm = this.moving.addLast(mob.getIterator());
+                    const itm = this.moving.addLast(mob.getIterator());
                     mob.endSpawn(itm);
                     this.parent.paths.asignPathToMob(mob, this.parent.paths.newPath(mob));
                     it.removeNext();
@@ -237,7 +236,7 @@ class MobsManager {
     addSlow(mobs) {
         mobs.forEach((mob) => {
             if (!mob.isDead() && !mob.isSlowed()) {
-                let it = this.slowed.addLast(mob);
+                const it = this.slowed.addLast(mob);
                 mob.startSlow(it);
                 this.parent.panel.updateMob(mob);
             }
@@ -253,9 +252,9 @@ class MobsManager {
      */
     reduceSlow(time) {
         if (!this.slowed.isEmpty()) {
-            let it = this.slowed.iterate();
+            const it = this.slowed.iterate();
             while (it.hasNext()) {
-                let mob = it.getNext();
+                const mob = it.getNext();
                 if (mob.decSlow(time)) {
                     mob.endSlow();
                     it.removeNext();
@@ -276,7 +275,7 @@ class MobsManager {
     addStun(mobs, tower) {
         mobs.forEach((mob) => {
             if (!mob.isDead() && !mob.isStunned() && tower.shouldStun()) {
-                let it = this.stunned.addLast(mob);
+                const it = this.stunned.addLast(mob);
                 mob.startStun(it);
             }
         });
@@ -291,9 +290,9 @@ class MobsManager {
      */
     reduceStun(time) {
         if (!this.stunned.isEmpty()) {
-            let it = this.stunned.iterate();
+            const it = this.stunned.iterate();
             while (it.hasNext()) {
-                let mob = it.getNext();
+                const mob = it.getNext();
                 if (mob.decStun(time)) {
                     mob.endStun();
                     it.removeNext();
@@ -314,7 +313,7 @@ class MobsManager {
     addBleed(mobs, damage) {
         mobs.forEach((mob) => {
             if (!mob.isBleeding()) {
-                let it = this.bleeding.addLast(mob);
+                const it = this.bleeding.addLast(mob);
                 mob.startBleed(it, damage);
             } else {
                 mob.addBleed(damage);
@@ -331,9 +330,9 @@ class MobsManager {
      */
     reduceBleed(time) {
         if (!this.bleeding.isEmpty()) {
-            let it = this.bleeding.iterate();
+            const it = this.bleeding.iterate();
             while (it.hasNext()) {
-                let mob = it.getNext();
+                const mob = it.getNext();
                 mob.decBleed(time);
 
                 this.parent.panel.updateMob(mob);

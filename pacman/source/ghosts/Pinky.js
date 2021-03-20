@@ -61,8 +61,8 @@ class Pinky extends Ghost {
      * @returns {{x: Number, y: Number}}
      */
     chase(blob) {
-        let targetx = blob.getTile().x + 4 * blob.getDir().x,
-            targety = blob.getTile().y + 4 * blob.getDir().y;
+        const targety = blob.getTile().y + 4 * blob.getDir().y;
+        let   targetx = blob.getTile().x + 4 * blob.getDir().x;
 
         // Recreating bug where Up = Up+Left
         if (blob.getDir().y === -1) {

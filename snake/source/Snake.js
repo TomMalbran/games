@@ -37,7 +37,7 @@ class Snake {
      * @returns {String} The result of the movement
      */
     move() {
-        let pos = this.getPosition();
+        const pos = this.getPosition();
 
         if (this.matrix.crashed(pos.top, pos.left)) {
             return "crashed";
@@ -74,7 +74,7 @@ class Snake {
      * @returns {Void}
      */
     moveLink(top, left) {
-        let first = this.queue.dequeue();
+        const first = this.queue.dequeue();
         this.addLink(first.element, top, left);
 
         this.matrix.removeSnake(first.top, first.left);
@@ -123,14 +123,14 @@ class Snake {
      * @returns {Boolean} True if the snake changed direction
      */
     mouseTurn(event) {
-        let mouse = Utils.getMousePos(event),
-            last  = this.queue.last(),
-            cell  = this.board.cellSize,
-            top   = Math.floor((mouse.top  - this.position.top)  / cell),
-            left  = Math.floor((mouse.left - this.position.left) / cell),
-            dtop  = top  - last.top,
-            dleft = left - last.left,
-            can   = false;
+        const mouse = Utils.getMousePos(event);
+        const last  = this.queue.last();
+        const cell  = this.board.cellSize;
+        const top   = Math.floor((mouse.top  - this.position.top)  / cell);
+        const left  = Math.floor((mouse.left - this.position.left) / cell);
+        const dtop  = top  - last.top;
+        const dleft = left - last.left;
+        let   can   = false;
 
         if (Math.abs(dtop) > Math.abs(dleft)) {
             can = this.turn(dtop < 0 ? -1 : 1, 0);
@@ -156,7 +156,7 @@ class Snake {
             return this.initialPos;
         }
 
-        let last = this.queue.last();
+        const last = this.queue.last();
         return {
             top  : last.top  + this.dirTop,
             left : last.left + this.dirLeft

@@ -44,7 +44,7 @@ class Tetrimino {
      * Sets the positions of each cube in the piece
      */
     setCubePositions() {
-        let elements = this.nextElem.querySelectorAll("div");
+        const elements = this.nextElem.querySelectorAll("div");
 
         for (let i = 0; i < elements.length; i += 1) {
             elements[i].style.top  = Utils.toEM(elements[i].dataset.top  * this.size);
@@ -183,7 +183,7 @@ class Tetrimino {
      * @returns {Array.<Array.<Number>>}
      */
     getMatrix(rotation) {
-        let rot = rotation || rotation === 0 ? rotation : this.rotation;
+        const rot = rotation || rotation === 0 ? rotation : this.rotation;
         return this.data.matrix[rot];
     }
 

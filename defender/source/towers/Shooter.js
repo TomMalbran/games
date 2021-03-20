@@ -22,8 +22,8 @@ class Shooter {
      */
     shoot() {
         this.parent.mobs.getMovingMobs().forEach((it) => {
-            let mob    = it.getPrev(),
-                towers = this.parent.ranges.getReducedList(mob.getRow(), mob.getCol());
+            const mob    = it.getPrev();
+            const towers = this.parent.ranges.getReducedList(mob.getRow(), mob.getCol());
 
             if (mob.getHitPoints() > 0 && towers && !towers.isEmpty()) {
                 this.shootMob(towers, mob);
@@ -39,7 +39,7 @@ class Shooter {
      */
     shootMob(towers, mob) {
         towers.some((element) => {
-            let tower = this.parent.manager.get(element.id);
+            const tower = this.parent.manager.get(element.id);
             if (tower && !tower.isShooting() && tower.canShoot(mob)) {
                 this.processShot(tower, mob);
             }
@@ -56,13 +56,13 @@ class Shooter {
      * @returns {Void}
      */
     processShot(tower, mob) {
-        let targets = tower.getTargets(this.parent.mobs.getMovingMobs(), mob);
+        const targets = tower.getTargets(this.parent.mobs.getMovingMobs(), mob);
 
         this.parent.ranges.startShoot(tower);
         tower.startShoot();
 
         targets.forEach((list, index) => {
-            let ammo = this.createAmmo(tower, list, index + 1);
+            const ammo = this.createAmmo(tower, list, index + 1);
             this.parent.sounds[tower.getSoundName()]();
 
             list.forEach(function (nmob) {
@@ -88,8 +88,8 @@ class Shooter {
      * @returns {Ammo}
      */
     createAmmo(tower, targets, index) {
-        let ammo = tower.createAmmo(targets, index),
-            it   = this.ammos.addLast(ammo);
+        const ammo = tower.createAmmo(targets, index);
+        const it   = this.ammos.addLast(ammo);
 
         ammo.setIterator(it);
         this.bullets.appendChild(ammo.createElement());
@@ -103,7 +103,7 @@ class Shooter {
      */
     moveAmmos(time) {
         this.ammos.forEach((ammo) => {
-            let tower = ammo.getTower();
+            const tower = ammo.getTower();
             if (ammo.move(time)) {
                 this.attackTargets(ammo.getTargets(), tower.getDamage());
                 this.parent.mobs.addToList(ammo.getTargets(), tower);

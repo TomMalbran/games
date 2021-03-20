@@ -103,14 +103,13 @@ class Board {
      * @returns {Number}
      */
     addElements(matrix, type, elemTop, elemLeft) {
-        let lines = [];
-
+        const lines = [];
         for (let i = 0; i < matrix.length; i += 1) {
             for (let j = 0; j < matrix[i].length; j += 1) {
                 if (matrix[i][j]) {
-                    let top  = elemTop  + i,
-                        left = elemLeft + j,
-                        elem = this.append(type, top, left);
+                    const top  = elemTop  + i;
+                    const left = elemLeft + j;
+                    const elem = this.append(type, top, left);
 
                     if (this.addToMatrix(elem, top, left)) {
                         lines.push(top);
@@ -132,7 +131,7 @@ class Board {
      * @returns {DOMElement}
      */
     append(type, top, left) {
-        let element = document.createElement("DIV");
+        const element = document.createElement("DIV");
         element.className  = `cell${type}`;
         element.style.top  = this.getTop(top);
         element.style.left = this.getLeft(left);
@@ -162,7 +161,7 @@ class Board {
      * @returns {DOMElement}
      */
     createWink(top) {
-        let element = document.createElement("div");
+        const element = document.createElement("div");
         element.className   = "wink";
         element.style.top   = this.getTop(top);
         element.dataset.top = top;

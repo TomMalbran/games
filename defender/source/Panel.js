@@ -182,7 +182,8 @@ class Panel {
      * @returns {String}
      */
     towerButtons(data) {
-        let classes = [], button = "";
+        const classes = [];
+        let   button  = "";
 
         if (data.isMaxed) {
             classes.push("hideButtons");

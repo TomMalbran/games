@@ -131,9 +131,9 @@ class Map {
      * @returns {Array.<Object>}
      */
     getWalls() {
-        let className,
-            walls  = [null],
-            matrix = [];
+        const walls  = [ null ];
+        const matrix = [];
+        let   className;
 
         for (let i = 0; i < this.mapData.matrix.length; i += 1) {
             matrix[i] = [];
@@ -242,7 +242,7 @@ class Map {
      */
     expandHorizontal(walls, matrix, i, j, cl) {
         if (matrix[i - 1]) {
-            let id = matrix[i - 1][j];
+            const id = matrix[i - 1][j];
             return id && (!walls[id].type || walls[id].type === "horizontal") && walls[id].cl === cl;
         }
         return false;
@@ -258,7 +258,7 @@ class Map {
      * @returns {Boolean}
      */
     expandVertical(walls, matrix, i, j, cl) {
-        let id = matrix[i][j - 1];
+        const id = matrix[i][j - 1];
         return id && (!walls[id].type || walls[id].type === "vertical") && walls[id].cl === cl;
     }
 
@@ -288,12 +288,12 @@ class Map {
      * @returns {Array.<{type: String, col: Number, row: Number, level: Number}>}
      */
     getInitialSetup() {
-        let amount = this.storage.get("towers"),
-            list   = [];
+        const amount = this.storage.get("towers");
+        const list   = [];
 
         if (amount) {
             for (let i = MapsData.towerStart; i <= amount; i += 1) {
-                let data = this.storage.get(`tower.${i}`);
+                const data = this.storage.get(`tower.${i}`);
                 if (data) {
                     this.storage.remove(`tower.${i}`);
                     list.push(data);
@@ -324,7 +324,7 @@ class Map {
      * @returns {Void}
      */
     upgradeTower(tower) {
-        let data = this.storage.get(`tower.${tower.getID()}`);
+        const data = this.storage.get(`tower.${tower.getID()}`);
         if (data) {
             data.level = tower.getLevel();
             this.storage.set(`tower.${tower.getID()}`, data);

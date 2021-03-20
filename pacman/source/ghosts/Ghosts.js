@@ -17,7 +17,7 @@ class Ghosts {
         this.eyesCounter = 0;                           // Amount of dead Ghost during a fright mode
 
         // The Ghosts
-        var canvas       = Board.gameCanvas;
+        const canvas     = Board.gameCanvas;
         this.blinky      = new Blinky(canvas, oldManager ? oldManager.blinky.getDots() : null);
         this.pinky       = new Pinky(canvas, oldManager ? oldManager.pinky.getDots() : null);
         this.inky        = new Inky(canvas, oldManager ? oldManager.inky.getDots() : null, this.blinky);
@@ -62,7 +62,7 @@ class Ghosts {
      * @returns {Void}
      */
     switchMode(blob) {
-        let oldMode = this.globalMode;
+        const oldMode = this.globalMode;
         if (Data.isFrighten(this.globalMode) && this.frightTimer <= 0) {
             this.blinksCount -= 1;
 
@@ -101,7 +101,7 @@ class Ghosts {
      * @returns {Void}
      */
     move(speed, blob) {
-        let mode = this.getSwitchMode();
+        const mode = this.getSwitchMode();
         this.ghosts.forEach((ghost) => {
             if (ghost.move(speed, blob, mode)) {
                 this.addGhostToPen(ghost);
@@ -145,7 +145,7 @@ class Ghosts {
      * @returns {Void}
      */
     frighten(blob) {
-        var oldMode      = this.globalMode;
+        const oldMode    = this.globalMode;
         this.globalMode  = "blue";
         this.frightTimer = Data.getFrightTime();
         this.blinksCount = Data.getBlinks();
@@ -163,7 +163,7 @@ class Ghosts {
      */
     crash(blobTile, onKill, onDie) {
         this.ghosts.some((ghost) => {
-            let result = ghost.killOrDie(blobTile);
+            const result = ghost.killOrDie(blobTile);
             if (result === "kill") {
                 this.eyesCounter += 1;
                 onKill(this.eyesCounter, ghost.getTile());
@@ -227,8 +227,8 @@ class Ghosts {
      * @returns {Void}
      */
     checkDotLimit() {
-        let limits = Data.getLevelData("penLeavingLimit"),
-            ghost  = this.inPen[0];
+        const limits = Data.getLevelData("penLeavingLimit");
+        const ghost  = this.inPen[0];
 
         if (limits[ghost.getID()] <= ghost.getDots()) {
             this.releaseGhostFromPen();
@@ -281,7 +281,7 @@ class Ghosts {
      * @returns {Void}
      */
     releaseGhostFromPen() {
-        let ghost = this.inPen[0];
+        const ghost = this.inPen[0];
         ghost.setPath("exitPen");
         ghost.activateElroy();
 

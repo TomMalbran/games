@@ -14,7 +14,7 @@ class Tail {
         this.container.innerHTML = "";
 
         for (let i = 0; i < this.amount; i += 1) {
-            let div = document.createElement("DIV");
+            const div = document.createElement("DIV");
             this.container.appendChild(div);
 
             this.elements.push({
@@ -31,7 +31,7 @@ class Tail {
      * @returns {Void}
      */
     start(ball) {
-        let pos = ball.getPosition();
+        const pos = ball.getPosition();
         this.elements.forEach((data) => {
             data.top  = pos.top;
             data.left = pos.left;
@@ -45,19 +45,18 @@ class Tail {
      * @returns {Void}
      */
     move(ball) {
-        let oldTop, oldLeft,
-            first = this.elements[0],
-            pos   = ball.getPosition(),
-            top   = pos.top,
-            left  = pos.left;
+        const first = this.elements[0];
+        const pos   = ball.getPosition();
+        let   top   = pos.top;
+        let   left  = pos.left;
 
         if (Math.abs(top - first.top) < this.minDistance ||
                 Math.abs(left - first.left) < this.minDistance) {
             return;
         }
         this.elements.forEach((data) => {
-            oldTop  = data.top;
-            oldLeft = data.left;
+            const oldTop  = data.top;
+            const oldLeft = data.left;
 
             data.top  = top;
             data.left = left;

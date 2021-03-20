@@ -53,16 +53,15 @@ class HighScores {
      */
     displayScores() {
         for (let i = 1; i <= this.total; i += 1) {
-            let data  = this.data.get(i),
-                div   = document.createElement("DIV"),
-                score = Utils.formatNumber(data.score, ",");
+            const data  = this.data.get(i);
+            const div   = document.createElement("DIV");
+            const score = Utils.formatNumber(data.score, ",");
 
             div.className = "highScore";
             div.innerHTML = `
                 <div class="hsName">${data.name}</div>
                 <div class="hsScore">${score}</div>
             `;
-
             this.scores.appendChild(div);
         }
     }
@@ -90,15 +89,15 @@ class HighScores {
      * @returns {Void}
      */
     saveData(score) {
-        let data   = [],
-            saved  = false,
-            actual = {
-                name  : this.input.value,
-                score : score
-            };
+        const data   = [];
+        const actual = {
+            name  : this.input.value,
+            score : score
+        };
+        let saved = false;
 
         for (let i = 1; i <= this.total; i += 1) {
-            let hs = this.data.get(i);
+            const hs = this.data.get(i);
             if (!saved && hs.score < actual.score) {
                 data.push(actual);
                 saved = true;

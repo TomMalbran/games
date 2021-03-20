@@ -26,7 +26,7 @@ class TowersManager {
      */
     add(data) {
         this.count += 1;
-        let tower = Tower.create(data.type, this.count, data.row, data.col, this.parent.board.getSize());
+        const tower = Tower.create(data.type, this.count, data.row, data.col, this.parent.board.getSize());
         this.list[this.count] = tower;
         return tower;
     }
@@ -57,7 +57,7 @@ class TowersManager {
      * @returns {Tower}
      */
     build(data) {
-        let tower = this.add(data);
+        const tower = this.add(data);
 
         this.parent.board.buildTower(tower);
         if (!this.parent.mobs.createPath()) {
@@ -203,11 +203,11 @@ class TowersManager {
      * @returns {Void}
      */
     normalTower(tower) {
-        let list  = this.parent.ranges.getBoostsList(tower),
-            boost = 0;
+        const list  = this.parent.ranges.getBoostsList(tower);
+        let   boost = 0;
 
         list.forEach((element) => {
-            let btower = self.get(element);
+            const btower = self.get(element);
             btower.getLists().towers.push(tower.getID());
             boost += btower.getActualDamage();
         });
@@ -225,7 +225,7 @@ class TowersManager {
     removeBoost(tower) {
         if (tower.isBoost()) {
             tower.getLists().towers.forEach((element) => {
-                let subtower = this.get(element);
+                const subtower = this.get(element);
                 if (subtower) {
                     subtower.addBoost(-tower.getActualDamage());
                 }
@@ -251,7 +251,7 @@ class TowersManager {
      * @returns {Void}
      */
     addShoot(id) {
-        let it = this.shooting.addLast(id);
+        const it = this.shooting.addLast(id);
         this.list[id].setShootIt(it);
     }
 
@@ -261,9 +261,9 @@ class TowersManager {
      */
     decUpgrades() {
         if (!this.upgrading.isEmpty()) {
-            let it = this.upgrading.iterate();
+            const it = this.upgrading.iterate();
             while (it.hasNext()) {
-                let tower = this.list[it.getNext()];
+                const tower = this.list[it.getNext()];
 
                 tower.incLoader();
                 this.parent.selection.showDescription(it.getNext());
@@ -285,9 +285,9 @@ class TowersManager {
      */
     decSales() {
         if (!this.selling.isEmpty()) {
-            let it = this.selling.iterate();
+            const it = this.selling.iterate();
             while (it.hasNext()) {
-                let tower = this.list[it.getNext()];
+                const tower = this.list[it.getNext()];
 
                 tower.decLoader();
                 this.parent.selection.showDescription(it.getNext());
@@ -308,9 +308,9 @@ class TowersManager {
      */
     decShoots(time) {
         if (!this.shooting.isEmpty()) {
-            let it = this.shooting.iterate();
+            const it = this.shooting.iterate();
             while (it.hasNext()) {
-                let tower = this.list[it.getNext()];
+                const tower = this.list[it.getNext()];
 
                 if (tower.decTimer(time)) {
                     if (!tower.isLoading()) {

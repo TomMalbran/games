@@ -23,8 +23,8 @@ class GameOverAnimation extends Animation {
      * @returns {Void}
      */
     animate() {
-        let size  = Math.round(this.endTime - this.time) / 700,
-            alpha = Math.round(this.endTime - this.time) / 2000;
+        const size  = Math.round(this.endTime - this.time) / 700;
+        const alpha = Math.round(this.endTime - this.time) / 2000;
 
         this.canvas.clear();
         this.canvas.fill(0.8);
