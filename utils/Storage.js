@@ -1,8 +1,9 @@
 /**
  * Creates a new Storage. A storage uses local storage capabilities to save JSON data
  */
-var Storage = (function () {
+let Storage = (function () {
     "use strict";
+
 
     /**
      * Returns true if local storage is supported
@@ -18,11 +19,12 @@ var Storage = (function () {
      * @returns {Boolean}
      */
     function isInteger(string) {
-        var validChars = "0123456789-", isNumber = true, i, char;
+        const validChars = "0123456789-";
+        let   isNumber   = true;
 
-        for (i = 0; i < string.length && isNumber === true; i += 1) {
-            char = string.charAt(i);
-            if (validChars.indexOf(char) === -1) {
+        for (let i = 0; i < string.length && isNumber === true; i += 1) {
+            const char = string.charAt(i);
+            if (!validChars.includes(char)) {
                 isNumber = false;
             }
         }
@@ -31,82 +33,86 @@ var Storage = (function () {
 
 
     /**
-     * Creates a new storage
-     * @constructor
-     * @param {String} name  The name of the storage
-     * @param {Boolean=} single  True to have a storage for a single value
+     * The Storage
      */
-    function Storage(name, single) {
-        this.name     = name;
-        this.single   = single || false;
-        this.supports = supportsStorage();
+    class Storage {
+        /**
+         * The Storage Constructor
+         * @constructor
+         * @param {String} name  The name of the storage
+         * @param {Boolean=} single  True to have a storage for a single value
+         */
+        constructor(name, single) {
+            this.name     = name;
+            this.single   = single || false;
+            this.supports = supportsStorage();
+        }
+
+        /**
+         * Returns the data in the saved format
+         * @param {String} name
+         * @returns {(Boolean|Number|String|Object)}
+         */
+        get(name) {
+            let content = null;
+            if (this.supports && window.localStorage[this.getName(name)]) {
+                content = window.localStorage[this.getName(name)];
+                if (content === "true" || content === "false") {
+                    content = content === "true";
+                } else if (isInteger(content)) {
+                    content = parseInt(content, 10);
+                } else {
+                    content = JSON.parse(content);
+                }
+            }
+            return content;
+        }
+
+        /**
+         * Saves the given data as a JSON object
+         * @param {(Boolean|Number|String|Object)} name  If this is a single value Storage use this param for the value
+         * @param {(Boolean|Number|String|Object)} value
+         * @returns {Void}
+         */
+        set(name, value) {
+            if (this.supports) {
+                if (this.single) {
+                    value = name;
+                    name  = "";
+                }
+                window.localStorage[this.getName(name)] = JSON.stringify(value);
+            }
+        }
+
+        /**
+         * Removes the data with the given name
+         * @param {String=} name
+         * @returns {Void}
+         */
+        remove(name) {
+            if (this.supports) {
+                window.localStorage.removeItem(this.getName(name));
+            }
+        }
+
+
+        /**
+         * Returns the key for the given name
+         * @param {String=} name
+         * @returns {String}
+         */
+        getName(name) {
+            return this.name + (name ? `.${name}` : "");
+        }
+
+        /**
+         * Returns true if local storage is supported
+         * @returns {Boolean}
+         */
+        isSupported() {
+            return this.supports;
+        }
     }
-
-    /**
-     * Returns the data in the saved format
-     * @param {String} name
-     * @returns {(Boolean|Number|String|Object)}
-     */
-    Storage.prototype.get = function (name) {
-        var content = null;
-
-        if (this.supports && window.localStorage[this.getName(name)]) {
-            content = window.localStorage[this.getName(name)];
-            if (content === "true" || content === "false") {
-                content = content === "true";
-            } else if (isInteger(content)) {
-                content = parseInt(content, 10);
-            } else {
-                content = JSON.parse(content);
-            }
-        }
-        return content;
-    };
-
-    /**
-     * Saves the given data as a JSON object
-     * @param {(Boolean|Number|String|Object)} name  If this is a single value Storage use this param for the value
-     * @param {(Boolean|Number|String|Object)} value
-     * @returns {Void}
-     */
-    Storage.prototype.set = function (name, value) {
-        if (this.supports) {
-            if (this.single) {
-                value = name;
-                name  = "";
-            }
-            window.localStorage[this.getName(name)] = JSON.stringify(value);
-        }
-    };
-
-    /**
-     * Removes the data with the given name
-     * @param {String=} name
-     * @returns {Void}
-     */
-    Storage.prototype.remove = function (name) {
-        if (this.supports) {
-            window.localStorage.removeItem(this.getName(name));
-        }
-    };
-
-
-    /**
-     * Returns the key for the given name
-     * @param {String=} name
-     * @returns {String}
-     */
-    Storage.prototype.getName = function (name) {
-        return this.name + (name ? `.${name}` : "");
-    };
-
-    /**
-     * Returns true if local storage is supported
-     * @returns {Boolean}
-     */
-    Storage.prototype.isSupported = function () {
-        return this.supports;
-    };
 
 
 
