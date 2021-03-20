@@ -29,7 +29,7 @@ class Keyboard {
      * @returns {Void}
      */
     onKeyDown(event) {
-        if (this.display.isPlaying() && this.fastKeys.indexOf(event.keyCode) > -1) {
+        if (this.display.isPlaying() && this.fastKeys.includes(event.keyCode)) {
             if (this.keyPressed === null) {
                 this.keyPressed = event.keyCode;
             } else {
@@ -74,21 +74,21 @@ class Keyboard {
                 event.preventDefault();
             }
 
-            if ([69, 49, 97].indexOf(key) > -1) {           // E / 1
+            if ([ 69, 49, 97 ].includes(key)) {           // E / 1
                 key = "E";
-            } else if ([82, 50, 98].indexOf(key) > -1) {    // R / 2
+            } else if ([ 82, 50, 98 ].includes(key)) {    // R / 2
                 key = "R";
-            } else if ([75, 51, 99].indexOf(key) > -1) {    // K / 3
+            } else if ([ 75, 51, 99 ].includes(key)) {    // K / 3
                 key = "C";
-            } else if ([8, 66, 78].indexOf(key) > -1) {     // Backspace / B / N
+            } else if ([ 8, 66, 78 ].includes(key)) {     // Backspace / B / N
                 key = "B";
-            } else if ([13, 32, 79].indexOf(key) > -1) {    // Enter / Space / O
+            } else if ([ 13, 32, 79 ].includes(key)) {    // Enter / Space / O
                 key = "O";
-            } else if ([80, 67].indexOf(key) > -1) {        // P / C
+            } else if ([ 80, 67 ].includes(key)) {        // P / C
                 key = "P";
-            } else if ([37, 65].indexOf(key) > -1) {        // Left  / A
+            } else if ([ 37, 65 ].includes(key)) {        // Left  / A
                 key = "A";
-            } else if ([39, 68].indexOf(key) > -1) {        // Right / D
+            } else if ([ 39, 68 ].includes(key)) {        // Right / D
                 key = "D";
             } else {
                 key = String.fromCharCode(key);

@@ -60,21 +60,21 @@ class Keyboard {
                 event.preventDefault();
             }
 
-            if ([ 8, 66, 78 ].indexOf(key) > -1) {            // Backspace / B / N
+            if ([ 8, 66, 78 ].includes(key)) {            // Backspace / B / N
                 key = "B";
-            } else if ([ 13, 79, 84 ].indexOf(key) > -1) {    // Enter / O / T
+            } else if ([ 13, 79, 84 ].includes(key)) {    // Enter / O / T
                 key = "O";
-            } else if ([ 80, 67 ].indexOf(key) > -1) {        // P / C
+            } else if ([ 80, 67 ].includes(key)) {        // P / C
                 key = "P";
-            } else if ([ 17, 32 ].indexOf(key) > -1) {        // Ctrl / Space
+            } else if ([ 17, 32 ].includes(key)) {        // Ctrl / Space
                 key = "C";
-            } else if ([ 38, 87 ].indexOf(key) > -1) {        // Up    / W
+            } else if ([ 38, 87 ].includes(key)) {        // Up    / W
                 key = "W";
-            } else if ([ 37, 65 ].indexOf(key) > -1) {        // Left  / A
+            } else if ([ 37, 65 ].includes(key)) {        // Left  / A
                 key = "A";
-            } else if ([ 40, 83 ].indexOf(key) > -1) {        // Down  / S
+            } else if ([ 40, 83 ].includes(key)) {        // Down  / S
                 key = "S";
-            } else if ([ 39, 68 ].indexOf(key) > -1) {        // Right / D
+            } else if ([ 39, 68 ].includes(key)) {        // Right / D
                 key = "D";
             } else {
                 if (key === 48 || key === 96) {
@@ -101,7 +101,7 @@ class Keyboard {
      * @param {Event} event
      */
     onKeyDown(event) {
-        if (this.display.isPlaying() && this.fastKeys.indexOf(event.keyCode) > -1) {
+        if (this.display.isPlaying() && this.fastKeys.includes(event.keyCode)) {
             if (this.keyPressed === null) {
                 this.keyPressed = event.keyCode;
             } else {

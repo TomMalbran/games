@@ -62,7 +62,7 @@ class Ranges {
         const tower   = this.parent.manager.get(towerID);
 
         list1.push(this.addTower("boosts", cell, id));
-        if (tower && !tower.isBoost() && list2.indexOf(towerID) === -1) {
+        if (tower && !tower.isBoost() && !list2.includes(towerID)) {
             list2.push(towerID);
         }
     }
@@ -160,7 +160,7 @@ class Ranges {
                 if (this.boosts[pos] && !this.boosts[pos].isEmpty()) {
                     const it = this.boosts[pos].iterate();
                     while (it.hasNext()) {
-                        if (list.indexOf(it.getNext()) !== -1) {
+                        if (list.includes(it.getNext())) {
                             list.push(it.getNext());
                         }
                         it.next();

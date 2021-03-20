@@ -187,7 +187,7 @@ class Waves {
      * @returns {Boolean}
      */
     isBossWave(add) {
-        return this.waves[this.wave + (add || 0)].indexOf("Boss") > -1;
+        return this.waves[this.wave + (add || 0)].includes("Boss");
     }
 
     /**

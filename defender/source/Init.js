@@ -352,7 +352,7 @@
             } else if (key >= 96 && key <= 105) {
                 dec  = key - 96;
                 hexa = dec;
-            } else if ([ "A", "B", "C", "D", "E", "F" ].indexOf(code) > -1) {
+            } else if ([ "A", "B", "C", "D", "E", "F" ].includes(code)) {
                 hexa = code;
             }
 

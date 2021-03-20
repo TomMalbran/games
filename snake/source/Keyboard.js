@@ -32,27 +32,27 @@ class Keyboard {
             if (!this.display.isPlaying()) {
                 event.preventDefault();
             }
-            if ([ 89, 49, 97 ].indexOf(key) > -1) {           // Y / 1
+            if ([ 89, 49, 97 ].includes(key)) {           // Y / 1
                 key = "Y";
-            } else if ([ 69, 50, 98 ].indexOf(key) > -1) {    // E / 2
+            } else if ([ 69, 50, 98 ].includes(key)) {    // E / 2
                 key = "E";
-            } else if ([ 82, 51, 99 ].indexOf(key) > -1) {    // R / 3
+            } else if ([ 82, 51, 99 ].includes(key)) {    // R / 3
                 key = "R";
-            } else if ([ 85, 52, 100 ].indexOf(key) > -1) {   // U / 4
+            } else if ([ 85, 52, 100 ].includes(key)) {   // U / 4
                 key = "U";
-            } else if ([ 8, 66, 78 ].indexOf(key) > -1) {     // Backspace / B / N
+            } else if ([ 8, 66, 78 ].includes(key)) {     // Backspace / B / N
                 key = "B";
-            } else if ([ 13, 32, 79 ].indexOf(key) > -1) {    // Enter / Space / O
+            } else if ([ 13, 32, 79 ].includes(key)) {    // Enter / Space / O
                 key = "O";
-            } else if ([ 80, 67 ].indexOf(key) > -1) {        // P / C
+            } else if ([ 80, 67 ].includes(key)) {        // P / C
                 key = "P";
-            } else if ([ 38, 87 ].indexOf(key) > -1) {        // Up    / W
+            } else if ([ 38, 87 ].includes(key)) {        // Up    / W
                 key = "W";
-            } else if ([ 37, 65 ].indexOf(key) > -1) {        // Left  / A
+            } else if ([ 37, 65 ].includes(key)) {        // Left  / A
                 key = "A";
-            } else if ([ 40, 83 ].indexOf(key) > -1) {        // Down  / S
+            } else if ([ 40, 83 ].includes(key)) {        // Down  / S
                 key = "S";
-            } else if ([ 39, 68 ].indexOf(key) > -1) {        // Right / D
+            } else if ([ 39, 68 ].includes(key)) {        // Right / D
                 key = "D";
             } else {
                 key = String.fromCharCode(key);
