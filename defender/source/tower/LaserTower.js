@@ -61,7 +61,6 @@ class LaserTower extends Tower {
      */
     getLinealTargets(mobs, angle) {
         const list = [];
-
         mobs.forEach((it) => {
             const mob        = it.getPrev();
             const inRange    = this.inRange(mob, 3);
@@ -92,7 +91,7 @@ class LaserTower extends Tower {
      * @returns {Void}
      */
     setAngle(mob, ammo) {
-        const angle = this.getMobAngle(mob);
+        let angle = this.getMobAngle(mob);
         if (this.locked) {
             angle = this.angle;
         } else {

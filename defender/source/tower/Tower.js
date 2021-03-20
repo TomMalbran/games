@@ -52,8 +52,8 @@ class Tower {
         this.element.style.left     = Utils.toPX((this.col + this.size / 2) * this.boardSize);
 
         this.element.innerHTML = `
-            <div class="towerCenter${this.size}" towerShadow"></div>
-            <div class="towerCenter${this.size}" towerSelect"></div>
+            <div class="towerCenter${this.size} towerShadow"></div>
+            <div class="towerCenter${this.size} towerSelect"></div>
             <div class="towerRange"></div>
             <div class="towerPlaceholder${this.size}">${content}</div>
         `;

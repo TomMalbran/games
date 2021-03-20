@@ -65,10 +65,11 @@ dt, dd {
 }
     h1 {
         position: absolute;
-        left: 410px;
-        top: -45px;
+        left: 425px;
+        top: -55px;
         margin: 0;
         font: 75px "Battle Beasts";
+        line-height: 1;
         color: white;
         z-index: 1001;
     }
@@ -327,7 +328,7 @@ dt, dd {
     color: rgb(255, 0, 0);
 }
     .finalScore dt {
-        width: 130px;
+        width: 120px;
         text-align: right;
     }
     .finalScore dd {

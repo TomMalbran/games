@@ -234,7 +234,7 @@ class Panel {
         return `
             <div class="mobPoints">
                 <div class="text">Life:</div>
-               <div class="actual">${life}</div>
+               <div class="actual">${Math.round(life)}</div>
             </div>
             <div class="mobGold">
                 <div class="text">Gold:</div>
