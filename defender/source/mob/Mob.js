@@ -75,11 +75,12 @@ class Mob {
         this.element.style.top     = this.top  + "px";
         this.element.style.left    = this.left + "px";
         this.element.style.zIndex  = this.isFlyer() ? 2 : 1;
-        this.element.innerHTML     =
-            "<div class='mobDeath'><div class='mobLife'></div></div>" +
-            "<div class='mobSlow'></div>" +
-            "<div class='mobBleed'></div>" +
-            "<div class='mobBody' data-type='mob'>" + this.content + "</div>";
+        this.element.innerHTML     = `
+            <div class="mobDeath"><div class="mobLife"></div></div>
+            <div class="mobSlow"></div>
+            <div class="mobBleed"></div>
+            <div class="mobBody" data-type="mob">${this.content}</div>
+        `;
 
         this.mbody    = this.element.querySelector(".mobBody");
         this.lifeElem = this.element.querySelector(".mobLife");
@@ -422,7 +423,7 @@ class Mob {
             transform += " scale(1.5)";
         }
         if (this.translate) {
-            transform += " translateX(" + this.translate * 3 + "px)";
+            transform += ` translateX(${this.translate * 3}px)`;
         }
         this.mbody.style.transform = transform;
     }

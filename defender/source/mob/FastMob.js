@@ -23,9 +23,10 @@ class FastMob extends Mob {
         this.money    = 1;
         this.speed    = 1.5;
         this.defense  = 0;
-        this.content  =
-            "<div class='fastHead'></div>" +
-            "<div class='fastTail'></div>";
+        this.content  = `
+            <div class="fastHead"></div>
+            <div class="fastTail"></div>
+        `;
 
         this.init(data);
     }

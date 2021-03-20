@@ -9,12 +9,12 @@ class Canvas {
      * @return {Canvas}
      */
     init(name) {
-        let canvas    = document.querySelector("." + name);
+        let canvas    = document.querySelector(`.${name}`);
         canvas.width  = Board.width;
         canvas.height = Board.height;
 
         this.ctx              = canvas.getContext("2d");
-        this.ctx.font         = "2em 'Whimsy TT'";
+        this.ctx.font         = `2em "Whimsy TT"`;
         this.ctx.fillStyle    = "white";
         this.ctx.textAlign    = "center";
         this.ctx.textBaseline = "middle";
@@ -42,7 +42,7 @@ class Canvas {
      */
     fill(alpha, x, y, width, height) {
         this.ctx.save();
-        this.ctx.fillStyle = "rgba(0, 0, 0, " + alpha + ")";
+        this.ctx.fillStyle = `rgba(0, 0, 0, ${alpha})`;
         this.ctx.fillRect(x || 0, y || 0, width || Board.width, height || Board.height);
         this.ctx.restore();
     }
@@ -99,7 +99,7 @@ class Canvas {
 
         this.ctx.save();
         if (data.size) {
-            this.ctx.font = data.size + "em 'Whimsy TT'";
+            this.ctx.font = `${data.size}em "Whimsy TT"`;
         }
         if (data.align) {
             this.ctx.textAlign = data.align;

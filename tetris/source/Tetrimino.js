@@ -31,7 +31,7 @@ class Tetrimino {
         this.hard         = 0;
         this.drop         = 0;
 
-        this.nextElem.className  = "piece" + this.type + " rot0";
+        this.nextElem.className  = `piece${this.type} rot0`;
         this.nextElem.innerHTML  = this.tetriminer[this.type].innerHTML;
         this.nextElem.style.top  = (this.nexterHeight - this.data.rows * this.size - this.border) / 2 + "em";
         this.nextElem.style.left = (this.nexterWidth  - this.data.cols * this.size - this.border) / 2 + "em";
@@ -60,7 +60,7 @@ class Tetrimino {
         this.left = this.board.getMiddle(this.data.cols);
         this.hard = this.getHardDrop();
 
-        this.pieceElem.className = "piece" + this.type + " rot0";
+        this.pieceElem.className = `piece${this.type} rot0`;
         this.pieceElem.innerHTML = this.nextElem.innerHTML;
 
         this.ghostElem.className = "rot0";
@@ -155,10 +155,10 @@ class Tetrimino {
      */
     rotate(rotation) {
         if (!this.crashed(0, 0, rotation)) {
-            this.pieceElem.classList.remove("rot" + this.rotation);
-            this.pieceElem.classList.add("rot" + rotation);
-            this.ghostElem.classList.remove("rot" + this.rotation);
-            this.ghostElem.classList.add("rot" + rotation);
+            this.pieceElem.classList.remove(`rot${this.rotation}`);
+            this.pieceElem.classList.add(`rot${rotation}`);
+            this.ghostElem.classList.remove(`rot${this.rotation}`);
+            this.ghostElem.classList.add(`rot${rotation}`);
 
             this.rotation = rotation;
             this.setHardDrop();

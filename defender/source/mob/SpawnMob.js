@@ -24,9 +24,10 @@ class SpawnMob extends Mob {
         this.speed    = 1;
         this.defense  = 0;
         this.child    = "SpawnChild";
-        this.content  =
-            "<div class='spawnHead'></div>" +
-            "<div class='spawnTail'></div>";
+        this.content  = `
+            <div class="spawnHead"></div>
+            <div class="spawnTail"></div>
+        `;
 
         this.init(data);
     }

@@ -17,10 +17,11 @@ class MissileAmmo extends Ammo {
         this.rotateTower = true;
         this.rotateAmmo  = true;
         this.className   = "missileAmmo";
-        this.content     =
-            "<div class='missileTail'></div>" +
-            "<div class='missileBody'></div>" +
-            "<div class='missileHead'></div>";
+        this.content     = `
+            <div class="missileTail"></div>
+            <div class="missileBody"></div>
+            <div class="missileHead"></div>
+        `;
 
         this.init(tower, targets, boardSize);
     }

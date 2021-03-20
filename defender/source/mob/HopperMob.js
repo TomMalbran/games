@@ -24,7 +24,7 @@ class HopperMob extends Mob {
         this.speed    = 2;
         this.defense  = 0;
         this.hopper   = true;
-        this.content  = "<div class='hopperMob'></div>";
+        this.content  = `<div class="hopperMob"></div>`;
 
         this.minHopTime = 300;
         this.maxHopTime = 600;

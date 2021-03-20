@@ -47,7 +47,7 @@ class Demo {
      */
     start(level) {
         this.pointer = -this.initialParts;
-        this.container.className = "demo demo" + level;
+        this.container.className = `demo demo${level}`;
     }
 
     /**

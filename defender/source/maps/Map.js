@@ -9,7 +9,7 @@ class Map {
      */
     constructor(gameMap) {
         this.mapData = MapsData.maps[gameMap];
-        this.storage = new Storage("defender.maps." + gameMap);
+        this.storage = new Storage(`defender.maps.${gameMap}`);
     }
 
     /**
@@ -291,9 +291,9 @@ class Map {
 
         if (amount) {
             for (let i = MapsData.towerStart; i <= amount; i += 1) {
-                let data = this.storage.get("tower." + i);
+                let data = this.storage.get(`tower.${i}`);
                 if (data) {
-                    this.storage.remove("tower." + i);
+                    this.storage.remove(`tower.${i}`);
                     list.push(data);
                 }
             }
@@ -306,7 +306,7 @@ class Map {
      * @param {Tower} tower
      */
     buildTower(tower) {
-        this.storage.set("tower." + tower.getID(), {
+        this.storage.set(`tower.${tower.getID()}`, {
             type  : tower.getType(),
             row   : tower.getRow(),
             col   : tower.getCol(),
@@ -320,10 +320,10 @@ class Map {
      * @param {Tower} tower
      */
     upgradeTower(tower) {
-        let data = this.storage.get("tower." + tower.getID());
+        let data = this.storage.get(`tower.${tower.getID()}`);
         if (data) {
             data.level = tower.getLevel();
-            this.storage.set("tower." + tower.getID(), data);
+            this.storage.set(`tower.${tower.getID()}`, data);
         }
     }
 
@@ -332,6 +332,6 @@ class Map {
      * @param {Tower} tower
      */
     sellTower(tower) {
-        this.storage.remove("tower." + tower.getID());
+        this.storage.remove(`tower.${tower.getID()}`);
     }
 }

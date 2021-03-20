@@ -23,7 +23,7 @@ class GroupMob extends Mob {
         this.money    = 1;
         this.speed    = 1;
         this.defense  = 0;
-        this.content  = "<div class='groupMob'></div>";
+        this.content  = `<div class="groupMob"></div>`;
 
         this.init(data);
     }

@@ -23,7 +23,7 @@ class NormalMob extends Mob {
         this.money    = 1;
         this.speed    = 1;
         this.defense  = 0;
-        this.content  = "<div class='normalMob'></div>";
+        this.content  = `<div class="normalMob"></div>`;
 
         this.init(data);
     }

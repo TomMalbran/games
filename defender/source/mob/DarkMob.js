@@ -23,9 +23,10 @@ class DarkMob extends Mob {
         this.money    = 1.5;
         this.speed    = 0.6;
         this.defense  = 10;
-        this.content  =
-            "<div class='darkHead'></div>" +
-            "<div class='darkTail'></div>";
+        this.content  = `
+            <div class="darkHead"></div>
+            <div class="darkTail"></div>
+        `;
 
         this.init(data);
     }

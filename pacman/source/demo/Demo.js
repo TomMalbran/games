@@ -99,11 +99,11 @@ class Demo {
      * Draws the Pacman title
      */
     drawTitle() {
-        var left  = Board.tileToPos(DemoData.title.leftText),
-            right = Board.tileToPos(DemoData.title.rightText);
+        const left  = Board.tileToPos(DemoData.title.leftText);
+        const right = Board.tileToPos(DemoData.title.rightText);
 
         this.ctx.save();
-        this.ctx.font      = "6em 'Whimsy TT'";
+        this.ctx.font      = `6em "Whimsy TT"`;
         this.ctx.textAlign = "right";
         this.ctx.fillText("Pa", left.x, left.y);
         this.ctx.textAlign = "left";
@@ -116,9 +116,9 @@ class Demo {
      * Initializes the Players for the Chase animation
      */
     initChase() {
-        let size = Board.tileSize,
-            yPos = DemoData.chase.playersY * size,
-            dir  = DemoData.chase.playersDir;
+        const size = Board.tileSize;
+        const yPos = DemoData.chase.playersY * size;
+        const dir  = DemoData.chase.playersDir;
 
         this.createPlayers();
         this.blob.chaseDemo(dir,       -size, yPos);
@@ -160,8 +160,8 @@ class Demo {
      * Initializes the Players for the Frighten animation
      */
     initFrighten() {
-        var speed = Data.getLevelData("ghostFrightSpeed") * DemoData.frighten.speedMult,
-            dir   = DemoData.frighten.playersDir;
+        const speed = Data.getLevelData("ghostFrightSpeed") * DemoData.frighten.speedMult;
+        const dir   = DemoData.frighten.playersDir;
 
         this.blob.frightenDemo(dir);
         this.blinky.frightenDemo(dir, speed);
@@ -274,7 +274,7 @@ class Demo {
         this.canvas.drawText({
             size  : 2,
             color : ghost.getBodyColor(),
-            text  : "‘" + ghost.getName() + "’",
+            text  : `‘${ghost.getName()}’`,
             pos   : DemoData.present.namePos
         });
     }

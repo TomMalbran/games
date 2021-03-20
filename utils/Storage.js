@@ -94,7 +94,7 @@ var Storage = (function () {
      * @return {string}
      */
     Storage.prototype.getName = function (name) {
-        return this.name + (name ? "." + name : "");
+        return this.name + (name ? `.${name}` : "");
     };
 
     /**

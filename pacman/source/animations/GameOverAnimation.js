@@ -30,7 +30,7 @@ class GameOverAnimation extends Animation {
 
         this.canvas.drawText({
             size  : Math.max(2, size),
-            color : "rgba(255, 0, 0, " + Math.max(0, alpha) + ")",
+            color : `rgba(255, 0, 0, ${Math.max(0, alpha)})`,
             text  : "Game Over",
             pos   : { x: 14, y: 17.3 },
             alpha : 0.8

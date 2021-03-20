@@ -74,7 +74,7 @@ class AntiAirTower extends Tower {
      * @param {number} amount
      */
     toggleMissile(index) {
-        this.element.classList.toggle("missile" + index);
+        this.element.classList.toggle(`missile${index}`);
     }
 
     /**

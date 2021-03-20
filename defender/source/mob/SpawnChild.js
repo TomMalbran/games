@@ -24,7 +24,7 @@ class SpawnChild extends Mob {
         this.money    = 1;
         this.speed    = 1;
         this.defense  = 0;
-        this.content  = "<div class='spawnChild'></div>";
+        this.content  = `<div class="spawnChild"></div>`;
 
         this.init(data);
     }

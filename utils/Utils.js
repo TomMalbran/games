@@ -108,8 +108,8 @@ let Utils = (function () {
          * @param {number} lefet
          */
         setPosition(element, top, left) {
-            element.style.top  = top  + "px";
-            element.style.left = left + "px";
+            element.style.top  = `${top}px`;
+            element.style.left = `${left}px`;
         },
 
         /**

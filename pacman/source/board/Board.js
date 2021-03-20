@@ -603,7 +603,7 @@ let Board = (function () {
          * @return {string}
          */
         tileToString(tile) {
-            return "x" + String(tile.x) + "y" + String(tile.y);
+            return `x${tile.x}y${tile.y}`;
         },
 
         /**

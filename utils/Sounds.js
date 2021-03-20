@@ -24,7 +24,7 @@ var Sounds = (function () {
      */
     function supportsOGG() {
         var a = document.createElement("audio");
-        return !!(a.canPlayType && a.canPlayType("audio/ogg; codecs='vorbis'").replace(/no/, ""));
+        return !!(a.canPlayType && a.canPlayType(`audio/ogg; codecs="vorbis"`).replace(/no/, ""));
     }
 
 
@@ -63,7 +63,7 @@ var Sounds = (function () {
 
         soundFiles.forEach(function (sound) {
             self[sound] = function () {
-                audio = new Audio("audio/" + sound + self.format);
+                audio = new Audio(`audio/${sound}${self.format}`);
                 if (self.format && !self.mute) {
                     audio.play();
                 }

@@ -230,7 +230,7 @@ class Paths {
      * @return {string}
      */
     getCellName(col, row, free) {
-        return "c" + col + "r" + row + (free ? "f" : "");
+        return `c${col}r${row}${free ? "f" : ""}`;
     }
 
     /**

@@ -24,9 +24,10 @@ class FlyingMob extends Mob {
         this.speed    = 1;
         this.defense  = 0;
         this.flyer    = true;
-        this.content  =
-            "<div class='flyingMob'></div>" +
-            "<div class='flyingShadow'></div>";
+        this.content  = `
+            <div class="flyingMob"></div>
+            <div class="flyingShadow"></div>
+        `;
 
         this.init(data);
     }

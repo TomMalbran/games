@@ -299,7 +299,7 @@ class Ghost {
         } else if (Board.isTunnel(this.tile.x, this.tile.y)) {
             speed = Data.getLevelData("tunnelSpeed");
         } else if (this.isElroy()) {
-            speed = Data.getLevelData("elroySpeed" + this.elroyMode);
+            speed = Data.getLevelData(`elroySpeed${this.elroyMode}`);
         }
         return speed;
     }

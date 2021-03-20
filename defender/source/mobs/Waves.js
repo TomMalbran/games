@@ -124,12 +124,12 @@ class Waves {
             div = document.createElement("DIV");
 
         div.style.backgroundColor = mob.getColor();
-        div.style.left = this.getLeft(this.wave + add, 0) + "px";
+        div.style.left = Utils.toPX(this.getLeft(this.wave + add, 0));
         div.className  = "wave";
-        div.innerHTML  =
-            "<h3>" + (this.wave + add + 1) + ". " +
-            (mob.isBoss() ? "Boss" : mob.getName()) + "</h3>" +
-            "<p>"  + mob.getSlogan() + "</p>";
+        div.innerHTML  = `
+            <h3>${this.wave + add + 1}. ${(mob.isBoss() ? "Boss" : mob.getName())}</h3>
+            <p>${mob.getSlogan()}</p>
+        `;
 
         this.container.appendChild(div);
         this.elements[this.elements.length] = div;

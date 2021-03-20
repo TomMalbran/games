@@ -63,7 +63,7 @@ class Tower {
 
         this.width    = this.size * this.boardSize - 10;
         this.loader   = this.element.querySelector(".towerLoader");
-        this.rotate   = this.element.querySelector(".towerRotate" + this.size);
+        this.rotate   = this.element.querySelector(`.towerRotate${this.size}`);
         this.shadow   = this.element.querySelector(".towerShadow");
         this.levelers = this.element.querySelectorAll(".towerLevels div");
         this.number   = this.element.querySelector(".towerNumber");
@@ -116,8 +116,8 @@ class Tower {
         }
 
         for (let i = 0; i < this.level; i += 1) {
-            this.levelers[i].classList.remove("type" + (this.level - 1));
-            this.levelers[i].classList.add("type"    + this.level);
+            this.levelers[i].classList.remove(`type${this.level - 1}`);
+            this.levelers[i].classList.add(`type${this.level}`);
         }
         this.number.innerHTML = this.level;
         this.setRangeClasses();
@@ -399,8 +399,8 @@ class Tower {
      */
     setRangeClasses() {
         if (this.level === 1 || this.getActualRange() !== this.getActualRange(-1)) {
-            this.element.classList.remove("towerRange" + Math.floor(this.getActualRange(-1)));
-            this.element.classList.add("towerRange" + Math.floor(this.getActualRange()));
+            this.element.classList.remove(`towerRange${Math.floor(this.getActualRange(-1))}`);
+            this.element.classList.add(`towerRange${Math.floor(this.getActualRange())}`);
         }
     }
 
@@ -557,7 +557,7 @@ class Tower {
      * @return {string}
      */
     getName(preview) {
-        return this.level === 6 ? this.special : this.name + " " + (!preview ? this.level : "");
+        return this.level === 6 ? this.special : `${this.name} ${!preview ? this.level : ""}`;
     }
 
     /**

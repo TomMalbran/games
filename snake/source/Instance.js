@@ -40,7 +40,7 @@ class Instance {
     destroyGame() {
         for (let i = 0; i < this.board.matrixRows; i += 1) {
             for (let j = 0; j < this.board.matrixColumns; j += 1) {
-                let name = "matrix." + i + "." + j;
+                let name = `matrix.${i}.${j}`;
                 if (this.data.get(name)) {
                     this.data.remove(name);
                 }
@@ -72,7 +72,7 @@ class Instance {
         for (let i = 0; i < this.board.matrixRows; i += 1) {
             matrix[i] = [];
             for (let j = 0; j < this.board.matrixColumns; j += 1) {
-                let value = this.data.get("matrix." + i + "." + j);
+                let value = this.data.get(`matrix.${i}.${j}`);
                 if (value) {
                     matrix[i][j] = value;
 
@@ -115,7 +115,7 @@ class Instance {
      * @param {number} value
      */
     addToMatrix(top, left, value) {
-        this.data.set("matrix." + top + "." + left, value);
+        this.data.set(`matrix.${top}.${left}`, value);
         if (value > 0) {
             this.data.set("matrix.tail", value);
         }
@@ -128,7 +128,7 @@ class Instance {
      * @param {number} value
      */
     removeFromMatrix(top, left, value) {
-        this.data.remove("matrix." + top + "." + left);
+        this.data.remove(`matrix.${top}.${left}`);
         if (value) {
             this.data.set("matrix.head", value);
         }

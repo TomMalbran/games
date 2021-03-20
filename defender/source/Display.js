@@ -33,7 +33,7 @@ class Display {
      * Changes the display to the paused version and changes the container class
      */
     setPause() {
-        this.display = this.display + "Paused";
+        this.display = `${this.display}Paused`;
         this.show();
     }
 

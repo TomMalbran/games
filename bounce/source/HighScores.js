@@ -26,7 +26,7 @@ class HighScores {
      */
     create(mode) {
         this.mode  = mode;
-        this.data  = new Storage("bounce.hs." + this.mode);
+        this.data  = new Storage(`bounce.hs.${this.mode}`);
         this.total = this.data.get("total") || 0;
     }
 
@@ -55,8 +55,10 @@ class HighScores {
                 score = Utils.formatNumber(data.score, ",");
 
             div.className = "highScore";
-            div.innerHTML = "<div class='hsName'>" + data.name + "</div>" +
-                            "<div class='hsScore'>" + score + "</div>";
+            div.innerHTML = `
+                <div class="hsName">${data.name}</div>
+                <div class="hsScore">${score}</div>
+            `;
 
             this.scores.appendChild(div);
         }

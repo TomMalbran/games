@@ -71,7 +71,7 @@ class Fruit {
         let pos = Board.tileToPos(tile);
         this.ctx.save();
         this.ctx.translate(pos.x, pos.y);
-        this["draw" + Data.getFruitName()]();
+        this[`draw${Data.getFruitName()}`]();
         this.ctx.restore();
     }
 

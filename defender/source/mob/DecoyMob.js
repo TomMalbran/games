@@ -24,9 +24,10 @@ class DecoyMob extends Mob {
         this.speed    = 1.5;
         this.defense  = 0;
         this.child    = "DecoyChild";
-        this.content  =
-            "<div class='decoyHead'></div>" +
-            "<div class='decoyBody'></div>";
+        this.content  = `
+            <div class="decoyHead"></div>
+            <div class="decoyBody"></div>
+        `;
 
         this.init(data);
     }

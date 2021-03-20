@@ -321,14 +321,14 @@ class Builder {
      * Initializes the building element
      */
     initBuildingElem() {
-        this.building.classList.remove("towerRange" + Math.floor(this.range));
-        this.building.classList.remove("dim"   + this.size);
+        this.building.classList.remove(`towerRange${Math.floor(this.range)}`);
+        this.building.classList.remove(`dim${this.size}`);
 
         this.range = this.tower.getRealRange();
         this.size  = this.tower.getSize();
 
-        this.building.classList.add("towerRange" + Math.floor(this.range));
-        this.building.classList.add("dim"   + this.size);
+        this.building.classList.add(`towerRange${Math.floor(this.range)}`);
+        this.building.classList.add(`dim${this.size}`);
     }
 
     /**

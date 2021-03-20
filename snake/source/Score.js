@@ -86,14 +86,14 @@ class Score {
      * Shows the current level in the game view
      */
     showLevel() {
-        this.leveler.innerHTML = "Level: " + this.levelNames[this.level - 1];
+        this.leveler.innerHTML = `Level: ${this.levelNames[this.level - 1]}`;
     }
 
     /**
      * Shows the score
      */
     showScore() {
-        this.scorer.innerHTML = "Score: " + Utils.formatNumber(this.score, ",");
+        this.scorer.innerHTML = `Score: ${Utils.formatNumber(this.score, ",")}`;
     }
 
     /**

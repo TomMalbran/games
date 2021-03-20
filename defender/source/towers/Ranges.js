@@ -174,7 +174,7 @@ class Ranges {
      * @return {string}
      */
     getCell(row, col) {
-        return "r" + row + "c" + col;
+        return `r${row}c${col}`;
     }
 
     /**

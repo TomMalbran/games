@@ -112,7 +112,7 @@ class Panel {
     showMob(mob) {
         this.create(
             mob.getName(),
-            mob.getWave() + ". " + mob.getText(),
+            `${mob.getWave()}. ${mob.getText()}`,
             this.mobInfo(mob.getLife(), mob.getGold(), mob.getSpeed())
         );
         this.towerSel = null;
@@ -128,13 +128,13 @@ class Panel {
      * @param {string} buttons
      */
     create(name, text, information, buttons) {
-        this.container.innerHTML =
-            "<h2>" + name + "</h2>" +
-            "<div class='content'>" +
-            "    <p>" + text + "</p>" +
-            "    <div class='information'>" + information + "</div>" + (buttons || "") +
-            "</div>";
-
+        this.container.innerHTML = `
+            <h2>${name}</h2>
+            <div class="content">
+                <p>${text}</p>
+                <div class="information">${information}</div>${buttons || ""}
+            </div>
+        `;
         this.container.className = "description fadeIn";
     }
 
@@ -144,30 +144,29 @@ class Panel {
      * @return {string}
      */
     towerInfo(data) {
-        let content =
-            "<div class='towerCost'>" +
-            "    <div class='text'>Cost:</div>" +
-            "    <div class='actual'>" + data.aCost + "</div>" +
-            "    <div class='next'>" + (data.uCost ? "+" + data.uCost : "") + "</div>" +
-            "</div>" +
-            "<div class='towerDamage'>" +
-            "    <div class='text'>Damage:</div>" +
-            "    <div class='actual'>" + data.aDamage + (data.isBoost ? "%" : "") + "</div>" +
-            "    <div class='next'>" + (data.uDamage ? "+" + data.uDamage + (data.isBoost ? "%" : "") : "") + "</div>" +
-            "</div>" +
-            "<div class='towerDistance'>" +
-            "    <div class='text'>Range:</div>" +
-            "    <div class='actual'>" + data.aRange + "</div>" +
-            "    <div class='next'>" + (data.uRange ? "+ " + data.uRange : "") + "</div>" +
-            "</div>" +
-            "<div class='towerSpeed'>" +
-            "    <div class='text'>Speed:</div>" +
-            "    <div class='actual'>" + data.aSpeed + "</div>" +
-            "    <div class='next'>" + (data.uSpeed || "") + "</div>" +
-            "</div>" +
-            "<div class='towerBoost'>" + (data.boost ? "Boost: " + data.boost + "%" : "") + "</div>";
-
-        return content;
+        return `
+            <div class="towerCost">
+                <div class="text">Cost:</div>
+                <div class="actual">${data.aCost}</div>
+                <div class="next">${data.uCost ? `+${data.uCost}` : ""}</div>
+            </div>
+            <div class="towerDamage">
+                <div class="text">Damage:</div>
+                <div class="actual">${data.aDamage}${data.isBoost ? "%" : ""}</div>
+                <div class="next">${data.uDamage ? `+${data.uDamage}${data.isBoost ? "%" : ""}` : ""}</div>
+            </div>
+            <div class="towerDistance">
+                <div class="text">Range:</div>
+                <div class="actual">${data.aRange}</div>
+                <div class="next">${data.uRange ? `+ ${data.uRange}` : ""}</div>
+            </div>
+            <div class="towerSpeed">
+                <div class="text">Speed:</div>
+                <div class="actual">${data.aSpeed}</div>
+                <div class="next">${data.uSpeed || ""}</div>
+            </div>
+            <div class="towerBoost">${data.boost ? `Boost: ${data.boost} %` : ""}</div>
+        `;
     }
 
     /**
@@ -176,7 +175,7 @@ class Panel {
      * @return {string}
      */
     towerButtons(data) {
-        let classes = [], button = "", content;
+        let classes = [], button = "";
 
         if (data.isMaxed) {
             classes.push("hideButtons");
@@ -189,18 +188,18 @@ class Panel {
         }
 
         if (data.canFire) {
-            button = "<button class='actionButton menuButton' data-action='fire'>Fire!</button>";
+            button = `<button class="actionButton menuButton" data-action="fire">Fire!</button>`;
         } else if (data.canLock) {
-            button = "<button class='actionButton menuButton' data-action='lock'>" + (data.isLocked ? "Unlock" : "Lock") + "</button>";
+            button = `<button class="actionButton menuButton" data-action="lock">${data.isLocked ? "Unlock" : "Lock"}</button>`;
         }
 
-        content =
-            "<div class='" + classes.join(" ") + "'>" +
-            "    <button class='upgradeButton menuButton' data-action='upgrade'>Upgrade</button>" + button +
-            "    <button class='sellButton menuButton' data-action='sell'>Sell &#36;" + data.price + "</button>" +
-            "</div>";
-
-        return content;
+        return `
+            <div class="${classes.join(" ")}">
+                <button class="upgradeButton menuButton" data-action="upgrade">Upgrade</button>
+                ${button}
+                <button class="sellButton menuButton" data-action="sell">Sell &#36; ${data.price}</button>
+            </div>
+        `;
     }
 
     /**
@@ -209,12 +208,11 @@ class Panel {
      * @return {string}
      */
     towerLoading(loaded) {
-        let content =
-            "<div class='descLoad'>" +
-            "    <div class='descLoadBar' style='width: " + (loaded * this.width) + "px'></div>" +
-            "</div>";
-
-        return content;
+        return `
+            <div class="descLoad">
+                <div class="descLoadBar" style="width: ${loaded * this.width}px"></div>
+            </div>
+        `;
     }
 
     /**
@@ -225,21 +223,20 @@ class Panel {
      * @return {string}
      */
     mobInfo(life, gold, speed) {
-        let content =
-            "<div class='mobPoints'>" +
-            "    <div class='text'>Life:</div>" +
-            "   <div class='actual'>" + life + "</div>" +
-            "</div>" +
-            "<div class='mobGold'>" +
-            "    <div class='text'>Gold:</div>" +
-            "    <div class='actual'>" + gold + "</div>" +
-            "</div>" +
-            "<div class='mobSpeed'>" +
-            "    <div class='text'>Speed:</div>" +
-            "    <div class='actual'>" + speed + "</div>" +
-            "</div>";
-
-        return content;
+        return `
+            <div class="mobPoints">
+                <div class="text">Life:</div>
+               <div class="actual">${life}</div>
+            </div>
+            <div class="mobGold">
+                <div class="text">Gold:</div>
+                <div class="actual">${gold}</div>
+            </div>
+            <div class="mobSpeed">
+                <div class="text">Speed:</div>
+                <div class="actual">${speed}</div>
+            </div>
+        `;
     }
 
 

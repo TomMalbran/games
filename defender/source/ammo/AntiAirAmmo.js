@@ -18,7 +18,7 @@ class AntiAirAmmo extends Ammo {
         this.rotateTower = false;
         this.rotateAmmo  = true;
         this.className   = "airAmmo";
-        this.content     = "<div class='airMissile1'></div>";
+        this.content     = `<div class="airMissile1"></div>`;
 
         this.init(tower, targets, boardSize);
         this.setMissile(index);

@@ -72,8 +72,8 @@ class Maps {
         this.maps.innerHTML = "";
 
         Object.keys(MapsData.maps).forEach((id) => {
-            let score   = this.storage.get(id + ".score") || 0,
-                won     = this.storage.get(id + ".won"),
+            let score   = this.storage.get(`${id}.score`) || 0,
+                won     = this.storage.get(`${id}.won`),
                 element = document.createElement("button");
 
             element.dataset.action = "selectLevel";
@@ -87,7 +87,7 @@ class Maps {
             total += score;
         });
 
-        this.total.innerHTML = "Total: " + total;
+        this.total.innerHTML = `Total: ${total}`;
     }
 
     /**
@@ -96,14 +96,14 @@ class Maps {
      * @param {number} score
      */
     saveScore(lives, score) {
-        let old = this.storage.get(this.gameMap + ".score"),
+        let old = this.storage.get(`${this.gameMap}.score`),
             won = lives > 0;
 
         if (!old || old < score) {
-            this.storage.set(this.gameMap + ".score", score);
+            this.storage.set(`${this.gameMap}.score`, score);
         }
         if (won) {
-            this.storage.set(this.gameMap + ".won", 1);
+            this.storage.set(`${this.gameMap}.won`, 1);
         }
     }
 }

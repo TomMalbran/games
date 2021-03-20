@@ -156,22 +156,28 @@ class Score {
      * Sets the Scores
      */
     showScores() {
-        this.goldElem.innerHTML  = "Gold:  " + this.gold;
-        this.livesElem.innerHTML = "Lives: " + this.lives;
-        this.timeElem.innerHTML  = "Time:  " + this.timer;
-        this.scoreElem.innerHTML = "Score: " + this.score;
+        this.goldElem.innerHTML  = `Gold:  ${this.gold}`;
+        this.livesElem.innerHTML = `Lives: ${this.lives}`;
+        this.timeElem.innerHTML  = `Time:  ${this.timer}`;
+        this.scoreElem.innerHTML = `Score: ${this.score}`;
     }
 
     /**
      * Sets the Final Score
      */
     showFinal() {
-        this.finalElem.innerHTML =
-            "<dt>Score</dt><dd>" + this.score + "</dd>" +
-            "<dt>+ " + this.lives + " lives x" + this.livesMult + "</dt><dd>" + (this.lives * this.livesMult) + "</dd>" +
-            "<dt>+ Time Bonus</dt><dd>" + this.getBonus() + "</dd>" +
-            "<dt>x Multiplier</dt><dd>" + this.level + "</dd>" +
-            "<dt>Total Score</dt><dd>" + this.getTotal() + "</dd>";
+        this.finalElem.innerHTML = `
+            <dt>Score</dt>
+            <dd>${this.score}</dd>
+            <dt>${this.lives} lives x${this.livesMult}</dt>
+            <dd>${this.lives * this.livesMult}</dd>
+            <dt>+ Time Bonus</dt>
+            <dd>${this.getBonus()}</dd>
+            <dt>x Multiplier</dt>
+            <dd>${this.level}</dd>
+            <dt>Total Score</dt>
+            <dd>${this.getTotal()}</dd>
+        `;
     }
 
 

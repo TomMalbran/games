@@ -29,7 +29,7 @@ class Alerts {
      * @param {Mob} mob
      */
     gold(mob) {
-        this.add(mob, "alertYellow", "+" + mob.getGold());
+        this.add(mob, "alertYellow", `+${mob.getGold()}`);
     }
 
 
@@ -59,7 +59,7 @@ class Alerts {
         let element = document.createElement("DIV");
         element.style.top  = mob.getPos().top  + "px";
         element.style.left = mob.getPos().left + "px";
-        element.className  = "alert " + className;
+        element.className  = `alert ${className}`;
         element.innerHTML  = text;
 
         this.alerts.appendChild(element);
@@ -81,7 +81,7 @@ class Alerts {
                     data.left    += this.moveX[data.pointer];
                     data.timer    = 100;
                     data.pointer += 1;
-                    data.element.style.transform = "translate(" + data.left + "px, " + data.top + "px)";
+                    data.element.style.transform = `translate(${data.left}px, ${data.top}px)`;
                 }
                 if (data.pointer >= this.moveX.length) {
                     Utils.removeElement(data.element);

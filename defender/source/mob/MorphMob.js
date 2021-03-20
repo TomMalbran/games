@@ -24,7 +24,7 @@ class MorphMob extends Mob {
         this.speed    = 1;
         this.defense  = 0;
         this.morph    = [ "Normal", "Dark", "Inmune", "Fast" ];
-        this.content  = "<div class='normalMob'></div>";
+        this.content  = `<div class="normalMob"></div>`;
 
         this.morphTime = 5000;
 

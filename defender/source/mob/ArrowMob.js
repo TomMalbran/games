@@ -24,9 +24,10 @@ class ArrowMob extends Mob {
         this.speed    = 2;
         this.defense  = 0;
         this.arrow    = true;
-        this.content  =
-            "<div class='arrowHead'></div>" +
-            "<div class='arrowTail'></div>";
+        this.content  = `
+            <div class="arrowHead"></div>
+            <div class="arrowTail"></div>
+        `;
 
         this.init(data);
     }

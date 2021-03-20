@@ -26,7 +26,7 @@ class HighScores {
      */
     create(level) {
         this.level = level;
-        this.data  = new Storage("snake.hs." + this.level);
+        this.data  = new Storage(`snake.hs.${this.level}`);
         this.total = this.data.get("total") || 0;
     }
 
@@ -53,9 +53,10 @@ class HighScores {
                 div  = document.createElement("DIV");
 
             div.className = "highScore";
-            div.innerHTML = "<div class='hsName'>" + data.name + "</div>" +
-                            "<div class='hsScore'>" + Utils.formatNumber(data.score, ",") + "</div>";
-
+            div.innerHTML = `
+                <div class="hsName">${data.name}</div>
+                <div class="hsScore">${Utils.formatNumber(data.score, ",")}</div>
+            `;
             this.scores.appendChild(div);
         }
     }

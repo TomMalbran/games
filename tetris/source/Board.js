@@ -133,7 +133,7 @@ class Board {
      */
     append(type, top, left) {
         let element = document.createElement("DIV");
-        element.className  = "cell" + type;
+        element.className  = `cell${type}`;
         element.style.top  = this.getTop(top);
         element.style.left = this.getLeft(left);
 

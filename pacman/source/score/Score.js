@@ -161,7 +161,7 @@ class Score {
         this.ctx.save();
         this.ctx.fillStyle = this.scoreColor;
         this.ctx.textAlign = "left";
-        this.ctx.font      = "1.8em 'Whimsy TT'";
+        this.ctx.font      = `1.8em "Whimsy TT"`;
         this.ctx.clearRect(left + margin / 2, top - height / 2 - 2, width, height + 2);
         this.ctx.fillText(this.score, left + margin, top);
         this.ctx.restore();
