@@ -24,7 +24,7 @@ class Towers {
         this.ranges     = new Ranges(this);
         this.hasStarted = false;
 
-        this.score.setFunctions(this.enable.bind(this), this.disable.bind(this));
+        this.score.setFunctions(() => this.enable(), () => this.disable());
         this.enable();
         this.disable();
         this.createInitialSetup();

@@ -11,8 +11,8 @@ class Selection {
         this.parent = parent;
         this.tower  = null;
 
-        this.parent.board.addListener("tower",   this.select.bind(this));
-        this.parent.board.addListener("default", this.drop.bind(this));
+        this.parent.board.addListener("tower",   (event, element) => this.select(event, element));
+        this.parent.board.addListener("default", () => this.drop());
     }
 
     /**

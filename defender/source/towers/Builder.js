@@ -32,16 +32,11 @@ class Builder {
      * @returns {Void}
      */
     addListeners() {
-        this.selectHandler  = this.selectEvent.bind(this);
-        this.previewHandler = this.previewEvent.bind(this);
-        this.hideHandler    = this.hideEvent.bind(this);
-        this.dragHandler    = this.drag.bind(this);
-
-        document.addEventListener("mousemove",    this.dragHandler);
-        this.towers.addEventListener("click",     this.selectHandler);
-        this.towers.addEventListener("mouseover", this.previewHandler);
-        this.towers.addEventListener("mouseout",  this.hideHandler);
-        this.parent.board.addListener("build",    this.build.bind(this));
+        document.addEventListener("mousemove",    (e) => this.drag(e));
+        this.towers.addEventListener("click",     (e) => this.select(e));
+        this.towers.addEventListener("mouseover", (e) => this.preview(e));
+        this.towers.addEventListener("mouseout",  (e) => this.hide(e));
+        this.parent.board.addListener("build",    ()  => this.build());
     }
 
     /**
@@ -49,10 +44,10 @@ class Builder {
      * @returns {Void}
      */
     removeListeners() {
-        document.removeEventListener("mousemove",    this.dragHandler);
-        this.towers.removeEventListener("click",     this.selectHandler);
-        this.towers.removeEventListener("mouseover", this.previewHandler);
-        this.towers.removeEventListener("mouseout",  this.hideHandler);
+        document.removeEventListener("mousemove",    (e) => this.drag(e));
+        this.towers.removeEventListener("click",     (e) => this.select(e));
+        this.towers.removeEventListener("mouseover", (e) => this.preview(e));
+        this.towers.removeEventListener("mouseout",  (e) => this.hide(e));
     }
 
 
@@ -61,7 +56,7 @@ class Builder {
      * @param {Event} event
      * @returns {Void}
      */
-    selectEvent(event) {
+    select(event) {
         if (event.target.classList.contains("towerBuild")) {
             this.selectByElement(event.target);
         }
@@ -72,7 +67,7 @@ class Builder {
      * @param {Event} event
      * @returns {Void}
      */
-    previewEvent(event) {
+    preview(event) {
         if (event.target.classList.contains("towerBuild")) {
             this.showPreview(event.target);
         }
@@ -83,7 +78,7 @@ class Builder {
      * @param {Event} event
      * @returns {Void}
      */
-    hideEvent(event) {
+    hide(event) {
         if (event.target.classList.contains("towerBuild")) {
             this.hidePreview();
         }

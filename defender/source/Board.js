@@ -20,10 +20,9 @@ class Board {
         this.targets    = [];
         this.listeners  = {};
         this.defaults   = [];
-        this.handler    = this.clickListener.bind(this);
         this.hasStarted = false;
 
-        this.board.addEventListener("click", this.handler);
+        this.board.addEventListener("click", (e) => this.onClick(e));
         this.create();
     }
 
@@ -41,7 +40,7 @@ class Board {
      * @returns {Void}
      */
     destroy() {
-        this.board.removeEventListener("click", this.handler);
+        this.board.removeEventListener("click", (e) => this.onClick(e));
     }
 
     /**
@@ -71,7 +70,7 @@ class Board {
      * @param {Event} event
      * @returns {Void}
      */
-    clickListener(event) {
+    onClick(event) {
         const target = event.target.parentNode;
         const type   = target.dataset.type;
 
