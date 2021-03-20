@@ -230,43 +230,47 @@
     function createActionsShortcuts() {
         actions = {
             play       : () => newGame(),
+            pause      : () => togglePause(),
             highScores : () => showHighScores(),
             help       : () => display.set("help").show(),
             sound      : () => sounds.toggle(),
             save       : () => saveHighScore(),
             retore     : () => scores.restore(),
-            mainScreen : () => display.set("mainScreen").show()
+            mainScreen : () => display.set("mainScreen").show(),
         };
 
         shortcuts = {
             mainScreen : {
                 Enter : "play",
+                Space : "play",
                 Down  : "play",
                 H     : "highScores",
                 C     : "help",
-                M     : "sound"
+                M     : "sound",
             },
             playing : {
-                P     : () => togglePause(),
+                P     : "pause",
+                Space : "pause",
                 M     : () => sounds.toggle(),
                 Left  : () => blob.makeTurn({ x: -1, y:  0 }),
                 Up    : () => blob.makeTurn({ x:  0, y: -1 }),
                 Right : () => blob.makeTurn({ x:  1, y:  0 }),
-                Down  : () => blob.makeTurn({ x:  0, y:  1 })
+                Down  : () => blob.makeTurn({ x:  0, y:  1 }),
             },
             paused : {
-                P     : () => togglePause()
+                P     : "pause",
+                Space : "pause",
             },
             gameOver : {
                 Enter : () => saveHighScore(),
-                B     : () => display.set("mainScreen").show()
+                B     : () => display.set("mainScreen").show(),
             },
             highScores : {
                 B     : () => display.set("mainScreen").show(),
                 R     : () => scores.restore()
             },
             help : {
-                B     : () => display.set("mainScreen").show()
+                B     : () => display.set("mainScreen").show(),
             }
         };
     }
@@ -277,16 +281,17 @@
      */
     function initDomListeners() {
         const specialKeys = {
-            "8"  : "BS",
-            "13" : "Enter",
-            "37" : "Left",
-            "65" : "Left",
-            "38" : "Up",
-            "87" : "Up",
-            "39" : "Right",
-            "68" : "Right",
-            "40" : "Down",
-            "83" : "Down"
+            8  : "BaackSpace",
+            13 : "Enter",
+            32 : "Space",
+            37 : "Left",
+            65 : "Left",
+            38 : "Up",
+            87 : "Up",
+            39 : "Right",
+            68 : "Right",
+            40 : "Down",
+            83 : "Down",
         };
 
         document.body.addEventListener("click", (e) => {

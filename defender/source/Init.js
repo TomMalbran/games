@@ -260,51 +260,51 @@
             Q     : "endGame"
         };
         const game = {
-            P     : "pause",
-            M     : "mute",
-            N     : "next",
-            U     : "upgrade",
-            F     : "fire",
-            L     : "lock",
-            S     : "sell",
-            A     : "sellAll",
-            DN    : (d) => towers.startBuilding(d),
-            B     : ()  => towers.buildTower(),
-            Left  : ()  => towers.moveTower(-1, 0),
-            Up    : ()  => towers.moveTower(0, -1),
-            Right : ()  => towers.moveTower(1,  0),
-            Down  : ()  => towers.moveTower(0,  1),
-            Home  : ()  => towers.selectFirst(),
-            End   : ()  => towers.selectLast(),
-            Z     : ()  => towers.selectNextPrev(-1),
-            X     : ()  => towers.selectNextPrev(+1),
-            PU    : ()  => towers.selectNextPrev(-5),
-            PD    : ()  => towers.selectNextPrev(+5),
-            Esc   : ()  => endSelection()
+            P        : "pause",
+            M        : "mute",
+            N        : "next",
+            U        : "upgrade",
+            F        : "fire",
+            L        : "lock",
+            S        : "sell",
+            A        : "sellAll",
+            DN       : (d) => towers.startBuilding(d),
+            B        : ()  => towers.buildTower(),
+            Left     : ()  => towers.moveTower(-1, 0),
+            Up       : ()  => towers.moveTower(0, -1),
+            Right    : ()  => towers.moveTower(1,  0),
+            Down     : ()  => towers.moveTower(0,  1),
+            Home     : ()  => towers.selectFirst(),
+            End      : ()  => towers.selectLast(),
+            Z        : ()  => towers.selectNextPrev(-1),
+            X        : ()  => towers.selectNextPrev(+1),
+            PageUp   : ()  => towers.selectNextPrev(-5),
+            PageDown : ()  => towers.selectNextPrev(+5),
+            Esc      : ()  => endSelection()
         };
 
         shortcuts = {
             mainScreen : {
-                N  : "selectMap",
-                L  : "lastMap",
-                C  : "controls"
+                N : "selectMap",
+                L : "lastMap",
+                C : "controls",
             },
             selectMap : {
-                HN : "selectLevel",
-                BS : "mainScreen"
+                HN        : "selectLevel",
+                BackSpace : "mainScreen",
             },
             selectLevel : {
-                E  : () => newGame(0),
-                N  : () => newGame(1),
-                H  : () => newGame(2),
-                BS : "selectMap"
+                E         : () => newGame(0),
+                N         : () => newGame(1),
+                H         : () => newGame(2),
+                BackSpace : "selectMap",
             },
             controls : {
-                BS : "mainScreen"
+                BackSpace : "mainScreen",
             },
             gameOver : {
-                N  : "mainScreen",
-                BS : "mainScreen"
+                N         : "mainScreen",
+                BackSpace : "mainScreen",
             },
             planning       : game,
             playing        : game,
@@ -319,16 +319,16 @@
      */
     function initDomListeners() {
         const specialKeys = {
-            "8"  : "BS",
-            "27" : "Esc",
-            "33" : "PD",
-            "34" : "PU",
-            "35" : "End",
-            "36" : "Home",
-            "37" : "Left",
-            "38" : "Up",
-            "39" : "Right",
-            "40" : "Down"
+            8  : "BackSpace",
+            27 : "Esc",
+            33 : "PageDown",
+            34 : "PageUp",
+            35 : "End",
+            36 : "Home",
+            37 : "Left",
+            38 : "Up",
+            39 : "Right",
+            40 : "Down",
         };
 
         audio = document.querySelector(".audioButton");
