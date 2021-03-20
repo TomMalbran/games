@@ -1,15 +1,15 @@
 /**
- * @extends {Tower}
  * The Laser Tower Class
+ * @extends {Tower}
  */
 class LaserTower extends Tower {
 
     /**
      * The Laser Tower Class
-     * @param {number} id
-     * @param {number} row
-     * @param {number} col
-     * @param {number} boardSize
+     * @param {Number} id
+     * @param {Number} row
+     * @param {Number} col
+     * @param {Number} boardSize
      */
     constructor(id, row, col, boardSize) {
         super();
@@ -35,8 +35,8 @@ class LaserTower extends Tower {
     /**
      * Returns a list of Mobs in a lineal range of the tower
      * @param {List.<Iterator>} mobs
-     * @param {Mob} mob
-     * @return {Array.<Array.<Mob>>}
+     * @param {Mob}             mob
+     * @returns {Array.<Array.<Mob>>}
      */
     getTargets(mobs, mob) {
         let angle = this.getMobAngle(mob);
@@ -46,8 +46,8 @@ class LaserTower extends Tower {
     /**
      * Returns a list with the targets in the same line as the position of the tower canon
      * @param {Array.<Mob>} mobs
-     * @param {number} angle
-     * @return {Array.<Mob>}
+     * @param {Number}      angle
+     * @returns {Array.<Mob>}
      */
     getLinealTargets(mobs, angle) {
         let list = [];
@@ -68,7 +68,7 @@ class LaserTower extends Tower {
     /**
      * Returns true if the given Mob is a valid target
      * @param {Mob} mob
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isValidTarget(mob) {
         let angle = this.getMobAngle(mob);
@@ -79,6 +79,7 @@ class LaserTower extends Tower {
      * Rotates the Tower and Ammo right after it starts shooting
      * @param {Mob} mob
      * @param {Ammo} ammo
+     * @returns {Void}
      */
     setAngle(mob, ammo) {
         let angle = this.getMobAngle(mob);

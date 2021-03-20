@@ -6,9 +6,9 @@ class Food {
     /**
      * Food Manager constructor
      * @param {Board} board
-     * @param {?{top: number, left: number}} pos
-     * @param {?number} top
-     * @param {?number} left
+     * @param {?{top: Number, left: Number}} pos
+     * @param {?Number} top
+     * @param {?Number} left
      */
     constructor(board, pos, top, left) {
         this.board    = board;
@@ -30,9 +30,9 @@ class Food {
 
     /**
      * Checks if the given position is the food position and it hides it when it is
-     * @param {number} top
-     * @param {number} left
-     * @return {boolean} True when top and left are equal to the food position
+     * @param {Number} top
+     * @param {Number} left
+     * @returns {Boolean} True when top and left are equal to the food position
      */
     eat(top, left) {
         if (top === this.top && left === this.left) {
@@ -43,7 +43,8 @@ class Food {
 
     /**
      * Repositions the food and resets the values
-     * @param {{top: number, left: number}} pos
+     * @param {{top: Number, left: Number}} pos
+     * @returns {Void}
      */
     add(pos) {
         this.time = this.foodTime;
@@ -55,7 +56,8 @@ class Food {
 
     /**
      * Reduces the time
-     * @param {number} time
+     * @param {Number} time
+     * @returns {Void}
      */
     reduceTime(time) {
         if (this.time > 0) {
@@ -66,6 +68,7 @@ class Food {
 
     /**
      * Places the food at a position
+     * @returns {Void}
      */
     setPosition() {
         this.element.style.top  = this.board.getPosition(this.top);
@@ -74,6 +77,7 @@ class Food {
 
     /**
      * Sets the transform to rotate the food
+     * @returns {Void}
      */
     setTransform() {
         let time = (1000 - this.time) / 10, deg;
@@ -91,7 +95,7 @@ class Food {
 
     /**
      * Returns the position of the food
-     * @return {{top: number, left: number}}
+     * @returns {{top: Number, left: Number}}
      */
     getPosition() {
         return { top : this.top, left : this.left };
@@ -99,7 +103,7 @@ class Food {
 
     /**
      * Returns the timer
-     * @return {number}
+     * @returns {Number}
      */
     getTimer() {
         return this.time > 0 ? Math.round(this.time / 10) : 0;

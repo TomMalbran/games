@@ -22,6 +22,7 @@
 
     /**
      * Calls the Game Over animation and then deletes the game data
+     * @returns {Void}
      */
     function gameOver() {
         display.set("ready");
@@ -39,7 +40,8 @@
 
     /**
      * Creates the Blob and the Ghosts, and starts the Ready animation
-     * @param {boolean} newLife
+     * @param {Boolean} newLife
+     * @returns {Void}
      */
     function createPlayers(newLife) {
         ghosts = new Ghosts(newLife ? ghosts : null);
@@ -53,6 +55,7 @@
 
     /**
      * Called when the Blob enters a new tile
+     * @returns {Void}
      */
     function blobEating() {
         let tile   = blob.getTile(),
@@ -82,6 +85,7 @@
 
     /**
      * Called to do the crash etween a ghost and th blob
+     * @returns {Void}
      */
     function ghostCrash() {
         ghosts.crash(blob.getTile(), (eyesCounter, tile) => {
@@ -98,6 +102,7 @@
 
     /**
      * Called after the Blob dies
+     * @returns {Void}
      */
     function newLife() {
         if (!score.died()) {
@@ -110,6 +115,7 @@
 
     /**
      * Called after we get to a new level
+     * @returns {Void}
      */
     function newLevel() {
         animations.newLevel(score.getLevel(), () => {
@@ -126,6 +132,7 @@
 
     /**
      * Request an animation frame
+     * @returns {Void}
      */
     function requestAnimation() {
         startTime = new Date().getTime();
@@ -165,6 +172,7 @@
 
     /**
      * Cancel an animation frame
+     * @returns {Void}
      */
     function cancelAnimation() {
         window.cancelAnimationFrame(animation);
@@ -173,6 +181,7 @@
 
     /**
      * Starts a new Game
+     * @returns {Void}
      */
     function newGame() {
         display.set("ready").show();
@@ -194,6 +203,7 @@
 
     /**
      * Toggles the Game Pause
+     * @returns {Void}
      */
     function togglePause() {
         if (display.isPaused()) {
@@ -207,6 +217,7 @@
 
     /**
      * Show the High Scores
+     * @returns {Void}
      */
     function showHighScores() {
         display.set("highScores").show();
@@ -215,6 +226,7 @@
 
     /**
      * Saves the High Score
+     * @returns {Void}
      */
     function saveHighScore() {
         if (scores.save(score.getLevel(), score.getScore())) {
@@ -226,6 +238,7 @@
 
     /**
      * Creates a shortcut object
+     * @returns {Void}
      */
     function createActionsShortcuts() {
         actions = {
@@ -273,6 +286,7 @@
 
     /**
      * Stores the used DOM elements and initializes the Event Handlers
+     * @returns {Void}
      */
     function initDomListeners() {
         document.body.addEventListener("click", (e) => {
@@ -300,6 +314,7 @@
 
     /**
      * Destroys the demo when the display changes
+     * @returns {Void}
      */
     function onShow() {
         if (!display.isMainScreen()) {
@@ -309,6 +324,7 @@
 
     /**
      * The main Function
+     * @returns {Void}
      */
     function main() {
         Board.create();

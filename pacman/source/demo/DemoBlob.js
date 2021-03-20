@@ -1,6 +1,6 @@
 /**
- * @extends {Blob}
  * The Demo Blob Class
+ * @extends {Blob}
  */
 class DemoBlob extends Blob {
 
@@ -15,9 +15,10 @@ class DemoBlob extends Blob {
 
     /**
      * Initialize some variables for the demo animation
-     * @param {{x: number, y: number}} dir
-     * @param {number} x
-     * @param {number} y
+     * @param {{x: Number, y: Number}} dir
+     * @param {Number}                 x
+     * @param {Number}                 y
+     * @returns {Void}
      */
     chaseDemo(dir, x, y) {
         this.dir   = Object.create(dir);
@@ -28,7 +29,8 @@ class DemoBlob extends Blob {
 
     /**
      * The second animation of the demo in Frighten mode
-     * @param {{x: number, y: number}} dir
+     * @param {{x: Number, y: Number}} dir
+     * @returns {Void}
      */
     frightenDemo(dir) {
         this.dir   = Object.create(dir);
@@ -37,7 +39,8 @@ class DemoBlob extends Blob {
 
     /**
      * The animation used on the Demo
-     * @param {number} speed
+     * @param {Number} speed
+     * @returns {Void}
      */
     animate(speed) {
         this.x += this.dir.x * this.speed * speed;

@@ -17,7 +17,7 @@ class Ranges {
 
     /**
      * It adds the Tower to the diferent cells in the matrices of Iterators where its range reaches it
-     * @return {({boosts: Array.<Iterator>, towers: Array.<Iterator>} | {complete: Array.<Iterator>, reduced: Array.<Iterator>})}
+     * @returns {({boosts: Array.<Iterator>, towers: Array.<Iterator>} | {complete: Array.<Iterator>, reduced: Array.<Iterator>})}
      */
     add(tower) {
         let matrix = tower.getRangeMatrix(),
@@ -50,10 +50,11 @@ class Ranges {
      * Adds the boost Tower to the "boost" list and if there is a tower in the given position,
      * it adds it's id to the second given array
      * @param {Array.<Iterator>} list1
-     * @param {Array.<number>} list2
-     * @param {number} id
-     * @param {number} row
-     * @param {number} col
+     * @param {Array.<Number>}   list2
+     * @param {Number}           id
+     * @param {Number}           row
+     * @param {Number}           col
+     * @returns {Void}
      */
     addBoost(list1, list2, id, row, col) {
         let cell    = this.getCell(row, col),
@@ -71,9 +72,10 @@ class Ranges {
      * updating the given arrays
      * @param {Array.<Iterator>} list1
      * @param {Array.<Iterator>} list2
-     * @param {number} id
-     * @param {number} row
-     * @param {number} col
+     * @param {Number}           id
+     * @param {Number}           row
+     * @param {Number}           col
+     * @returns {Void}
      */
     addNormal(list1, list2, id, row, col) {
         let cell = this.getCell(row, col);
@@ -83,10 +85,10 @@ class Ranges {
 
     /**
      * Adds the tower with the given ID, to the given list in the given cell
-     * @param {string} list
-     * @param {string} cell
-     * @param {number} id
-     * @return {Iterator}
+     * @param {String} list
+     * @param {String} cell
+     * @param {Number} id
+     * @returns {Iterator}
      */
     addTower(list, cell, id) {
         if (!this[list][cell]) {
@@ -99,6 +101,7 @@ class Ranges {
     /**
      * Removes the Tower from all the internal lists
      * @param {Tower} tower
+     * @returns {Void}
      */
     remove(tower) {
         let lists = tower.getLists();
@@ -115,6 +118,7 @@ class Ranges {
     /**
      * When starting to shoot, it removes the Tower from the reduced array
      * @param {Tower} tower
+     * @returns {Void}
      */
     startShoot(tower) {
         tower.getLists().reduced.forEach((it) => {
@@ -127,6 +131,7 @@ class Ranges {
     /**
      * When ending a shoot, it readds the Tower to the reduced array
      * @param {Tower} tower
+     * @returns {Void}
      */
     endShoot(tower) {
         let list = [];
@@ -140,7 +145,7 @@ class Ranges {
     /**
      * Returns all the Boost Towers where it's range reaches the given Tower
      * @param {Tower} tower
-     * @return {Array.<number>}
+     * @returns {Array.<Number>}
      */
     getBoostsList(tower) {
         let startRow = tower.getRow(),
@@ -169,9 +174,9 @@ class Ranges {
 
     /**
      * Returns a string that represents a position
-     * @param {number} row
-     * @param {number} col
-     * @return {string}
+     * @param {Number} row
+     * @param {Number} col
+     * @returns {String}
      */
     getCell(row, col) {
         return `r${row}c${col}`;
@@ -179,9 +184,9 @@ class Ranges {
 
     /**
      * Returns true if there is a Tower in the "reduced" list in the given position
-     * @param {number} row
-     * @param {number} col
-     * @return {boolean}
+     * @param {Number} row
+     * @param {Number} col
+     * @returns {Boolean}
      */
     hasTowers(row, col) {
         let pos = this.getCell(row, col);
@@ -190,7 +195,7 @@ class Ranges {
 
     /**
      * Returns all the Towers in the "reduced" list in the given position
-     * @return {?Array.<Iterator>}
+     * @returns {?Array.<Iterator>}
      */
     getReducedList(row, col) {
         return this.reduced[this.getCell(row, col)];

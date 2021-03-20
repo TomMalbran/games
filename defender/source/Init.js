@@ -26,6 +26,7 @@
 
     /**
      * Request an animation frame
+     * @returns {Void}
      */
     function requestAnimation() {
         startTime = new Date().getTime();
@@ -45,6 +46,7 @@
 
     /**
      * Cancel an animation frame
+     * @returns {Void}
      */
     function cancelAnimation() {
         window.cancelAnimationFrame(animation);
@@ -53,6 +55,7 @@
 
     /**
      * Destroys the Game
+     * @returns {Void}
      */
     function destroyGame() {
         cancelAnimation();
@@ -62,6 +65,7 @@
 
     /**
      * Shows the Game Over Screen
+     * @returns {Void}
      */
     function showGameOver() {
         display.set("gameOver");
@@ -73,7 +77,8 @@
 
     /**
      * Starts a new Game
-     * @param {number} level
+     * @param {Number} level
+     * @returns {Void}
      */
     function newGame(level) {
         display.set("planning");
@@ -90,6 +95,7 @@
 
     /**
      * Show the Main Screen
+     * @returns {Void}
      */
     function showMainScreen() {
         display.set("mainScreen");
@@ -97,6 +103,7 @@
 
     /**
      * Shows the Maps selection Screen
+     * @returns {Void}
      */
     function showMapSelection() {
         display.set("selectMap");
@@ -105,6 +112,7 @@
 
     /**
      * Play the last played Map
+     * @returns {Void}
      */
     function showLastMap() {
         gameMap = maps.getMap() || gameMap;
@@ -113,7 +121,8 @@
 
     /**
      * Shows the Level Selection Screen
-     * @param {string} map
+     * @param {String} map
+     * @returns {Void}
      */
     function showLevelSelection(map) {
         display.set("selectLevel");
@@ -122,6 +131,7 @@
 
     /**
      * Show the Controls
+     * @returns {Void}
      */
     function showControls() {
         display.set("controls");
@@ -130,6 +140,7 @@
 
     /**
      * Start Playing
+     * @returns {Void}
      */
     function startPlaying() {
         display.set("playing");
@@ -143,6 +154,7 @@
 
     /**
      * Starts the Game and or sends the next wave
+     * @returns {Void}
      */
     function nextWave() {
         if (display.isPlanning()) {
@@ -155,6 +167,7 @@
 
     /**
      * Start the Game Again
+     * @returns {Void}
      */
     function restartGame() {
         destroyGame();
@@ -163,6 +176,7 @@
 
     /**
      * Ends the current Game
+     * @returns {Void}
      */
     function endGame() {
         destroyGame();
@@ -172,6 +186,7 @@
 
     /**
      * Starts the pause
+     * @returns {Void}
      */
     function startPause() {
         display.setPause();
@@ -180,6 +195,7 @@
 
     /**
      * Pause the Game
+     * @returns {Void}
      */
     function pauseGame() {
         if (display.isPlanningPaused()) {
@@ -197,6 +213,7 @@
 
     /**
      * Sets the text of the Audio button
+     * @returns {Void}
      */
     function setAudioText() {
         audio.innerHTML = sounds.isMute() ? "Unmute" : "Mute";
@@ -204,6 +221,7 @@
 
     /**
      * Toggles the sound on and off
+     * @returns {Void}
      */
     function toggleSound() {
         sounds.toggle();
@@ -212,6 +230,7 @@
 
     /**
      * Ends the tower selections and hides the descriptions
+     * @returns {Void}
      */
     function endSelection() {
         towers.drop();
@@ -221,6 +240,7 @@
 
     /**
      * Creates an actions object
+     * @returns {Void}
      */
     function createActions() {
         actions = {
@@ -245,6 +265,7 @@
 
     /**
      * Creates a shortcut object
+     * @returns {Void}
      */
     function createShortcuts() {
         let paused = {
@@ -309,6 +330,7 @@
 
     /**
      * Stores the used DOM elements and initializes the Event Handlers
+     * @returns {Void}
      */
     function initDomListeners() {
         audio = document.querySelector(".audioButton");
@@ -358,6 +380,7 @@
 
     /**
      * The main Function
+     * @returns {Void}
      */
     function main() {
         createActions();

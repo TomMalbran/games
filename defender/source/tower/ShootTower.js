@@ -1,15 +1,15 @@
 /**
- * @extends {Tower}
  * The Shoot Tower Class
+ * @extends {Tower}
  */
 class ShootTower extends Tower {
 
     /**
      * The Shoot Tower constructor
-     * @param {number} id
-     * @param {number} row
-     * @param {number} col
-     * @param {number} boardSize
+     * @param {Number} id
+     * @param {Number} row
+     * @param {Number} col
+     * @param {Number} boardSize
      */
     constructor(id, row, col, boardSize) {
         super();
@@ -33,7 +33,7 @@ class ShootTower extends Tower {
     /**
      * Creates a new Ammo
      * @param {Array.<Mob>} targets
-     * @return {ShootAmmo}
+     * @returns {ShootAmmo}
      */
     createAmmo(targets) {
         return new ShootAmmo(this, targets, this.boardSize);

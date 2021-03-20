@@ -1,15 +1,15 @@
 /**
- * @extends {Tower}
  * The Snap Tower Class
+ * @extends {Tower}
  */
 class SnapTower extends Tower {
 
     /**
      * The Snap Tower constructor
-     * @param {number} id
-     * @param {number} row
-     * @param {number} col
-     * @param {number} boardSize
+     * @param {Number} id
+     * @param {Number} row
+     * @param {Number} col
+     * @param {Number} boardSize
      */
     constructor(id, row, col, boardSize) {
         super();
@@ -35,7 +35,7 @@ class SnapTower extends Tower {
     /**
      * Creates a new Ammo
      * @param {Array.<Mob>} targets
-     * @return {SnapAmmo}
+     * @returns {SnapAmmo}
      */
     createAmmo(targets) {
         return new SnapAmmo(this, targets, this.boardSize);
@@ -45,8 +45,8 @@ class SnapTower extends Tower {
     /**
      * Returns a list of Mobs in the range of the tower
      * @param {List.<Iterator>} mobs
-     * @param {Mob} mob
-     * @return {Array.<Array.<Mob>>}
+     * @param {Mob}             mob
+     * @returns {Array.<Array.<Mob>>}
      */
     getTargets(mobs, mob) {
         let targets = this.getRangeTargets(mobs),
@@ -60,7 +60,7 @@ class SnapTower extends Tower {
 
     /**
      * Returns true if it will stun a mob
-     * @return {boolean}
+     * @returns {Boolean}
      */
     shouldStun() {
         return Utils.rand(0, 9) === 5;

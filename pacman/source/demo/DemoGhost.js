@@ -1,13 +1,13 @@
 /**
- * @extends {Ghost}
  * The Demo Ghost Class
+ * @extends {Ghost}
  */
 class DemoGhost extends Ghost {
 
     /**
      * The Demo Ghost constructor
-     * @param {string} name
-     * @param {string} color
+     * @param {String} name
+     * @param {String} color
      */
     constructor(name, color) {
         super();
@@ -22,7 +22,7 @@ class DemoGhost extends Ghost {
 
     /**
      * Returns the Ghost's name
-     * @return {number}
+     * @returns {Number}
      */
     getName() {
         return this.name;
@@ -31,9 +31,10 @@ class DemoGhost extends Ghost {
 
     /**
      * Initialize some variables for the chase demo animation
-     * @param {{x: number, y: number}} dir
-     * @param {number} x
-     * @param {number} y
+     * @param {{x: Number, y: Number}} dir
+     * @param {Number}                 x
+     * @param {Number}                 y
+     * @returns {Void}
      */
     chaseDemo(dir, x, y) {
         this.dir   = Object.create(dir);
@@ -45,8 +46,9 @@ class DemoGhost extends Ghost {
 
     /**
      * Initialize some variables for the frighten demo animation
-     * @param {{x: number, y: number}} dir
-     * @param {number} speed
+     * @param {{x: Number, y: Number}} dir
+     * @param {Number}                 speed
+     * @returns {Void}
      */
     frightenDemo(dir, speed) {
         this.dir   = Object.create(dir);
@@ -56,7 +58,8 @@ class DemoGhost extends Ghost {
 
     /**
      * Initialize some variables for the present demo animation
-     * @param {{x: number, y: number}} dir
+     * @param {{x: Number, y: Number}} dir
+     * @returns {Void}
      */
     presentDemo(dir) {
         this.dir   = Object.create(dir);
@@ -68,7 +71,8 @@ class DemoGhost extends Ghost {
 
     /**
      * The animation used on the Demo
-     * @param {number} speed
+     * @param {Number} speed
+     * @returns {Void}
      */
     demoAnimate(speed) {
         this.x += this.dir.x * this.speed * speed;

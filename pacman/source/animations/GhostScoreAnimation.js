@@ -1,14 +1,14 @@
 /**
- * @extends {Animation}
  * The Ghost Score Animation
+ * @extends {Animation}
  */
 class GhostScoreAnimation extends Animation {
 
     /**
      * The Ghost Score Animation constructor
      * @param {Canvas} canvas
-     * @param {string} text
-     * @param {{x: number, y: number}} pos
+     * @param {String} text
+     * @param {{x: Number, y: Number}} pos
      */
     constructor(canvas, text, pos) {
         super();
@@ -22,6 +22,7 @@ class GhostScoreAnimation extends Animation {
 
     /**
      * Does the Ghost Score animation
+     * @returns {Void}
      */
     animate() {
         let size = Math.min(0.2 + Math.round(this.time * 100 / 500) / 100, 1);

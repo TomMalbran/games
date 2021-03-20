@@ -24,7 +24,7 @@ class Paths {
     /**
      * Creates the Paths. Shows the preview if the game hasn't started and returns true
      * when there isn't possible to create at least one of the required paths
-     * @return {boolean}
+     * @returns {Boolean}
      */
     createPaths() {
         let paths = {}, blocking = false;
@@ -49,7 +49,8 @@ class Paths {
 
     /**
      * Creates the Paths for non-flyer mobs
-     * @param {Object.<Array.<[number, number]>>}
+     * @param {Object.<Array.<[Number, Number]>>}
+     * @returns {Void}
      */
     createNormalPaths(paths) {
         let starts  = this.parent.board.getStarts(),
@@ -74,7 +75,8 @@ class Paths {
     /**
      * Creates special Paths that start on the mobs location and goes to its previows target.
      * This is used when creating towers while playing
-     * @param {Object.<Array.<[number, number]>>}
+     * @param {Object.<Array.<[Number, Number]>>}
+     * @returns {Void}
      */
     createMobsPaths(paths) {
         if (!this.parent.manager.isEmpty()) {
@@ -96,6 +98,7 @@ class Paths {
     /**
      * Creates the paths for the flyer mobs, which is just a direction and an angle, since flyers
      * go straight from start to end
+     * @returns {Void}
      */
     createFlyersPaths() {
         let starts  = this.parent.board.getStarts(),
@@ -117,6 +120,7 @@ class Paths {
 
     /**
      * Asings to each mob a new path
+     * @returns {Void}
      */
     asignPathsToMobs() {
         if (!this.parent.manager.isEmpty()) {
@@ -128,6 +132,7 @@ class Paths {
 
     /**
      * Asings the given path to the given mob, if posible
+     * @returns {Void}
      */
     asignPathToMob(mob, path) {
         if (path) {
@@ -138,7 +143,7 @@ class Paths {
     /**
      * Sets a new Path for the given mob
      * @param {Mob} mob
-     * @return {string}
+     * @returns {String}
      */
     newPath(mob) {
         let cell = this.getCellName(mob.getCol(), mob.getRow(), mob.isHopper());
@@ -149,7 +154,7 @@ class Paths {
     /**
      * Creates a path for the given mob
      * @param {Mob} mob
-     * @return {Array.<[number, number]>}
+     * @returns {Array.<[Number, Number]>}
      */
     createMobPath(mob) {
         let start  = [ mob.getCol(), mob.getRow() ],
@@ -163,6 +168,7 @@ class Paths {
 
     /**
      * Shows the Blocking sign and sets a timeout to hide it after 1.5s
+     * @returns {Void}
      */
     blocking() {
         this.blocker.style.display = "block";
@@ -175,6 +181,7 @@ class Paths {
 
     /**
      * Shows a preview of the paths, only in the planning mode
+     * @returns {Void}
      */
     showPreview() {
         this.hidePreview();
@@ -197,6 +204,7 @@ class Paths {
 
     /**
      * Destroys the preview of the paths
+     * @returns {Void}
      */
     hidePreview() {
         this.element.innerHTML = "";
@@ -205,10 +213,11 @@ class Paths {
 
     /**
      * Creates each arrow for the paths preview
-     * @param {string} path
-     * @param {number} pos
-     * @param {number} row
-     * @param {number} col
+     * @param {String} path
+     * @param {Number} pos
+     * @param {Number} row
+     * @param {Number} col
+     * @returns {Void}
      */
     createElement(path, pos, row, col) {
         let angle   = this.getDeg(this.getPathDir(path, pos, false)),
@@ -224,10 +233,10 @@ class Paths {
 
     /**
      * Returns an ID for a path using the given parameters
-     * @param {number} col
-     * @param {number} row
-     * @param {boolean} free
-     * @return {string}
+     * @param {Number}  col
+     * @param {Number}  row
+     * @param {Boolean} free
+     * @returns {String}
      */
     getCellName(col, row, free) {
         return `c${col}r${row}${free ? "f" : ""}`;
@@ -235,8 +244,8 @@ class Paths {
 
     /**
      * Returns the type of Paths to use, which are used for different type of mobs
-     * @param {boolean} free
-     * @return {string}
+     * @param {Boolean} free
+     * @returns {String}
      */
     getType(free) {
         return free ? "DiagonalFree" : "Diagonal";
@@ -244,10 +253,10 @@ class Paths {
 
     /**
      * Returns the direction of the path at the given position for a mob
-     * @param {string} path
-     * @param {number} pos
-     * @param {boolean} isFlyer
-     * @return {{top: number, left: number}}
+     * @param {String}  path
+     * @param {Number}  pos
+     * @param {Boolean} isFlyer
+     * @returns {{top: Number, left: Number}}
      */
     getMobDir(path, pos, isFlyer) {
         if (isFlyer) {
@@ -262,9 +271,9 @@ class Paths {
 
     /**
      * Returns the direction of the path at the given position using the information of the path
-     * @param {string} path
-     * @param {number} pos
-     * @return {{top: number, left: number}}
+     * @param {String} path
+     * @param {Number} pos
+     * @returns {{top: Number, left: Number}}
      */
     getPathDir(path, pos) {
         if (!this.normalPaths[path][pos + 1]) {
@@ -278,8 +287,8 @@ class Paths {
 
     /**
      * Returns the Angle depending on the given direction
-     * @param {{top: number, left: number}} dir
-     * @return {number}
+     * @param {{top: Number, left: Number}} dir
+     * @returns {Number}
      */
     getDeg(dir) {
         let deg;
@@ -296,8 +305,8 @@ class Paths {
 
     /**
      * Returns the Angle using the flyers paths data
-     * @param {string} path
-     * @return {number}
+     * @param {String} path
+     * @returns {Number}
      */
     getAngle(path) {
         return this.flyerPaths[path] ? this.flyerPaths[path].deg : 0;
@@ -306,9 +315,9 @@ class Paths {
     /**
      * Returns true if the given position represents the next cell in the path
      * @param {Mob}    mob
-     * @param {number} row
-     * @param {number} col
-     * @return {boolean}
+     * @param {Number} row
+     * @param {Number} col
+     * @returns {Boolean}
      */
     nextInPath(mob, row, col) {
         if (mob.isFlyer()) {

@@ -12,7 +12,8 @@ class Animation {
 
     /**
      * Increases the timer
-     * @param {number} time
+     * @param {Number} time
+     * @returns {Void}
      */
     incTimer(time) {
         this.time += time;
@@ -20,7 +21,7 @@ class Animation {
 
     /**
      * Returns true if the animation hasn't ended
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isAnimating() {
         return this.endTime > this.time;
@@ -28,7 +29,7 @@ class Animation {
 
     /**
      * Returns true if the game loop stops while the animation is running
-     * @return {boolean}
+     * @returns {Boolean}
      */
     blocksGameLoop() {
         return this.blocksGame;
@@ -36,7 +37,8 @@ class Animation {
 
     /**
      * Does the Animation
-     * @param {number} time
+     * @param {Number} time
+     * @returns {Void}
      */
     animate() {
         return undefined;
@@ -44,6 +46,7 @@ class Animation {
 
     /**
      * Called when the animation ends
+     * @returns {Void}
      */
     onEnd() {
         if (this.canvas) {

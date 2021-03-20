@@ -26,9 +26,10 @@ class Demo {
 
     /**
      * Create each snake link element
-     * @param {number} top
-     * @param {number} left
-     * @param {number} pos
+     * @param {Number} top
+     * @param {Number} left
+     * @param {Number} pos
+     * @returns {Void}
      */
     createElement(top, left, pos) {
         let element = this.board.createSnakeElement();
@@ -43,7 +44,8 @@ class Demo {
 
     /**
      * Start the demo
-     * @param {number} level
+     * @param {Number} level
+     * @returns {Void}
      */
     start(level) {
         this.pointer = -this.initialParts;
@@ -52,6 +54,7 @@ class Demo {
 
     /**
      * End the demo
+     * @returns {Void}
      */
     end() {
         for (let i = this.pointer; i < this.pointer + this.initialParts; i += 1) {
@@ -64,6 +67,7 @@ class Demo {
 
     /**
      * Move the Snake
+     * @returns {Void}
      */
     move() {
         if (this.pointer >= 0) {

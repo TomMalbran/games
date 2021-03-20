@@ -27,7 +27,7 @@ class Score {
 
     /**
      * Returns the game count
-     * @return {number}
+     * @returns {Number}
      */
     get count() {
         return this._count;
@@ -35,7 +35,7 @@ class Score {
 
     /**
      * Returns the game level
-     * @return {number}
+     * @returns {Number}
      */
     get level() {
         return this._level;
@@ -43,7 +43,7 @@ class Score {
 
     /**
      * Returns the game score
-     * @return {number}
+     * @returns {Number}
      */
     get score() {
         return this._score;
@@ -51,7 +51,7 @@ class Score {
 
     /**
      * Returns the game time
-     * @return {number}
+     * @returns {Number}
      */
     get time() {
         return this._time;
@@ -60,9 +60,9 @@ class Score {
 
     /**
      * Sets the game level and score
-     * @param {number}  level
-     * @param {number=} score
-     * @return {Score}
+     * @param {Number}  level
+     * @param {Number=} score
+     * @returns {Score}
      */
     set(level, score) {
         this._count = this.initialCount;
@@ -75,6 +75,7 @@ class Score {
 
     /**
      * Shows all the things
+     * @returns {Void}
      */
     show() {
         this.showLevel();
@@ -84,6 +85,7 @@ class Score {
 
     /**
      * Shows the current level in the game view
+     * @returns {Void}
      */
     showLevel() {
         this.leveler.innerHTML = `Level: ${this.levelNames[this.level - 1]}`;
@@ -91,6 +93,7 @@ class Score {
 
     /**
      * Shows the score
+     * @returns {Void}
      */
     showScore() {
         this.scorer.innerHTML = `Score: ${Utils.formatNumber(this.score, ",")}`;
@@ -98,7 +101,8 @@ class Score {
 
     /**
      * Shows the food timer
-     * @param {(string|number)=} timer
+     * @param {(String|number)=} timer
+     * @returns {Void}
      */
     showFoodTimer(time) {
         this.timer.innerHTML = time || "";
@@ -107,6 +111,7 @@ class Score {
 
     /**
      * Decreases the Count by 1
+     * @returns {Void}
      */
     decCount() {
         this._count -= 1;
@@ -114,7 +119,8 @@ class Score {
 
     /**
      * Increases the Score
-     * @param {number} score
+     * @param {Number} score
+     * @returns {Void}
      */
     incScore(score) {
         this._score += score;
@@ -123,7 +129,8 @@ class Score {
 
     /**
      * Decreases the timer by the given amount
-     * @param {number} time
+     * @param {Number} time
+     * @returns {Void}
      */
     decTime(time) {
         this._time -= time;
@@ -131,6 +138,7 @@ class Score {
 
     /**
      * Resets the timer
+     * @returns {Void}
      */
     resetTime() {
         if (this.display.isStarting()) {

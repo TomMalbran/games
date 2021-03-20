@@ -8,6 +8,7 @@ class Keyboard {
      * @param {Display} display
      * @param {Scores}  scores
      * @param {Object}  shortcuts
+     * @returns {Void}
      */
     constructor(display, scores, shortcuts) {
         this.fastKeys   = [ 37, 65, 39, 68 ];
@@ -25,6 +26,7 @@ class Keyboard {
     /**
      * Key handler for the on key down event
      * @param {Event} event
+     * @returns {Void}
      */
     onKeyDown(event) {
         if (this.display.isPlaying() && this.fastKeys.indexOf(event.keyCode) > -1) {
@@ -39,7 +41,7 @@ class Keyboard {
 
     /**
      * Key handler for the on key up event
-     * @param {$.Event} event
+     * @returns {Void}
      */
     onKeyUp() {
         this.keyPressed = null;
@@ -47,6 +49,7 @@ class Keyboard {
 
     /**
      * When a key is pressed, this is called on each frame for fast key movements
+     * @returns {Void}
      */
     onKeyHold() {
         if (this.keyPressed !== null && this.display.isPlaying()) {
@@ -57,8 +60,9 @@ class Keyboard {
 
     /**
      * Key Press Event
-     * @param {number} key
+     * @param {Number} key
      * @param {?Event} event
+     * @returns {Void}
      */
     pressKey(key, event) {
         if (this.scores.isFocused()) {

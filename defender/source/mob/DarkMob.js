@@ -1,6 +1,6 @@
 /**
- * @extends {Mob}
  * The Dark Mob Class
+ * @extends {Mob}
  */
 class DarkMob extends Mob {
 

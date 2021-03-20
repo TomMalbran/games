@@ -18,6 +18,7 @@ class Shooter {
 
     /**
      * Iterates through the moving list of mobs and when posible, it asigns a tower to shoot each mob
+     * @returns {Void}
      */
     shoot() {
         this.parent.mobs.getMovingMobs().forEach((it) => {
@@ -33,7 +34,8 @@ class Shooter {
     /**
      * For a single mob, shot it with all the towers that can reach it and attack it
      * @param {List.<Tower>} towers
-     * @param {Mob} mob
+     * @param {Mob}          mob
+     * @returns {Void}
      */
     shootMob(towers, mob) {
         towers.some((element) => {
@@ -50,7 +52,8 @@ class Shooter {
     /**
      * Makes the Tower shoot the mob and others depending on the tower
      * @param {Tower} tower
-     * @param {Mob} mob
+     * @param {Mob}   mob
+     * @returns {Void}
      */
     processShot(tower, mob) {
         let targets = tower.getTargets(this.parent.mobs.getMovingMobs(), mob);
@@ -79,10 +82,10 @@ class Shooter {
 
     /**
      * Creates a new Ammo
-     * @param {Tower} tower
+     * @param {Tower}       tower
      * @param {Array.<Mob>} targets
-     * @param {number} index
-     * @return {Ammo}
+     * @param {Number}      index
+     * @returns {Ammo}
      */
     createAmmo(tower, targets, index) {
         let ammo = tower.createAmmo(targets, index),
@@ -95,7 +98,8 @@ class Shooter {
 
     /**
      * Moves all the Ammos till they reach the target, and it then performs the required tasks
-     * @param {number} time
+     * @param {Number} time
+     * @returns {Void}
      */
     moveAmmos(time) {
         this.ammos.forEach((ammo) => {
@@ -118,7 +122,8 @@ class Shooter {
     /**
      * Does the final attack on the mobs reducing their actual life
      * @param {Array.<Mob>} targets
-     * @param {number} damage
+     * @param {Number}      damage
+     * @returns {Void}
      */
     attackTargets(targets, damage) {
         targets.forEach((mob)=> {

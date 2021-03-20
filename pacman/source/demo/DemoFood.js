@@ -1,6 +1,6 @@
 /**
- * @extends {Food}
  * The Demo Food Class. Used in the chase animation
+ * @extends {Food}
  */
 class DemoFood extends Food {
 
@@ -15,6 +15,7 @@ class DemoFood extends Food {
 
     /**
      * The wink animation used for the chase anmiation
+     * @returns {Void}
      */
     wink() {
         let x = Board.getTileCenter(DemoData.chase.enerX),

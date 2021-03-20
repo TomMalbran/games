@@ -13,6 +13,7 @@ class Blob {
     /**
      * Initializes the Blob
      * @param {Canvas} canvas
+     * @returns {Void}
      */
     init(canvas) {
         this.canvas     = canvas;
@@ -35,8 +36,8 @@ class Blob {
 
     /**
      * Animates the Blob
-     * @param {number} speed
-     * @return {boolean}
+     * @param {Number} speed
+     * @returns {Boolean}
      */
     animate(speed) {
         let newTile = false;
@@ -53,8 +54,8 @@ class Blob {
 
     /**
      * Moves the Blob
-     * @param {number} speed
-     * @return {boolean}
+     * @param {Number} speed
+     * @returns {Boolean}
      */
     move(speed) {
         this.x += this.dir.x * this.speed * speed;
@@ -70,6 +71,7 @@ class Blob {
 
     /**
      * Changes the state of the Blob's mouth
+     * @returns {Void}
      */
     moveMouth() {
         this.mouth = (this.mouth + 1) % 20;
@@ -77,6 +79,7 @@ class Blob {
 
     /**
      * The Blob might have entered a new Tile, and several things might need to be done
+     * @returns {Void}
      */
     newTile() {
         let tile = Board.getTilePos(this.x, this.y);
@@ -96,7 +99,7 @@ class Blob {
 
     /**
      * Does the turning or wall crash when the Blob is at, or just passed, the center of a tile
-     * @return {boolean}
+     * @returns {Boolean}
      */
     atCenter() {
         if (!this.center && this.passedCenter()) {
@@ -121,8 +124,8 @@ class Blob {
     /**
      * Does a faster turn by turnning a bit before the corner.
      * Only when a turn is asked before reaching an intersection
-     * @param {number} speed
-     * @return {boolean}
+     * @param {Number} speed
+     * @returns {Boolean}
      */
     cornering(speed) {
         this.x += this.delta.x * this.speed * speed;
@@ -146,8 +149,9 @@ class Blob {
 
     /**
      * Eats food (dots, energizers, fruits)
-     * @param {boolean} atPill
-     * @param {boolean} frightenGhosts
+     * @param {Boolean} atPill
+     * @param {Boolean} frightenGhosts
+     * @returns {Void}
      */
     onEat(atPill, frightenGhosts) {
         if (!atPill) {
@@ -165,7 +169,7 @@ class Blob {
 
     /**
      * Returns the apropiate sound effect
-     * @return {string}
+     * @returns {String}
      */
     getSound() {
         this.sound = (this.sound + 1) % 2;
@@ -174,7 +178,8 @@ class Blob {
 
     /**
      * New direction (given by the user)
-     * @param {{x: number, y: number}} turn
+     * @param {{x: Number, y: Number}} turn
+     * @returns {Void}
      */
     makeTurn(turn) {
         if (this.delta) {
@@ -192,6 +197,7 @@ class Blob {
 
     /**
      * Draws a Blob with the given data
+     * @returns {Void}
      */
     draw() {
         let values = [ 0, 0.2, 0.4, 0.2 ],
@@ -212,6 +218,7 @@ class Blob {
 
     /**
      * Saves the Blob's position to delete clear it before the next animation
+     * @returns {Void}
      */
     savePos() {
         this.canvas.savePos(this.x, this.y);
@@ -220,7 +227,8 @@ class Blob {
     /**
      * Draws the next step in the Blob's death animation
      * @param {Context} ctx
-     * @param {number}  count
+     * @param {Number}  count
+     * @returns {Void}
      */
     drawDeath(ctx, count) {
         let delta = count / 50;
@@ -235,7 +243,8 @@ class Blob {
     /**
      * Draws a circle as the next step in the Blob Death animation
      * @param {Context} ctx
-     * @param {number}  count
+     * @param {Number}  count
+     * @returns {Void}
      */
     drawCircle(ctx, count) {
         let radius = Math.round(count / 2);
@@ -250,7 +259,7 @@ class Blob {
 
     /**
      * Returns true if the Blob crashed with a wall
-     * @return {boolean}
+     * @returns {Boolean}
      */
     crashed() {
         return this.inBoard(this.dir) && this.isWall(this.dir);
@@ -258,7 +267,7 @@ class Blob {
 
     /**
      * Returns true if the Blob has passed the center of the currrent tile
-     * @return {boolean}
+     * @returns {Boolean}
      */
     passedCenter() {
         return (
@@ -271,8 +280,8 @@ class Blob {
 
     /**
      * Returns true if the Blob has to turn now
-     * @param {{x: number, y: number}}
-     * @return {boolean}
+     * @param {{x: Number, y: Number}}
+     * @returns {Boolean}
      */
     turnNow(turn) {
         return (
@@ -283,8 +292,8 @@ class Blob {
 
     /**
      * Returns true if the next tile is a wall
-     * @param {{x: number, y: number}}
-     * @return {boolean}
+     * @param {{x: Number, y: Number}}
+     * @returns {Boolean}
      */
     isWall(turn) {
         let tile = Board.sumTiles(this.tile, turn);
@@ -293,8 +302,8 @@ class Blob {
 
     /**
      * Returns true if the next tile is a wall
-     * @param {{x: number, y: number}}
-     * @return {boolean}
+     * @param {{x: Number, y: Number}}
+     * @returns {Boolean}
      */
     inBoard(turn) {
         let tile = Board.sumTiles(this.tile, turn);
@@ -303,7 +312,7 @@ class Blob {
 
     /**
      * Returns the angle of the Blob using its direction
-     * @return {number}
+     * @returns {Number}
      */
     getAngle() {
         let angle;
@@ -322,7 +331,7 @@ class Blob {
 
     /**
      * Returns the Blob x position
-     * @return {number}
+     * @returns {Number}
      */
     getX() {
         return this.x;
@@ -330,7 +339,7 @@ class Blob {
 
     /**
      * Returns the Blob y position
-     * @return {number}
+     * @returns {Number}
      */
     getY() {
         return this.y;
@@ -338,7 +347,7 @@ class Blob {
 
     /**
      * Returns the Blob direction
-     * @return {{x: number, y: number}}
+     * @returns {{x: Number, y: Number}}
      */
     getDir() {
         return this.dir;
@@ -346,7 +355,7 @@ class Blob {
 
     /**
      * Returns the Blob tile
-     * @return {{x: number, y: number}}
+     * @returns {{x: Number, y: Number}}
      */
     getTile() {
         return this.tile;

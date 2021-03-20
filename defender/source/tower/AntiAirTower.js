@@ -1,15 +1,15 @@
 /**
- * @extends {Tower}
  * The Anti-Air Tower Class
+ * @extends {Tower}
  */
 class AntiAirTower extends Tower {
 
     /**
      * The Anti-Air Tower constructor
-     * @param {number} id
-     * @param {number} row
-     * @param {number} col
-     * @param {number} boardSize
+     * @param {Number} id
+     * @param {Number} row
+     * @param {Number} col
+     * @param {Number} boardSize
      */
     constructor(id, row, col, boardSize) {
         super();
@@ -34,8 +34,8 @@ class AntiAirTower extends Tower {
     /**
      * Creates a new Ammo
      * @param {Array.<Mob>} targets
-     * @param {number}      index
-     * @return {AntiAirAmmo}
+     * @param {Number}      index
+     * @returns {AntiAirAmmo}
      */
     createAmmo(targets, index) {
         return new AntiAirAmmo(this, targets, this.boardSize, index);
@@ -45,8 +45,8 @@ class AntiAirTower extends Tower {
     /**
      * Returns a list of Mobs close to the given one. Maximum of 4
      * @param {List.<Iterator>} mobs
-     * @param {Mob} mob
-     * @return {Array.<Array.<Mob>>}
+     * @param {Mob}             mob
+     * @returns {Array.<Array.<Mob>>}
      */
     getTargets(mobs, mob) {
         let targets = this.getCloseTargets(mobs, mob),
@@ -61,7 +61,8 @@ class AntiAirTower extends Tower {
 
     /**
      * Toggles the attacking class
-     * @param {number} amount
+     * @param {Number} amount
+     * @returns {Void}
      */
     toggleAttack(amount) {
         for (let i = 1; i <= amount; i += 1) {
@@ -71,7 +72,8 @@ class AntiAirTower extends Tower {
 
     /**
      * Toggles the attacking class for a single Missile
-     * @param {number} amount
+     * @param {Number} amount
+     * @returns {Void}
      */
     toggleMissile(index) {
         this.element.classList.toggle(`missile${index}`);
@@ -80,7 +82,7 @@ class AntiAirTower extends Tower {
     /**
      * Returns true if the given Mob is a valid target
      * @param {Mob} mob
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isValidTarget(mob) {
         return mob.isFlyer();

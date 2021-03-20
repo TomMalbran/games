@@ -18,7 +18,7 @@ class Board {
 
     /**
      * Returns the amount of rows in the matrix
-     * @return {number}
+     * @returns {Number}
      */
     get matrixRows() {
         return this._matrixRows;
@@ -26,7 +26,7 @@ class Board {
 
     /**
      * Returns the amount of columns in the matrix
-     * @return {number}
+     * @returns {Number}
      */
     get matrixColumns() {
         return this._matrixColumns;
@@ -34,7 +34,7 @@ class Board {
 
     /**
      * Returns the amount of cells in the matrix
-     * @return {number}
+     * @returns {Number}
      */
     get totalCells() {
         return this._totalCells;
@@ -42,7 +42,7 @@ class Board {
 
     /**
      * Returns the cell size
-     * @return {number}
+     * @returns {Number}
      */
     get cellSize() {
         return this._cellSize;
@@ -50,7 +50,7 @@ class Board {
 
     /**
      * Returns the food value in the matrix
-     * @return {number}
+     * @returns {Number}
      */
     get foodValue() {
         return this._foodValue;
@@ -58,7 +58,7 @@ class Board {
 
     /**
      * Returns the border value in the matrix
-     * @return {number}
+     * @returns {Number}
      */
     get borderValue() {
         return this._borderValue;
@@ -66,7 +66,7 @@ class Board {
 
     /**
      * Returns the empty value in the matrix
-     * @return {number}
+     * @returns {Number}
      */
     get emptyValue() {
         return this._emptyValue;
@@ -75,9 +75,9 @@ class Board {
 
     /**
      * Returns the default value to use in the matrix depending if is a border or not
-     * @param {number} top
-     * @param {number} left
-     * @return {number}
+     * @param {Number} top
+     * @param {Number} left
+     * @returns {Number}
      */
     getDefault(top, left) {
         if (top === 0 || left === 0 || top === this.matrixRows - 1 || left === this.matrixColumns - 1) {
@@ -88,8 +88,8 @@ class Board {
 
     /**
      * Transforms an x or y coordinate in the matrix into a pixel position relative to the board
-     * @param {number} pos
-     * @return {string}
+     * @param {Number} pos
+     * @returns {String}
      */
     getPosition(pos) {
         return Utils.toEM((pos - 1) * this.cellSize);
@@ -97,7 +97,7 @@ class Board {
 
     /**
      * Creates a new snake link and returns the element
-     * @return {DOMElement}
+     * @returns {DOMElement}
      */
     createSnakeElement() {
         let div = document.createElement("DIV");

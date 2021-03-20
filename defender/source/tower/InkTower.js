@@ -1,15 +1,15 @@
 /**
- * @extends {Tower}
  * The Ink Tower Class
+ * @extends {Tower}
  */
 class InkTower extends Tower {
 
     /**
      * The Ink Tower constructor
-     * @param {number} id
-     * @param {number} row
-     * @param {number} col
-     * @param {number} boardSize
+     * @param {Number} id
+     * @param {Number} row
+     * @param {Number} col
+     * @param {Number} boardSize
      */
     constructor(id, row, col, boardSize) {
         super();
@@ -35,7 +35,7 @@ class InkTower extends Tower {
     /**
      * Creates a new Ammo
      * @param {Array.<Mob>} targets
-     * @return {InkAmmo}
+     * @returns {InkAmmo}
      */
     createAmmo(targets) {
         return new InkAmmo(this, targets, this.boardSize);
@@ -45,8 +45,8 @@ class InkTower extends Tower {
     /**
      * Returns a list of Mobs close to the given one
      * @param {List.<Iterator>} mobs
-     * @param {Mob} mob
-     * @return {Array.<Array.<Mob>>}
+     * @param {Mob}             mob
+     * @returns {Array.<Array.<Mob>>}
      */
     getTargets(mobs, mob) {
         return [ this.getCloseTargets(mobs, mob) ];

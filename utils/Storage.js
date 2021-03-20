@@ -6,6 +6,7 @@ var Storage = (function () {
 
     /**
      * Returns true if local storage is supported
+     * @returns {Boolean}
      */
     function supportsStorage() {
         return window.localStorage !== "undefined" && window.localStorage !== null;
@@ -13,8 +14,8 @@ var Storage = (function () {
 
     /**
      * Returns true if the string is an integer
-     * @param {string} string
-     * @return {boolean}
+     * @param {String} string
+     * @returns {Boolean}
      */
     function isInteger(string) {
         var validChars = "0123456789-", isNumber = true, i, char;
@@ -30,10 +31,10 @@ var Storage = (function () {
 
 
     /**
-     * @constructor
      * Creates a new storage
-     * @param {string} name  The name of the storage
-     * @param {boolean=} single  True to have a storage for a single value
+     * @constructor
+     * @param {String} name  The name of the storage
+     * @param {Boolean=} single  True to have a storage for a single value
      */
     function Storage(name, single) {
         this.name     = name;
@@ -43,8 +44,8 @@ var Storage = (function () {
 
     /**
      * Returns the data in the saved format
-     * @param {string} name
-     * @return {(boolean|number|string|Object)}
+     * @param {String} name
+     * @returns {(Boolean|Number|String|Object)}
      */
     Storage.prototype.get = function (name) {
         var content = null;
@@ -64,8 +65,9 @@ var Storage = (function () {
 
     /**
      * Saves the given data as a JSON object
-     * @param {(boolean|number|string|Object)} name  If this is a single value Storage use this param for the value
-     * @param {(boolean|number|string|Object)} value
+     * @param {(Boolean|Number|String|Object)} name  If this is a single value Storage use this param for the value
+     * @param {(Boolean|Number|String|Object)} value
+     * @returns {Void}
      */
     Storage.prototype.set = function (name, value) {
         if (this.supports) {
@@ -79,7 +81,8 @@ var Storage = (function () {
 
     /**
      * Removes the data with the given name
-     * @param {string=} name
+     * @param {String=} name
+     * @returns {Void}
      */
     Storage.prototype.remove = function (name) {
         if (this.supports) {
@@ -90,8 +93,8 @@ var Storage = (function () {
 
     /**
      * Returns the key for the given name
-     * @param {string=} name
-     * @return {string}
+     * @param {String=} name
+     * @returns {String}
      */
     Storage.prototype.getName = function (name) {
         return this.name + (name ? `.${name}` : "");
@@ -99,6 +102,7 @@ var Storage = (function () {
 
     /**
      * Returns true if local storage is supported
+     * @returns {Boolean}
      */
     Storage.prototype.isSupported = function () {
         return this.supports;

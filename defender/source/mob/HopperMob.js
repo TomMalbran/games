@@ -1,6 +1,6 @@
 /**
- * @extends {Mob}
  * The Hopper Mob Class
+ * @extends {Mob}
  */
 class HopperMob extends Mob {
 
@@ -35,9 +35,10 @@ class HopperMob extends Mob {
 
     /**
      * Allows this mob to jump through small gaps in the layout
-     * @param {number} time
-     * @param {boolean} newCell
-     * @param {boolean} turned
+     * @param {Number}  time
+     * @param {Boolean} newCell
+     * @param {Boolean} turned
+     * @returns {Void}
      */
     specialPower(time, newCell, turned) {
         this.timer += time;

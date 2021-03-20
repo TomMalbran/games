@@ -21,7 +21,8 @@ class TowersManager {
 
     /**
      * Adds the given Tower to the list to the List
-     * @param {{type: string, row: number, col: number}} data
+     * @param {{type: String, row: Number, col: Number}} data
+     * @returns {Void}
      */
     add(data) {
         this.count += 1;
@@ -32,8 +33,8 @@ class TowersManager {
 
     /**
      * Retrieves a Tower by its ID
-     * @param {number} id
-     * @return {Tower}
+     * @param {Number} id
+     * @returns {Tower}
      */
     get(id) {
         return this.list[id];
@@ -41,6 +42,7 @@ class TowersManager {
 
     /**
      * Removes the last Tower
+     * @returns {Void}
      */
     removeLast() {
         this.list[this.count].destroy();
@@ -51,8 +53,8 @@ class TowersManager {
 
     /**
      * Build the given Tower
-     * @param {{type: string, row: number, col: number, content: string}} data
-     * @return {Tower}
+     * @param {{type: String, row: Number, col: Number, content: String}} data
+     * @returns {Tower}
      */
     build(data) {
         let tower = this.add(data);
@@ -75,6 +77,7 @@ class TowersManager {
     /**
      * Sells the selected Tower
      * @param {Tower} tower
+     * @returns {Void}
      */
     sell(tower) {
         if (!this.parent.hasStarted) {
@@ -89,6 +92,7 @@ class TowersManager {
 
     /**
      * Sells all the Towers
+     * @returns {Void}
      */
     sellAll() {
         this.parent.sounds.startMute();
@@ -104,6 +108,7 @@ class TowersManager {
     /**
      * Upgrades the Selected Tower
      * @param {Tower} tower
+     * @returns {Void}
      */
     upgrade(tower) {
         if (tower.getUpgradeCost() <= this.parent.score.getGold()) {
@@ -122,6 +127,7 @@ class TowersManager {
     /**
      * Process the Sale
      * @param {Tower} tower
+     * @returns {Void}
      */
     processSale(tower) {
         this.parent.score.incGold(tower.getPrice(this.parent.hasStarted));
@@ -132,6 +138,7 @@ class TowersManager {
     /**
      * Process the Upgrade
      * @param {Tower} tower
+     * @returns {Void}
      */
     processUpgrade(tower) {
         tower.upgrade();
@@ -151,6 +158,7 @@ class TowersManager {
     /**
      * Destroys a Tower
      * @param {Tower} tower
+     * @returns {Void}
      */
     destroyTower(tower) {
         this.removeBoost(tower);
@@ -168,6 +176,7 @@ class TowersManager {
     /**
      * Adds the Boosts to the given Tower
      * @param {Tower} tower
+     * @returns {Void}
      */
     addBoost(tower) {
         if (tower.isBoost()) {
@@ -180,6 +189,7 @@ class TowersManager {
     /**
      * Special case for Boost Towers, adding the bosts ot the Towers around it
      * @param {Tower} tower
+     * @returns {Void}
      */
     boostTower(tower) {
         tower.getLists().towers.forEach((element) => {
@@ -190,6 +200,7 @@ class TowersManager {
     /**
      * General case for the other Towers, adding the boost from the Boost Towers around it
      * @param {Tower} tower
+     * @returns {Void}
      */
     normalTower(tower) {
         let list  = this.parent.ranges.getBoostsList(tower),
@@ -209,6 +220,7 @@ class TowersManager {
     /**
      * Removes the Boost from the towers around the Boost Tower
      * @param {Tower} tower
+     * @returns {Void}
      */
     removeBoost(tower) {
         if (tower.isBoost()) {
@@ -224,6 +236,7 @@ class TowersManager {
     /**
      * Upgrades the Boost in the Boost Tower
      * @param {Tower} tower
+     * @returns {Void}
      */
     upgradeBoost(tower) {
         if (tower.isBoost()) {
@@ -234,7 +247,8 @@ class TowersManager {
 
     /**
      * Adds a new Tower to the shooting list
-     * @param {number} id
+     * @param {Number} id
+     * @returns {Void}
      */
     addShoot(id) {
         let it = this.shooting.addLast(id);
@@ -243,6 +257,7 @@ class TowersManager {
 
     /**
      * Decreases the timers from the upgrading Towers
+     * @returns {Void}
      */
     decUpgrades() {
         if (!this.upgrading.isEmpty()) {
@@ -266,6 +281,7 @@ class TowersManager {
 
     /**
      * Decreases the timers from the selling Towers
+     * @returns {Void}
      */
     decSales() {
         if (!this.selling.isEmpty()) {
@@ -287,7 +303,8 @@ class TowersManager {
 
     /**
      * Decreases the timers from the shooting Towers
-     * @param {number} time
+     * @param {Number} time
+     * @returns {Void}
      */
     decShoots(time) {
         if (!this.shooting.isEmpty()) {
@@ -311,7 +328,7 @@ class TowersManager {
 
     /**
      * Returns the amount of towers
-     * @return {number}
+     * @returns {Number}
      */
     getAmount() {
         return this.count;
@@ -319,7 +336,8 @@ class TowersManager {
 
     /**
      * Returns true when there are no towers
-     * @param {boolean}
+     * @param {Boolean}
+     * @returns {Void}
      */
     isEmpty() {
         return this.list.length === 0;
@@ -327,7 +345,7 @@ class TowersManager {
 
     /**
      * Returns an Array with all the towers
-     * @return {Array.<Tower>}
+     * @returns {Array.<Tower>}
      */
     getList() {
         return this.list;

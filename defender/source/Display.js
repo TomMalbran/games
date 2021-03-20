@@ -14,7 +14,7 @@ class Display {
 
     /**
      * Returns the display
-     * @return {string}
+     * @returns {String}
      */
     get() {
         return this.display;
@@ -22,7 +22,8 @@ class Display {
 
     /**
      * Sets the display and changes the container class
-     * @param {string} display
+     * @param {String} display
+     * @returns {Void}
      */
     set(display) {
         this.display = display;
@@ -31,6 +32,7 @@ class Display {
 
     /**
      * Changes the display to the paused version and changes the container class
+     * @returns {Void}
      */
     setPause() {
         this.display = `${this.display}Paused`;
@@ -39,6 +41,7 @@ class Display {
 
     /**
      * Changes the container class
+     * @returns {Void}
      */
     show() {
         this.container.className = this.display;
@@ -47,7 +50,7 @@ class Display {
 
     /**
      * Returns true if the display is in the "playing" mode
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isPlaying() {
         return this.display === "playing";
@@ -55,7 +58,7 @@ class Display {
 
     /**
      * Returns true if the display is in the "planning" mode
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isPlanning() {
         return this.display === "planning";
@@ -63,7 +66,7 @@ class Display {
 
     /**
      * Returns true if the display is in the "planningPaused" mode
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isPlanningPaused() {
         return this.display === "planningPaused";
@@ -71,7 +74,7 @@ class Display {
 
     /**
      * Returns true if the display is in the "playingPaused" mode
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isPlayingPaused() {
         return this.display === "playingPaused";

@@ -69,9 +69,9 @@ class HighScores {
 
     /**
      * Tries to save a score, when possible
-     * @param {number} level
-     * @param {number} score
-     * @return {boolean}
+     * @param {Number} level
+     * @param {Number} score
+     * @returns {Boolean}
      */
     save(level, score) {
         if (this.input.value) {
@@ -83,8 +83,8 @@ class HighScores {
 
     /**
      * Gets the scores and adds the new one in the right position, updating the total, when possible
-     * @param {number} level
-     * @param {number} score
+     * @param {Number} level
+     * @param {Number} score
      */
     saveData(level, score) {
         let data   = [],
@@ -129,7 +129,7 @@ class HighScores {
 
     /**
      * Shows or hides the no results element
-     * @param {boolean} show
+     * @param {Boolean} show
      */
     showHideNone(show) {
         this.none.style.display = show ? "block" : "none";
@@ -145,7 +145,7 @@ class HighScores {
 
     /**
      * Returns true if the input is focus
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isFocused() {
         return this.focused;

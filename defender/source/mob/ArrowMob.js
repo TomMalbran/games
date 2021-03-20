@@ -1,6 +1,6 @@
 /**
- * @extends {Mob}
  * The Arrow Mob Class
+ * @extends {Mob}
  */
 class ArrowMob extends Mob {
 
@@ -35,9 +35,10 @@ class ArrowMob extends Mob {
 
     /**
      * Changes the speed of the mob depending on whether is in a straight line or turning
-     * @param {number}  time
-     * @param {boolean} newCell
-     * @param {boolean} turned
+     * @param {Number}  time
+     * @param {Boolean} newCell
+     * @param {Boolean} turned
+     * @returns {Void}
      */
     specialPower(time, newCell, turned) {
         if (newCell) {

@@ -1,12 +1,12 @@
 /**
- * @extends {Animation}
  * The End Level Animation
+ * @extends {Animation}
  */
 class EndLevelAnimation extends Animation {
 
     /**
      * The End Level Animation constructor
-     * @param {function} callback
+     * @param {Function} callback
      */
     constructor(callback) {
         super();
@@ -21,6 +21,7 @@ class EndLevelAnimation extends Animation {
 
     /**
      * Does the End Level animation
+     * @returns {Void}
      */
     animate() {
         if (this.time > this.blinkTimer) {

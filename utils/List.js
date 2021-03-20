@@ -7,9 +7,9 @@ var List = (function () {
 
 
     /**
+     * The List Node Class
      * @constructor
      * @private
-     * The List Node Class
      * @param {*} data
      * @param {Node} prev
      * @param {Node} next
@@ -37,6 +37,7 @@ var List = (function () {
 
     /**
      * Moves to the next element if there is one
+     * @returns {Void}
      */
     Iterator.prototype.next = function () {
         if (this.hasNext()) {
@@ -47,6 +48,7 @@ var List = (function () {
 
     /**
      * Moves to the previews element if there is one
+     * @returns {Void}
      */
     Iterator.prototype.prev = function () {
         if (this.hasPrev()) {
@@ -57,7 +59,7 @@ var List = (function () {
 
     /**
      * Checks if there is a next elements (from the current one)
-     * @return {boolean}
+     * @returns {Boolean}
      */
     Iterator.prototype.hasNext = function () {
         return this.following !== null;
@@ -65,7 +67,7 @@ var List = (function () {
 
     /**
      * Checks if there is a previews element (from the current one)
-     * @return {boolean}
+     * @returns {Boolean}
      */
     Iterator.prototype.hasPrev = function () {
         return this.previows !== null;
@@ -73,7 +75,7 @@ var List = (function () {
 
     /**
      * Returns the following elements data
-     * @return {*}
+     * @returns {*}
      */
     Iterator.prototype.getNext = function () {
         if (this.hasNext()) {
@@ -83,7 +85,7 @@ var List = (function () {
 
     /**
      * Returns the previws elements data
-     * @param {*}
+     * @returns {*}
      */
     Iterator.prototype.getPrev = function () {
         if (this.hasPrev()) {
@@ -94,6 +96,7 @@ var List = (function () {
 
     /**
      * Removes the follwing element and sets the next one as the new following element
+     * @returns {Void}
      */
     Iterator.prototype.removeNext = function () {
         // Cant remove next if there isnt one
@@ -119,6 +122,7 @@ var List = (function () {
 
     /**
      * Removes the previows element and sets the prev one as the new previows element
+     * @returns {Void}
      */
     Iterator.prototype.removePrev = function () {
         if (this.hasPrev()) {
@@ -130,8 +134,8 @@ var List = (function () {
 
 
     /**
-     * @constructor
      * The List Class
+     * @constructor
      */
     function List() {
         this.head   = null;
@@ -140,12 +144,12 @@ var List = (function () {
     }
 
     /**
-     * @private
      * Adds the element between the previows and following
+     * @private
      * @param {*} item
      * @param {Node} prev
      * @param {Node} next
-     * @return {Node}
+     * @returns {Node}
      */
     List.prototype.add = function (item, prev, next) {
         var node = new Node(item, prev, next);
@@ -168,7 +172,7 @@ var List = (function () {
     /**
      * Adds the item at the beggining of the list
      * @param {*} item
-     * @return {Iterator}
+     * @returns {Iterator}
      */
     List.prototype.addFirst = function (item) {
         this.add(item, null, this.head);
@@ -178,7 +182,7 @@ var List = (function () {
     /**
      * Adds the item at the end of the list
      * @param {*} item
-     * @return {Iterator}
+     * @returns {Iterator}
      */
     List.prototype.addLast = function (item) {
         this.add(item, this.tail, null);
@@ -188,7 +192,7 @@ var List = (function () {
 
     /**
      * Returns the data from the first element
-     * @return {*}
+     * @returns {*}
      */
     List.prototype.first = function () {
         if (this.head) {
@@ -199,7 +203,7 @@ var List = (function () {
 
     /**
      * Returns the data from the last element
-     * @return {*}
+     * @returns {*}
      */
     List.prototype.last = function () {
         if (this.tail) {
@@ -211,7 +215,7 @@ var List = (function () {
 
     /**
      * Returns true if the queue is empty, and false otherwise
-     * @return {boolean}
+     * @returns {Boolean}
      */
     List.prototype.isEmpty = function () {
         return this.head === null;
@@ -219,7 +223,7 @@ var List = (function () {
 
     /**
      * Returns the size of the list
-     * @return {number}
+     * @returns {Number}
      */
     List.prototype.size = function () {
         return this.length;
@@ -227,7 +231,7 @@ var List = (function () {
 
     /**
      * Creates and returns a new Iterator at the start of the list
-     * @return {Iterator}
+     * @returns {Iterator}
      */
     List.prototype.iterate = function () {
         if (this.head) {
@@ -238,7 +242,7 @@ var List = (function () {
 
     /**
      * Creates and returns a new Iterator at the end of the list
-     * @return {Iterator}
+     * @returns {Iterator}
      */
     List.prototype.iterateLast = function () {
         if (this.tail) {
@@ -250,7 +254,8 @@ var List = (function () {
 
     /**
      * Iterates througth the list calling the callback with the data as parameter
-     * @param {function(*, number)}
+     * @param {function(*, Number)}
+     * @returns {Void}
      */
     List.prototype.forEach = function (callback) {
         if (this.head) {
@@ -266,8 +271,8 @@ var List = (function () {
     /**
      * Iterates througth the list calling the callback with the data as parameter,
      * but it breaks the loop if the function returns true
-     * @param {function(*, number): boolean}
-     * @return {boolean}
+     * @param {function(*, Number): Boolean}
+     * @returns {Boolean}
      */
     List.prototype.some = function (callback) {
         if (this.head) {

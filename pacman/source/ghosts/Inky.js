@@ -1,13 +1,13 @@
 /**
- * @extends {Ghost}
  * The Inky Class
+ * @extends {Ghost}
  */
 class Inky extends Ghost {
 
     /**
      * The Inky constructor
      * @param {Canvas} canvas
-     * @param {number} dots
+     * @param {Number} dots
      * @param {Blinky} blinky
      */
     constructor(canvas, dots, blinky) {
@@ -43,7 +43,7 @@ class Inky extends Ghost {
 
     /**
      * Returns the Ghost's name
-     * @return {string}
+     * @returns {String}
      */
     static get name() {
         return "Inky";
@@ -51,7 +51,7 @@ class Inky extends Ghost {
 
     /**
      * Returns the Ghost's color
-     * @return {string}
+     * @returns {String}
      */
     static get color() {
         return "rgb(102, 255, 255)";
@@ -61,7 +61,7 @@ class Inky extends Ghost {
     /**
      * Inky's target is an average of Blinky's position and the Blob's position
      * @param {Blob} blob
-     * @return {{x: number, y: number}}
+     * @returns {{x: Number, y: Number}}
      */
     chase(blob) {
         let offsetx = blob.getTile().x + 2 * blob.getDir().x,

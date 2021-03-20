@@ -32,6 +32,7 @@ class Score {
 
     /**
      * Draws the Score, Blobs and Fruit in the board
+     * @returns {Void}
      */
     draw() {
         this.drawTexts();
@@ -46,7 +47,8 @@ class Score {
 
     /**
      * Increases the game score by the given amount
-     * @param {number} amount
+     * @param {Number} amount
+     * @returns {Void}
      */
     incScore(amount) {
         this.score += amount;
@@ -61,7 +63,8 @@ class Score {
 
     /**
      * Increases/Decreases the game lives depending on the param
-     * @param {boolean} isIncrease
+     * @param {Boolean} isIncrease
+     * @returns {Void}
      */
     incLife(isIncrease) {
         this.lives += isIncrease ? 1 : -1;
@@ -79,6 +82,7 @@ class Score {
 
     /**
      * Increases the game level
+     * @returns {Void}
      */
     newLevel() {
         this.level += 1;
@@ -88,7 +92,8 @@ class Score {
 
     /**
      * The Blob ate a pill/energizer
-     * @param {number} value
+     * @param {Number} value
+     * @returns {Void}
      */
     pill(value) {
         this.incScore(value * Data.pillMult);
@@ -96,7 +101,7 @@ class Score {
 
     /**
      * The Blob ate a fruit
-     * @return {number}
+     * @returns {Number}
      */
     fruit() {
         let score = Data.getLevelData("fruitScore");
@@ -106,8 +111,8 @@ class Score {
 
     /**
      * The Blob kill a Ghost
-     * @param {number} amount
-     * @return {number}
+     * @param {Number} amount
+     * @returns {Number}
      */
     kill(amount) {
         var score = Data.getGhostScore(amount);
@@ -124,7 +129,7 @@ class Score {
 
     /**
      * The Blob died, decrease the lifes
-     * @return {boolean} True on Game Over
+     * @returns {Boolean} True on Game Over
      */
     died() {
         this.incLife(false);
@@ -134,6 +139,7 @@ class Score {
 
     /**
      * Draws the texts in the board
+     * @returns {Void}
      */
     drawTexts() {
         this.canvas.drawText({
@@ -150,6 +156,7 @@ class Score {
 
     /**
      * Draws the score in the board
+     * @returns {Void}
      */
     drawScore() {
         let left   = this.ctx.measureText("Score").width,
@@ -170,7 +177,7 @@ class Score {
 
     /**
      * Returns the current level
-     * @return {number}
+     * @returns {Number}
      */
     getLevel() {
         return this.level;
@@ -178,7 +185,7 @@ class Score {
 
     /**
      * Returns the current score
-     * @return {number}
+     * @returns {Number}
      */
     getScore() {
         return this.score;

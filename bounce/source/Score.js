@@ -14,7 +14,7 @@ class Score {
 
     /**
      * Returns the current Score
-     * @return {number}
+     * @returns {Number}
      */
     get() {
         return this.score;
@@ -23,6 +23,7 @@ class Score {
 
     /**
      * Restarts the Score
+     * @returns {Void}
      */
     restart() {
         this.score = -1;
@@ -31,6 +32,7 @@ class Score {
 
     /**
      * Increases the Score
+     * @returns {Void}
      */
     inc() {
         this.score += 1;

@@ -1,6 +1,6 @@
 /**
- * @extends {Animation}
  * The Paused Animation
+ * @extends {Animation}
  */
 class PausedAnimation extends Animation {
 
@@ -22,8 +22,8 @@ class PausedAnimation extends Animation {
 
     /**
      * Returns true if the animation hasn't ended
-     * @param {number} time
-     * @return {boolean}
+     * @param {Number} time
+     * @returns {Boolean}
      */
     isAnimating() {
         return true;
@@ -31,6 +31,7 @@ class PausedAnimation extends Animation {
 
     /**
      * Animates the Paused text alternating sizes increases and decreases
+     * @returns {Void}
      */
     animate() {
         let time = this.time % this.timePart,

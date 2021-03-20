@@ -5,9 +5,10 @@ class Ammo {
 
     /**
      * Initializes the Ammo
-     * @param {Tower} tower
-     * @param {Array} targets
-     * @param {number} boardSize
+     * @param {Tower}  tower
+     * @param {Array}  targets
+     * @param {Number} boardSize
+     * @returns {Void}
      */
     init(tower, targets, boardSize) {
         this.tower     = tower;
@@ -24,7 +25,7 @@ class Ammo {
 
     /**
      * Creates the element for the Ammo
-     * @return {DOMElement}
+     * @returns {DOMElement}
      */
     createElement() {
         this.element              = document.createElement("DIV");
@@ -39,6 +40,7 @@ class Ammo {
 
     /**
      * Destroys the Ammo
+     * @returns {Void}
      */
     destroy() {
         Utils.removeElement(this.element);
@@ -48,6 +50,7 @@ class Ammo {
     /**
      * Sets the iterator pointing to the Ammos list
      * @param {Iterator}
+     * @returns {Void}
      */
     setIterator(it) {
         this.iterator = it;
@@ -55,8 +58,8 @@ class Ammo {
 
     /**
      * Decreases the timer on the ammo. Returns true when reaching 0
-     * @param {number} time
-     * @return {boolean}
+     * @param {Number} time
+     * @returns {Boolean}
      */
     decTimer(time) {
         this.timer -= time;
@@ -66,6 +69,7 @@ class Ammo {
 
     /**
      * Rotates the Tower Canon, and or the Ammo
+     * @returns {Void}
      */
     changeAngle() {
         let angle = this.tower.getMobAngle(this.targets[0]);
@@ -79,7 +83,8 @@ class Ammo {
 
     /**
      * Rotates the Ammo
-     * @param {number} angle
+     * @param {Number} angle
+     * @returns {Void}
      */
     rotate(angle) {
         this.element.style.transform = Utils.rotate(angle);
@@ -87,7 +92,8 @@ class Ammo {
 
     /**
      * Changes the position of the Ammo
-     * @param {number} time
+     * @param {Number} time
+     * @returns {Void}
      */
     changePos(time) {
         let targetPos = this.targets[0].getCenterPos();
@@ -100,9 +106,9 @@ class Ammo {
 
     /**
      * Returns the distance to move the ammo depending on the time
-     * @param {number} dist
-     * @param {number} time
-     * @return {number}
+     * @param {Number} dist
+     * @param {Number} time
+     * @returns {Number}
      */
     getDist(dist, time) {
         return dist * time / this.timer;
@@ -110,6 +116,7 @@ class Ammo {
 
     /**
      * Changes the display of the Ammo
+     * @returns {Void}
      */
     changeDisplay() {
         if (!this.display) {
@@ -126,8 +133,8 @@ class Ammo {
 
     /**
      * Returns the center of the Ammo
-     * @param {number} cell
-     * @return {number}
+     * @param {Number} cell
+     * @returns {Number}
      */
     getPos(cell) {
         let center = this.tower.getTowerCenter(cell);
@@ -137,7 +144,7 @@ class Ammo {
 
     /**
      * Returns the Tower which shoot this ammo
-     * @return {Tower}
+     * @returns {Tower}
      */
     getTower() {
         return this.tower;
@@ -145,7 +152,7 @@ class Ammo {
 
     /**
      * Returns the Mobs that this ammo will hit
-     * @return {Array.<Mob>}
+     * @returns {Array.<Mob>}
      */
     getTargets() {
         return this.targets;
@@ -153,7 +160,8 @@ class Ammo {
 
     /**
      * Sets the missle index
-     * @param {number} index
+     * @param {Number} index
+     * @returns {Void}
      */
     setMissile(index) {
         this.missile = index;
@@ -161,7 +169,7 @@ class Ammo {
 
     /**
      * Returns the missle index
-     * @return {number}
+     * @returns {Number}
      */
     getMissile() {
         return this.missile;
@@ -169,7 +177,7 @@ class Ammo {
 
     /**
      * Returns the sound made when hitting the target, if it has one
-     * @return {string}
+     * @returns {String}
      */
     getHitSound() {
         return this.hitSound;

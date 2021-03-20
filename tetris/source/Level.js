@@ -5,7 +5,7 @@ class Level {
 
     /**
      * The Level constructor
-     * @param {number} maxLevels
+     * @param {Number} maxLevels
      */
     constructor(maxLevels) {
         this.levelerElem = document.querySelector(".leveler");
@@ -16,7 +16,7 @@ class Level {
 
     /**
      * Returns the initial level
-     * @return {number}
+     * @returns {Number}
      */
     get() {
         return this.level;
@@ -47,7 +47,7 @@ class Level {
 
     /**
      * Sets the initial level
-     * @param {number}
+     * @param {Number}
      */
     choose(level) {
         if (level > 0 && level <= this.maxInitialLevel) {

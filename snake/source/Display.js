@@ -25,7 +25,7 @@ class Display {
 
     /**
      * Gets the Game Display
-     * @return {string}
+     * @returns {String}
      */
     get() {
         return this.display;
@@ -33,8 +33,8 @@ class Display {
 
     /**
      * Sets the Game Display
-     * @param {string} display
-     * @return {Display}
+     * @param {String} display
+     * @returns {Display}
      */
     set(display) {
         this.display = display;
@@ -44,6 +44,7 @@ class Display {
 
     /**
      * Sets the container class
+     * @returns {Void}
      */
     setClass() {
         this.container.className = this.display;
@@ -51,6 +52,7 @@ class Display {
 
     /**
      * Show the message
+     * @returns {Void}
      */
     show() {
         this.header.innerHTML    = this.messages[this.display][0];
@@ -60,6 +62,7 @@ class Display {
 
     /**
      * Hide the message
+     * @returns {Void}
      */
     hide() {
         this.container.className = "playing";
@@ -68,7 +71,7 @@ class Display {
 
     /**
      * Returns true if is starting the game
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isStarting() {
         return this.display === "starting";
@@ -76,7 +79,7 @@ class Display {
 
     /**
      * Returns true if is playing the game
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isPlaying() {
         return this.display === "playing";
@@ -84,7 +87,7 @@ class Display {
 
     /**
      * Returns true if is demoing the game
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isDemoing() {
         return this.display === "demo";

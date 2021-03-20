@@ -5,8 +5,8 @@ class Canvas {
 
     /**
      * Initializes the Canvas Object
-     * @param {string} name
-     * @return {Canvas}
+     * @param {String} name
+     * @returns {Canvas}
      */
     init(name) {
         let canvas    = document.querySelector(`.${name}`);
@@ -26,7 +26,7 @@ class Canvas {
 
     /**
      * Returns the conetext for the board element
-     * @return {RenderingContext}
+     * @returns {RenderingContext}
      */
     get context() {
         return this.ctx;
@@ -34,11 +34,12 @@ class Canvas {
 
     /**
      * Fills the canvas with black at the given alpha value
-     * @param {number} alpha
-     * @param {number=} x
-     * @param {number=} y
-     * @param {number=} width
-     * @param {number=} height
+     * @param {Number}  alpha
+     * @param {Number=} x
+     * @param {Number=} y
+     * @param {Number=} width
+     * @param {Number=} height
+     * @returns {Void}
      */
     fill(alpha, x, y, width, height) {
         this.ctx.save();
@@ -49,6 +50,7 @@ class Canvas {
 
     /**
      * Clear the entire board
+     * @returns {Void}
      */
     clear() {
         this.ctx.clearRect(0, 0, Board.width, Board.height);
@@ -57,6 +59,7 @@ class Canvas {
 
     /**
      * Clears only the saved rects
+     * @returns {Void}
      */
     clearSavedRects() {
         this.rects.forEach((rect) => {
@@ -70,8 +73,9 @@ class Canvas {
 
     /**
      * Saves a new position to clear in the future
-     * @param {number} x
-     * @param {number} y
+     * @param {Number} x
+     * @param {Number} y
+     * @returns {Void}
      */
     savePos(x, y) {
         this.rects.push({
@@ -84,7 +88,8 @@ class Canvas {
 
     /**
      * Saves a new rectangle to clear in the future
-     * @param {{x: number, y: number, width: number, height: number, alpha: ?number}} data
+     * @param {{x: Number, y: Number, width: Number, height: Number, alpha: ?Number}} data
+     * @returns {Void}
      */
     saveRect(data) {
         this.rects.push(data);
@@ -92,7 +97,8 @@ class Canvas {
 
     /**
      * Draws the Text in the canvas
-     * @param {{text: string, pos: {x: number, y: number}, color: string, size: ?numer, align: ?string}} data
+     * @param {{text: String, pos: {x: Number, y: Number}, color: String, size: ?numer, align: ?String}} data
+     * @returns {Void}
      */
     drawText(data) {
         let metrics, width, height, mult = 0.5;

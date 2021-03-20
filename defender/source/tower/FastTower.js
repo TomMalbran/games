@@ -1,15 +1,15 @@
 /**
- * @extends {Tower}
  * The Fast Tower Class
+ * @extends {Tower}
  */
 class FastTower extends Tower {
 
     /**
      * The Fast Tower constructor
-     * @param {number} id
-     * @param {number} row
-     * @param {number} col
-     * @param {number} boardSize
+     * @param {Number} id
+     * @param {Number} row
+     * @param {Number} col
+     * @param {Number} boardSize
      */
     constructor(id, row, col, boardSize) {
         super();
@@ -33,7 +33,7 @@ class FastTower extends Tower {
     /**
      * Creates a new Ammo
      * @param {Array.<Mob>} targets
-     * @return {FastAmmo}
+     * @returns {FastAmmo}
      */
     createAmmo(targets) {
         return new FastAmmo(this, targets, this.boardSize);

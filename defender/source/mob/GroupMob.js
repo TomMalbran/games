@@ -1,6 +1,6 @@
 /**
- * @extends {Mob}
  * The Group Mob Class
+ * @extends {Mob}
  */
 class GroupMob extends Mob {
 

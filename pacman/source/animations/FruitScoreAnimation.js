@@ -1,14 +1,14 @@
 /**
- * @extends {Animation}
  * The Fruit Score Animation
+ * @extends {Animation}
  */
 class FruitScoreAnimation extends Animation {
 
     /**
      * The Fruit Score Animation constructor
      * @param {Canvas} canvas
-     * @param {string} text
-     * @param {{x: number, y: number}} pos
+     * @param {String} text
+     * @param {{x: Number, y: Number}} pos
      */
     constructor(canvas, text, pos) {
         super();
@@ -22,6 +22,7 @@ class FruitScoreAnimation extends Animation {
 
     /**
      * Does the Fruit Score animation
+     * @returns {Void}
      */
     animate() {
         let color = "rgb(255, 184, 255)";

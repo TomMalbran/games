@@ -16,6 +16,7 @@ class Food {
 
     /**
      * Initializes the instance
+     * @returns {Void}
      */
     init() {
         this.total      = Board.pillAmount;
@@ -29,6 +30,7 @@ class Food {
 
     /**
      * Creates a Matrix with the positions of the pills and energizers
+     * @returns {Void}
      */
     createMatrix() {
         for (let i = 0; i < Board.rows; i += 1) {
@@ -45,6 +47,7 @@ class Food {
 
     /**
      * Creates a list with only the active energizers
+     * @returns {Void}
      */
     createEnergizers() {
         this.energizers = [];
@@ -59,6 +62,7 @@ class Food {
 
     /**
      * Does the Enerigizers animation
+     * @returns {Void}
      */
     wink() {
         this.calcRadius();
@@ -67,6 +71,7 @@ class Food {
 
     /**
      * Calculates the Radius for the Energizers
+     * @returns {Void}
      */
     calcRadius() {
         this.radius += this.mult * 0.1;
@@ -81,6 +86,7 @@ class Food {
 
     /**
      * Draws all the Pills and Energizers in the board
+     * @returns {Void}
      */
     draw() {
         this.drawPills();
@@ -89,6 +95,7 @@ class Food {
 
     /**
      * Draws all the Pills in the board
+     * @returns {Void}
      */
     drawPills() {
         this.ctx.save();
@@ -107,8 +114,9 @@ class Food {
 
     /**
      * Clears a Pill at the given position
-     * @param {number} x
-     * @param {number} y
+     * @param {Number} x
+     * @param {Number} y
+     * @returns {Void}
      */
     clearPill(x, y) {
         let rect = Board.getPillRect(x, y);
@@ -118,6 +126,7 @@ class Food {
 
     /**
      * Draws all the remaining Energizers with the given radius
+     * @returns {Void}
      */
     drawEnergizers() {
         this.energizers.forEach((pos) => {
@@ -128,9 +137,10 @@ class Food {
 
     /**
      * Draws an Energizer at the given position with the given radius
-     * @param {number} x
-     * @param {number} y
-     * @param {number} radius
+     * @param {Number} x
+     * @param {Number} y
+     * @param {Number} radius
+     * @returns {Void}
      */
     drawEnergizer(x, y, radius) {
         this.ctx.save();
@@ -143,8 +153,9 @@ class Food {
 
     /**
      * Clears an Energizer at the given position
-     * @param {number} x
-     * @param {number} y
+     * @param {Number} x
+     * @param {Number} y
+     * @returns {Void}
      */
     clearEnergizer(x, y) {
         let radius = this.maxRadius;
@@ -154,8 +165,8 @@ class Food {
 
     /**
      * Returns true if there is a Pill at the given cell
-     * @param {{x: number, y: number}} tile
-     * @return {boolean}
+     * @param {{x: Number, y: Number}} tile
+     * @returns {Boolean}
      */
     isAtPill(tile) {
         return this.matrix[tile.y][tile.x] > 0;
@@ -163,8 +174,8 @@ class Food {
 
     /**
      * The Blob eats the Pill at the given cell. Returns the value of the pill. 1 for dot, 5 for energizer
-     * @param {{x: number, y: number}} tile
-     * @return {number}
+     * @param {{x: Number, y: Number}} tile
+     * @returns {Number}
      */
     eatPill(tile) {
         let value = this.matrix[tile.y][tile.x],
@@ -184,7 +195,7 @@ class Food {
 
     /**
      * Returns the amount of Pîlls left
-     * return {number}
+     * @returns {Number}
      */
     getLeftPills() {
         return this.total;

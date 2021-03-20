@@ -1,12 +1,12 @@
 /**
+ * The Score Blob Class
  * @extends {Blob}
- * The Demo Blob Class
  */
 class ScoreBlob extends Blob {
 
     /**
      * The Demo Blob constructor
-     * @param {number} number
+     * @param {Number} number
      */
     constructor(number) {
         super();
@@ -20,6 +20,7 @@ class ScoreBlob extends Blob {
 
     /**
      * Clears the Blob
+     * @returns {Void}
      */
     clear() {
         this.ctx.clearRect(this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);

@@ -16,6 +16,7 @@ class Panel {
 
     /**
      * Updates the inner started state when the game starts
+     * @returns {Void}
      */
     gameStarted() {
         this.hasStarted = true;
@@ -24,6 +25,7 @@ class Panel {
     /**
      * Shows the Tower Preview Description
      * @param {Tower} tower
+     * @returns {Void}
      */
     previewTower(tower) {
         this.create(
@@ -45,8 +47,9 @@ class Panel {
 
     /**
      * Shows the given Tower Loading bar or Information
-     * @param {Tower} tower
-     * @param {number} gold
+     * @param {Tower}  tower
+     * @param {Number} gold
+     * @returns {Void}
      */
     showTower(tower, gold) {
         if (tower.isLoading()) {
@@ -61,6 +64,7 @@ class Panel {
     /**
      * Shows the given Tower Loading Bar
      * @param {Tower} tower
+     * @returns {Void}
      */
     showLoad(tower) {
         this.create(
@@ -72,8 +76,9 @@ class Panel {
 
     /**
      * Shows the given Tower Information
-     * @param {Tower} tower
-     * @param {number} gold
+     * @param {Tower}  tower
+     * @param {Number} gold
+     * @returns {Void}
      */
     showInfo(tower, gold) {
         this.create(
@@ -108,6 +113,7 @@ class Panel {
     /**
      * Shows the given Mob Information
      * @param {Mob} mob
+     * @returns {Void}
      */
     showMob(mob) {
         this.create(
@@ -122,10 +128,11 @@ class Panel {
 
     /**
      * Creates the Description HTML
-     * @param {string} name
-     * @param {string} text
-     * @param {string} information
-     * @param {string} buttons
+     * @param {String} name
+     * @param {String} text
+     * @param {String} information
+     * @param {String} buttons
+     * @returns {Void}
      */
     create(name, text, information, buttons) {
         this.container.innerHTML = `
@@ -141,7 +148,7 @@ class Panel {
     /**
      * Creates the Tower Information HTML
      * @param {Object} data
-     * @return {string}
+     * @returns {String}
      */
     towerInfo(data) {
         return `
@@ -172,7 +179,7 @@ class Panel {
     /**
      * Creates the Tower Buttons HTML
      * @param {Object} data
-     * @return {string}
+     * @returns {String}
      */
     towerButtons(data) {
         let classes = [], button = "";
@@ -204,8 +211,8 @@ class Panel {
 
     /**
      * Creates the Tower Loading HTML
-     * @param {number} data
-     * @return {string}
+     * @param {Number} data
+     * @returns {String}
      */
     towerLoading(loaded) {
         return `
@@ -217,10 +224,10 @@ class Panel {
 
     /**
      * Creates the Mob Information HTML
-     * @param {number} life
-     * @param {number} gold
-     * @param {number} speed
-     * @return {string}
+     * @param {Number} life
+     * @param {Number} gold
+     * @param {Number} speed
+     * @returns {String}
      */
     mobInfo(life, gold, speed) {
         return `
@@ -242,6 +249,7 @@ class Panel {
 
     /**
      * Hides the Panel after a few seconds
+     * @returns {Void}
      */
     disappear() {
         this.towerSel = null;
@@ -251,6 +259,7 @@ class Panel {
 
     /**
      * Hides the Panel inmediatelly
+     * @returns {Void}
      */
     hide() {
         this.towerSel = null;
@@ -261,6 +270,7 @@ class Panel {
 
     /**
      * Updates the Description of the currently selected Mob
+     * @returns {Void}
      */
     updateMob(mob) {
         if (this.mobSel && this.mobSel.getID() === mob.getID()) {
@@ -270,6 +280,7 @@ class Panel {
 
     /**
      * Hides the Description of the Mob
+     * @returns {Void}
      */
     destroyMob(mob) {
         if (this.mobSel && this.mobSel.getID() === mob.getID()) {

@@ -1,6 +1,6 @@
 /**
- * @extends {Canvas}
  * The Board Canvas Class
+ * @extends {Canvas}
  */
 class BoardCanvas extends Canvas {
 
@@ -57,7 +57,8 @@ class BoardCanvas extends Canvas {
 
     /**
      * Draw the Board
-     * @param {boolean} newLevel
+     * @param {Boolean} newLevel
+     * @returns {Void}
      */
     drawBoard(newLevel) {
         this.drawGhostsPen();
@@ -101,6 +102,7 @@ class BoardCanvas extends Canvas {
 
     /**
      * Draws the Ghosts Pen House
+     * @returns {Void}
      */
     drawGhostsPen() {
         this.ctx.strokeRect(10.5 * Board.tileSize,                  12.5 * Board.tileSize,                  7 * Board.tileSize,                   4 * Board.tileSize);
@@ -116,6 +118,7 @@ class BoardCanvas extends Canvas {
 
     /**
      * Draws the Board outer border
+     * @returns {Void}
      */
     drawOuterBorder() {
         this.ctx.beginPath();
@@ -154,6 +157,7 @@ class BoardCanvas extends Canvas {
 
     /**
      * Draws the Board inner border
+     * @returns {Void}
      */
     drawInnerBorder() {
         this.ctx.beginPath();
@@ -205,10 +209,11 @@ class BoardCanvas extends Canvas {
 
     /**
      * Draws a drawRectangle at the given position with the given size
-     * @param {number} x
-     * @param {number} y
-     * @param {number} width
-     * @param {number} height
+     * @param {Number} x
+     * @param {Number} y
+     * @param {Number} width
+     * @param {Number} height
+     * @returns {Void}
      */
     drawRectangle(x, y, width, height) {
         this.ctx.save();
@@ -227,11 +232,12 @@ class BoardCanvas extends Canvas {
 
     /**
      * Draws a t shape at the given position and with the given properties
-     * @param {number} x
-     * @param {number} y
-     * @param {number} left
-     * @param {number} right
-     * @param {string} type
+     * @param {Number} x
+     * @param {Number} y
+     * @param {Number} left
+     * @param {Number} right
+     * @param {String} type
+     * @returns {Void}
      */
     drawTShape(x, y, left, right, type) {
         let data  = this.drawTShapes[type],
@@ -258,9 +264,10 @@ class BoardCanvas extends Canvas {
 
     /**
      * Draws an l shape at the given position
-     * @param {number} x
-     * @param {number} y
-     * @param {boolean} reflect
+     * @param {Number}  x
+     * @param {Number}  y
+     * @param {Boolean} reflect
+     * @returns {Void}
      */
     drawLShape(x, y, reflect) {
         this.ctx.save();
@@ -286,9 +293,10 @@ class BoardCanvas extends Canvas {
 
     /**
      * Draws a corner for the outer line with a big angle
-     * @param {number} x
-     * @param {number} y
-     * @param {string} type
+     * @param {Number} x
+     * @param {Number} y
+     * @param {String} type
+     * @returns {Void}
      */
     drawOuterBigCorner(x, y, type) {
         let data = this.corners[type],
@@ -302,9 +310,10 @@ class BoardCanvas extends Canvas {
 
     /**
      * Draws a corner for the outer line with a small angle
-     * @param {number} x
-     * @param {number} y
-     * @param {string} type
+     * @param {Number} x
+     * @param {Number} y
+     * @param {String} type
+     * @returns {Void}
      */
     drawOuterSmallCorner(x, y, type) {
         let radius = this.corners[type],
@@ -319,11 +328,12 @@ class BoardCanvas extends Canvas {
 
     /**
      * Draws a corner for the board
-     * @param {number} x
-     * @param {number} y
-     * @param {string} type
-     * @param {boolean} isBig
-     * @param {boolean} anitclockwise
+     * @param {Number} x
+     * @param {Number} y
+     * @param {String} type
+     * @param {Boolean} isBig
+     * @param {Boolean} anitclockwise
+     * @returns {Void}
      */
     drawInnerCorner(x, y, type, isBig, anitclockwise) {
         let radius = isBig ? Board.bigRadius : Board.smallRadius,
@@ -338,10 +348,11 @@ class BoardCanvas extends Canvas {
 
     /**
      * Draws a corner at the given position and with the given radius and type
-     * @param {{x: number, y: number}} pos
-     * @param {number} radius
-     * @param {string} type
-     * @param {boolean} anitclockwise
+     * @param {{x: Number, y: Number}} pos
+     * @param {Number}                 radius
+     * @param {String}                 type
+     * @param {Boolean}                anitclockwise
+     * @returns {Void}
      */
     corner(pos, radius, type, anitclockwise) {
         let rad    = this.radians[type],
@@ -358,6 +369,7 @@ class BoardCanvas extends Canvas {
 
     /**
      * Draws lines over the board for testing
+     * @returns {Void}
      */
     drawLines() {
         this.ctx.strokeStyle = "#CCC";
@@ -377,6 +389,7 @@ class BoardCanvas extends Canvas {
 
     /**
      * Draws the intersections over the board for testing
+     * @returns {Void}
      */
     drawIntersections() {
         Object.keys(Board.boardTurns).forEach((key) => {

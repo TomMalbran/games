@@ -22,7 +22,8 @@ class HighScores {
 
     /**
      * Creates the high scores for the given mode
-     * @param {number} level
+     * @param {Number} level
+     * @returns {Void}
      */
     create(level) {
         this.level = level;
@@ -32,7 +33,8 @@ class HighScores {
 
     /**
      * Show the Scores for the given mode
-     * @param {number} level
+     * @param {Number} level
+     * @returns {Void}
      */
     show(level) {
         this.scores.innerHTML = "";
@@ -46,6 +48,7 @@ class HighScores {
 
     /**
      * Create each score line and place it in the DOM
+     * @returns {Void}
      */
     displayScores() {
         for (let i = 1; i <= this.total; i += 1) {
@@ -64,9 +67,9 @@ class HighScores {
 
     /**
      * Tries to save a score, when possible
-     * @param {number} level
-     * @param {number} score
-     * @return {boolean}
+     * @param {Number} level
+     * @param {Number} score
+     * @returns {Boolean}
      */
     save(level, score) {
         if (this.input.value) {
@@ -81,7 +84,8 @@ class HighScores {
 
     /**
      * Gets the scores and adds the new one in the right position, updating the total, when possible
-     * @param {number} score
+     * @param {Number} score
+     * @returns {Void}
      */
     saveData(score) {
         let data   = [],
@@ -114,7 +118,8 @@ class HighScores {
 
     /**
      * Shows or hides the no results element
-     * @param {boolean} show
+     * @param {Boolean} show
+     * @returns {Void}
      */
     showHideNone(show) {
         this.none.style.display = show ? "block" : "none";
@@ -122,6 +127,7 @@ class HighScores {
 
     /**
      * Sets the input value and focus it
+     * @returns {Void}
      */
     setInput() {
         this.input.value = "";
@@ -130,6 +136,7 @@ class HighScores {
 
     /**
      * Returns true if the input is focus
+     * @returns {Void}
      */
     isFocused() {
         return this.focused;

@@ -28,6 +28,7 @@ class Tail {
     /**
      * Sets the initial positions of the tails elements
      * @param {Ball} ball
+     * @returns {Void}
      */
     start(ball) {
         let pos = ball.getPosition();
@@ -41,6 +42,7 @@ class Tail {
     /**
      * Move the tail
      * @param {Ball} ball
+     * @returns {Void}
      */
     move(ball) {
         let oldTop, oldLeft,
@@ -68,6 +70,7 @@ class Tail {
 
     /**
      * Sets the position of each element
+     * @returns {Void}
      */
     setPosition() {
         this.elements.forEach((data) => {

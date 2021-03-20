@@ -46,7 +46,7 @@ class Keyboard {
 
     /**
      * Key Press Event
-     * @param {number} key
+     * @param {Number} key
      * @param {?Event} event
      */
     pressKey(key, event) {

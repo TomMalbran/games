@@ -9,7 +9,7 @@ class Mobs {
      * @param {Board}  board
      * @param {Panel}  panel
      * @param {Sounds} sounds
-     * @param {number} gameLevel
+     * @param {Number} gameLevel
      */
     constructor(score, board, panel, sounds, gameLevel) {
         this.score      = score;
@@ -36,6 +36,7 @@ class Mobs {
 
     /**
      * Updates the inner started state when the game starts
+     * @returns {Void}
      */
     gameStarted() {
         this.hasStarted = true;
@@ -47,9 +48,10 @@ class Mobs {
     /**
      * Called on each animation frame to decreases the timers from the different lists,
      * update the build status and move the ammos
-     * @param {number}  time
-     * @param {number}  speed
-     * @param {boolean} moveWave
+     * @param {Number}  time
+     * @param {Number}  speed
+     * @param {Boolean} moveWave
+     * @returns {Void}
      */
     animate(time, speed, moveWave) {
         this.manager.moveMobs(time, speed);
@@ -67,7 +69,7 @@ class Mobs {
 
     /**
      * Creates the new Paths
-     * @return {boolean}
+     * @returns {Boolean}
      */
     createPath() {
         return this.paths.createPaths();
@@ -75,6 +77,7 @@ class Mobs {
 
     /**
      * Sends the next Wave
+     * @returns {Void}
      */
     sendNextWave() {
         this.waves.next();
@@ -82,7 +85,7 @@ class Mobs {
 
     /**
      * Returns the list with the Mobs that are moving
-     * @return {List}
+     * @returns {List}
      */
     getMovingMobs() {
         return this.manager.getMovingMobs();
@@ -91,6 +94,7 @@ class Mobs {
     /**
      * Removes the Mob when it's life is lower or equal to cero
      * @param {Mob} mob
+     * @returns {Void}
      */
     killMob(mob) {
         this.manager.killMob(mob);
@@ -99,7 +103,8 @@ class Mobs {
     /**
      * Adds all the mobs to one of the lists, if possible
      * @param {Array.<Mob>} mobs
-     * @param {Tower} tower
+     * @param {Tower}       tower
+     * @returns {Void}
      */
     addToList(mobs, tower) {
         if (tower.canSlow()) {

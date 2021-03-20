@@ -8,8 +8,8 @@ class Matrix {
      * @param {Board}    board
      * @param {Instance} instance
      * @param {?Array.<Array.<number>>} matrix
-     * @param {?number} head
-     * @param {?number} tail
+     * @param {?Number} head
+     * @param {?Number} tail
      */
     constructor(board, instance, matrix, head, tail) {
         this.board    = board;
@@ -31,8 +31,9 @@ class Matrix {
 
     /**
      * Adds a snake body element
-     * @param {number} top
-     * @param {number} left
+     * @param {Number} top
+     * @param {Number} left
+     * @returns {Void}
      */
     addSnake(top, left) {
         this.matrix[top][left] = this.tail;
@@ -46,8 +47,9 @@ class Matrix {
 
     /**
      * Removes a snake body element
-     * @param {number} top
-     * @param {number} left
+     * @param {Number} top
+     * @param {Number} left
+     * @returns {Void}
      */
     removeSnake(top, left) {
         this.matrix[top][left] = this.board.emptyValue;
@@ -61,7 +63,7 @@ class Matrix {
 
     /**
      * Adds a new food element to the board in the first possible random position
-     * @return {{top: number, left: number}}
+     * @returns {{top: Number, left: Number}}
      */
     addFood() {
         let top, left, found = true;
@@ -79,9 +81,9 @@ class Matrix {
 
     /**
      * Returns true if the snake crashed a wall or it's own body
-     * @param {number} top
-     * @param {number} left
-     * @return {boolean}
+     * @param {Number} top
+     * @param {Number} left
+     * @returns {Boolean}
      */
     crashed(top, left) {
         return this.matrix[top][left] >= this.board.borderValue;
@@ -89,9 +91,9 @@ class Matrix {
 
     /**
      * Returns true if the snake ate the food
-     * @param {number} top
-     * @param {number} left
-     * @return {boolean}
+     * @param {Number} top
+     * @param {Number} left
+     * @returns {Boolean}
      */
     ate(top, left) {
         return this.matrix[top][left] === this.board.foodValue;

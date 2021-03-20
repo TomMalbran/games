@@ -21,7 +21,8 @@ class Instance {
 
     /**
      * Saves the initial values for a new game
-     * @param {number} level
+     * @param {Number} level
+     * @returns {Void}
      */
     newGame(level) {
         this.destroyGame();
@@ -36,6 +37,7 @@ class Instance {
 
     /**
      * Remove the data for this game
+     * @returns {Void}
      */
     destroyGame() {
         for (let i = 0; i < this.board.matrixRows; i += 1) {
@@ -62,6 +64,7 @@ class Instance {
 
     /**
      * Returns the saved data of a game
+     * @returns {Object}
      */
     getData() {
         let head    = this.data.get("matrix.head"),
@@ -110,9 +113,10 @@ class Instance {
 
     /**
      * Adds the given value in the given position in the matrix
-     * @param {number} top
-     * @param {number} left
-     * @param {number} value
+     * @param {Number} top
+     * @param {Number} left
+     * @param {Number} value
+     * @returns {Void}
      */
     addToMatrix(top, left, value) {
         this.data.set(`matrix.${top}.${left}`, value);
@@ -123,9 +127,10 @@ class Instance {
 
     /**
      * Removes the given value in the given position in the matrix
-     * @param {number} top
-     * @param {number} left
-     * @param {number} value
+     * @param {Number} top
+     * @param {Number} left
+     * @param {Number} value
+     * @returns {Void}
      */
     removeFromMatrix(top, left, value) {
         this.data.remove(`matrix.${top}.${left}`);
@@ -136,7 +141,8 @@ class Instance {
 
     /**
      * Saves the score
-     * @param {number} score
+     * @param {Number} score
+     * @returns {Void}
      */
     saveScore(score) {
         this.data.set("score", score);
@@ -144,7 +150,8 @@ class Instance {
 
     /**
      * Saves the Snake directions
-     * @param {{top: number, left: number}} dir
+     * @param {{top: Number, left: Number}} dir
+     * @returns {Void}
      */
     saveDirection(dir) {
         this.data.set("dirTop",  dir.top);
@@ -153,6 +160,7 @@ class Instance {
 
     /**
      * Returns true if there is a saved Game
+     * @returns {Boolean}
      */
     hasGame() {
         return this.data.get("playing");

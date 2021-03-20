@@ -5,8 +5,8 @@ class Score {
 
     /**
      * The Scorer constructor
-     * @param {number} level
-     * @param {number} maxInitialLevel
+     * @param {Number} level
+     * @param {Number} maxInitialLevel
      */
     constructor(level, maxInitialLevel) {
         this.multipliers     = [ 40, 100, 300, 1200 ];
@@ -33,7 +33,7 @@ class Score {
 
     /**
      * Returns the time between each drop
-     * @return {number}
+     * @returns {Number}
      */
     get timer() {
         return this._timer;
@@ -41,7 +41,7 @@ class Score {
 
     /**
      * Returns the current time
-     * @return {number}
+     * @returns {Number}
      */
     get time() {
         return this._time;
@@ -49,7 +49,7 @@ class Score {
 
     /**
      * Returns the current level
-     * @return {number}
+     * @returns {Number}
      */
     get level() {
         return this._level;
@@ -57,7 +57,7 @@ class Score {
 
     /**
      * Returns the current Score
-     * @return {number}
+     * @returns {Number}
      */
     get score() {
         return this._score;
@@ -67,7 +67,7 @@ class Score {
 
     /**
      * Decreases the time by the given amount
-     * @param {number} time
+     * @param {Number} time
      */
     decTime(time) {
         this._time -= time;
@@ -83,7 +83,7 @@ class Score {
 
     /**
      * Adds the score for a new Piece that dropped
-     * @param {number} drop - Amount of cells the Tetrimino dropped before crashing the bottom
+     * @param {Number} drop - Amount of cells the Tetrimino dropped before crashing the bottom
      */
     piece(drop) {
         this._score += 21 + (3 * this._level) - drop;
@@ -92,7 +92,7 @@ class Score {
 
     /**
      * Adds the score for a new Line
-     * @param {number} amount - Amount of lines completed in one move
+     * @param {Number} amount - Amount of lines completed in one move
      */
     line(amount) {
         this.addScore(amount);
@@ -102,7 +102,7 @@ class Score {
 
     /**
      * Increases the score
-     * @param {number} amount - Amount of lines completed in one move
+     * @param {Number} amount - Amount of lines completed in one move
      */
     addScore(amount) {
         this._score += this._level * this.multipliers[amount - 1];
@@ -111,7 +111,7 @@ class Score {
 
     /**
      * Increases the lines
-     * @param {number} amount - Amount of lines completed in one move
+     * @param {Number} amount - Amount of lines completed in one move
      */
     addLine(amount) {
         this._lines += amount;
@@ -120,7 +120,7 @@ class Score {
 
     /**
      * Increases the level
-     * @param {number} amount - Amount of lines completed in one move
+     * @param {Number} amount - Amount of lines completed in one move
      */
     addLevel(amount) {
         this._amount += amount;
@@ -157,7 +157,7 @@ class Score {
 
     /**
      * Calculates the time used between each soft drop
-     * @return {number}
+     * @returns {Number}
      */
     calculateTimer() {
         if (this.level < this.maxInitialLevel) {

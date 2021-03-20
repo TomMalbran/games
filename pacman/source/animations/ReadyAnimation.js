@@ -1,13 +1,13 @@
 /**
- * @extends {Animation}
  * The Ready Animation
+ * @extends {Animation}
  */
 class ReadyAnimation extends Animation {
 
     /**
      * The Ready Animation constructor
      * @param {Canvas}   canvas
-     * @param {function} callback
+     * @param {Function} callback
      */
     constructor(canvas, callback) {
         super();

@@ -1,6 +1,6 @@
 /**
- * @extends {Mob}
  * The Flying Mob Class
+ * @extends {Mob}
  */
 class FlyingMob extends Mob {
 

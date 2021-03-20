@@ -6,8 +6,8 @@ class Ship {
     /**
      * Ship Manager constructor
      * @param {Board}    board
-     * @param {number}   shipWidth
-     * @param {function} onMove
+     * @param {Number}   shipWidth
+     * @param {Function} onMove
      */
     constructor(board, shipWidth, onMove) {
         this.minWidth       = 3;
@@ -30,6 +30,7 @@ class Ship {
 
     /**
      * Set the width property of the element
+     * @returns {Void}
      */
     setWidth() {
         this.element.style.width = Utils.toEM(this.emWidth);
@@ -38,7 +39,8 @@ class Ship {
 
     /**
      * Set the top property of the element
-     * @param {number=} top
+     * @param {Number=} top
+     * @returns {Void}
      */
     setTop(top) {
         this.element.style.top = Utils.toPX(top || this.top);
@@ -46,6 +48,7 @@ class Ship {
 
     /**
      * Set the left property of the element
+     * @returns {Void}
      */
     setLeft() {
         this.element.style.left = Utils.toPX(this.left);
@@ -54,6 +57,7 @@ class Ship {
     /**
      * Move the Ship using the mouse
      * @param {Event} e
+     * @returns {Void}
      */
     mouseMove(e) {
         let mouseLeft  = Utils.getMousePos(e).left,
@@ -77,7 +81,8 @@ class Ship {
 
     /**
      * Move the Ship using the keyboard
-     * @param {number} direction
+     * @param {Number} direction
+     * @returns {Void}
      */
     keyMove(direction) {
         let left  = this.left + this.keyMovement * direction,
@@ -89,6 +94,8 @@ class Ship {
 
     /**
      * Move the Ship
+     * @param {Number} left
+     * @returns {Void}
      */
     doMove(left) {
         if (left !== this.left) {
@@ -100,6 +107,7 @@ class Ship {
 
     /**
      * Change the Style when the ball crashes the ship
+     * @returns {Void}
      */
     ballCrash() {
         this.setTop(this.top + 2);
@@ -109,6 +117,7 @@ class Ship {
 
     /**
      * Reduce the width of the ship
+     * @returns {Void}
      */
     reduceWidth() {
         if (this.emWidth > this.minWidth) {
@@ -123,7 +132,7 @@ class Ship {
 
     /**
      * Returns the position of the Ship
-     * @return {{top: number, left: number}}
+     * @returns {{top: Number, left: Number}}
      */
     getPosition() {
         return {
@@ -134,7 +143,7 @@ class Ship {
 
     /**
      * Returns the width of the Ship
-     * @return {number}
+     * @returns {Number}
      */
     getWidth() {
         return this.width + this.extraWidth;

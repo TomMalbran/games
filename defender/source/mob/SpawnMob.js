@@ -1,6 +1,6 @@
 /**
- * @extends {Mob}
  * The Spawn Mob Class
+ * @extends {Mob}
  */
 class SpawnMob extends Mob {
 

@@ -1,6 +1,6 @@
 /**
- * @extends {Mob}
  * The Fast Mob Class
+ * @extends {Mob}
  */
 class FastMob extends Mob {
 

@@ -9,6 +9,7 @@
 
     /**
      * Destroys the game elements
+     * @returns {Void}
      */
     function destroyGame() {
         matrix = null;
@@ -20,6 +21,7 @@
 
     /**
      * Reduces by 1 the initial count until it changes the mode to playing
+     * @returns {Void}
      */
     function nextCount() {
         let content = "";
@@ -41,6 +43,7 @@
 
     /**
      * Request an animation frame
+     * @returns {Void}
      */
     function requestAnimation() {
         startTime = new Date().getTime();
@@ -86,6 +89,7 @@
 
     /**
      * Cancel an animation frame
+     * @returns {Void}
      */
     function cancelAnimation() {
         window.cancelAnimationFrame(animation);
@@ -95,6 +99,7 @@
 
     /**
      * Show the Main Screen
+     * @returns {Void}
      */
     function showMainScreen() {
         display.set("mainScreen").show();
@@ -102,6 +107,7 @@
 
     /**
      * Pause the Game
+     * @returns {Void}
      */
     function startPause() {
         display.set("paused").show();
@@ -110,6 +116,7 @@
 
     /**
      * Unpause the Game
+     * @returns {Void}
      */
     function endPause() {
         display.set("playing").setClass();
@@ -118,6 +125,7 @@
 
     /**
      * Finish the Game
+     * @returns {Void}
      */
     function finishGame() {
         display.set("mainScreen").show();
@@ -128,6 +136,7 @@
 
     /**
      * Game Over
+     * @returns {Void}
      */
     function gameOver() {
         cancelAnimation();
@@ -138,6 +147,7 @@
 
     /**
      * Svae scores and restart
+     * @returns {Void}
      */
     function endGameOver(save) {
         destroyGame();
@@ -151,7 +161,8 @@
 
     /**
      * Starts the speed demo
-     * @param {number} level
+     * @param {Number} level
+     * @returns {Void}
      */
     function startDemo(level) {
         display.set("demo");
@@ -162,6 +173,7 @@
 
     /**
      * Ends the speed demo
+     * @returns {Void}
      */
     function endDemo() {
         if (display.isDemoing()) {
@@ -173,6 +185,7 @@
 
     /**
      * Show the High Scores
+     * @returns {Void}
      */
     function showHighScores() {
         display.set("highScores").show();
@@ -180,6 +193,7 @@
 
     /**
      * Saves a High Score
+     * @returns {Void}
      */
     function saveHighScore() {
         if (scores.save(score.level, score.score)) {
@@ -189,6 +203,7 @@
 
     /**
      * Show the Help
+     * @returns {Void}
      */
     function showHelp() {
         display.set("help").show();
@@ -198,6 +213,7 @@
 
     /**
      * Restores a saved Game
+     * @returns {Void}
      */
     function restoreGame() {
         if (instance.hasGame()) {
@@ -214,7 +230,8 @@
 
     /**
      * Starts a new game
-     * @param {number} level
+     * @param {Number} level
+     * @returns {Void}
      */
     function newGame(level) {
         display.set("starting").setClass();
@@ -232,7 +249,7 @@
 
     /**
      * Returns the shortcut functions
-     * @return {Object}
+     * @returns {Object}
      */
     function getShortcuts() {
         let turnSnake = (dirTop, dirLeft) => {
@@ -285,6 +302,7 @@
 
     /**
      * Stores the used DOM elements and initializes the Event Handlers
+     * @returns {Void}
      */
     function initDomListeners() {
         navigator = document.querySelector(".main ul");
@@ -335,6 +353,7 @@
 
     /**
      * The main Function
+     * @returns {Void}
      */
     function main() {
         initDomListeners();

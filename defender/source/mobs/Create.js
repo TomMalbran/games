@@ -20,7 +20,8 @@ class Create {
 
     /**
      * Creates the Mobs for all the starts
-     * @param {{type: string, isBoss: boolean, wave: number, lastWave: boolean}} data
+     * @param {{type: String, isBoss: Boolean, wave: Number, lastWave: Boolean}} data
+     * @returns {Void}
      */
     mobs(data) {
         let starts  = this.parent.board.getStarts(),
@@ -35,9 +36,10 @@ class Create {
 
     /**
      * For a single path, it creates all the required Mobs
-     * @param {{type: string, isBoss: boolean, wave: number, lastWave: boolean}} data
-     * @param {Array.<Array.<[number, number]>>} starts
-     * @param {Array.<Array.<[number, number]>>} targets
+     * @param {{type: String, isBoss: Boolean, wave: Number, lastWave: Boolean}} data
+     * @param {Array.<Array.<[Number, Number]>>} starts
+     * @param {Array.<Array.<[Number, Number]>>} targets
+     * @returns {Void}
      */
     createMobs(data, starts, targets) {
         let i = 0, mob, mobs = [];
@@ -82,6 +84,7 @@ class Create {
     /**
      * Creates all the childs of a single parent
      * @param {Mob} parent
+     * @returns {Void}
      */
     childs(parent) {
         let cells  = this.getCloseCells(parent),
@@ -137,6 +140,7 @@ class Create {
     /**
      * Creates the blood after killing a mob
      * @param {Mob} mob
+     * @returns {Void}
      */
     createBlood(mob) {
         let element = document.createElement("DIV");
@@ -151,6 +155,7 @@ class Create {
      * Returns a random list with all the cells around the given Mob
      * with nothing on them
      * @param {Mob} mob
+     * @returns {Void}
      */
     getCloseCells(mob) {
         let nothing = this.parent.board.getNothingValue(),

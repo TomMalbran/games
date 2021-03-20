@@ -6,9 +6,9 @@ class Tetrimino {
     /**
      * The Tetrimino constructor
      * @param {Board}  board
-     * @param {number} type
+     * @param {Number} type
      * @param {Object} data
-     * @param {number} size
+     * @param {Number} size
      */
     constructor(board, type, data, size) {
         this.tetriminer   = document.querySelectorAll(".tetriminos > div");
@@ -54,7 +54,7 @@ class Tetrimino {
 
     /**
      * Makes the Tetrimino start falling
-     * @return {Tetrimino}
+     * @returns {Tetrimino}
      */
     fall() {
         this.left = this.board.getMiddle(this.data.cols);
@@ -72,7 +72,7 @@ class Tetrimino {
 
     /**
      * Moves the Tetrimino one cell down
-     * @return {boolean}
+     * @returns {Boolean}
      */
     softDrop() {
         if (this.crashed(1, 0)) {
@@ -95,7 +95,7 @@ class Tetrimino {
 
     /**
      * Called when the Tetrimino crashes into the bottom of the screen or on top of another tetrimino
-     * @return {number}
+     * @returns {Number}
      */
     addElements() {
         return this.board.addElements(this.getMatrix(), this.type, this.top, this.left);
@@ -126,7 +126,7 @@ class Tetrimino {
 
     /**
      * Rotates the Tetrimino clockwise
-     * @return {boolean}
+     * @returns {Boolean}
      */
     rotateRight() {
         let rotation = this.rotation + 1;
@@ -138,7 +138,7 @@ class Tetrimino {
 
     /**
      * Rotates the Tetrimino anti-clockwise
-     * @return {boolean}
+     * @returns {Boolean}
      */
     rotateLeft() {
         let rotation = this.rotation - 1;
@@ -150,8 +150,8 @@ class Tetrimino {
 
     /**
      * Does the Tetrimino rotation
-     * @param {number} rotation
-     * @return {boolean}
+     * @param {Number} rotation
+     * @returns {Boolean}
      */
     rotate(rotation) {
         if (!this.crashed(0, 0, rotation)) {
@@ -179,8 +179,8 @@ class Tetrimino {
 
     /**
      * Returns a matrix that represents the Tetrimino for the given rotation
-     * @param {number=} rotation
-     * @return {Array.<Array.<number>>}
+     * @param {Number=} rotation
+     * @returns {Array.<Array.<Number>>}
      */
     getMatrix(rotation) {
         let rot = rotation || rotation === 0 ? rotation : this.rotation;
@@ -197,7 +197,7 @@ class Tetrimino {
 
     /**
      * Gets the bottom most cell
-     * @return {number}
+     * @returns {Number}
      */
     getHardDrop() {
         let add = 1;
@@ -209,10 +209,10 @@ class Tetrimino {
 
     /**
      * Returns a possible crash from the matrix
-     * @param {number} addTop
-     * @param {number} addLeft
-     * @param {number} rotation
-     * @return {boolean}
+     * @param {Number} addTop
+     * @param {Number} addLeft
+     * @param {Number} rotation
+     * @returns {Boolean}
      */
     crashed(addTop, addLeft, rotation) {
         return this.board.crashed(this.top + addTop, this.left + addLeft, this.getMatrix(rotation));
@@ -221,7 +221,7 @@ class Tetrimino {
 
     /**
      * Returns the top position
-     * @return {number}
+     * @returns {Number}
      */
     getTop() {
         return this.top;
@@ -229,7 +229,7 @@ class Tetrimino {
 
     /**
      * Returns the drop counter
-     * @return {number}
+     * @returns {Number}
      */
     getDrop() {
         return this.drop;

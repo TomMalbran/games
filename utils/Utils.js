@@ -4,9 +4,9 @@ let Utils = (function () {
     return {
         /**
          * Returns a random value between from and to
-         * @param {number} from
-         * @param {number} to
-         * @return {number}
+         * @param {Number} from
+         * @param {Number} to
+         * @returns {Number}
          */
         rand(from, to) {
             return Math.floor(Math.random() * (to - from + 1) + from);
@@ -14,10 +14,10 @@ let Utils = (function () {
 
         /**
          * Returns the value higher than the min and lower than the max
-         * @param {number} value
-         * @param {number} min
-         * @param {number} max
-         * @return {number}
+         * @param {Number} value
+         * @param {Number} min
+         * @param {Number} max
+         * @returns {Number}
          */
         clamp(value, min, max) {
             return Math.max(min, Math.min(max, value));
@@ -25,9 +25,9 @@ let Utils = (function () {
 
         /**
          * Adds the separator every 3 decimals
-         * @param {number} number
-         * @param {string} separator
-         * @return {string}
+         * @param {Number} number
+         * @param {String} separator
+         * @returns {String}
          */
         formatNumber(number, separator) {
             let result = "", count = 0, char;
@@ -48,9 +48,9 @@ let Utils = (function () {
 
         /**
          * Returns the angle between two values
-         * @param {number} x
-         * @param {number} y
-         * @return {number}
+         * @param {Number} x
+         * @param {Number} y
+         * @returns {Number}
          */
         calcAngle(x, y) {
             let angle = Math.round(Math.abs(Math.atan(y / x) * 180 / Math.PI));
@@ -69,7 +69,7 @@ let Utils = (function () {
         /**
          * Returns the number with a px prefix
          * @param {Number} value
-         * @return {String}
+         * @returns {String}
          */
         toPX(value) {
             return `${Math.round(value)}px`;
@@ -78,7 +78,7 @@ let Utils = (function () {
         /**
          * Returns the number with a em prefix
          * @param {Number} value
-         * @return {String}
+         * @returns {String}
          */
         toEM(value) {
             return `${value}em`;
@@ -87,7 +87,7 @@ let Utils = (function () {
         /**
          * Returns the number with a em prefix
          * @param {Number} value
-         * @return {String}
+         * @returns {String}
          */
         rotate(deg) {
             return `rotate(${deg}deg)`;
@@ -96,7 +96,7 @@ let Utils = (function () {
         /**
          * Returns the closest element with an action
          * @param {Event} event
-         * @return {DOMElement}
+         * @returns {DOMElement}
          */
         getTarget(event) {
             let element = event.target;
@@ -109,7 +109,7 @@ let Utils = (function () {
         /**
          * Returns the position of an Element in the document
          * @param {DOMElement} element
-         * @return {{top: number, left: number}}
+         * @returns {{top: Number, left: Number}}
          */
         getPosition(element) {
             let top = 0, left = 0;
@@ -132,8 +132,9 @@ let Utils = (function () {
         /**
          * Sets the position of the given element or elements
          * @param {DOMElement} element
-         * @param {number} top
-         * @param {number} lefet
+         * @param {Number} top
+         * @param {Number} lefet
+         * @returns {Void}
          */
         setPosition(element, top, left) {
             element.style.top  = `${top}px`;
@@ -143,6 +144,7 @@ let Utils = (function () {
         /**
          * Removes the Element from the DOM
          * @param {DOMElement} element
+         * @returns {Void}
          */
         removeElement(element) {
             var parent = element.parentNode;
@@ -153,7 +155,7 @@ let Utils = (function () {
         /**
          * Returns the Mouse Position
          * @param {Event} event
-         * @return {{top: number, left: number}}
+         * @returns {{top: Number, left: Number}}
          */
         getMousePos(event) {
             let top = 0, left = 0;
@@ -172,6 +174,7 @@ let Utils = (function () {
 
         /**
          * Unselects the elements
+         * @returns {Void}
          */
         unselect() {
             if (window.getSelection) {

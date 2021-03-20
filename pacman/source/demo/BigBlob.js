@@ -1,6 +1,6 @@
 /**
- * @extends {Blob}
  * The Big Blob Class. Used in the title animation
+ * @extends {Blob}
  */
 class BigBlob extends Blob {
 
@@ -24,7 +24,8 @@ class BigBlob extends Blob {
 
     /**
      * Moves the Big Blob. Specially made for the title animation
-     * @param {number} time
+     * @param {Number} time
+     * @returns {Void}
      */
     animate(time) {
         this.timer += time;
@@ -36,6 +37,7 @@ class BigBlob extends Blob {
 
     /**
      * When the Blob reaches it positions, it draws it there
+     * @returns {Void}
      */
     endAnimation() {
         this.mouth = DemoData.title.blobMouth;
@@ -45,6 +47,7 @@ class BigBlob extends Blob {
 
     /**
      * Removes the Canvas Save pos, since is not required
+     * @returns {Void}
      */
     savePos() {
         return undefined;

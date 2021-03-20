@@ -1,6 +1,6 @@
 /**
- * @extends {Canvas}
  * The Game Canvas Class
+ * @extends {Canvas}
  */
 class GameCanvas extends Canvas {
 
@@ -15,6 +15,7 @@ class GameCanvas extends Canvas {
     /**
      * Draws the Ghosts Targets for testing
      * @param {Array.<Ghost>} ghosts
+     * @returns {Void}
      */
     drawTargets(ghosts) {
         this.ctx.save();

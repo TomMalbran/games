@@ -1,6 +1,6 @@
 /**
- * @extends {Mob}
  * The Morph Mob Class
+ * @extends {Mob}
  */
 class MorphMob extends Mob {
 
@@ -34,9 +34,10 @@ class MorphMob extends Mob {
 
     /**
      * Changes the type of the Mob, after some time
-     * @param {number}  time
-     * @param {boolean} newCell
-     * @param {boolean} turned
+     * @param {Number}  time
+     * @param {Boolean} newCell
+     * @param {Boolean} turned
+     * @returns {Void}
      */
     specialPower(time, newCell, turned) {
         this.timer += time;

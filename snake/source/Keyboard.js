@@ -20,6 +20,7 @@ class Keyboard {
     /**
      * Key Press Event
      * @param {Event} event
+     * @returns {Void}
      */
     pressKey(event) {
         let key = event.keyCode;

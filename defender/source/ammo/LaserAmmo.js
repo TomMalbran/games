@@ -1,6 +1,6 @@
 /**
- * @extends {Ammo}
  * The Laser Ammo Class
+ * @extends {Ammo}
  */
 class LaserAmmo extends Ammo {
 
@@ -8,7 +8,7 @@ class LaserAmmo extends Ammo {
      * The Laser Ammo constructor
      * @param {Tower} tower
      * @param {Array} targets
-     * @param {number} boardSize
+     * @param {Number} boardSize
      */
     constructor(tower, targets, boardSize) {
         super();
@@ -23,8 +23,8 @@ class LaserAmmo extends Ammo {
 
     /**
      * Moves the ammo according to the given time. Returns true if it reached the target
-     * @param {number} time
-     * @return {boolean}
+     * @param {Number} time
+     * @returns {Boolean}
      */
     move(time) {
         if (this.decTimer(time)) {
@@ -36,7 +36,8 @@ class LaserAmmo extends Ammo {
 
     /**
      * Rotates the Ammo
-     * @param {number} angle
+     * @param {Number} angle
+     * @returns {Void}
      */
     rotate(angle) {
         this.element.style.transform = `rotate(${angle}deg) translateX(20px)`;

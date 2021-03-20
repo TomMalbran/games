@@ -1,15 +1,15 @@
 /**
- * @extends {Tower}
  * The Frost Tower Class
+ * @extends {Tower}
  */
 class FrostTower extends Tower {
 
     /**
      * The Frost Tower constructor
-     * @param {number} id
-     * @param {number} row
-     * @param {number} col
-     * @param {number} boardSize
+     * @param {Number} id
+     * @param {Number} row
+     * @param {Number} col
+     * @param {Number} boardSize
      */
     constructor(id, row, col, boardSize) {
         super();
@@ -35,7 +35,7 @@ class FrostTower extends Tower {
     /**
      * Creates a new Ammo
      * @param {Array.<Mob>} targets
-     * @return {FrostAmmo}
+     * @returns {FrostAmmo}
      */
     createAmmo(targets) {
         return new FrostAmmo(this, targets, this.boardSize);
@@ -45,8 +45,8 @@ class FrostTower extends Tower {
     /**
      * Returns a list of Mobs close to the given one
      * @param {List.<Iterator>} mobs
-     * @param {Mob} mob
-     * @return {Array.<Array.<Mob>>}
+     * @param {Mob}             mob
+     * @returns {Array.<Array.<Mob>>}
      */
     getTargets(mobs, mob) {
         return [ this.getCloseTargets(mobs, mob) ];
@@ -55,7 +55,7 @@ class FrostTower extends Tower {
     /**
      * Returns true if the given Mob is a valid target
      * @param {Mob} mob
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isValidTarget(mob) {
         return !mob.isInmune();

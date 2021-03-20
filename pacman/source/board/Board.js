@@ -2,7 +2,7 @@ let Board = (function () {
     "use strict";
 
     /**
-     * @const The Board MAtrix (28x31) and the Values
+     * @const boardMatrix The Board MAtrix (28x31) and the Values
      * 0 Wall | 1 Path | 2 Pill on Path | 3 Intersection | 4 Pill on Interection | 5 Tunnel
      */
     const wallValue      = 0;
@@ -46,7 +46,7 @@ let Board = (function () {
     ];
 
     /**
-     * @const Possible Turns at the Intersections
+     * @const boardTurns Possible Turns at the Intersections
      * 0 Up | 1 Left | 2 Down | 3 Right
      */
      const boardTurns = {
@@ -116,7 +116,7 @@ let Board = (function () {
         x26y29 : [ 0, 1       ]
     };
 
-    /** @const Board data */
+    /** Board data */
     const energizers    = [{ x: 1, y: 3 }, { x: 26, y: 3 }, { x: 1, y: 23 }, { x: 26, y: 23 }];
     const pillAmount    = 244;
     const fruitTile     = { x: 13.25, y: 16.8333 };
@@ -150,8 +150,8 @@ let Board = (function () {
 
     /**
      * Returns the position at the middle of a tile
-     * @param {number} tile
-     * @return {number}
+     * @param {Number} tile
+     * @returns {Number}
      */
     function getTileCenter(tile) {
         return Math.round((tile + 0.5) * tileSize);
@@ -159,8 +159,8 @@ let Board = (function () {
 
     /**
      * Converts an x,y tile into an x,y position
-     * @param {{x: number, y: number}} tile
-     * @return {{x: number, y: number}}
+     * @param {{x: Number, y: Number}} tile
+     * @returns {{x: Number, y: Number}}
      */
     function tileToPos(tile) {
         return { x: tile.x * tileSize, y: tile.y * tileSize };
@@ -172,6 +172,10 @@ let Board = (function () {
      * The Board API
      */
     return {
+        /**
+         * Creates the Board
+         * @returns {Void}
+         */
         create() {
             boardCanvas  = new BoardCanvas();
             screenCanvas = new Canvas().init("screen");
@@ -180,7 +184,7 @@ let Board = (function () {
 
         /**
          * Returns the conetext for the board element
-         * @return {Canvas}
+         * @returns {Canvas}
          */
         get boardCanvas() {
             return boardCanvas;
@@ -188,7 +192,7 @@ let Board = (function () {
 
         /**
          * Returns the conetext for the screen element
-         * @return {Canvas}
+         * @returns {Canvas}
          */
         get screenCanvas() {
             return screenCanvas;
@@ -196,7 +200,7 @@ let Board = (function () {
 
         /**
          * Returns the conetext for the game element
-         * @return {Canvas}
+         * @returns {Canvas}
          */
         get gameCanvas() {
             return gameCanvas;
@@ -206,6 +210,7 @@ let Board = (function () {
 
         /**
          * Clears the saved rects in the Game Canvas
+         * @returns {Void}
          */
         clearGame() {
             gameCanvas.clearSavedRects();
@@ -213,7 +218,8 @@ let Board = (function () {
 
         /**
          * Draws the board
-         * @param {boolean} newLevel
+         * @param {Boolean} newLevel
+         * @returns {Void}
          */
         drawBoard(newLevel) {
             boardCanvas.drawBoard(newLevel);
@@ -221,6 +227,7 @@ let Board = (function () {
 
         /**
          * Clears all the Canvas
+         * @returns {Void}
          */
         clearAll() {
             boardCanvas.clear();
@@ -232,7 +239,7 @@ let Board = (function () {
 
         /**
          * Returns the width of the canvas
-         * @return {number}
+         * @returns {Number}
          */
         get width() {
             return canvasWidth;
@@ -240,7 +247,7 @@ let Board = (function () {
 
         /**
          * Returns the height of the canvas
-         * @return {number}
+         * @returns {Number}
          */
         get height() {
             return totalHeight;
@@ -248,7 +255,7 @@ let Board = (function () {
 
         /**
          * Returns the amount of columns of the matrix
-         * @return {number}
+         * @returns {Number}
          */
         get cols() {
             return boardCols;
@@ -256,7 +263,7 @@ let Board = (function () {
 
         /**
          * Returns the amount of rows of the matrix
-         * @return {number}
+         * @returns {Number}
          */
         get rows() {
             return boardRows;
@@ -264,7 +271,7 @@ let Board = (function () {
 
         /**
          * Returns the tile size
-         * @return {number}
+         * @returns {Number}
          */
         get tileSize() {
             return tileSize;
@@ -272,7 +279,7 @@ let Board = (function () {
 
         /**
          * Returns the line width
-         * @return {number}
+         * @returns {Number}
          */
         get lineWidth() {
             return lineWidth;
@@ -280,7 +287,7 @@ let Board = (function () {
 
         /**
          * Returns the half of the line width
-         * @return {number}
+         * @returns {Number}
          */
         get halfLine() {
             return halfLine;
@@ -288,7 +295,7 @@ let Board = (function () {
 
         /**
          * Returns the big radius
-         * @return {number}
+         * @returns {Number}
          */
         get bigRadius() {
             return bigRadius;
@@ -296,7 +303,7 @@ let Board = (function () {
 
         /**
          * Returns the small radius
-         * @return {number}
+         * @returns {Number}
          */
         get smallRadius() {
             return smallRadius;
@@ -304,7 +311,7 @@ let Board = (function () {
 
         /**
          * Returns the erase size
-         * @return {number}
+         * @returns {Number}
          */
         get eraseSize() {
             return eraseSize;
@@ -312,7 +319,7 @@ let Board = (function () {
 
         /**
          * Returns the board color
-         * @return {string}
+         * @returns {String}
          */
         get boardColor() {
             return boardColor;
@@ -320,7 +327,7 @@ let Board = (function () {
 
         /**
          * Returns an array with the position of the energizers
-         * @return {Array.<{x: number, y: number}>}
+         * @returns {Array.<{x: Number, y: Number}>}
          */
         get energizers() {
             return energizers;
@@ -328,7 +335,7 @@ let Board = (function () {
 
         /**
          * Returns the amount of Pills in the board
-         * @return {number}
+         * @returns {Number}
          */
         get pillAmount() {
             return pillAmount;
@@ -336,7 +343,7 @@ let Board = (function () {
 
         /**
          * The tile of the fruit in the board
-         * @return {{x: number, y: number}}
+         * @returns {{x: Number, y: Number}}
          */
         get fruitTile() {
             return fruitTile;
@@ -344,7 +351,7 @@ let Board = (function () {
 
         /**
          * The position of the fruit in the board
-         * @return {{x: number, y: number}}
+         * @returns {{x: Number, y: Number}}
          */
         get fruitPos() {
             return tileToPos(fruitTile);
@@ -352,7 +359,7 @@ let Board = (function () {
 
         /**
          * The size of the fruit in the board
-         * @return {number}
+         * @returns {Number}
          */
         get fruitSize() {
             return fruitSize;
@@ -360,7 +367,7 @@ let Board = (function () {
 
         /**
          * The size of the pill in the board
-         * @return {number}
+         * @returns {Number}
          */
         get pillSize() {
             return pillSize;
@@ -368,7 +375,7 @@ let Board = (function () {
 
         /**
          * The size of the energizer in the board
-         * @return {number}
+         * @returns {Number}
          */
         get energizerSize() {
             return energizerSize;
@@ -376,7 +383,7 @@ let Board = (function () {
 
         /**
          * The ghost size in the board
-         * @return {number}
+         * @returns {Number}
          */
         get ghostSize() {
             return ghostSize;
@@ -384,7 +391,7 @@ let Board = (function () {
 
         /**
          * The blob radius in the board
-         * @return {number}
+         * @returns {Number}
          */
         get blobRadius() {
             return blobRadius;
@@ -392,7 +399,7 @@ let Board = (function () {
 
         /**
          * Returns the starting position of the blob
-         * @return {{x: number, y: number}}
+         * @returns {{x: Number, y: Number}}
          */
         get startingPos() {
             return { x: startingPos.x, y: startingPos.y };
@@ -400,7 +407,7 @@ let Board = (function () {
 
         /**
          * Returns the starting direction of the blob
-         * @return {{x: number, y: number}}
+         * @returns {{x: Number, y: Number}}
          */
         get startingDir() {
             return { x: startingDir.x, y: startingDir.y };
@@ -409,7 +416,7 @@ let Board = (function () {
 
         /**
          * Returns the eyes target
-         * @return {{x: number, y: number}}
+         * @returns {{x: Number, y: Number}}
          */
         get eyesTarget() {
             return eyesTarget;
@@ -417,8 +424,8 @@ let Board = (function () {
 
         /**
          * Returns the ghost starting tile depending if is on the pen
-         * @param {boolean} inPen
-         * @return {{x: number, y: number}}
+         * @param {Boolean} inPen
+         * @returns {{x: Number, y: Number}}
          */
         getGhostStartTile(inPen) {
             return inPen ? { x: 13, y: 14 } : { x: 13, y: 11 };
@@ -426,8 +433,8 @@ let Board = (function () {
 
         /**
          * Returns the ghost starting turn depending if is on the pen
-         * @param {boolean} inPen
-         * @return {?{x: number, y: number}}
+         * @param {Boolean} inPen
+         * @returns {?{x: Number, y: Number}}
          */
         getGhostStartTurn(inPen) {
             return inPen ? { x: -1, y: 0 } : null;
@@ -436,8 +443,8 @@ let Board = (function () {
 
         /**
          * Returns the position at the middle of a tile
-         * @param {{x: number, y: number}} tile
-         * @return {{x: number, y: number}}
+         * @param {{x: Number, y: Number}} tile
+         * @returns {{x: Number, y: Number}}
          */
         getTileXYCenter(tile) {
             return {
@@ -448,8 +455,8 @@ let Board = (function () {
 
         /**
          * Returns the position at the top-left corner of a tile
-         * @param {number} tile
-         * @return {number}
+         * @param {Number} tile
+         * @returns {Number}
          */
         getTileCorner(tile) {
             return Math.round(tile * tileSize);
@@ -457,9 +464,9 @@ let Board = (function () {
 
         /**
          * Returns the position of a tile in terms of the matrix coordinates
-         * @param {number} x
-         * @param {number} y
-         * @return {{x: number, y: number}}
+         * @param {Number} x
+         * @param {Number} y
+         * @returns {{x: Number, y: Number}}
          */
         getTilePos(x, y) {
             return {
@@ -470,8 +477,8 @@ let Board = (function () {
 
         /**
          * Does a sumatory over all the tiles
-         * @param {...{x: number, y: number}} tiles
-         * @return {{x: number, y: number}}
+         * @param {...{x: Number, y: Number}} tiles
+         * @returns {{x: Number, y: Number}}
          */
         sumTiles(...tiles) {
             return tiles.reduce((last, current) => {
@@ -481,9 +488,9 @@ let Board = (function () {
 
         /**
          * Returns true if the given tiles are the same
-         * @param {{x: number, y: number}} tile1
-         * @param {{x: number, y: number}} tile2
-         * @return {boolean}
+         * @param {{x: Number, y: Number}} tile1
+         * @param {{x: Number, y: Number}} tile2
+         * @returns {Boolean}
          */
         equalTiles(tile1, tile2) {
             return tile1.x === tile2.x && tile1.y === tile2.y;
@@ -492,9 +499,9 @@ let Board = (function () {
 
         /**
          * Returns the rectangle for the Pill at the given position
-         * @param {number} x
-         * @param {number} y
-         * @return {{x: number, y: number, size: number}}
+         * @param {Number} x
+         * @param {Number} y
+         * @returns {{x: Number, y: Number, size: Number}}
          */
         getPillRect(x, y) {
             return {
@@ -506,7 +513,7 @@ let Board = (function () {
 
         /**
          * Returns the rectangle for the Fruit
-         * @return {{left: number, right: number, top: number, bottom: number}}
+         * @returns {{left: Number, right: Number, top: Number, bottom: Number}}
          */
         getFruitRect() {
             let pos  = Board.fruitPos,
@@ -523,8 +530,8 @@ let Board = (function () {
 
         /**
          * Returns a new position for a player if is at the end of the tunnel
-         * @param {number} x
-         * @return {number}
+         * @param {Number} x
+         * @returns {Number}
          */
         tunnelEnds(x) {
             if (x < tunnelStart) {
@@ -539,9 +546,9 @@ let Board = (function () {
 
         /**
          * Returns true if there is a wall at the given position
-         * @param {number} col
-         * @param {number} row
-         * @return {boolean}
+         * @param {Number} col
+         * @param {Number} row
+         * @returns {Boolean}
          */
         inBoard(col, row) {
             return row >= 0 && col >= 0 && row < boardRows && col < boardCols;
@@ -549,9 +556,9 @@ let Board = (function () {
 
         /**
          * Returns true if there is a wall at the given position
-         * @param {number} col
-         * @param {number} row
-         * @return {boolean}
+         * @param {Number} col
+         * @param {Number} row
+         * @returns {Boolean}
          */
         isWall(col, row) {
             return boardMatrix[row][col] === wallValue;
@@ -559,9 +566,9 @@ let Board = (function () {
 
         /**
          * Returns true if there is an intersection at the given position
-         * @param {number} col
-         * @param {number} row
-         * @return {boolean}
+         * @param {Number} col
+         * @param {Number} row
+         * @returns {Boolean}
          */
         isIntersection(col, row) {
             return boardMatrix[row][col] === interValue || boardMatrix[row][col] === interPillValue;
@@ -569,9 +576,9 @@ let Board = (function () {
 
         /**
          * Returns true if there is a tunnel at the given position
-         * @param {number} col
-         * @param {number} row
-         * @return {boolean}
+         * @param {Number} col
+         * @param {Number} row
+         * @returns {Boolean}
          */
         isTunnel(col, row) {
             return boardMatrix[row][col] === tunnelValue;
@@ -579,9 +586,9 @@ let Board = (function () {
 
         /**
          * Returns true if there can be a pill at the given position
-         * @param {number} col
-         * @param {number} row
-         * @return {boolean}
+         * @param {Number} col
+         * @param {Number} row
+         * @returns {Boolean}
          */
         hasPill(col, row) {
             return boardMatrix[row][col] === pillPathValue || boardMatrix[row][col] === interPillValue;
@@ -590,8 +597,8 @@ let Board = (function () {
 
         /**
          * Returns all the possible turns at a given position
-         * @param {string} pos
-         * @return {Array.<number>}
+         * @param {String} pos
+         * @returns {Array.<Number>}
          */
         getTurns(pos) {
             return boardTurns[pos] || null;
@@ -599,8 +606,8 @@ let Board = (function () {
 
         /**
          * Converts a x,y object into a string
-         * @param {{x: number, y: number}} tile
-         * @return {string}
+         * @param {{x: Number, y: Number}} tile
+         * @returns {String}
          */
         tileToString(tile) {
             return `x${tile.x}y${tile.y}`;
@@ -608,8 +615,8 @@ let Board = (function () {
 
         /**
          * Transforms a number into an x,y direction
-         * @param {number} value
-         * @return {{x: number, y: number}}
+         * @param {Number} value
+         * @returns {{x: Number, y: Number}}
          */
         numberToDir(value) {
             switch (value) {
@@ -626,8 +633,8 @@ let Board = (function () {
 
         /**
          * Transforms an x,y direction into a number
-         * @param {{x: number, y: number}} dir
-         * @return {number}
+         * @param {{x: Number, y: Number}} dir
+         * @returns {Number}
          */
         dirToNumber(dir) {
             switch (this.tileToString(dir)) {

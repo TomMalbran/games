@@ -1,15 +1,15 @@
 /**
- * @extends {Tower}
  * The Missile Tower Class
+ * @extends {Tower}
  */
 class MissileTower extends Tower {
 
     /**
      * The Missile Tower constructor
-     * @param {number} id
-     * @param {number} row
-     * @param {number} col
-     * @param {number} boardSize
+     * @param {Number} id
+     * @param {Number} row
+     * @param {Number} col
+     * @param {Number} boardSize
      */
     constructor(id, row, col, boardSize) {
         super();
@@ -34,7 +34,7 @@ class MissileTower extends Tower {
     /**
      * Creates a new Ammo
      * @param {Array.<Mob>} targets
-     * @return {MissileAmmo}
+     * @returns {MissileAmmo}
      */
     createAmmo(targets) {
         return new MissileAmmo(this, targets, this.boardSize);
@@ -44,8 +44,8 @@ class MissileTower extends Tower {
     /**
      * Returns a list of Mobs close to the given one
      * @param {List.<Iterator>} mobs
-     * @param {Mob} mob
-     * @return {Array.<Array.<Mob>>}
+     * @param {Mob}             mob
+     * @returns {Array.<Array.<Mob>>}
      */
     getTargets(mobs, mob) {
         return [ this.getCloseTargets(mobs, mob) ];
@@ -53,7 +53,8 @@ class MissileTower extends Tower {
 
     /**
      * Toggles the attacking class
-     * @param {number} amount
+     * @param {Number} amount
+     * @returns {Void}
      */
     toggleAttack(amount) {
         this.element.classList.toggle("attacking");
@@ -62,7 +63,7 @@ class MissileTower extends Tower {
     /**
      * Returns true if the given Mob is a valid target
      * @param {Mob} mob
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isValidTarget(mob) {
         return !mob.isFlyer();

@@ -1,6 +1,6 @@
 /**
- * @extends {Ammo}
  * The Earthquake Ammo Class
+ * @extends {Ammo}
  */
 class EarthquakeAmmo extends Ammo {
 
@@ -8,7 +8,7 @@ class EarthquakeAmmo extends Ammo {
      * The Earthquake Ammo constructor
      * @param {Tower} tower
      * @param {Array} targets
-     * @param {number} boardSize
+     * @param {Number} boardSize
      */
     constructor(tower, targets, boardSize) {
         super();
@@ -24,8 +24,8 @@ class EarthquakeAmmo extends Ammo {
 
     /**
      * Moves the ammo according to the given time. Returns true if it reached the target
-     * @param {number} time
-     * @return {boolean}
+     * @param {Number} time
+     * @returns {Boolean}
      */
     move(time) {
         this.fadeIn();
@@ -39,6 +39,7 @@ class EarthquakeAmmo extends Ammo {
 
     /**
      * Makes the ammo fade in
+     * @returns {Void}
      */
     fadeIn() {
         this.opacity += 0.1;

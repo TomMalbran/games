@@ -1,13 +1,13 @@
 /**
- * @extends {Ghost}
  * The Pinky Class
+ * @extends {Ghost}
  */
 class Pinky extends Ghost {
 
     /**
      * The Pinky constructor
      * @param {Canvas}  canvas
-     * @param {?number} dots
+     * @param {?Number} dots
      */
     constructor(canvas, dots) {
         super();
@@ -39,7 +39,7 @@ class Pinky extends Ghost {
 
     /**
      * Returns the Ghost's name
-     * @return {string}
+     * @returns {String}
      */
     static get name() {
         return "Pinky";
@@ -47,7 +47,7 @@ class Pinky extends Ghost {
 
     /**
      * Returns the Ghost's color
-     * @return {string}
+     * @returns {String}
      */
     static get color() {
         return "rgb(255, 153, 153)";
@@ -58,7 +58,7 @@ class Pinky extends Ghost {
     /**
      * Pinky's target is always 4 tiles ahead of the Blob
      * @param {Blob} blob
-     * @return {{x: number, y: number}}
+     * @returns {{x: Number, y: Number}}
      */
     chase(blob) {
         let targetx = blob.getTile().x + 4 * blob.getDir().x,

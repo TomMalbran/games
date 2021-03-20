@@ -17,8 +17,8 @@ class Maps {
 
     /**
      * Transforms a map index to a map name
-     * @param {string} code
-     * @return {string}
+     * @param {String} code
+     * @returns {String}
      */
     codeToMap(code) {
         let map = "classic";
@@ -38,8 +38,9 @@ class Maps {
 
     /**
      * Saves the Map and Level when starting a new game
-     * @param {string} gameMap
-     * @param {number} gameLevel
+     * @param {String} gameMap
+     * @param {Number} gameLevel
+     * @returns {Void}
      */
     saveMap(gameMap, gameLevel) {
         this.gameMap = gameMap;
@@ -49,7 +50,7 @@ class Maps {
 
     /**
      * Returns the currently saved map
-     * @return {string}
+     * @returns {String}
      */
     getMap() {
         return this.storage.get("map");
@@ -57,7 +58,7 @@ class Maps {
 
     /**
      * Returns the currently saved level
-     * @return {number}
+     * @returns {Number}
      */
     getLevel() {
         return this.storage.get("level");
@@ -66,6 +67,7 @@ class Maps {
 
     /**
      * Shows the list of maps to select one
+     * @returns {Void}
      */
     display() {
         let total = 0;
@@ -92,8 +94,9 @@ class Maps {
 
     /**
      * Saves the new Score and Lives for the given map, if is greater than the old one
-     * @param {number} lives
-     * @param {number} score
+     * @param {Number} lives
+     * @param {Number} score
+     * @returns {Void}
      */
     saveScore(lives, score) {
         let old = this.storage.get(`${this.gameMap}.score`),

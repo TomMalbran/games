@@ -1,13 +1,13 @@
 /**
- * @extends {Ghost}
  * The Blinky Class
+ * @extends {Ghost}
  */
 class Blinky extends Ghost {
 
     /**
      * The Blinky constructor
      * @param {Canvas}  canvas
-     * @param {?number} dots
+     * @param {?Number} dots
      */
     constructor(canvas, dots) {
         super();
@@ -38,7 +38,7 @@ class Blinky extends Ghost {
 
     /**
      * Returns the Ghost's name
-     * @return {string}
+     * @returns {String}
      */
     static get name() {
         return "Blinky";
@@ -46,7 +46,7 @@ class Blinky extends Ghost {
 
     /**
      * Returns the Ghost's color
-     * @return {string}
+     * @returns {String}
      */
     static get color() {
         return "rgb(221, 0, 0)";
@@ -56,7 +56,7 @@ class Blinky extends Ghost {
     /**
      * Blinky's target is always the current tile of the Blob
      * @param {Blob} blob
-     * @return {{x: number, y: number}}
+     * @returns {{x: Number, y: Number}}
      */
     chase(blob) {
         return blob.getTile();
@@ -64,7 +64,8 @@ class Blinky extends Ghost {
 
     /**
      * Sets Blinky's "Cruise Elroy" Mode when the number of dots left reaches the target
-     * @param {number} dots
+     * @param {Number} dots
+     * @returns {Void}
      */
     checkElroyDots(dots) {
         if (dots === Data.getLevelData("elroyDotsLeft1") ||
@@ -75,7 +76,7 @@ class Blinky extends Ghost {
 
     /**
      * Returns true when Blinky is in "Cruise Elroy" Mode. Only used for Blinky
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isElroy() {
         return this.activeElroy && this.elroy > 0;
@@ -83,6 +84,7 @@ class Blinky extends Ghost {
 
     /**
      * Makes it possible for Blinky to switch to "Cruise Elroy" Mode
+     * @returns {Void}
      */
     activateElroy() {
         this.activeElroy = true;

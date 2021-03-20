@@ -7,9 +7,9 @@ class Snake {
      * Snake Manager constructor
      * @param {Board}   board
      * @param {Matrix}  matrix
-     * @param {?Array.<{top: number, left: number}>} links
-     * @param {?number} dirTop
-     * @param {?number} dirLeft
+     * @param {?Array.<{top: Number, left: Number}>} links
+     * @param {?Number} dirTop
+     * @param {?Number} dirLeft
      */
     constructor(board, matrix, links, dirTop, dirLeft) {
         this.board      = board;
@@ -34,7 +34,7 @@ class Snake {
 
     /**
      * Moves the snake
-     * @return {string} The result of the movement
+     * @returns {String} The result of the movement
      */
     move() {
         let pos = this.getPosition();
@@ -58,8 +58,9 @@ class Snake {
 
     /**
      * Creates a new Element to the snake
-     * @param {number} top
-     * @param {number} left
+     * @param {Number} top
+     * @param {Number} left
+     * @returns {Void}
      */
     newLink(top, left) {
         this.addLink(this.board.createSnakeElement(), top, left);
@@ -68,8 +69,9 @@ class Snake {
 
     /**
      * Move the last link to head of the snake
-     * @param {number} top
-     * @param {number} left
+     * @param {Number} top
+     * @param {Number} left
+     * @returns {Void}
      */
     moveLink(top, left) {
         let first = this.queue.dequeue();
@@ -82,8 +84,9 @@ class Snake {
     /**
      * Adds a link to the head of the snake
      * @param {DOMElement} element
-     * @param {number}     top
-     * @param {number}     left
+     * @param {Number}     top
+     * @param {Number}     left
+     * @returns {Void}
      */
     addLink(element, top, left) {
         element.style.top  = this.board.getPosition(top);
@@ -100,9 +103,9 @@ class Snake {
 
     /**
      * Change the direction of the snake
-     * @param {number} dirTop
-     * @param {number} dirLeft
-     * @return {boolean} True if the snake changed direction
+     * @param {Number} dirTop
+     * @param {Number} dirLeft
+     * @returns {Boolean} True if the snake changed direction
      */
     turn(dirTop, dirLeft) {
         if (((!this.dirTop && dirTop) || (!this.dirLeft && dirLeft)) && !this.newDir) {
@@ -117,7 +120,7 @@ class Snake {
     /**
      * Turns the snake using the mouse
      * @param {Event} event
-     * @return {boolean} True if the snake changed direction
+     * @returns {Boolean} True if the snake changed direction
      */
     mouseTurn(event) {
         let mouse = Utils.getMousePos(event),
@@ -146,7 +149,7 @@ class Snake {
 
     /**
      * Returns the next position of the last element in the queue
-     * @return {{top: number, left: nuber}}
+     * @returns {{top: Number, left: nuber}}
      */
     getPosition() {
         if (this.queue.isEmpty()) {
@@ -162,7 +165,7 @@ class Snake {
 
     /**
      * Returns the current direction of the snake
-     * @return {{top: number, left: nuber}}
+     * @returns {{top: Number, left: nuber}}
      */
     getDirection() {
         return { top : this.dirTop, left : this.dirLeft };

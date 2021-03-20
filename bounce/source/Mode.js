@@ -14,7 +14,8 @@ class Mode {
 
     /**
      * Gets the Game Mode
-     * @return {string}
+     * @returns {String}
+     * @returns {Void}
      */
     get() {
         return this.mode;
@@ -22,7 +23,8 @@ class Mode {
 
     /**
      * Sets the Game Mode
-     * @param {string} mode
+     * @param {String} mode
+     * @returns {Void}
      */
     set(mode) {
         this.mode = mode;
@@ -31,7 +33,7 @@ class Mode {
 
     /**
      * Returns true if the mode is Speed
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isSpeedMode() {
         return this.mode === "speed";
@@ -39,7 +41,7 @@ class Mode {
 
     /**
      * Returns true if the mode is Random
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isRandomMode() {
         return this.mode === "random";
@@ -47,7 +49,7 @@ class Mode {
 
     /**
      * Returns true if the mode is Bricks
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isBricksMode() {
         return this.mode === "bricks";
@@ -56,7 +58,7 @@ class Mode {
 
     /**
      * Returns the width of the ship depending on the mode
-     * @return {number}
+     * @returns {Number}
      */
     getShipWidth() {
         return this.isBricksMode() ? this.shipBricksWidth : this.shipNormalWidth;

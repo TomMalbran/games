@@ -6,8 +6,8 @@ var Queue = (function () {
     "use strict";
 
     /**
-     * @constructor
      * The Queue Class
+     * @constructor
      */
     function Queue() {
         this.head    = null;
@@ -38,7 +38,7 @@ var Queue = (function () {
 
     /**
      * Dequeues and returns the first item in the Queue. If the Queue is empty it returns null.
-     * @return {?*}
+     * @returns {?*}
      */
     Queue.prototype.dequeue = function () {
         if (this.head) {
@@ -52,7 +52,7 @@ var Queue = (function () {
 
     /**
      * Returns the first element of the queue or null if the Queue is empty
-     * @return {?*}
+     * @returns {?*}
      */
     Queue.prototype.first = function () {
         return this.head ? this.head.data : null;
@@ -60,7 +60,7 @@ var Queue = (function () {
 
     /**
      * Returns the last element of the queue or null if the Queue is empty
-     * @return {?*}
+     * @returns {?*}
      */
     Queue.prototype.last = function () {
         return this.tail ? this.tail.data : null;
@@ -69,7 +69,7 @@ var Queue = (function () {
 
     /**
      * Returns true if the queue is empty, and false otherwise
-     * @return {boolean}
+     * @returns {Boolean}
      */
     Queue.prototype.isEmpty = function () {
         return !this.head;
@@ -77,7 +77,7 @@ var Queue = (function () {
 
     /**
      * Returns the size of the queue
-     * @return {number}
+     * @returns {Number}
      */
     Queue.prototype.size = function () {
         return this.length;
@@ -109,7 +109,7 @@ var Queue = (function () {
 
     /**
      * Returns true if there are more elements after the current one
-     * @return {boolean}
+     * @returns {Boolean}
      */
     Queue.prototype.hasNext = function () {
         return !!this.current;

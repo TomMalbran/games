@@ -8,8 +8,8 @@ class Tetriminos {
      * @param {Board}    board
      * @param {Sound}    sound
      * @param {Score}    score
-     * @param {number}   size
-     * @param {function} onGameOver
+     * @param {Number}   size
+     * @param {Function} onGameOver
      */
     constructor(board, sound, score, size, onGameOver) {
         this.tetriminos = [
@@ -99,7 +99,7 @@ class Tetriminos {
 
     /**
      * Creates a new Tetrimino
-     * @return {Tetrimino}
+     * @returns {Tetrimino}
      */
     createTetrimino() {
         let type = this.getNextType();
@@ -109,7 +109,7 @@ class Tetriminos {
     /**
      * Increase the current pointer and if required it creates a new permutation of the 7 Tetriminos
      * and then it returns the next type
-     * @return {number}
+     * @returns {Number}
      */
     getNextType() {
         if (this.pointer < this.sequence.length - 1) {

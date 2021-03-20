@@ -1,13 +1,13 @@
 /**
- * @extends {Animation}
  * The Game Over Animation
+ * @extends {Animation}
  */
 class GameOverAnimation extends Animation {
 
     /**
      * The Game Over constructor
      * @param {Canvas}   canvas
-     * @param {function} callback
+     * @param {Function} callback
      */
     constructor(canvas, callback) {
         super();
@@ -20,6 +20,7 @@ class GameOverAnimation extends Animation {
 
     /**
      * Does the Game Over animation
+     * @returns {Void}
      */
     animate() {
         let size  = Math.round(this.endTime - this.time) / 700,

@@ -1,6 +1,6 @@
 /**
- * @extends {Mob}
  * The Normal Mob Class
+ * @extends {Mob}
  */
 class NormalMob extends Mob {
 

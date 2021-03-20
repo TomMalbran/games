@@ -5,7 +5,7 @@ class Map {
 
     /**
      * The Map Class
-     * @param {string} gameMap
+     * @param {String} gameMap
      */
     constructor(gameMap) {
         this.mapData = MapsData.maps[gameMap];
@@ -14,7 +14,7 @@ class Map {
 
     /**
      * Returns the amount of paths in the current map
-     * @return {number}
+     * @returns {Number}
      */
     getPathsAmount() {
         return this.mapData.paths;
@@ -22,9 +22,9 @@ class Map {
 
     /**
      * Returns the value in the map matrix at the given position
-     * @param {number} row
-     * @param {number} col
-     * @return {number}
+     * @param {Number} row
+     * @param {Number} col
+     * @returns {Number}
      */
     getMatrixXY(row, col) {
         return this.mapData.matrix[row][col];
@@ -33,7 +33,7 @@ class Map {
 
     /**
      * Returns the Size of a Square in the map
-     * @return {number}
+     * @returns {Number}
      */
     getSquareSize() {
         return MapsData.squareSize;
@@ -41,7 +41,7 @@ class Map {
 
     /**
      * Returns the Amount of columns in a map
-     * @return {number}
+     * @returns {Number}
      */
     getColsAmount() {
         return MapsData.colsAmount;
@@ -49,7 +49,7 @@ class Map {
 
     /**
      * Returns the Amount of rows in a map
-     * @return {number}
+     * @returns {Number}
      */
     getRowsAmount() {
         return MapsData.rowsAmount;
@@ -57,7 +57,7 @@ class Map {
 
     /**
      * Returns the value used for nothing
-     * @return {number}
+     * @returns {Number}
      */
     getNothingValue() {
         return MapsData.nothing;
@@ -65,7 +65,7 @@ class Map {
 
     /**
      * Returns the value used for the walls
-     * @return {number}
+     * @returns {Number}
      */
     getWallsValue() {
         return MapsData.wall;
@@ -73,7 +73,7 @@ class Map {
 
     /**
      * Returns the value used as the ID for the first tower
-     * @return {number}
+     * @returns {Number}
      */
     getTowerStart() {
         return MapsData.towerStart;
@@ -82,8 +82,8 @@ class Map {
 
     /**
      * Returns true if the given value is equal to the start 1 value
-     * @param {number} value
-     * @return {boolean}
+     * @param {Number} value
+     * @returns {Boolean}
      */
     isStart1(value) {
         return value === MapsData.start1;
@@ -91,8 +91,8 @@ class Map {
 
     /**
      * Returns true if the given value is equal to the start 2 value
-     * @param {number} value
-     * @return {boolean}
+     * @param {Number} value
+     * @returns {Boolean}
      */
     isStart2(value) {
         return value === MapsData.start2;
@@ -100,8 +100,8 @@ class Map {
 
     /**
      * Returns true if the given value is equal to the target 1 or 2 value
-     * @param {number} value
-     * @return {boolean}
+     * @param {Number} value
+     * @returns {Boolean}
      */
     isTarget(value) {
         return value === MapsData.target1 || value === MapsData.target2;
@@ -109,8 +109,8 @@ class Map {
 
     /**
      * Returns true if the given value is equal to the target 1 value
-     * @param {number} value
-     * @return {boolean}
+     * @param {Number} value
+     * @returns {Boolean}
      */
     isTarget1(value) {
         return value === MapsData.target1;
@@ -118,8 +118,8 @@ class Map {
 
     /**
      * Returns true if the given value is equal to the target 2 value
-     * @param {number} value
-     * @return {boolean}
+     * @param {Number} value
+     * @returns {Boolean}
      */
     isTarget2(value) {
         return value === MapsData.target2;
@@ -128,7 +128,7 @@ class Map {
 
     /**
      * Returns all the map Walls
-     * @return {Array.<Object>}
+     * @returns {Array.<Object>}
      */
     getWalls() {
         let className,
@@ -165,11 +165,12 @@ class Map {
 
     /**
      * Process the walls to reduce the amount of diva
-     * @param {Array.<Object>} walls
-     * @param {Array.<Array.<number>>} matrix
-     * @param {number} i
-     * @param {number} j
-     * @param {string} cl
+     * @param {Array.<Object>}         walls
+     * @param {Array.<Array.<Number>>} matrix
+     * @param {Number}                 i
+     * @param {Number}                 j
+     * @param {String}                 cl
+     * @returns {Void}
      */
     processWall(walls, matrix, i, j, cl) {
         let id, type;
@@ -209,6 +210,7 @@ class Map {
     /**
      * Process the walls to reduce the amount of diva
      * @param {Array.<Object>} walls
+     * @returns {Void}
      */
     compressWalls(walls) {
         for (let i = 1; i < walls.length; i += 1) {
@@ -231,12 +233,12 @@ class Map {
 
     /**
      * Expands a Wall Horizontally
-     * @param {Array.<Object>} walls
-     * @param {Array.<Array.<number>>} matrix
-     * @param {number} i
-     * @param {number} j
-     * @param {string} cl
-     * @return {boolean}
+     * @param {Array.<Object>}         walls
+     * @param {Array.<Array.<Number>>} matrix
+     * @param {Number}                 i
+     * @param {Number}                 j
+     * @param {String}                 cl
+     * @returns {Boolean}
      */
     expandHorizontal(walls, matrix, i, j, cl) {
         if (matrix[i - 1]) {
@@ -249,11 +251,11 @@ class Map {
     /**
      * Expands a Wall Vertically
      * @param {Array.<Object>} walls
-     * @param {Array.<Array.<number>>} matrix
-     * @param {number} i
-     * @param {number} j
-     * @param {string} cl
-     * @return {boolean}
+     * @param {Array.<Array.<Number>>} matrix
+     * @param {Number} i
+     * @param {Number} j
+     * @param {String} cl
+     * @returns {Boolean}
      */
     expandVertical(walls, matrix, i, j, cl) {
         let id = matrix[i][j - 1];
@@ -264,7 +266,7 @@ class Map {
      * Checks if it can increase the height of the wall
      * @param {Array.<Object>} w1
      * @param {Array.<Object>} w2
-     * @return {boolean}
+     * @returns {Boolean}
      */
     canIncreaseHeight(w1, w2) {
         return w1.cl === w2.cl && w1.width === w2.width && w1.left === w2.left && w1.top + w1.height === w2.top;
@@ -274,7 +276,7 @@ class Map {
      * Checks if it can increase the width of the wall
      * @param {Array.<Object>} w1
      * @param {Array.<Object>} w2
-     * @return {boolean}
+     * @returns {Boolean}
      */
     canIncreaseWidth(w1, w2) {
         return w1.cl === w2.cl && w1.height === w2.height && w1.top === w2.top && w1.left + w1.width === w2.left;
@@ -283,7 +285,7 @@ class Map {
 
     /**
      * Returns the Towers that will be built when starting this map
-     * @return {Array.<{type: string, col: number, row: number, level: number}>}
+     * @returns {Array.<{type: String, col: Number, row: Number, level: Number}>}
      */
     getInitialSetup() {
         let amount = this.storage.get("towers"),
@@ -304,6 +306,7 @@ class Map {
     /**
      * Saves a the given Tower in the map storage for the initial setup
      * @param {Tower} tower
+     * @returns {Void}
      */
     buildTower(tower) {
         this.storage.set(`tower.${tower.getID()}`, {
@@ -318,6 +321,7 @@ class Map {
     /**
      * Upgrades the level of the given Tower in the map storage for the initial setup
      * @param {Tower} tower
+     * @returns {Void}
      */
     upgradeTower(tower) {
         let data = this.storage.get(`tower.${tower.getID()}`);
@@ -330,6 +334,7 @@ class Map {
     /**
      * Removes the given Tower from the map storage for the initial setup
      * @param {Tower} tower
+     * @returns {Void}
      */
     sellTower(tower) {
         this.storage.remove(`tower.${tower.getID()}`);

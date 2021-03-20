@@ -5,7 +5,7 @@ class Board {
 
     /**
      * Board Manager constructor
-     * @param {function} callback
+     * @param {Function} callback
      */
     constructor(callback) {
         this.element  = document.querySelector(".board");
@@ -20,7 +20,8 @@ class Board {
 
     /**
      * Add the event listeners
-     * @param {function} mouseCB
+     * @param {Function} mouseCB
+     * @returns {Void}
      */
     start(mouseCB) {
         this.func = mouseCB;
@@ -29,6 +30,7 @@ class Board {
 
     /**
      * Remove the event listeners
+     * @returns {Void}
      */
     end() {
         this.element.removeEventListener("mousemove", this.func);
@@ -37,7 +39,7 @@ class Board {
 
     /**
      * Returns the width of the board
-     * @return {number}
+     * @returns {Number}
      */
     getWidth() {
         return this.width;
@@ -45,7 +47,7 @@ class Board {
 
     /**
      * Returns the width of the board
-     * @return {number}
+     * @returns {Number}
      */
     getHeight() {
         return this.height;
@@ -53,7 +55,7 @@ class Board {
 
     /**
      * Returns the left position of the board
-     * @return {number}
+     * @returns {Number}
      */
     getLeft() {
         return this.position.left;
@@ -61,7 +63,7 @@ class Board {
 
     /**
      * Returns the boarder width
-     * @return {number}
+     * @returns {Number}
      */
     getBorder() {
         return this.border;

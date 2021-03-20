@@ -5,8 +5,8 @@ class Score {
 
     /**
      * The Score Panel constructor
-     * @param {number}   level
-     * @param {function} onGameOver
+     * @param {Number}   level
+     * @param {Function} onGameOver
      */
     constructor(level, onGameOver) {
         this.level        = Number(level) + 1;
@@ -37,6 +37,7 @@ class Score {
 
     /**
      * Calls the on Game Over function
+     * @returns {Void}
      */
     gameOver() {
         this.onGameOver();
@@ -44,8 +45,9 @@ class Score {
 
     /**
      * Sets the functions that are called when the gold is increased or decreased
-     * @param {function} enable
-     * @param {function} disable
+     * @param {Function} enable
+     * @param {Function} disable
+     * @returns {Void}
      */
     setFunctions(enable, disable) {
         this.enable  = enable;
@@ -54,7 +56,8 @@ class Score {
 
     /**
      * Increases the Gold by the given amount
-     * @param {number} amount
+     * @param {Number} amount
+     * @returns {Void}
      */
     incGold(amount) {
         this.gold += amount;
@@ -64,7 +67,8 @@ class Score {
 
     /**
      * Decreases the Gold by the given amount
-     * @param {number} amount
+     * @param {Number} amount
+     * @returns {Void}
      */
     decGold(amount) {
         this.gold -= amount;
@@ -74,6 +78,7 @@ class Score {
 
     /**
      * Decreases one Life
+     * @returns {Void}
      */
     decLives() {
         this.lives -= 1;
@@ -88,6 +93,7 @@ class Score {
 
     /**
      * Starts the Timer for a new Wave
+     * @returns {Void}
      */
     startTimer() {
         this.addBonus();
@@ -97,8 +103,8 @@ class Score {
 
     /**
      * Decreases the Timer by the given amount
-     * @param {number} time
-     * @return {boolean}
+     * @param {Number} time
+     * @returns {Boolean}
      */
     decTimer(time) {
         this.seconds -= time;
@@ -113,6 +119,7 @@ class Score {
 
     /**
      * Removes the Timer for the last wave
+     * @returns {Void}
      */
     removeTimer() {
         this.timer = "";
@@ -121,7 +128,8 @@ class Score {
 
     /**
      * Increases the Score byt the given amount
-     * @param {number} amount
+     * @param {Number} amount
+     * @returns {Void}
      */
     incScore(amount) {
         this.score += amount;
@@ -130,6 +138,7 @@ class Score {
 
     /**
      * Adds the bonus for calling a new wave before the time ended
+     * @returns {Void}
      */
     addBonus() {
         this.bonus += this.timer;
@@ -137,7 +146,7 @@ class Score {
 
     /**
      * Returns the final Bonus for the Final Score
-     * @return {number}
+     * @returns {Number}
      */
     getBonus() {
         return this.bonus * (this.lives <= 0 ? 0 : 1);
@@ -145,7 +154,7 @@ class Score {
 
     /**
      * Returns the total Score for the Final Score
-     * @return {number}
+     * @returns {Number}
      */
     getTotal() {
         return (this.score + this.lives * this.livesMult + this.getBonus()) * this.level;
@@ -154,6 +163,7 @@ class Score {
 
     /**
      * Sets the Scores
+     * @returns {Void}
      */
     showScores() {
         this.goldElem.innerHTML  = `Gold:  ${this.gold}`;
@@ -164,6 +174,7 @@ class Score {
 
     /**
      * Sets the Final Score
+     * @returns {Void}
      */
     showFinal() {
         this.finalElem.innerHTML = `
@@ -183,7 +194,7 @@ class Score {
 
     /**
      * Returns the current Gold
-     * @return {number}
+     * @returns {Number}
      */
     getGold () {
         return this.gold;
@@ -191,7 +202,7 @@ class Score {
 
     /**
      * Returns the current Lives
-     * @return {number}
+     * @returns {Number}
      */
     getLives() {
         return this.lives;
@@ -199,7 +210,7 @@ class Score {
 
     /**
      * Returns the current Timer
-     * @return {number}
+     * @returns {Number}
      */
     getTimer() {
         return this.timer;
@@ -207,7 +218,7 @@ class Score {
 
     /**
      * Returns the current Score
-     * @return {number}
+     * @returns {Number}
      */
     getScore() {
         return this.score;

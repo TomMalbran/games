@@ -1,6 +1,6 @@
 /**
- * @extends {Animation}
  * The Paused Animation
+ * @extends {Animation}
  */
 class DeathAnimation extends Animation {
 
@@ -8,7 +8,7 @@ class DeathAnimation extends Animation {
      * The Paused Animation constructor
      * @param {Canvas}   canvas
      * @param {Blob}     blob
-     * @param {function} callback
+     * @param {Function} callback
      */
     constructor(canvas, blob, callback) {
         super();
@@ -25,6 +25,7 @@ class DeathAnimation extends Animation {
 
     /**
      * Does the Death animation
+     * @returns {Void}
      */
     animate() {
         let count = Math.round(this.time / 15);

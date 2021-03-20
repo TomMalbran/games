@@ -5,8 +5,8 @@ class Ball {
 
     /**
      * Ball Manager constructor
-     * @param {number} boardWidth
-     * @param {number} boardHeight
+     * @param {Number} boardWidth
+     * @param {Number} boardHeight
      */
     constructor(boardWidth, boardHeight) {
         this.minSpeed    = 8;
@@ -30,6 +30,7 @@ class Ball {
     /**
      * Set the top start position
      * @param {Ship} ship
+     * @returns {Void}
      */
     setStartTop(ship) {
         this.top = Math.round(ship.getPosition().top - this.size);
@@ -39,6 +40,7 @@ class Ball {
     /**
      * Set the left start position
      * @param {Ship} ship
+     * @returns {Void}
      */
     setStartLeft(ship) {
         this.left = Math.round(ship.getPosition().left + (ship.getWidth() - this.size) / 2);
@@ -47,6 +49,7 @@ class Ball {
 
     /**
      * Move the ball when starting
+     * @returns {Void}
      */
     start() {
         this.top -= 1;
@@ -55,7 +58,8 @@ class Ball {
 
     /**
      * Move after starting
-     * @param {number} speed
+     * @param {Number} speed
+     * @returns {Void}
      */
     move(speed) {
         let movey    = this.angle / 90,
@@ -70,7 +74,7 @@ class Ball {
 
     /**
      * If the ball crashed the top wall, change the direction, angle and speed
-     * @return {boolean} True if the ball crashed the top wall
+     * @returns {Boolean} True if the ball crashed the top wall
      */
     topCrash() {
         if (this.top <= 0) {
@@ -82,7 +86,7 @@ class Ball {
 
     /**
      * If the ball crashed the left wall, change the direction, angle and speed
-     * @return {boolean} True if the ball crashed the left wall
+     * @returns {Boolean} True if the ball crashed the left wall
      */
     leftCrash() {
         if (this.left <= 0) {
@@ -94,7 +98,7 @@ class Ball {
 
     /**
      * If the ball crashed the right wall, change the direction, angle and speed
-     * @return {boolean} True if the ball crashed the right wall
+     * @returns {Boolean} True if the ball crashed the right wall
      */
     rightCrash() {
         if (this.left + this.size >= this.boardWidth) {
@@ -106,7 +110,7 @@ class Ball {
 
     /**
      * If the ball went through the bottom wall, game over
-     * @return {boolean} True if the ball went through the bottom wall
+     * @returns {Boolean} True if the ball went through the bottom wall
      */
     bottomCrash() {
         if (this.top + this.size >= this.boardHeight) {
@@ -118,6 +122,7 @@ class Ball {
     /**
      * If the ball crashed the ship, perform the required actions
      * @param {Ship} ship
+     * @returns {Void}
      */
     shipCrash(ship) {
         if (this.onShip(ship)) {
@@ -129,8 +134,8 @@ class Ball {
 
     /**
      * Check if the ball is touching the ship
-     * @param {{top: number, left: number}} shipPos
-     * @return {boolean}
+     * @param {{top: Number, left: Number}} shipPos
+     * @returns {Boolean}
      */
     onShip(ship) {
         let pos    = ship.getPosition(),
@@ -147,6 +152,7 @@ class Ball {
     /**
      * Change the angle
      * @param {Ship} ship
+     * @returns {Void}
      */
     changeAngle(ship) {
         let pos   = this.left + this.size / 2 - ship.getPosition().left,
@@ -167,6 +173,7 @@ class Ball {
 
     /**
      * Increase the speed
+     * @returns {Void}
      */
     accelerate() {
         this.speed += this.speedInc;
@@ -174,6 +181,7 @@ class Ball {
 
     /**
      * Randomly change the angle and speed
+     * @returns {Void}
      */
     randomChange() {
         this.angle = Utils.rand(this.minAngle, this.maxAngle);
@@ -183,7 +191,8 @@ class Ball {
 
     /**
      * Sets the top direction of the ball
-     * @param {number} dir
+     * @param {Number} dir
+     * @returns {Void}
      */
     setDirTop(dir) {
         this.dirTop  = dir;
@@ -191,7 +200,8 @@ class Ball {
 
     /**
      * Sets the left direction of the ball
-     * @param {number} dir
+     * @param {Number} dir
+     * @returns {Void}
      */
     setDirLeft(dir) {
         this.dirLeft = dir;
@@ -200,7 +210,7 @@ class Ball {
 
     /**
      * Returns the position of the ball
-     * @return {{top: number, left: number}}
+     * @returns {{top: Number, left: Number}}
      */
     getPosition() {
         return { top : this.top, left : this.left };
@@ -208,7 +218,7 @@ class Ball {
 
     /**
      * Returns the direction of the ball
-     * @return {{top: number, left: number}}
+     * @returns {{top: Number, left: Number}}
      */
     getDirection() {
         return { top : this.dirTop, left : this.dirLeft };
@@ -216,7 +226,7 @@ class Ball {
 
     /**
      * Returns the size of the ball
-     * @return {number}
+     * @returns {Number}
      */
     getSize() {
         return this.size;

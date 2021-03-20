@@ -20,6 +20,7 @@ class Bricks {
 
     /**
      * Destroys the bricks
+     * @returns {Void}
      */
     destroy() {
         this.removeContent();
@@ -28,6 +29,7 @@ class Bricks {
 
     /**
      * Creates the bricks
+     * @returns {Void}
      */
     create() {
         for (let i = 0; i < this.vertBricks; i += 1) {
@@ -47,8 +49,9 @@ class Bricks {
 
     /**
      * Creates a single brick
-     * @param {number} row
-     * @param {number} column
+     * @param {Number} row
+     * @param {Number} column
+     * @returns {Void}
      */
     createBrick(row, column) {
         let data = { element : document.createElement("DIV") };
@@ -69,7 +72,7 @@ class Bricks {
     /**
      * Check if the Ball crashed any brick and remove it when it did
      * @param {Ball} ball
-     * @return {boolean} True if the ball crashed a brick
+     * @returns {Boolean} True if the ball crashed a brick
      */
     crash(ball) {
         if (ball.getPosition().top > this.bottom) {
@@ -91,8 +94,8 @@ class Bricks {
     /**
      * If the ball crashed the bottom part of the brick, change the ball direction
      * @param {Ball} ball
-     * @param {{element: DOM, top: number, left: number}} brick
-     * @return {boolean} True if the ball crashed the bottom part of the brick
+     * @param {{element: DOM, top: Number, left: Number}} brick
+     * @returns {Boolean} True if the ball crashed the bottom part of the brick
      */
     bottomCrash(ball, brick) {
         let pos = ball.getPosition();
@@ -106,8 +109,8 @@ class Bricks {
     /**
      * If the ball crashed the left part of the brick, change the ball direction
      * @param {Ball} ball
-     * @param {{element: DOM, top: number, left: number}} brick
-     * @return {boolean} True if the ball crashed the left part of the brick
+     * @param {{element: DOM, top: Number, left: Number}} brick
+     * @returns {Boolean} True if the ball crashed the left part of the brick
      */
     leftCrash(ball, brick) {
         let pos  = ball.getPosition(),
@@ -124,8 +127,8 @@ class Bricks {
     /**
      * If the ball crashed the right part of the brick, change the ball direction
      * @param {Ball} ball
-     * @param {{element: DOM, top: number, left: number}} brick
-     * @return {boolean} True if the ball crashed the right part of the brick
+     * @param {{element: DOM, top: Number, left: Number}} brick
+     * @returns {Boolean} True if the ball crashed the right part of the brick
      */
     rightCrash(ball, brick) {
         let pos = ball.getPosition();
@@ -139,8 +142,8 @@ class Bricks {
     /**
      * If the ball crashed the top part of the brick, change the ball direction
      * @param {Ball} ball
-     * @param {{element: DOM, top: number, left: number}} brick
-     * @return {boolean} True if the ball crashed the top part of the brick
+     * @param {{element: DOM, top: Number, left: Number}} brick
+     * @returns {Boolean} True if the ball crashed the top part of the brick
      */
     topCrash(ball, brick) {
         let pos  = ball.getPosition(),
@@ -156,8 +159,9 @@ class Bricks {
 
     /**
      * Destroys a Brick at the given index
-     * @param {{element: DOM, top: number, left: number}} element
-     * @param {number} index
+     * @param {{element: DOM, top: Number, left: Number}} element
+     * @param {Number} index
+     * @returns {Void}
      */
     remove(element, index) {
         this.elements.splice(index, 1);
@@ -175,7 +179,7 @@ class Bricks {
 
     /**
      * Recreate the bricks and reduce the ship width
-     * @return {boolean}
+     * @returns {Boolean}
      */
     restart() {
         if (this.elements.length === 0) {
@@ -188,6 +192,7 @@ class Bricks {
 
     /**
      * Destroys all the bricks
+     * @returns {Void}
      */
     removeContent() {
         this.container.innerHTML = "";
@@ -196,10 +201,10 @@ class Bricks {
 
     /**
      * Check if the given position is inside the given element
-     * @param {number} top
-     * @param {number} left
-     * @param {{element: DOM, top: number, left: number}} element
-     * @return {boolean}
+     * @param {Number} top
+     * @param {Number} left
+     * @param {{element: DOM, top: Number, left: Number}} element
+     * @returns {Boolean}
      */
     isPointInElement(top, left, element) {
         return (

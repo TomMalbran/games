@@ -23,7 +23,7 @@ class MobsManager {
     /**
      * Creates a new Mob with the given type and data and adds it to the list
      * @param {Mob} mob
-     * @return {Mob}
+     * @returns {Mob}
      */
     add(mob) {
         let it = this.list.addLast(mob);
@@ -34,8 +34,8 @@ class MobsManager {
 
     /**
      * Returns the Mob with the given ID, if there is one
-     * @param {number} id
-     * @return {Mob}
+     * @param {Number} id
+     * @returns {Mob}
      */
     get(id) {
         let result = null;
@@ -52,8 +52,9 @@ class MobsManager {
 
     /**
      * Mobs all the Mobs in the list at the given speed
-     * @param {number} time
-     * @param {number} speed
+     * @param {Number} time
+     * @param {Number} speed
+     * @returns {Void}
      */
     moveMobs(time, speed) {
         if (!this.moving.isEmpty()) {
@@ -71,7 +72,7 @@ class MobsManager {
     /**
      * Moves the Mob to a new cell
      * @param {Mob} mob
-     * @return {boolean}
+     * @returns {Boolean}
      */
     moveToNewCell(mob) {
         let pos = mob.getCenterPos(),
@@ -93,7 +94,7 @@ class MobsManager {
     /**
      * Turns the mob, when required
      * @param {Mob} mob
-     * @return {boolean}
+     * @returns {Boolean}
      */
     turnMob(mob) {
         let dir, result = false;
@@ -115,6 +116,7 @@ class MobsManager {
     /**
      * Removes the Mob when it reached the Exit
      * @param {Mob} mob
+     * @returns {Void}
      */
     mobExits(mob) {
         this.parent.score.decLives();
@@ -128,6 +130,7 @@ class MobsManager {
     /**
      * Removes the Mob when it's life is lower or equal to cero
      * @param {Mob} mob
+     * @returns {Void}
      */
     killMob(mob) {
         let gold = mob.getGold();
@@ -158,6 +161,7 @@ class MobsManager {
     /**
      * Adds all the mobs in the array to the create list
      * @param {Array.<Mob>} mobs
+     * @returns {Void}
      */
     addCreate(mobs) {
         mobs.forEach((mob) => {
@@ -168,7 +172,8 @@ class MobsManager {
     /**
      * Iterates through the create list reducing the time of the mobs in it.
      * When the timer of a mob reaches 0, the mob is moved to the moving list
-     * @param {number} time
+     * @param {Number} time
+     * @returns {Void}
      */
     reduceCreate(time) {
         if (!this.creating.isEmpty()) {
@@ -190,6 +195,7 @@ class MobsManager {
     /**
      * Adds all the mobs in the array to the spawn list
      * @param {Array.<Mob>} mobs
+     * @returns {Void}
      */
     addSpawn(mobs) {
         mobs.forEach((mob) => {
@@ -202,7 +208,8 @@ class MobsManager {
      * Iterates through the spawn list moving the mob to the original cell.
      * When it reaches it, the mob is moved to the moving list, and the spawn
      * process for the mob is ended
-     * @param {number} time
+     * @param {Number} time
+     * @returns {Void}
      */
     reduceSpawn(time) {
         if (!this.spawning.isEmpty()) {
@@ -225,6 +232,7 @@ class MobsManager {
     /**
      * Adds all the mobs in the array to the slow list, to slow them for a short period
      * @param {Array.<Mob>} mobs
+     * @returns {Void}
      */
     addSlow(mobs) {
         mobs.forEach((mob) => {
@@ -240,7 +248,8 @@ class MobsManager {
      * Iterates through the slow list reducing the time of the slow event.
      * When the time reaches 0, the mob
      * goes back to it's normal speed
-     * @param {number} time
+     * @param {Number} time
+     * @returns {Void}
      */
     reduceSlow(time) {
         if (!this.slowed.isEmpty()) {
@@ -261,7 +270,8 @@ class MobsManager {
     /**
      * Adds all the mobs in the array to the stun list, to stun them for a short period
      * @param {Array.<Mob>} mobs
-     * @param {Tower} tower
+     * @param {Tower}       tower
+     * @returns {Void}
      */
     addStun(mobs, tower) {
         mobs.forEach((mob) => {
@@ -276,7 +286,8 @@ class MobsManager {
      * Iterates through the stun list reducing the time of the stun event.
      * When the time reaches 0, the mob
      * goes starts moving again
-     * @param {number} time
+     * @param {Number} time
+     * @returns {Void}
      */
     reduceStun(time) {
         if (!this.stunned.isEmpty()) {
@@ -297,7 +308,8 @@ class MobsManager {
     /**
      * Adds all the mobs in the array to the bleed list, to make them bleed for a short period
      * @param {Array.<Mob>} mobs
-     * @param {number} damage
+     * @param {Number}      damage
+     * @returns {Void}
      */
     addBleed(mobs, damage) {
         mobs.forEach((mob) => {
@@ -314,7 +326,8 @@ class MobsManager {
      * Iterates through the bleed list reducing the time of the bleed events.
      * When all the bleeding times reached 0, the mob stops bleeding. If it dies before,
      * the mob is removed
-     * @param {number} time
+     * @param {Number} time
+     * @returns {Void}
      */
     reduceBleed(time) {
         if (!this.bleeding.isEmpty()) {
@@ -340,7 +353,7 @@ class MobsManager {
 
     /**
      * Returns true if there are no Mobs in the Game
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isEmpty() {
         return this.list.isEmpty();
@@ -348,7 +361,7 @@ class MobsManager {
 
     /**
      * Returns the next ID for a new Mob
-     * @return {number}
+     * @returns {Number}
      */
     getNextID() {
         return this.id;
@@ -356,7 +369,7 @@ class MobsManager {
 
     /**
      * Returns the list with all the Mobs
-     * @return {List.<Mob>}
+     * @returns {List.<Mob>}
      */
     getList() {
         return this.list;
@@ -364,7 +377,7 @@ class MobsManager {
 
     /**
      * Returns the list with the Mobs that are moving
-     * @return {List.<Iterator>}
+     * @returns {List.<Iterator>}
      */
     getMovingMobs() {
         return this.moving;

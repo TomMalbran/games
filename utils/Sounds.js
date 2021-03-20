@@ -3,7 +3,7 @@ var Sounds = (function () {
 
     /**
      * Returns true if the browser supports Audio
-     * @return {boolean}
+     * @returns {Boolean}
      */
     function supportsAudio() {
         return !!document.createElement("audio").canPlayType;
@@ -11,7 +11,7 @@ var Sounds = (function () {
 
     /**
      * Returns true if the browser supports MP3 Audio
-     * @return {boolean}
+     * @returns {Boolean}
      */
     function supportsMP3() {
         var a = document.createElement("audio");
@@ -20,7 +20,7 @@ var Sounds = (function () {
 
     /**
      * Returns true if the browser supports OGG Audio
-     * @return {boolean}
+     * @returns {Boolean}
      */
     function supportsOGG() {
         var a = document.createElement("audio");
@@ -30,11 +30,11 @@ var Sounds = (function () {
 
 
     /**
-     * @constructor
      * Sound Controller
-     * @param {Array.<string>} soundFiles - An array of sound names to use
-     * @param {string} storageName - The name of the storage
-     * @param {boolean} usesElement - True if it uses elements
+     * @constructor
+     * @param {Array.<String>} soundFiles - An array of sound names to use
+     * @param {String} storageName - The name of the storage
+     * @param {Boolean} usesElement - True if it uses elements
      */
     function Sounds(soundFiles, storageName, usesElement) {
         this.data   = new Storage(storageName, true);
@@ -57,6 +57,7 @@ var Sounds = (function () {
 
     /**
      * Create all the Sound Functions
+     * @returns {Void}
      */
     Sounds.prototype.setSounds = function (soundFiles) {
         var audio, self = this;
@@ -73,7 +74,8 @@ var Sounds = (function () {
 
     /**
      * Mute/Unmute the sound
-     * @param {boolean} mute
+     * @param {Boolean} mute
+     * @returns {Void}
      */
     Sounds.prototype.toggle = function (mute) {
         this.mute = mute !== undefined ? mute : !this.mute;
@@ -83,6 +85,7 @@ var Sounds = (function () {
 
     /**
      * Used to mute the sound for a short period
+     * @returns {Void}
      */
     Sounds.prototype.startMute = function () {
         this.old = this.mute;
@@ -91,6 +94,7 @@ var Sounds = (function () {
 
     /**
      * Resets the Mute to the original value
+     * @returns {Void}
      */
     Sounds.prototype.endMute = function () {
         this.toggle(this.old);
@@ -98,7 +102,7 @@ var Sounds = (function () {
 
     /**
      * Returns true if the sound is off and false if is on
-     * @return {boolean}
+     * @returns {Boolean}
      */
     Sounds.prototype.isMute = function () {
         return this.mute;
@@ -106,6 +110,7 @@ var Sounds = (function () {
 
     /**
      * Sets the display of the sound waves
+     * @returns {Void}
      */
     Sounds.prototype.setDisplay = function () {
         if (this.waves) {

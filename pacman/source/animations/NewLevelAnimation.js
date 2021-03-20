@@ -1,14 +1,14 @@
 /**
- * @extends {Animation}
  * The New Level Animation
+ * @extends {Animation}
  */
 class NewLevelAnimation extends Animation {
 
     /**
      * The New Level Animation constructor
      * @param {Canvas}   canvas
-     * @param {number}   level
-     * @param {function} callback
+     * @param {Number}   level
+     * @param {Function} callback
      */
     constructor(canvas, level, callback) {
         super();
@@ -26,6 +26,7 @@ class NewLevelAnimation extends Animation {
 
     /**
      * Does the New Level animation
+     * @returns {Void}
      */
     animate() {
         let calc  = Math.round(this.time * 0.03),

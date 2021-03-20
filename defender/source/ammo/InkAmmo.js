@@ -1,6 +1,6 @@
 /**
- * @extends {Ammo}
  * The Ink Ammo Class
+ * @extends {Ammo}
  */
 class InkAmmo extends Ammo {
 
@@ -8,7 +8,7 @@ class InkAmmo extends Ammo {
      * The Ink Ammo constructor
      * @param {Tower} tower
      * @param {Array} targets
-     * @param {number} boardSize
+     * @param {Number} boardSize
      */
     constructor(tower, targets, boardSize) {
         super();
@@ -23,8 +23,8 @@ class InkAmmo extends Ammo {
 
     /**
      * Moves the ammo according to the given time. Returns true if it reached the target
-     * @param {number} time
-     * @return {boolean}
+     * @param {Number} time
+     * @returns {Boolean}
      */
     move(time) {
         this.changeAngle();

@@ -29,6 +29,7 @@ class Builder {
 
     /**
      * Creates the event handlers and adds them
+     * @returns {Void}
      */
     addListeners() {
         this.selectHandler  = this.selectEvent.bind(this);
@@ -45,6 +46,7 @@ class Builder {
 
     /**
      * Removes the events listeners
+     * @returns {Void}
      */
     removeListeners() {
         document.removeEventListener("mousemove",    this.dragHandler);
@@ -57,6 +59,7 @@ class Builder {
     /**
      * The select Tower listener
      * @param {Event} event
+     * @returns {Void}
      */
     selectEvent(event) {
         if (event.target.classList.contains("towerBuild")) {
@@ -67,6 +70,7 @@ class Builder {
     /**
      * The preview Tower listener
      * @param {Event} event
+     * @returns {Void}
      */
     previewEvent(event) {
         if (event.target.classList.contains("towerBuild")) {
@@ -77,6 +81,7 @@ class Builder {
     /**
      * The hide Tower listener
      * @param {Event} event
+     * @returns {Void}
      */
     hideEvent(event) {
         if (event.target.classList.contains("towerBuild")) {
@@ -88,6 +93,7 @@ class Builder {
     /**
      * Shows the Tower Description
      * @param {DOMElement} element
+     * @returns {Void}
      */
     showPreview(element) {
         if (!this.selected && !this.parent.selection.hasSelected()) {
@@ -97,6 +103,7 @@ class Builder {
 
     /**
      * Hides the Tower Description
+     * @returns {Void}
      */
     hidePreview() {
         if (!this.selected && !this.parent.selection.hasSelected()) {
@@ -109,6 +116,7 @@ class Builder {
      * Selects a new tower to build from a Dom Element, or it ends the builder
      * if the selected tower is the currently selected one
      * @param {DOMElement} element
+     * @returns {Void}
      */
     selectByElement(element) {
         if (this.selected !== element) {
@@ -120,7 +128,8 @@ class Builder {
 
     /**
      * Selects a new tower to build from a number
-     * @param {number} type
+     * @param {Number} type
+     * @returns {Void}
      */
     selectByType(type) {
         let selects = this.getTowersElems();
@@ -132,6 +141,7 @@ class Builder {
     /**
      * Picks the tower and starts the Dragging
      * @param {DOMElement} element
+     * @returns {Void}
      */
     pick(element) {
         if (this.selected) {
@@ -152,6 +162,7 @@ class Builder {
 
     /**
      * Drops the tower endind the drag and building process
+     * @returns {Void}
      */
     drop() {
         if (this.selected) {
@@ -164,6 +175,7 @@ class Builder {
     /**
      * Drags the Tower around the board
      * @param {Event} event
+     * @returns {Void}
      */
     drag(event) {
         if (this.selected) {
@@ -188,8 +200,9 @@ class Builder {
 
     /**
      * Moves the Tower using the keayboard
-     * @param {number} deltaX
-     * @param {number} deltaY
+     * @param {Number} deltaX
+     * @param {Number} deltaY
+     * @returns {Void}
      */
     move(deltaX, deltaY) {
         if (this.row === null || this.col === null) {
@@ -201,6 +214,7 @@ class Builder {
 
     /**
      * Updates the can build property while playing the game
+     * @returns {Void}
      */
     updateBuild() {
         if (this.selected) {
@@ -211,8 +225,9 @@ class Builder {
 
     /**
      * Sets the position of the tower on drag
-     * @param {number} row
-     * @param {number} col
+     * @param {Number} row
+     * @param {Number} col
+     * @returns {Void}
      */
     setPosition(row, col) {
         this.row      = row;
@@ -231,6 +246,7 @@ class Builder {
 
     /**
      * Sets the classes on the bluiding element
+     * @returns {Void}
      */
     setClass() {
         if (this.canBuild && this.canPay) {
@@ -242,6 +258,7 @@ class Builder {
 
     /**
      * Adds the valid class and removes the invalid one
+     * @returns {Void}
      */
     setValidClass() {
         this.building.classList.add("valid");
@@ -250,6 +267,7 @@ class Builder {
 
     /**
      * Adds the invalid class and removes the valid one
+     * @returns {Void}
      */
     setInvalidClass() {
         this.building.classList.add("invalid");
@@ -259,6 +277,7 @@ class Builder {
 
     /**
      * It builds the tower
+     * @returns {Void}
      */
     build() {
         if (this.canBuild && this.canPay) {
@@ -275,7 +294,8 @@ class Builder {
 
     /**
      * Enables the Towers that can be build depending on the amount of gold
-     * @param {number} gold
+     * @param {Number} gold
+     * @returns {Void}
      */
     enableBuilds(gold) {
         let selects = this.getTowersElems();
@@ -297,7 +317,8 @@ class Builder {
 
     /**
      * Disables the Towers that can't be build depending on the amount of gold
-     * @param {number} gold
+     * @param {Number} gold
+     * @returns {Void}
      */
     disableBuilds(gold) {
         let selects = this.getTowersElems();
@@ -319,6 +340,7 @@ class Builder {
 
     /**
      * Initializes the building element
+     * @returns {Void}
      */
     initBuildingElem() {
         this.building.classList.remove(`towerRange${Math.floor(this.range)}`);
@@ -333,8 +355,8 @@ class Builder {
 
     /**
      * Transform a cell number to a px position
-     * @param {number} cell
-     * @return {number}
+     * @param {Number} cell
+     * @returns {Number}
      */
     cellToPx(pos) {
         let center = (this.size * this.parent.board.getSize()) / 2;
@@ -343,7 +365,7 @@ class Builder {
 
     /**
      * Returns the Towers Element
-     * @return {Array.<DOMElement>}
+     * @returns {Array.<DOMElement>}
      */
     getTowersElems() {
         return this.towers.querySelectorAll(".towerBuild");
@@ -351,7 +373,7 @@ class Builder {
 
     /**
      * Returns true if there is a Tower selected
-     * @return {boolean}
+     * @returns {Boolean}
      */
     hasSelected() {
         return this.selected !== null;

@@ -154,7 +154,7 @@
 
     /**
      * Creates the shortcuts functions
-     * @return {Object}
+     * @returns {Object}
      */
     function getShortcuts() {
         return {

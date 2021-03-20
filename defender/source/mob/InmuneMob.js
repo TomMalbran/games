@@ -1,6 +1,6 @@
 /**
- * @extends {Mob}
  * The Inmune Mob Class
+ * @extends {Mob}
  */
 class InmuneMob extends Mob {
 

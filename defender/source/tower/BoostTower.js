@@ -1,15 +1,15 @@
 /**
- * @extends {Tower}
  * The Boost Tower Class
+ * @extends {Tower}
  */
 class BoostTower extends Tower {
 
     /**
      * The Boost Tower constructor
-     * @param {number} id
-     * @param {number} row
-     * @param {number} col
-     * @param {number} boardSize
+     * @param {Number} id
+     * @param {Number} row
+     * @param {Number} col
+     * @param {Number} boardSize
      */
     constructor(id, row, col, boardSize) {
         super();

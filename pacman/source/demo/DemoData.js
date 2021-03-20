@@ -4,7 +4,7 @@ var DemoData = (function () {
     return {
         /**
          * Returns the list of animations
-         * @return {Array.<string>}
+         * @returns {Array.<String>}
          */
         get animations() {
             return [ "title", "chase", "frighten", "present" ];
@@ -13,7 +13,7 @@ var DemoData = (function () {
 
         /**
          * Returns the title data
-         * @return {Object}
+         * @returns {Object}
          */
         get title() {
             return {
@@ -30,7 +30,7 @@ var DemoData = (function () {
 
         /**
          * Returns the chase data
-         * @return {Object}
+         * @returns {Object}
          */
         get chase() {
             return {
@@ -46,7 +46,7 @@ var DemoData = (function () {
 
         /**
          * Returns the frighten data
-         * @return {Object}
+         * @returns {Object}
          */
         get frighten() {
             return {
@@ -59,7 +59,7 @@ var DemoData = (function () {
 
         /**
          * Returns the present data
-         * @return {Object}
+         * @returns {Object}
          */
         get present() {
             return {

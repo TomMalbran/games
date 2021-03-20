@@ -444,7 +444,7 @@ let Data = (function (){
             enterPen : eyesSpeed
         };
 
-    /** @type {number} the current game level */
+    /** @type {Number} the current game level */
     let gameLevel = 1;
 
 
@@ -454,7 +454,7 @@ let Data = (function (){
     return {
         /**
          * Sets the game level
-         * @param {number} level
+         * @param {Number} level
          */
         set level(level) {
             gameLevel = level;
@@ -463,7 +463,7 @@ let Data = (function (){
 
         /**
          * The amount of time a fruit stays in the board
-         * @return {number}
+         * @returns {Number}
          */
         get fruitTime() {
             return Math.round(Math.random() * 1000) + 9000;
@@ -471,7 +471,7 @@ let Data = (function (){
 
         /**
          * The amount of dots left before showing the fruit
-         * @return {number}
+         * @returns {Number}
          */
         get fruitDots1() {
             return fruitDots1;
@@ -479,7 +479,7 @@ let Data = (function (){
 
         /**
          * The amount of dots left before showing the fruit
-         * @return {number}
+         * @returns {Number}
          */
         get fruitDots2() {
             return fruitDots2;
@@ -487,7 +487,7 @@ let Data = (function (){
 
         /**
          * The value for the energizer
-         * @return {number}
+         * @returns {Number}
          */
         get energizerValue() {
             return energizerValue;
@@ -495,7 +495,7 @@ let Data = (function (){
 
         /**
          * The value for the pill
-         * @return {number}
+         * @returns {Number}
          */
         get pillValue() {
             return pillValue;
@@ -504,7 +504,7 @@ let Data = (function (){
 
         /**
          * The score required for each extra life
-         * @return {number}
+         * @returns {Number}
          */
         get extraLife() {
             return extraLife;
@@ -512,7 +512,7 @@ let Data = (function (){
 
         /**
          * Returns the pills multiplier
-         * @return {number}
+         * @returns {Number}
          */
         get pillMult() {
             return pillMult;
@@ -520,7 +520,7 @@ let Data = (function (){
 
         /**
          * Returns the eves bonus score
-         * @return {number}
+         * @returns {Number}
          */
         get eyesBonus() {
             return eyesBonus;
@@ -528,7 +528,7 @@ let Data = (function (){
 
         /**
          * Returns the total amount of Ghost's mode switchs
-         * @return {number}
+         * @returns {Number}
          */
         get totalSwitchs() {
             return totalSwitchs;
@@ -536,7 +536,7 @@ let Data = (function (){
 
         /**
          * Returns the Ghost's blink time
-         * @return {number}
+         * @returns {Number}
          */
         get blinksTimer() {
             return blinksTimer;
@@ -544,7 +544,7 @@ let Data = (function (){
 
         /**
          * Returns the Ghost's eyes mode speed
-         * @return {number}
+         * @returns {Number}
          */
         get eyesSpeed() {
             return eyesSpeed;
@@ -553,8 +553,8 @@ let Data = (function (){
 
         /**
          * Returns the value asociated with the given key for the current level
-         * @param {string} variable
-         * @return {(number|string|Array.<number>)}
+         * @param {String} variable
+         * @returns {(Number|String|Array.<Number>)}
          */
         getLevelData(variable) {
             var level = Math.min(gameLevel - 1, levelsData.length - 1),
@@ -569,7 +569,7 @@ let Data = (function (){
 
         /**
          * Returns the fruit name for the current level
-         * @return {string}
+         * @returns {String}
          */
         getFruitName() {
             return fruitNames[Data.getLevelData("fruitType") - 1];
@@ -577,7 +577,7 @@ let Data = (function (){
 
         /**
          * Returns the Pen Force time in miliseconds
-         * @return {number}
+         * @returns {Number}
          */
         getPenForceTime() {
             return Data.getLevelData("penForceTime") * 1000;
@@ -585,8 +585,8 @@ let Data = (function (){
 
         /**
          * Returns the switch time at the given mode in miliseconds
-         * @param {number} mode
-         * @return {number}
+         * @param {Number} mode
+         * @returns {Number}
          */
         getSwitchTime(mode) {
             return Data.getLevelData("switchTimes")[mode] * 1000;
@@ -594,7 +594,7 @@ let Data = (function (){
 
         /**
          * Returns the Fright time in miliseconds
-         * @return {number}
+         * @returns {Number}
          */
         getFrightTime() {
             return Data.getLevelData("frightTime") * 1000;
@@ -602,7 +602,7 @@ let Data = (function (){
 
         /**
          * Returns the amount of switchs when blinking in fright mode
-         * @return {number}
+         * @returns {Number}
          */
         getBlinks() {
             return Data.getLevelData("frightBlinks") * 2;
@@ -610,8 +610,8 @@ let Data = (function (){
 
         /**
          * Returns the ghost speed
-         * @param {boolean} inPen
-         * @return {number}
+         * @param {Boolean} inPen
+         * @returns {Number}
          */
         getGhostSpeed(inPen) {
             return inPen ? inPenSpeed : Data.getLevelData("ghostSpeed");
@@ -619,8 +619,8 @@ let Data = (function (){
 
         /**
          * Returns the ghost speed inside a path
-         * @param {string} path
-         * @return {number}
+         * @param {String} path
+         * @returns {Number}
          */
         getPathSpeed(path) {
             return pathSpeeds[path];
@@ -628,8 +628,8 @@ let Data = (function (){
 
         /**
          * Returns the Score for a dead Ghost
-         * @param {number} amount
-         * @return {number}
+         * @param {Number} amount
+         * @returns {Number}
          */
         getGhostScore(amount) {
             return Math.pow(2, amount) * 100;
@@ -637,8 +637,8 @@ let Data = (function (){
 
         /**
          * Returns the amount of dots required before exiting the Pen for the given ghost
-         * @param {number} ghost
-         * @return {number}
+         * @param {Number} ghost
+         * @returns {Number}
          */
         getPenDotsCount(ghost) {
             return penDotsCount[ghost];
@@ -646,8 +646,8 @@ let Data = (function (){
 
         /**
          * Returns true if the given mode is Frighten
-         * @param {number} mode
-         * @return {boolean}
+         * @param {Number} mode
+         * @returns {Boolean}
          */
         isFrighten(mode) {
             return mode === "blue" || mode === "white";

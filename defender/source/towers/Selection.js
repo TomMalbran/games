@@ -33,6 +33,7 @@ class Selection {
     /**
      * Does the actual selection of the given Tower
      * @param {Tower} tower
+     * @returns {Void}
      */
     pick(tower) {
         if ((this.tower && this.tower.getID() !== tower.getID()) || !this.tower) {
@@ -51,7 +52,8 @@ class Selection {
 
     /**
      * Unselects the currently selected tower if its ID is the same as the given one
-     * @param {number} ID
+     * @param {Number} id
+     * @returns {Void}
      */
     trash(id) {
         if (this.tower && this.tower.getID() === id) {
@@ -61,6 +63,7 @@ class Selection {
 
     /**
      * Unselects the currently selected tower, if there is one slected
+     * @returns {Void}
      */
     drop() {
         if (this.tower) {
@@ -73,6 +76,7 @@ class Selection {
 
     /**
      * Select the First Tower of the list
+     * @returns {Void}
      */
     first() {
         this.drop();
@@ -81,6 +85,7 @@ class Selection {
 
     /**
      * Selects the Last Tower of the list
+     * @returns {Void}
      */
     last() {
         this.drop();
@@ -89,7 +94,8 @@ class Selection {
 
     /**
      * Selects the Next/Prev Tower. >0 for next, <0 for prev
-     * @param {number} add
+     * @param {Number} add
+     * @returns {Void}
      */
     nextPrev(add) {
         let ids   = Object.keys(this.parent.manager.getList()),
@@ -104,7 +110,8 @@ class Selection {
 
     /**
      * Shows the Tower Description
-     * @param {?number} id
+     * @param {?Number} id
+     * @returns {Void}
      */
     showDescription(id) {
         if (this.tower && (this.tower.getID() === id || !id)) {
@@ -114,7 +121,8 @@ class Selection {
 
     /**
      * Hides the Tower Description
-     * @param {?number} id
+     * @param {?Number} id
+     * @returns {Void}
      */
     hideDescription(id) {
         if (this.tower && (this.tower.getID() === id || !id)) {
@@ -125,7 +133,8 @@ class Selection {
 
     /**
      * Enables the Towers Upgrades from the Description
-     * @param {number} gold
+     * @param {Number} gold
+     * @returns {Void}
      */
     enableUpgrades(gold) {
         if (this.tower && this.tower.getUpgradeCost() <= gold) {
@@ -135,7 +144,8 @@ class Selection {
 
     /**
      * Disable the Towers Upgrades from the Description
-     * @param {number} gold
+     * @param {Number} gold
+     * @returns {Void}
      */
     disableUpgrades(gold) {
         if (this.tower && this.tower.getUpgradeCost() > gold) {
@@ -146,7 +156,7 @@ class Selection {
 
     /**
      * Returns true if a Tower is selected
-     * @return {boolean}
+     * @returns {Boolean}
      */
     hasSelected() {
         return this.tower !== null;
@@ -154,7 +164,7 @@ class Selection {
 
     /**
      * Returns the selected Tower
-     * @return {Tower}
+     * @returns {Tower}
      */
     getTower() {
         return this.tower;

@@ -25,7 +25,7 @@ class Display {
 
     /**
      * Gets the Game Display
-     * @return {string}
+     * @returns {String}
      */
     get() {
         return this.display;
@@ -33,8 +33,8 @@ class Display {
 
     /**
      * Sets the Game Display
-     * @param {string} display
-     * @return {Display}
+     * @param {String} display
+     * @returns {Display}
      */
     set(display) {
         this.display = display;
@@ -61,7 +61,7 @@ class Display {
 
     /**
      * Returns true if the display is in the main screen
-     * @return {boolean}
+     * @returns {Boolean}
      */
     inMainScreen() {
         return this.display === "mainScreen";
@@ -69,7 +69,7 @@ class Display {
 
     /**
      * Returns true if the display is in playing mode
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isPlaying() {
         return this.display === "playing";
@@ -77,7 +77,7 @@ class Display {
 
     /**
      * Returns true if the display is in paused mode
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isPaused() {
         return this.display === "paused";

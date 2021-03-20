@@ -1,13 +1,13 @@
 /**
- * @extends {Ghost}
  * The Clyde Class
+ * @extends {Ghost}
  */
 class Clyde extends Ghost {
 
     /**
      * The Clyde constructor
      * @param {Canvas}  canvas
-     * @param {?number} dots
+     * @param {?Number} dots
      */
     constructor(canvas, dots) {
         super();
@@ -41,7 +41,7 @@ class Clyde extends Ghost {
 
     /**
      * Returns the Ghost's name
-     * @return {string}
+     * @returns {String}
      */
     static get name() {
         return "Clyde";
@@ -49,7 +49,7 @@ class Clyde extends Ghost {
 
     /**
      * Returns the Ghost's color
-     * @return {string}
+     * @returns {String}
      */
     static get color() {
         return "rgb(255, 153, 0)";
@@ -59,7 +59,7 @@ class Clyde extends Ghost {
     /**
      * Clyde's target is the Blob possition if is further away and the Scatter if is closer
      * @param {Blob} blob
-     * @return {{x: number, y: number}}
+     * @returns {{x: Number, y: Number}}
      */
     chase(blob) {
         let x = Math.pow(this.tile.x - blob.getTile().x, 2),

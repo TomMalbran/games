@@ -21,6 +21,7 @@ class Demo {
 
     /**
      * Destroys the current Demo and leaves it ready for the next start
+     * @returns {Void}
      */
     destroy() {
         this.step    = -1;
@@ -33,8 +34,9 @@ class Demo {
 
     /**
      * Calls the animation the demo is at
-     * @param {number} time
-     * @param {number} speed
+     * @param {Number} time
+     * @param {Number} speed
+     * @returns {Void}
      */
     animate(time, speed) {
         switch (this.name) {
@@ -55,6 +57,7 @@ class Demo {
 
     /**
      * Jumps to the next animation in the demo
+     * @returns {Void}
      */
     nextAnimation() {
         this.step  = this.step === DemoData.animations.length - 1 ? 1 : this.step + 1;
@@ -77,7 +80,8 @@ class Demo {
 
     /**
      * The Title Animation
-     * @param {number} time
+     * @param {Number} time
+     * @returns {Void}
      */
     titleAnimation(time) {
         this.timer += time;
@@ -97,6 +101,7 @@ class Demo {
 
     /**
      * Draws the Pacman title
+     * @returns {Void}
      */
     drawTitle() {
         const left  = Board.tileToPos(DemoData.title.leftText);
@@ -114,6 +119,7 @@ class Demo {
 
     /**
      * Initializes the Players for the Chase animation
+     * @returns {Void}
      */
     initChase() {
         const size = Board.tileSize;
@@ -132,6 +138,7 @@ class Demo {
 
     /**
      * Creates the Blob and the Ghosts
+     * @returns {Void}
      */
     createPlayers() {
         this.blob   = new DemoBlob();
@@ -145,7 +152,8 @@ class Demo {
 
     /**
      * The Chase Animation
-     * @param {number} speed
+     * @param {Number} speed
+     * @returns {Void}
      */
     chaseAnimation(speed) {
         this.animatePlayers(speed, true);
@@ -158,6 +166,7 @@ class Demo {
 
     /**
      * Initializes the Players for the Frighten animation
+     * @returns {Void}
      */
     initFrighten() {
         const speed = Data.getLevelData("ghostFrightSpeed") * DemoData.frighten.speedMult;
@@ -175,8 +184,9 @@ class Demo {
 
     /**
      * The Frighten Animation
-     * @param {number} time
-     * @param {number} speed
+     * @param {Number} time
+     * @param {Number} speed
+     * @returns {Void}
      */
     frightenAnimation(time, speed) {
         this.animatePlayers(speed);
@@ -203,7 +213,8 @@ class Demo {
 
     /**
      * Draws the Scores in the Canvas
-     * @param {number} time
+     * @param {Number} time
+     * @returns {Void}
      */
     drawScores(time) {
         this.scores.forEach((score, index) => {
@@ -221,6 +232,7 @@ class Demo {
 
     /**
      * Initializes the Players for the Present animation
+     * @returns {Void}
      */
     initPresent() {
         this.blob = null;
@@ -238,8 +250,9 @@ class Demo {
 
     /**
      * The Present Animation
-     * @param {number} time
-     * @param {number} speed
+     * @param {Number} time
+     * @param {Number} speed
+     * @returns {Void}
      */
     presentAnimation(time, speed) {
         if (this.timer <= 0) {
@@ -269,6 +282,7 @@ class Demo {
     /**
      * Draws the Name of the given Ghost
      * @param {Ghost} ghost
+     * @returns {Void}
      */
     drawName(ghost) {
         this.canvas.drawText({
@@ -282,8 +296,9 @@ class Demo {
 
     /**
      * Animates all the players
-     * @param {number}   speed
-     * @param {?boolean} food
+     * @param {Number}   speed
+     * @param {?Boolean} food
+     * @returns {Void}
      */
     animatePlayers(speed, food) {
         this.canvas.clearSavedRects();

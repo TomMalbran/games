@@ -1,15 +1,15 @@
 /**
- * @extends {Tower}
  * The Earthquake Tower Class
+ * @extends {Tower}
  */
 class EarthquakeTower extends Tower {
 
     /**
      * The Earthquake Tower constructor
-     * @param {number} id
-     * @param {number} row
-     * @param {number} col
-     * @param {number} boardSize
+     * @param {Number} id
+     * @param {Number} row
+     * @param {Number} col
+     * @param {Number} boardSize
      */
     constructor(id, row, col, boardSize) {
         super();
@@ -34,7 +34,7 @@ class EarthquakeTower extends Tower {
     /**
      * Creates a new Ammo
      * @param {Array.<Mob>} targets
-     * @return {EarthquakeAmmo}
+     * @returns {EarthquakeAmmo}
      */
     createAmmo(targets) {
         return new EarthquakeAmmo(this, targets, this.boardSize);
@@ -46,7 +46,7 @@ class EarthquakeTower extends Tower {
      * Returns a list of Mobs in the range of the tower
      * @param {List.<Iterator>} mobs
      * @param {Mob} mob
-     * @return {Array.<Array.<Mob>>}
+     * @returns {Array.<Array.<Mob>>}
      */
     getTargets(mobs, mob) {
         return [ this.getRangeTargets(mobs) ];
@@ -55,7 +55,7 @@ class EarthquakeTower extends Tower {
     /**
      * Returns true if the given Mob is a valid target
      * @param {Mob} mob
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isValidTarget(mob) {
         return !mob.isFlyer();
@@ -63,7 +63,7 @@ class EarthquakeTower extends Tower {
 
     /**
      * Returns true if it will stun a mob
-     * @return {boolean}
+     * @returns {Boolean}
      */
     shouldStun() {
         return Utils.rand(1, 6) === 3;

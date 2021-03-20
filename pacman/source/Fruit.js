@@ -14,7 +14,8 @@ class Fruit {
 
     /**
      * Try to add a fruit in the board
-     * @param {number} dotsLeft
+     * @param {Number} dotsLeft
+     * @returns {Void}
      */
     add(dotsLeft) {
         if (dotsLeft === Data.fruitDots1 || dotsLeft === Data.fruitDots2) {
@@ -25,7 +26,8 @@ class Fruit {
 
     /**
      * Reduces the fruit timer when there is one
-     * @param {number} time
+     * @param {Number} time
+     * @returns {Void}
      */
     reduceTimer(time) {
         if (this.timer > 0) {
@@ -38,6 +40,7 @@ class Fruit {
 
     /**
      * Eats the Fruit
+     * @returns {Void}
      */
     eat() {
         this.clear();
@@ -46,8 +49,8 @@ class Fruit {
 
     /**
      * Returns true if the given tile is at the fruit position
-     * @param {{x: number, y: number}}
-     * @return {boolean}
+     * @param {{x: Number, y: Number}}
+     * @returns {Boolean}
      */
     isAtPos(tile) {
         if (this.timer > 0) {
@@ -65,7 +68,8 @@ class Fruit {
 
     /**
      * Draws a Fruit
-     * @param {{x: number, y: number}}
+     * @param {{x: Number, y: Number}}
+     * @returns {Void}
      */
     draw(tile) {
         let pos = Board.tileToPos(tile);
@@ -77,6 +81,7 @@ class Fruit {
 
     /**
      * Clears the Fruit
+     * @returns {Void}
      */
     clear() {
         let pos = Board.fruitPos;
@@ -86,6 +91,7 @@ class Fruit {
 
     /**
      * Draws the Cherries Fruit
+     * @returns {Void}
      */
     drawCherries() {
         this.ctx.fillStyle = "rgb(255, 0, 0)";
@@ -120,6 +126,7 @@ class Fruit {
 
     /**
      * Draws the Strawberry Fruit
+     * @returns {Void}
      */
     drawStrawberry() {
         let dots = [ 3, 7, 5, 6, 4, 10, 7, 8, 6, 11, 7, 13, 9, 10, 9, 14, 10, 12, 11, 8, 12, 11, 14, 6, 14, 9 ];
@@ -152,6 +159,7 @@ class Fruit {
 
     /**
      * Draws the Peach Fruit
+     * @returns {Void}
      */
     drawPeach() {
         this.ctx.fillStyle = "rgb(255, 181, 33)";
@@ -174,6 +182,7 @@ class Fruit {
 
     /**
      * Draws the Apple Fruit
+     * @returns {Void}
      */
     drawApple() {
         this.ctx.fillStyle = "rgb(222, 0, 0)";
@@ -201,6 +210,7 @@ class Fruit {
 
     /**
      * Draws the Grapes Fruit
+     * @returns {Void}
      */
     drawGrapes() {
         this.ctx.fillStyle = "rgb(0, 222, 0)";
@@ -235,6 +245,7 @@ class Fruit {
 
     /**
      * Draws the Galaxian Fruit
+     * @returns {Void}
      */
     darwGalaxian() {
         this.ctx.fillStyle   = "rgb(255, 250, 55)";
@@ -274,6 +285,7 @@ class Fruit {
 
     /**
      * Draws the Bell Fruit
+     * @returns {Void}
      */
     drawBell() {
         this.ctx.fillStyle = "rgb(255, 255, 33)";
@@ -297,6 +309,7 @@ class Fruit {
 
     /**
      * Draws the Key Fruit
+     * @returns {Void}
      */
     drawKey() {
         this.ctx.fillStyle = "rgb(0, 222, 222)";

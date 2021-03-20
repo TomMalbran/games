@@ -5,8 +5,8 @@ class Board {
 
     /**
      * The Board constructor
-     * @param {number}   tetriminoSize
-     * @param {function} onWindEnd
+     * @param {Number}   tetriminoSize
+     * @param {Function} onWindEnd
      */
     constructor(tetriminoSize, onWindEnd) {
         this.fieldElem = document.querySelector(".field");
@@ -34,10 +34,10 @@ class Board {
 
     /**
      * Checks if there is a crash, given the Tetrimino Matrix and position
-     * @param {number} top
-     * @param {number} left
-     * @param {Array.<Array.<number>>} matrix
-     * @return {boolean}
+     * @param {Number} top
+     * @param {Number} left
+     * @param {Array.<Array.<Number>>} matrix
+     * @returns {Boolean}
      */
     crashed(top, left, matrix) {
         for (let i = 0; i < matrix.length; i += 1) {
@@ -53,8 +53,8 @@ class Board {
     /**
      * Adds Tetrimino Elements to the Matrix
      * @param {DOMElement} element
-     * @param {number} top
-     * @param {number} left
+     * @param {Number} top
+     * @param {Number} left
      */
     addToMatrix(element, top, left) {
         this.matrix[top][left + 1] = element;
@@ -65,7 +65,7 @@ class Board {
 
     /**
      * Removes a Row from the Matrix
-     * @param {number} line
+     * @param {Number} line
      */
     removeLine(line) {
         let i = 1;
@@ -96,11 +96,11 @@ class Board {
 
     /**
      * Adds all the elements in the Tetrimino to the board
-     * @param {Array.<Array.<number>>} matrix
-     * @param {number} type
-     * @param {number} elemTop
-     * @param {number} elemLeft
-     * @return {number}
+     * @param {Array.<Array.<Number>>} matrix
+     * @param {Number} type
+     * @param {Number} elemTop
+     * @param {Number} elemLeft
+     * @returns {Number}
      */
     addElements(matrix, type, elemTop, elemLeft) {
         let lines = [];
@@ -126,10 +126,10 @@ class Board {
 
     /**
      * Creates a new element and adds it to the Board
-     * @param {number} type
-     * @param {number} top
-     * @param {number} left
-     * @return {DOMElement}
+     * @param {Number} type
+     * @param {Number} top
+     * @param {Number} left
+     * @returns {DOMElement}
      */
     append(type, top, left) {
         let element = document.createElement("DIV");
@@ -143,7 +143,7 @@ class Board {
 
     /**
      * Starts the wink animation
-     * @param {Array.<number>} lines
+     * @param {Array.<Number>} lines
      */
     startWink(lines) {
         lines.forEach((line) => {
@@ -158,8 +158,8 @@ class Board {
 
     /**
      * Creates a new wink Element
-     * @param {number} top
-     * @return {DOMElement}
+     * @param {Number} top
+     * @returns {DOMElement}
      */
     createWink(top) {
         let element = document.createElement("div");
@@ -192,7 +192,7 @@ class Board {
 
     /**
      * Returns true if the Board is winking
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isWinking() {
         return this.winks !== null;
@@ -201,9 +201,9 @@ class Board {
 
     /**
      * Returns true if the position is a border
-     * @param {number} top
-     * @param {number} left
-     * @return {boolean}
+     * @param {Number} top
+     * @param {Number} left
+     * @returns {Boolean}
      */
     isBorder(top, left) {
         return top === this.matrixRows  - 1 || left === 0 || left === this.matrixCols - 1;
@@ -211,8 +211,8 @@ class Board {
 
     /**
      * Returns a column so that the Tetrimino is centered in the board
-     * @param {number} cols - Number of columns of the Tetrimino
-     * @return {number}
+     * @param {Number} cols - Number of columns of the Tetrimino
+     * @returns {Number}
      */
     getMiddle(cols) {
         return Math.floor((this.matrixCols - cols - 2) / 2);
@@ -220,8 +220,8 @@ class Board {
 
     /**
      * Returns the top position for styling
-     * @param {number} top
-     * @return {string}
+     * @param {Number} top
+     * @returns {String}
      */
     getTop(top) {
         return Utils.toEM((top - 2) * this.tetriminoSize);
@@ -229,8 +229,8 @@ class Board {
 
     /**
      * Returns the left position for styling
-     * @param {number} top
-     * @return {string}
+     * @param {Number} top
+     * @returns {String}
      */
     getLeft(left) {
         return Utils.toEM(left * this.tetriminoSize);

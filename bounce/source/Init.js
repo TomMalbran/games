@@ -11,7 +11,8 @@
 
     /**
      * Moves the ball
-     * @param {number} speed
+     * @param {Number} speed
+     * @returns {Void}
      */
     function moveBall(speed) {
         let crash = false;
@@ -55,6 +56,7 @@
 
     /**
      * Request an animation frame
+     * @returns {Void}
      */
     function requestAnimation() {
         startTime = new Date().getTime();
@@ -85,6 +87,7 @@
 
     /**
      * Show the Main Screen
+     * @returns {Void}
      */
     function showMainScreen() {
         display.set("mainScreen").show();
@@ -92,6 +95,7 @@
 
     /**
      * Start the Game
+     * @returns {Void}
      */
     function startGame() {
         hasStarted = true;
@@ -100,6 +104,7 @@
 
     /**
      * Finish the Game
+     * @returns {Void}
      */
     function finishGame() {
         board.end();
@@ -111,6 +116,7 @@
 
     /**
      * Hide the required game parts
+     * @returns {Void}
      */
     function hideGame() {
         display.show();
@@ -119,6 +125,7 @@
 
     /**
      * Pauses the game
+     * @returns {Void}
      */
     function startPause() {
         display.set("paused");
@@ -127,6 +134,7 @@
 
     /**
      * Unpauses the game
+     * @returns {Void}
      */
     function endPause() {
         display.set("playing").hide();
@@ -139,6 +147,7 @@
 
     /**
      * Game Over
+     * @returns {Void}
      */
     function gameOver() {
         display.set("gameOver");
@@ -153,6 +162,7 @@
 
     /**
      * Show the High Scores
+     * @returns {Void}
      */
     function showHighScores() {
         display.set("highScores").show();
@@ -160,6 +170,7 @@
 
     /**
      * Saves a High Score
+     * @returns {Void}
      */
     function saveHighScore() {
         if (scores.save(mode.get(), score.get())) {
@@ -169,6 +180,7 @@
 
     /**
      * Show the Help
+     * @returns {Void}
      */
     function showHelp() {
         display.set("help").show();
@@ -178,6 +190,7 @@
 
     /**
      * Callback used when the ship moves
+     * @returns {Void}
      */
     function onShipMove() {
         if (!hasStarted) {
@@ -188,7 +201,8 @@
 
     /**
      * Starts a new game
-     * @param {string} gameMode
+     * @param {String} gameMode
+     * @returns {Void}
      */
     function newGame(gameMode) {
         hasStarted = false;
@@ -215,6 +229,7 @@
 
     /**
      * Stores the used DOM elements and initializes the Event Handlers
+     * @returns {Void}
      */
     function initDomListeners() {
         document.body.addEventListener("click", (e) => {
@@ -239,7 +254,7 @@
 
     /**
      * Returns the shortcuts functions
-     * @return {Object}
+     * @returns {Object}
      */
     function getShortcuts() {
         return {
@@ -281,6 +296,7 @@
 
     /**
      * Called when the board is clicked
+     * @returns {Void}
      */
     function onBoardClick() {
         if (!hasStarted) {
@@ -292,6 +308,7 @@
 
     /**
      * The main Function
+     * @returns {Void}
      */
     function main() {
         initDomListeners();

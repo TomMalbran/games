@@ -1,6 +1,6 @@
 /**
- * @extends {Mob}
  * The Decoy Mob Class
+ * @extends {Mob}
  */
 class DecoyMob extends Mob {
 

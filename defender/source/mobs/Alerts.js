@@ -19,6 +19,7 @@ class Alerts {
     /**
      * Adds a minus 1 life alert
      * @param {Mob} mob
+     * @returns {Void}
      */
     life(mob) {
         this.add(mob, "alertRed", "-1");
@@ -27,6 +28,7 @@ class Alerts {
     /**
      * Adds a plus gold amount alert
      * @param {Mob} mob
+     * @returns {Void}
      */
     gold(mob) {
         this.add(mob, "alertYellow", `+${mob.getGold()}`);
@@ -35,9 +37,10 @@ class Alerts {
 
     /**
      * Used to add any type of alert to thealert list
-     * @param {Mob} mob
-     * @param {string} className
-     * @param {string} text
+     * @param {Mob}    mob
+     * @param {String} className
+     * @param {String} text
+     * @returns {Void}
      */
     add(mob, className, text) {
         this.list.addLast({
@@ -51,9 +54,10 @@ class Alerts {
 
     /**
      * Creates, appends and returns the element for the alert
-     * @param {Mob} mob
-     * @param {string} className
-     * @param {string} text
+     * @param {Mob}    mob
+     * @param {String} className
+     * @param {String} text
+     * @returns {Void}
      */
     create(mob, className, text) {
         let element = document.createElement("DIV");
@@ -68,7 +72,8 @@ class Alerts {
 
     /**
      * It iterates through the alerts moving them and removing them from the list when done
-     * @param {number} time
+     * @param {Number} time
+     * @returns {Void}
      */
     move(time) {
         if (!this.list.isEmpty()) {

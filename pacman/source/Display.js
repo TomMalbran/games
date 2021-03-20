@@ -5,7 +5,7 @@ class Display {
 
     /**
      * The Game Display constructor
-     * @param {function} callback
+     * @param {Function} callback
      */
     constructor(callback) {
         this.container = document.querySelector("#container");
@@ -16,7 +16,7 @@ class Display {
 
     /**
      * Gets the Game Display
-     * @return {string}
+     * @returns {String}
      */
     get() {
         return this.display;
@@ -24,8 +24,8 @@ class Display {
 
     /**
      * Sets the Game Display
-     * @param {string} display
-     * @return {Display}
+     * @param {String} display
+     * @returns {Display}
      */
     set(display) {
         this.display = display;
@@ -35,6 +35,7 @@ class Display {
 
     /**
      * Adds the class to the design to show the Display
+     * @returns {Void}
      */
     show() {
         this.container.className = this.display;
@@ -44,7 +45,7 @@ class Display {
 
     /**
      * Returns true if the game is in the main screen
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isMainScreen() {
         return this.display === "mainScreen";
@@ -52,7 +53,7 @@ class Display {
 
     /**
      * Returns true if the game is in a playing mode
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isPlaying() {
         return [ "ready", "playing", "paused" ].includes(this.display);
@@ -60,7 +61,7 @@ class Display {
 
     /**
      * Returns true if the game is paused
-     * @return {boolean}
+     * @returns {Boolean}
      */
     isPaused() {
         return this.display === "paused";

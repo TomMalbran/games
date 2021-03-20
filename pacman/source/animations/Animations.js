@@ -13,6 +13,7 @@ class Animations {
 
     /**
      * Returns true if there is an animation
+     * @returns {Boolean}
      */
     isAnimating() {
         return this.animations.length &&
@@ -21,7 +22,8 @@ class Animations {
 
     /**
      * Animates the current animation, if possible
-     * @param {number} time
+     * @param {Number} time
+     * @returns {Void}
      */
     animate(time) {
         if (this.animations.length) {
@@ -39,6 +41,7 @@ class Animations {
 
     /**
      * Ends all the Animations
+     * @returns {Void}
      */
     endAll() {
         this.animations.forEach((anim) => anim.onEnd());
@@ -48,6 +51,7 @@ class Animations {
     /**
      * Adds a new animation
      * @param {Animation} animation
+     * @returns {Void}
      */
     add(animation) {
         this.animations.push(animation);
@@ -57,7 +61,8 @@ class Animations {
 
     /**
      * Creates the Ready Animation
-     * @param {function} callback
+     * @param {Function} callback
+     * @returns {Void}
      */
     ready(callback) {
         this.add(new ReadyAnimation(this.canvas, callback));
@@ -65,6 +70,7 @@ class Animations {
 
     /**
      * Creates the Paused Animation
+     * @returns {Void}
      */
     paused() {
         this.add(new PausedAnimation(this.canvas));
@@ -73,7 +79,8 @@ class Animations {
     /**
      * Creates the Blob's Death Animation
      * @param {Blob}     blob
-     * @param {function} callback
+     * @param {Function} callback
+     * @returns {Void}
      */
     death(blob, callback) {
         this.add(new DeathAnimation(this.canvas, blob, callback));
@@ -81,7 +88,8 @@ class Animations {
 
     /**
      * Creates the Game Over Animation
-     * @param {function} callback
+     * @param {Function} callback
+     * @returns {Void}
      */
     gameOver(callback) {
         this.add(new GameOverAnimation(this.canvas, callback));
@@ -89,8 +97,9 @@ class Animations {
 
     /**
      * Creates the Ghost Score Animation
-     * @param {string} text
-     * @param {{x: number, y: number}} pos
+     * @param {String} text
+     * @param {{x: Number, y: Number}} pos
+     * @returns {Void}
      */
     ghostScore(score, pos) {
         this.add(new GhostScoreAnimation(this.canvas, score, pos));
@@ -98,8 +107,9 @@ class Animations {
 
     /**
      * Creates the Fruit Score Animation
-     * @param {string} text
-     * @param {{x: number, y: number}} pos
+     * @param {String} text
+     * @param {{x: Number, y: Number}} pos
+     * @returns {Void}
      */
     fruitScore(score, pos) {
         this.add(new FruitScoreAnimation(this.canvas, score, pos));
@@ -107,7 +117,8 @@ class Animations {
 
     /**
      * Creates the End Level Animation
-     * @param {function} callback
+     * @param {Function} callback
+     * @returns {Void}
      */
     endLevel(callback) {
         this.add(new EndLevelAnimation(callback));
@@ -115,8 +126,9 @@ class Animations {
 
     /**
      * Creates the New Level Animation
-     * @param {number}   level
-     * @param {function} callback
+     * @param {Number}   level
+     * @param {Function} callback
+     * @returns {Void}
      */
     newLevel(level, callback) {
         this.add(new NewLevelAnimation(this.canvas, level, callback));
