@@ -71,8 +71,8 @@ class Tail {
      */
     setPosition() {
         this.elements.forEach((data) => {
-            data.element.style.top  = data.top  + "px";
-            data.element.style.left = data.left + "px";
+            data.element.style.top  = Utils.toPX(data.top);
+            data.element.style.left = Utils.toPX(data.left);
         });
     }
 }

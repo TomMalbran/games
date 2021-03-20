@@ -150,10 +150,10 @@ class Board {
         for (let i = 1; i < walls.length; i += 1) {
             let el = document.createElement("div");
             el.className    = walls[i].cl;
-            el.style.top    = walls[i].top    * this.map.getSquareSize() + "px";
-            el.style.left   = walls[i].left   * this.map.getSquareSize() + "px";
-            el.style.width  = walls[i].width  * this.map.getSquareSize() + "px";
-            el.style.height = walls[i].height * this.map.getSquareSize() + "px";
+            el.style.top    = Utils.toPX(walls[i].top    * this.map.getSquareSize());
+            el.style.left   = Utils.toPX(walls[i].left   * this.map.getSquareSize());
+            el.style.width  = Utils.toPX(walls[i].width  * this.map.getSquareSize());
+            el.style.height = Utils.toPX(walls[i].height * this.map.getSquareSize());
             this.walls.appendChild(el);
         }
     }

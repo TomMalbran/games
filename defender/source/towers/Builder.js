@@ -338,7 +338,7 @@ class Builder {
      */
     cellToPx(pos) {
         let center = (this.size * this.parent.board.getSize()) / 2;
-        return ((pos + this.size) * this.parent.board.getSize() - center) + "px";
+        return Utils.toPX((pos + this.size) * this.parent.board.getSize() - center);
     }
 
     /**

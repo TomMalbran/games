@@ -84,8 +84,8 @@ class Food {
         } else {
             deg = time * 1080 / 99;
         }
-        this.body.style.transform   = "rotate(" + deg + "deg)";
-        this.shadow.style.transform = "rotate(" + deg + "deg)";
+        this.body.style.transform   = Utils.rotate(deg);
+        this.shadow.style.transform = Utils.rotate(deg);
     }
 
 

@@ -53,8 +53,8 @@ class Bricks {
     createBrick(row, column) {
         let data = { element : document.createElement("DIV") };
 
-        data.element.style.top  = (this.brickHeight * row)    + "em";
-        data.element.style.left = (this.brickWidth  * column) + "em";
+        data.element.style.top  = Utils.toEM(this.brickHeight * row);
+        data.element.style.left = Utils.toEM(this.brickWidth  * column);
         this.container.appendChild(data.element);
 
         data.top    = data.element.offsetTop;

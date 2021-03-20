@@ -32,7 +32,7 @@ class Ship {
      * Set the width property of the element
      */
     setWidth() {
-        this.element.style.width = this.emWidth + "em";
+        this.element.style.width = Utils.toEM(this.emWidth);
         this.width = this.element.offsetWidth;
     }
 
@@ -41,14 +41,14 @@ class Ship {
      * @param {number=} top
      */
     setTop(top) {
-        this.element.style.top = (top || this.top) + "px";
+        this.element.style.top = Utils.toPX(top || this.top);
     }
 
     /**
      * Set the left property of the element
      */
     setLeft() {
-        this.element.style.left = this.left + "px";
+        this.element.style.left = Utils.toPX(this.left);
     }
 
     /**

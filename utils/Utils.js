@@ -65,9 +65,37 @@ let Utils = (function () {
         },
 
 
+
+        /**
+         * Returns the number with a px prefix
+         * @param {Number} value
+         * @return {String}
+         */
+        toPX(value) {
+            return `${Math.round(value)}px`;
+        },
+
+        /**
+         * Returns the number with a em prefix
+         * @param {Number} value
+         * @return {String}
+         */
+        toEM(value) {
+            return `${value}em`;
+        },
+
+        /**
+         * Returns the number with a em prefix
+         * @param {Number} value
+         * @return {String}
+         */
+        rotate(deg) {
+            return `rotate(${deg}deg)`;
+        },
+
         /**
          * Returns the closest element with an action
-         * @param {Event}
+         * @param {Event} event
          * @return {DOMElement}
          */
         getTarget(event) {

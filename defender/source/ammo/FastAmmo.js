@@ -45,6 +45,6 @@ class FastAmmo extends Ammo {
      */
     spin() {
         this.spinAngle += 5;
-        this.element.style.transform = "rotate(" + this.spinAngle + "deg)";
+        this.element.style.transform = Utils.rotate(this.spinAngle);
     }
 }

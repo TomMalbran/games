@@ -33,8 +33,8 @@ class Tetrimino {
 
         this.nextElem.className  = `piece${this.type} rot0`;
         this.nextElem.innerHTML  = this.tetriminer[this.type].innerHTML;
-        this.nextElem.style.top  = (this.nexterHeight - this.data.rows * this.size - this.border) / 2 + "em";
-        this.nextElem.style.left = (this.nexterWidth  - this.data.cols * this.size - this.border) / 2 + "em";
+        this.nextElem.style.top  = Utils.toEM((this.nexterHeight - this.data.rows * this.size - this.border) / 2);
+        this.nextElem.style.left = Utils.toEM((this.nexterWidth  - this.data.cols * this.size - this.border) / 2);
 
         this.setCubePositions();
     }
@@ -47,8 +47,8 @@ class Tetrimino {
         let elements = this.nextElem.querySelectorAll("div");
 
         for (let i = 0; i < elements.length; i += 1) {
-            elements[i].style.top  = (elements[i].dataset.top  * this.size) + "em";
-            elements[i].style.left = (elements[i].dataset.left * this.size) + "em";
+            elements[i].style.top  = Utils.toEM(elements[i].dataset.top  * this.size);
+            elements[i].style.left = Utils.toEM(elements[i].dataset.left * this.size);
         }
     }
 

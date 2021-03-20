@@ -57,8 +57,8 @@ class Alerts {
      */
     create(mob, className, text) {
         let element = document.createElement("DIV");
-        element.style.top  = mob.getPos().top  + "px";
-        element.style.left = mob.getPos().left + "px";
+        element.style.top  = Utils.toPX(mob.getPos().top);
+        element.style.left = Utils.toPX(mob.getPos().left);
         element.className  = `alert ${className}`;
         element.innerHTML  = text;
 

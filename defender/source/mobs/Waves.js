@@ -151,7 +151,7 @@ class Waves {
             start = (timer - 25) * this.elemWidth / 25;
 
         this.elements.forEach((element, index) => {
-            element.style.left = this.getLeft(index, start) + "px";
+            element.style.left = Utils.toPX(this.getLeft(index, start));
         });
     }
 

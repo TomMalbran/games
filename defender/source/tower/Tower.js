@@ -49,8 +49,8 @@ class Tower {
         this.element.dataset.type   = "tower";
         this.element.dataset.id     = this.id;
         this.element.style.position = "absolute";
-        this.element.style.top      = (this.row + this.size / 2) * this.boardSize + "px";
-        this.element.style.left     = (this.col + this.size / 2) * this.boardSize + "px";
+        this.element.style.top      = Utils.toPX((this.row + this.size / 2) * this.boardSize);
+        this.element.style.left     = Utils.toPX((this.col + this.size / 2) * this.boardSize);
 
         this.element.innerHTML = `
             <div class="towerCenter${this.size}" towerShadow"></div>
@@ -167,7 +167,7 @@ class Tower {
      * Sets the load bar width
      */
     setLoadWidth() {
-        this.loader.style.width = (this.getLoad() * this.width) + "px";
+        this.loader.style.width = Utils.toPX(this.getLoad() * this.width);
     }
 
     /**
@@ -410,7 +410,7 @@ class Tower {
      */
     rotateCanon(angle) {
         this.angle = angle;
-        this.rotate.style.transform = `rotate(${angle}deg)`;
+        this.rotate.style.transform = Utils.rotate(angle);
     }
 
 

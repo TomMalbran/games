@@ -72,8 +72,8 @@ class Mob {
         this.element.dataset.id    = this.id;
         this.element.className     = "mob";
         this.element.style.display = "none";
-        this.element.style.top     = this.top  + "px";
-        this.element.style.left    = this.left + "px";
+        this.element.style.top     = Utils.toPX(this.top);
+        this.element.style.left    = Utils.toPX(this.left);
         this.element.style.zIndex  = this.isFlyer() ? 2 : 1;
         this.element.innerHTML     = `
             <div class="mobDeath"><div class="mobLife"></div></div>
@@ -133,8 +133,8 @@ class Mob {
         this.realTop    = top;
         this.realLeft   = left;
 
-        this.element.style.top  = this.top  + "px";
-        this.element.style.left = this.left + "px";
+        this.element.style.top  = Utils.toPX(this.top);
+        this.element.style.left = Utils.toPX(this.left);
     }
 
     /**
@@ -182,7 +182,7 @@ class Mob {
      */
     hit(dmg) {
         let life = Math.max(this.actualLife - dmg, 0);
-        this.lifeElem.style.width = (life * this.boardSize / this.getTotalLife()) + "px";
+        this.lifeElem.style.width = Utils.toPX(life * this.boardSize / this.getTotalLife());
         this.actualLife -= dmg;
 
         this.element.classList.add("hit");
@@ -418,7 +418,7 @@ class Mob {
         if (angle || angle === 0) {
             this.angle = angle;
         }
-        let transform = "rotate(" + this.angle + "deg)";
+        let transform = Utils.rotate(this.angle);
         if (this.boss) {
             transform += " scale(1.5)";
         }

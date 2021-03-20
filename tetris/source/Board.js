@@ -224,7 +224,7 @@ class Board {
      * @return {string}
      */
     getTop(top) {
-        return ((top - 2) * this.tetriminoSize) + "em";
+        return Utils.toEM((top - 2) * this.tetriminoSize);
     }
 
     /**
@@ -233,7 +233,7 @@ class Board {
      * @return {string}
      */
     getLeft(left) {
-        return (left * this.tetriminoSize) + "em";
+        return Utils.toEM(left * this.tetriminoSize);
     }
 
 

@@ -29,8 +29,8 @@ class Ammo {
     createElement() {
         this.element              = document.createElement("DIV");
         this.element.className    = this.className;
-        this.element.style.top    = this.top  + "px";
-        this.element.style.left   = this.left + "px";
+        this.element.style.top    = Utils.toPX(this.top);
+        this.element.style.left   = Utils.toPX(this.left);
         this.element.style.zIndex = 2;
         this.element.innerHTML    = this.content || "";
 
@@ -82,7 +82,7 @@ class Ammo {
      * @param {number} angle
      */
     rotate(angle) {
-        this.element.style.transform = "rotate(" + angle + "deg)";
+        this.element.style.transform = Utils.rotate(angle);
     }
 
     /**
@@ -94,8 +94,8 @@ class Ammo {
         this.top     += this.getDist(targetPos.top  - this.top, time);
         this.left    += this.getDist(targetPos.left - this.left, time);
 
-        this.element.style.top  = Math.round(this.top)  + "px";
-        this.element.style.left = Math.round(this.left) + "px";
+        this.element.style.top  = Utils.toPX(this.top);
+        this.element.style.left = Utils.toPX(this.left);
     }
 
     /**

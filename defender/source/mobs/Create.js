@@ -141,8 +141,8 @@ class Create {
     createBlood(mob) {
         let element = document.createElement("DIV");
         element.className  = "blood";
-        element.style.top  = mob.getPos().top  + "px";
-        element.style.left = mob.getPos().left + "px";
+        element.style.top  = Utils.toPX(mob.getPos().top);
+        element.style.left = Utils.toPX(mob.getPos().left);
         this.blooder.appendChild(element);
     }
 

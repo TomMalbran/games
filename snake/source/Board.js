@@ -92,7 +92,7 @@ class Board {
      * @return {string}
      */
     getPosition(pos) {
-        return ((pos - 1) * this.cellSize) + "em";
+        return Utils.toEM((pos - 1) * this.cellSize);
     }
 
     /**
