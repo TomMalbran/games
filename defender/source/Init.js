@@ -23,7 +23,7 @@
             towers.animate(time, speed);
             mobs.animate(time, speed, dec);
 
-            if (display.isPlaying()) {
+            if (display.isPlaying) {
                 requestAnimation();
             }
         });
@@ -36,6 +36,7 @@
     function cancelAnimation() {
         window.cancelAnimationFrame(animation);
     }
+
 
 
     /**
@@ -55,9 +56,10 @@
     function showGameOver() {
         display.set("gameOver");
         destroyGame();
-        maps.saveScore(score.getLives(), score.getTotal());
+        maps.saveScore(score.lives, score.total);
         score.showFinal();
     }
+
 
 
     /**
@@ -100,8 +102,8 @@
      * @returns {Void}
      */
     function showLastMap() {
-        gameMap = maps.getMap() || gameMap;
-        newGame(maps.getLevel() || gameLevel);
+        gameMap = maps.map || gameMap;
+        newGame(maps.level || gameLevel);
     }
 
     /**
@@ -123,6 +125,7 @@
     }
 
 
+
     /**
      * Start Playing
      * @returns {Void}
@@ -142,12 +145,13 @@
      * @returns {Void}
      */
     function nextWave() {
-        if (display.isPlanning()) {
+        if (display.isPlanning) {
             startPlaying();
         } else {
             mobs.sendNextWave();
         }
     }
+
 
 
     /**
@@ -169,6 +173,7 @@
     }
 
 
+
     /**
      * Starts the pause
      * @returns {Void}
@@ -183,9 +188,9 @@
      * @returns {Void}
      */
     function pauseGame() {
-        if (display.isPlanningPaused()) {
+        if (display.isPlanningPaused) {
             display.set("planning");
-        } else if (display.isPlayingPaused()) {
+        } else if (display.isPlayingPaused) {
             display.set("playing");
             requestAnimation();
         } else {
@@ -194,6 +199,7 @@
             cancelAnimation();
         }
     }
+
 
 
     /**
@@ -221,6 +227,7 @@
         towers.drop();
         panel.hide();
     }
+
 
 
     /**

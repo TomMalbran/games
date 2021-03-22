@@ -22,6 +22,7 @@ class BigBlob extends Blob {
     }
 
 
+
     /**
      * Moves the Big Blob. Specially made for the title animation
      * @param {Number} time

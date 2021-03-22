@@ -746,6 +746,9 @@ h2 {
 .navButton:hover {
     background: linear-gradient(to bottom, rgb(250, 199, 34), rgb(215, 158, 27));
 }
+.navButton:focus {
+    outline: none;
+}
 
 .menuButton {
     width: 100%;

@@ -12,11 +12,11 @@ class HighScores {
         this.none      = document.querySelector(".none");
         this.data      = new Storage("pacman.hs");
         this.total     = this.data.get("total") || 0;
-        this.focused   = false;
+        this.isFocused = false;
         this.maxScores = 10;
 
-        this.input.onfocus = () => this.focused = true;
-        this.input.onblur  = () => this.focused = false;
+        this.input.onfocus = () => this.isFocused = true;
+        this.input.onblur  = () => this.isFocused = false;
     }
 
     /**
@@ -149,13 +149,5 @@ class HighScores {
     setInput() {
         this.input.value = "";
         this.input.focus();
-    }
-
-    /**
-     * Returns true if the input is focus
-     * @returns {Boolean}
-     */
-    isFocused() {
-        return this.focused;
     }
 }

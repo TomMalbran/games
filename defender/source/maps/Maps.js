@@ -15,6 +15,7 @@ class Maps {
     }
 
 
+
     /**
      * Transforms a map index to a map name
      * @param {String} code
@@ -52,7 +53,7 @@ class Maps {
      * Returns the currently saved map
      * @returns {String}
      */
-    getMap() {
+    get map() {
         return this.storage.get("map");
     }
 
@@ -60,9 +61,10 @@ class Maps {
      * Returns the currently saved level
      * @returns {Number}
      */
-    getLevel() {
+    get level() {
         return this.storage.get("level");
     }
+
 
 
     /**

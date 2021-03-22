@@ -13,6 +13,8 @@ class Display {
         this.callback  = callback;
     }
 
+
+
     /**
      * Gets the Game Display
      * @returns {String}
@@ -46,7 +48,7 @@ class Display {
      * Returns true if the game is in the main screen
      * @returns {Boolean}
      */
-    isMainScreen() {
+    get isMainScreen() {
         return this.display === "mainScreen";
     }
 
@@ -54,7 +56,7 @@ class Display {
      * Returns true if the game is in a playing mode
      * @returns {Boolean}
      */
-    isPlaying() {
+    get isPlaying() {
         return [ "ready", "playing", "paused" ].includes(this.display);
     }
 
@@ -62,7 +64,7 @@ class Display {
      * Returns true if the game is paused
      * @returns {Boolean}
      */
-    isPaused() {
+    get isPaused() {
         return this.display === "paused";
     }
 }

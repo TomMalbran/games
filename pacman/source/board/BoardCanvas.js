@@ -55,6 +55,7 @@ class BoardCanvas extends Canvas {
     }
 
 
+
     /**
      * Draw the Board
      * @param {Boolean} newLevel
@@ -205,6 +206,7 @@ class BoardCanvas extends Canvas {
 
         this.ctx.stroke();
     }
+
 
 
     /**

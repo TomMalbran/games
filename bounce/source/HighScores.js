@@ -14,10 +14,10 @@ class HighScores {
         this.data      = {};
         this.total     = 0;
         this.maxScores = 5;
-        this.focused   = false;
+        this.isFocused = false;
 
-        this.input.onfocus = () => this.focused = true;
-        this.input.onblur  = () => this.focused = false;
+        this.input.onfocus = () => this.isFocused = true;
+        this.input.onblur  = () => this.isFocused = false;
     }
 
     /**
@@ -30,6 +30,7 @@ class HighScores {
         this.data  = new Storage(`bounce.hs.${this.mode}`);
         this.total = this.data.get("total") || 0;
     }
+
 
 
     /**
@@ -65,6 +66,7 @@ class HighScores {
             this.scores.appendChild(div);
         }
     }
+
 
 
     /**
@@ -125,6 +127,7 @@ class HighScores {
     }
 
 
+
     /**
      * Sets the input value and focus it
      * @returns {Void}
@@ -132,13 +135,5 @@ class HighScores {
     setInput() {
         this.input.value = "";
         this.input.focus();
-    }
-
-    /**
-     * Returns true if the input is focus
-     * @returns {Void}
-     */
-    isFocused() {
-        return this.focused;
     }
 }

@@ -52,11 +52,13 @@ let Queue = (function () {
             return null;
         }
 
+
+
         /**
          * Returns the first element of the queue or null if the Queue is empty
          * @returns {?*}
          */
-        first() {
+        get first() {
             return this.head ? this.head.data : null;
         }
 
@@ -64,26 +66,26 @@ let Queue = (function () {
          * Returns the last element of the queue or null if the Queue is empty
          * @returns {?*}
          */
-        last() {
+        get last() {
             return this.tail ? this.tail.data : null;
-        }
-
-
-        /**
-         * Returns true if the queue is empty, and false otherwise
-         * @returns {Boolean}
-         */
-        isEmpty() {
-            return !this.head;
         }
 
         /**
          * Returns the size of the queue
          * @returns {Number}
          */
-        size() {
+        get size() {
             return this.length;
         }
+
+        /**
+         * Returns true if the queue is empty, and false otherwise
+         * @returns {Boolean}
+         */
+        get isEmpty() {
+            return !this.head;
+        }
+
 
 
         /**
@@ -117,6 +119,7 @@ let Queue = (function () {
             return !!this.current;
         }
     }
+
 
 
     return Queue;

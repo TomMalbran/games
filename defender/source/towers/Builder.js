@@ -51,6 +51,7 @@ class Builder {
     }
 
 
+
     /**
      * The select Tower listener
      * @param {Event} event
@@ -85,13 +86,14 @@ class Builder {
     }
 
 
+
     /**
      * Shows the Tower Description
      * @param {DOMElement} element
      * @returns {Void}
      */
     showPreview(element) {
-        if (!this.selected && !this.parent.selection.hasSelected()) {
+        if (!this.selected && !this.parent.selection.hasSelected) {
             this.parent.panel.previewTower(Tower.create(element.dataset.type));
         }
     }
@@ -101,10 +103,11 @@ class Builder {
      * @returns {Void}
      */
     hidePreview() {
-        if (!this.selected && !this.parent.selection.hasSelected()) {
+        if (!this.selected && !this.parent.selection.hasSelected) {
             this.parent.panel.disappear();
         }
     }
+
 
 
     /**
@@ -127,7 +130,7 @@ class Builder {
      * @returns {Void}
      */
     selectByType(type) {
-        const selects = this.getTowersElems();
+        const selects = this.towersElems;
         if (selects[type]) {
             this.pick(selects[type]);
         }
@@ -175,8 +178,8 @@ class Builder {
     drag(event) {
         if (this.selected) {
             const mouse = Utils.getMousePos(event);
-            const board = this.parent.board.getPos();
-            const size  = this.parent.board.getSize();
+            const board = this.parent.board.pos;
+            const size  = MapsData.squareSize;
             const top   = mouse.top  - board.top;
             const left  = mouse.left - board.left;
             const row   = Math.floor(top  / size) - 1;
@@ -230,7 +233,7 @@ class Builder {
         this.top      = this.cellToPx(this.row);
         this.left     = this.cellToPx(this.col);
         this.canBuild = this.parent.board.canBuild(this.row, this.col, this.size);
-        this.canPay   = this.tower.getActualCost() <= this.parent.score.getGold();
+        this.canPay   = this.tower.actualCost <= this.parent.score.gold;
 
         this.building.style.display = "block";
         this.building.style.top     = this.top;
@@ -269,7 +272,6 @@ class Builder {
         this.building.classList.remove("valid");
     }
 
-
     /**
      * It builds the tower
      * @returns {Void}
@@ -279,12 +281,13 @@ class Builder {
             this.building.classList.remove("invalid");
 
             this.parent.manager.build({
-                type : this.tower.getType(),
+                type : this.tower.type,
                 row  : this.row,
                 col  : this.col
             });
         }
     }
+
 
 
     /**
@@ -293,15 +296,15 @@ class Builder {
      * @returns {Void}
      */
     enableBuilds(gold) {
-        const selects = this.getTowersElems();
+        const selects = this.towersElems;
 
         for (let i = 0; i < selects.length; i += 1) {
             const type  = selects[i].dataset.type;
             const tower = Tower.create(type);
 
-            if (tower.getActualCost() <= gold) {
+            if (tower.actualCost <= gold) {
                 selects[i].classList.remove("disabled");
-                if (this.tower && this.tower.getType() === type) {
+                if (this.tower && this.tower.type === type) {
                     this.setValidClass();
                     this.canPay = true;
                 }
@@ -315,21 +318,22 @@ class Builder {
      * @returns {Void}
      */
     disableBuilds(gold) {
-        const selects = this.getTowersElems();
+        const selects = this.towersElems;
 
         for (let i = 0; i < selects.length; i += 1) {
             const type  = selects[i].dataset.type;
             const tower = Tower.create(type);
 
-            if (tower.getActualCost() > gold) {
+            if (tower.actualCost > gold) {
                 selects[i].classList.add("disabled");
-                if (this.tower && this.tower.getType() === type) {
+                if (this.tower && this.tower.type === type) {
                     this.setInvalidClass();
                     this.canPay = false;
                 }
             }
         }
     }
+
 
 
     /**
@@ -340,8 +344,8 @@ class Builder {
         this.building.classList.remove(`towerRange${Math.floor(this.range)}`);
         this.building.classList.remove(`dim${this.size}`);
 
-        this.range = this.tower.getRealRange();
-        this.size  = this.tower.getSize();
+        this.range = this.tower.realRange;
+        this.size  = this.tower.size;
 
         this.building.classList.add(`towerRange${Math.floor(this.range)}`);
         this.building.classList.add(`dim${this.size}`);
@@ -353,15 +357,17 @@ class Builder {
      * @returns {Number}
      */
     cellToPx(pos) {
-        const center = (this.size * this.parent.board.getSize()) / 2;
-        return Utils.toPX((pos + this.size) * this.parent.board.getSize() - center);
+        const center = (this.size * MapsData.squareSize) / 2;
+        return Utils.toPX((pos + this.size) * MapsData.squareSize - center);
     }
+
+
 
     /**
      * Returns the Towers Element
      * @returns {Array.<DOMElement>}
      */
-    getTowersElems() {
+    get towersElems() {
         return this.towers.querySelectorAll(".towerBuild");
     }
 
@@ -369,7 +375,7 @@ class Builder {
      * Returns true if there is a Tower selected
      * @returns {Boolean}
      */
-    hasSelected() {
+    get hasSelected() {
         return this.selected !== null;
     }
 }

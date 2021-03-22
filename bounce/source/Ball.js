@@ -33,7 +33,7 @@ class Ball {
      * @returns {Void}
      */
     setStartTop(ship) {
-        this.top = Math.round(ship.getPosition().top - this.size);
+        this.top = Math.round(ship.pos.top - this.size);
         Utils.setPosition(this.element, this.top, this.left);
     }
 
@@ -43,7 +43,7 @@ class Ball {
      * @returns {Void}
      */
     setStartLeft(ship) {
-        this.left = Math.round(ship.getPosition().left + (ship.getWidth() - this.size) / 2);
+        this.left = Math.round(ship.pos.left + (ship.width - this.size) / 2);
         Utils.setPosition(this.element, this.top, this.left);
     }
 
@@ -54,6 +54,7 @@ class Ball {
     start() {
         this.top -= 1;
     }
+
 
 
     /**
@@ -136,15 +137,14 @@ class Ball {
      * @returns {Boolean}
      */
     onShip(ship) {
-        const pos    = ship.getPosition();
-        const sTop   = pos.top;
-        const sLeft  = pos.left;
-        const sWidth = ship.getWidth();
-        const bTop   = this.top + this.size;
-        const bLeft  = this.left + this.size / 2;
+        const sTop  = ship.pos.top;
+        const sLeft = ship.pos.left;
+        const bTop  = this.top + this.size;
+        const bLeft = this.left + this.size / 2;
 
-        return (bTop >= sTop && bLeft >= sLeft && bLeft <= sLeft + sWidth);
+        return (bTop >= sTop && bLeft >= sLeft && bLeft <= sLeft + ship.width);
     }
+
 
 
     /**
@@ -153,18 +153,17 @@ class Ball {
      * @returns {Void}
      */
     changeAngle(ship) {
-        const pos   = this.left + this.size / 2 - ship.getPosition().left;
-        const width = ship.getWidth();
+        const pos = this.left + this.size / 2 - ship.pos.left;
 
-        this.angle = Math.floor(pos * 180 / width);
+        this.angle = Math.floor(pos * 180 / ship.width);
         if (this.angle > 90) {
             this.angle = 180 - this.angle;
         }
         this.angle = Utils.clamp(this.angle, this.minAngle, this.maxAngle);
 
-        if (this.dirLeft === 1 && pos < width / 2) {
+        if (this.dirLeft === 1 && pos < ship.width / 2) {
             this.dirLeft = -1;
-        } else if (this.dirLeft === -1 && pos > width / 2) {
+        } else if (this.dirLeft === -1 && pos > ship.width / 2) {
             this.dirLeft = 1;
         }
     }
@@ -187,6 +186,7 @@ class Ball {
     }
 
 
+
     /**
      * Sets the top direction of the ball
      * @param {Number} dir
@@ -206,11 +206,12 @@ class Ball {
     }
 
 
+
     /**
      * Returns the position of the ball
      * @returns {{top: Number, left: Number}}
      */
-    getPosition() {
+    get pos() {
         return { top : this.top, left : this.left };
     }
 
@@ -218,15 +219,7 @@ class Ball {
      * Returns the direction of the ball
      * @returns {{top: Number, left: Number}}
      */
-    getDirection() {
+    get direction() {
         return { top : this.dirTop, left : this.dirLeft };
-    }
-
-    /**
-     * Returns the size of the ball
-     * @returns {Number}
-     */
-    getSize() {
-        return this.size;
     }
 }

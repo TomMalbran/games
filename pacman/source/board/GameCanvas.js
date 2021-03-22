@@ -12,6 +12,8 @@ class GameCanvas extends Canvas {
         this.init("game");
     }
 
+
+
     /**
      * Draws the Ghosts Targets for testing
      * @param {Array.<Ghost>} ghosts

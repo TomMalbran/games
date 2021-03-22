@@ -18,6 +18,7 @@ class Board {
     }
 
 
+
     /**
      * Add the event listeners
      * @param {Function} mouseCB
@@ -36,36 +37,11 @@ class Board {
         this.element.removeEventListener("mousemove", this.func);
     }
 
-
-    /**
-     * Returns the width of the board
-     * @returns {Number}
-     */
-    getWidth() {
-        return this.width;
-    }
-
-    /**
-     * Returns the width of the board
-     * @returns {Number}
-     */
-    getHeight() {
-        return this.height;
-    }
-
     /**
      * Returns the left position of the board
      * @returns {Number}
      */
-    getLeft() {
+    get left() {
         return this.position.left;
-    }
-
-    /**
-     * Returns the boarder width
-     * @returns {Number}
-     */
-    getBorder() {
-        return this.border;
     }
 }

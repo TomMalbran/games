@@ -15,15 +15,14 @@ class Tower {
         this.element    = null;
 
         this.level      = 1;
-        this.damage     = this.getActualDamage();
-        this.speed      = this.getActualSpeed();
+        this.speed      = this.actualSpeed;
         this.width      = 0;
         this.lists      = { boosts: [], towers: [], complete: [], reduced: [] };
         this.angle      = 0;
-        this.locked     = false;
+        this.isLocked   = false;
 
         this.timer      = 0;
-        this.shooting   = false;
+        this.isShooting = false;
         this.shootIt    = null;
         this.ammos      = 0;
         this.boost      = 0;
@@ -72,6 +71,7 @@ class Tower {
     }
 
 
+
     /**
      * Adds or Removes the Boost percentage to the Tower
      * @param {Number} amount
@@ -86,14 +86,13 @@ class Tower {
         }
     }
 
-
     /**
      * Starts the Upgrade Process
      * @returns {Void}
      */
     startUpgrade() {
         this.loading = 1;
-        this.loaded  = this.getUpgradeTime();
+        this.loaded  = this.upgradeTime;
         this.element.classList.add("loading");
         this.setLoadWidth();
     }
@@ -127,6 +126,7 @@ class Tower {
     }
 
 
+
     /**
      * Starts the Sale Process
      * @returns {Void}
@@ -152,6 +152,7 @@ class Tower {
     }
 
 
+
     /**
      * Increases the Loader by 1 for the upgrade process
      * @returns {Void}
@@ -175,14 +176,14 @@ class Tower {
      * @returns {Void}
      */
     setLoadWidth() {
-        this.loader.style.width = Utils.toPX(this.getLoad() * this.width);
+        this.loader.style.width = Utils.toPX(this.loadValue * this.width);
     }
 
     /**
      * Returns true if there is a loading process active
      * @returns {Boolean}
      */
-    isLoading() {
+    get isLoading() {
         return this.loading < this.loaded && this.loading > 0;
     }
 
@@ -190,9 +191,10 @@ class Tower {
      * Returns the Loading fraction
      * @returns {Number}
      */
-    getLoad() {
+    get loadValue() {
         return this.loading / this.loaded;
     }
+
 
 
     /**
@@ -209,8 +211,8 @@ class Tower {
      * @returns {Void}
      */
     startShoot() {
-        this.timer    = 3000 / this.speed;
-        this.shooting = true;
+        this.timer      = 3000 / this.speed;
+        this.isShooting = true;
     }
 
     /**
@@ -218,16 +220,8 @@ class Tower {
      * @returns {Void}
      */
     endShoot() {
-        this.shooting = false;
-        this.shootIt  = null;
-    }
-
-    /**
-     * Returns true if the Tower is shooting
-     * @returns {Boolean}
-     */
-    isShooting() {
-        return !!this.shooting;
+        this.isShooting = false;
+        this.shootIt    = null;
     }
 
     /**
@@ -244,8 +238,8 @@ class Tower {
      * Returns the damage depending if is a bleed Tower or not
      * @returns {Number}
      */
-    getDamage() {
-        return this.bleeds ? 0 : this.getActualDamage();
+    get damage() {
+        return this.bleeds ? 0 : this.actualDamage;
     }
 
     /**
@@ -264,7 +258,7 @@ class Tower {
      * @returns {Array.<Array.<Mob>>}
      */
     getTargets(mobs, mob) {
-        return [[mob]];
+        return [[ mob ]];
     }
 
     /**
@@ -277,13 +271,14 @@ class Tower {
     }
 
 
+
     /**
      * Returns true if the Tower can shoot the given Mob
      * @param {Mob} mob
      * @returns {Boolean}
      */
     canShoot(mob) {
-        const defense = this.getActualDamage() > mob.getDefense();
+        const defense = this.actualDamage > mob.defense;
         const valid   = this.isValidTarget(mob);
         return defense && valid;
     }
@@ -302,7 +297,7 @@ class Tower {
             const isClose  = this.isClose(nmob, mob);
             const canShoot = this.canShoot(nmob);
 
-            if (nmob.getHitPoints() > 0 && isClose && canShoot) {
+            if (nmob.hitPoints > 0 && isClose && canShoot) {
                 list.push(nmob);
             }
         });
@@ -322,7 +317,7 @@ class Tower {
             const inRange  = this.inRange(mob, 1);
             const canShoot = this.canShoot(mob);
 
-            if (mob.getHitPoints() > 0 && inRange && canShoot) {
+            if (mob.hitPoints > 0 && inRange && canShoot) {
                 list.push(mob);
             }
         });
@@ -336,8 +331,8 @@ class Tower {
      * @returns {Boolean}
      */
     isClose(target, mob) {
-        const yDis  = Math.abs(target.getPos().top  - mob.getPos().top);
-        const xDist = Math.abs(target.getPos().left - mob.getPos().left);
+        const yDis  = Math.abs(target.pos.top  - mob.pos.top);
+        const xDist = Math.abs(target.pos.left - mob.pos.left);
 
         return yDis < this.ammoRange && xDist < this.ammoRange;
     }
@@ -349,10 +344,10 @@ class Tower {
      * @returns {Boolean}
      */
     inRange(mob, mult) {
-        const mobPos = mob.getCenterPos();
+        const mobPos = mob.centerPos;
         const yDis   = Math.abs(this.centerTop  - mobPos.top);
         const xDist  = Math.abs(this.centerLeft - mobPos.left);
-        const range  = this.getRealRange() * mult;
+        const range  = this.realRange * mult;
 
         return yDis < range && xDist < range;
     }
@@ -363,7 +358,7 @@ class Tower {
      * @returns {Number}
      */
     getMobAngle(mob) {
-        const mobPos = mob.getCenterPos();
+        const mobPos = mob.centerPos;
         const xDist  = mobPos.left - this.centerLeft;
         const yDist  = mobPos.top  - this.centerTop;
 
@@ -381,23 +376,15 @@ class Tower {
     }
 
 
+
     /**
      * Locks/Unlocks the Tower
      * @returns {Void}
      */
     toggleLock() {
-        this.locked = !this.locked;
+        this.isLocked = !this.isLocked;
         this.element.classList.toggle("locked");
     }
-
-    /**
-     * Returns true if the Tower is Locked
-     * @returns {Boolean}
-     */
-    isLocked() {
-        return this.locked;
-    }
-
 
     /**
      * Selects/Unselects the Tower
@@ -430,75 +417,36 @@ class Tower {
     }
 
 
+
     /**
-     * Returns the Tower ID
+     * Returns the end row of the Tower
      * @returns {Number}
      */
-    getID() {
-        return this.id;
+    get endRow() {
+        return this.row + this.size;
     }
 
     /**
-     * Returns the type of the Tower
-     * @returns {String}
-     */
-    getType() {
-        return this.type;
-    }
-
-    /**
-     * Returns the current level of the Tower
+     * Returns the end row of the Tower
      * @returns {Number}
      */
-    getLevel() {
-        return this.level;
-    }
-
-    /**
-     * Returns the size of a side of the Tower as amount of cells
-     * @returns {Number}
-     */
-    getSize() {
-        return this.size;
-    }
-
-    /**
-     * Returns the Row where the Tower is on the Board
-     * @returns {Number}
-     */
-    getRow() {
-        return this.row;
-    }
-
-    /**
-     * Returns the Column where the Tower is on the Board
-     * @returns {Number}
-     */
-    getCol() {
-        return this.col;
+    get endCol() {
+        return this.col + this.size;
     }
 
     /**
      * Returns the position at the center Tower
      * @returns {{top: Number, left: Number}}
      */
-    getCenterPos() {
+    get centerPos() {
         return { top: this.centerTop, left: this.centerLeft };
-    }
-
-    /**
-     * Returns the angle of the Tower Canon
-     * @returns {Number}
-     */
-    getAngle() {
-        return this.angle;
     }
 
     /**
      * If a tower can be destroyed, it returns true after all the ammos reached its target
      * @returns {Void}
      */
-    canDestroy() {
+    get canDestroy() {
         return this.ammos <= 0;
     }
 
@@ -520,6 +468,7 @@ class Tower {
     }
 
 
+
     /**
      * Sets the Iterator lists that points to different cells in the Ranges matrixs
      * @param {{boosts: Array.<Iterator>, towers: Array.<Iterator>, complete: Array.<Iterator>, reduced: Array.<Iterator>}} lists
@@ -539,20 +488,13 @@ class Tower {
         this.lists[name] = list;
     }
 
-    /**
-     * Returns those iterator lists lists
-     * @returns {{boosts: Array.<Iterator>, towers: Array.<Iterator>, complete: Array.<Iterator>, reduced: Array.<Iterator>}}
-     */
-    getLists() {
-        return this.lists;
-    }
 
 
     /**
      * Returns true if the Tower can slow the targets
      * @returns {Boolean}
      */
-    canSlow() {
+    get canSlow() {
         return !!this.slows;
     }
 
@@ -560,7 +502,7 @@ class Tower {
      * Returns true if the Tower can stun the targets
      * @returns {Boolean}
      */
-    canStun() {
+    get canStun() {
         return !!this.slows;
     }
 
@@ -568,7 +510,7 @@ class Tower {
      * Returns true if the Tower can make the targets bleed
      * @returns {Boolean}
      */
-    canBleed() {
+    get canBleed() {
         return !!this.bleeds;
     }
 
@@ -582,28 +524,12 @@ class Tower {
     }
 
     /**
-     * Returns the text for the Tower
-     * @returns {String}
-     */
-    getText() {
-        return this.text;
-    }
-
-    /**
-     * Returns the name of the sound file used when shooting
-     * @returns {String}
-     */
-    getSoundName() {
-        return this.sound;
-    }
-
-    /**
      * Returns the price for the Tower, depending if is planning or playing
      * @param {Boolean} hasStarted
      * @returns {Number}
      */
     getPrice(hasStarted) {
-        const cost = this.getActualCost();
+        const cost = this.actualCost;
         return hasStarted ? Math.floor(cost * 0.75) : cost;
     }
 
@@ -611,7 +537,7 @@ class Tower {
      * Returns the cost for the current level of the Tower
      * @returns {Number}
      */
-    getActualCost() {
+    get actualCost() {
         return this.costs[this.level - 1];
     }
 
@@ -619,7 +545,7 @@ class Tower {
      * Returns the upgrade cost for the Tower
      * @returns {Number}
      */
-    getUpgradeCost() {
+    get upgradeCost() {
         return this.costs[this.level] - this.costs[this.level - 1];
     }
 
@@ -627,7 +553,7 @@ class Tower {
      * Returns the damage for the current level of the Tower, including the Boosts
      * @returns {Number}
      */
-    getActualDamage() {
+    get actualDamage() {
         const value = this.damages[this.level - 1];
         return this.getBoostDamage(value);
     }
@@ -636,7 +562,7 @@ class Tower {
      * Returns the added damage for the next level of the Tower, including the Boosts
      * @returns {Number}
      */
-    getUpgradeDamage() {
+    get upgradeDamage() {
         const value = this.damages[this.level] - this.damages[this.level - 1];
         return this.getBoostDamage(value);
     }
@@ -650,13 +576,6 @@ class Tower {
         return Math.round(value * (this.boost ? this.boost / 100 + 1 : 1));
     }
 
-    /**
-     * Returns the current boost of the Tower
-     * @returns {Number}
-     */
-    getBoost() {
-        return this.boost;
-    }
 
 
     /**
@@ -672,7 +591,7 @@ class Tower {
      * Returns the matrix that corresponds to the range of the Tower
      * @returns {Array.<Array.<Number>>}
      */
-    getRangeMatrix() {
+    get rangeMatrix() {
         return RangesData[this.getActualRange()];
     }
 
@@ -680,7 +599,7 @@ class Tower {
      * Returns the real range of the Tower with decimals if required
      * @returns {Number}
      */
-    getRealRange() {
+    get realRange() {
         return this.ranges[this.level - 1];
     }
 
@@ -688,16 +607,17 @@ class Tower {
      * Returns the added range after upgrading th Tower
      * @returns {Number}
      */
-    getUpgradeRange() {
+    get upgradeRange() {
         return this.ranges[this.level] - this.ranges[this.level - 1];
     }
+
 
 
     /**
      * Returns the actual speed of the Ammo of the Tower
      * @returns {Number}
      */
-    getActualSpeed() {
+    get actualSpeed() {
         return this.speeds[this.level - 1];
     }
 
@@ -705,7 +625,7 @@ class Tower {
      * Returns the added speed of the Ammo of the Tower after upgrading
      * @returns {Number}
      */
-    getUpgradeSpeed() {
+    get upgradeSpeed() {
         const diff = this.speeds[this.level] - this.speeds[this.level - 1] !== 0;
         return diff ? this.speeds[this.level] : "";
     }
@@ -714,10 +634,9 @@ class Tower {
      * Returns the upgrade time
      * @returns {Number}
      */
-    getUpgradeTime() {
+    get upgradeTime() {
         return this.level * 30;
     }
-
 
     /**
      * Returns the center of the Tower
@@ -729,11 +648,12 @@ class Tower {
     }
 
 
+
     /**
      * Returns true if the Tower reached the maximum level
      * @returns {Boolean}
      */
-    isMaxLevel() {
+    get isMaxLevel() {
         return this.level === this.levels;
     }
 
@@ -741,7 +661,7 @@ class Tower {
      * Returns true if this is a Boost Tower
      * @returns {Boolean}
      */
-    isBoost() {
+    get isBoost() {
         return this.boosts ? true : false;
     }
 
@@ -749,7 +669,7 @@ class Tower {
      * Returns true if this Tower can be locked
      * @returns {Boolean}
      */
-    canLock() {
+    get canLock() {
         return this.lock ? true : false;
     }
 
@@ -757,7 +677,7 @@ class Tower {
      * Returns true if this Tower can be fired
      * @returns {Boolean}
      */
-    canFire() {
+    get canFire() {
         return this.fire ? true : false;
     }
 

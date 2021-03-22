@@ -134,11 +134,11 @@
                 return requestAnimation();
             }
 
-            if (display.isMainScreen()) {
+            if (display.isMainScreen) {
                 demo.animate(time, speed);
-            } else if (animations.isAnimating()) {
+            } else if (animations.isAnimating) {
                 animations.animate(time);
-            } else if (display.isPlaying()) {
+            } else if (display.isPlaying) {
                 Board.clearGame();
                 food.wink();
                 fruit.reduceTimer(time);
@@ -197,7 +197,7 @@
      * @returns {Void}
      */
     function togglePause() {
-        if (display.isPaused()) {
+        if (display.isPaused) {
             display.set("playing");
             animations.endAll();
         } else {
@@ -326,7 +326,7 @@
      * @returns {Void}
      */
     function onShow() {
-        if (!display.isMainScreen()) {
+        if (!display.isMainScreen) {
             demo.destroy();
         }
     }

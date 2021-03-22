@@ -23,6 +23,7 @@ class Display {
     }
 
 
+
     /**
      * Gets the Game Display
      * @returns {String}
@@ -40,6 +41,7 @@ class Display {
         this.display = display;
         return this;
     }
+
 
 
     /**
@@ -69,11 +71,12 @@ class Display {
     }
 
 
+
     /**
      * Returns true if is starting the game
      * @returns {Boolean}
      */
-    isStarting() {
+    get isStarting() {
         return this.display === "starting";
     }
 
@@ -81,7 +84,7 @@ class Display {
      * Returns true if is playing the game
      * @returns {Boolean}
      */
-    isPlaying() {
+    get isPlaying() {
         return this.display === "playing";
     }
 
@@ -89,7 +92,7 @@ class Display {
      * Returns true if is demoing the game
      * @returns {Boolean}
      */
-    isDemoing() {
+    get isDemoing() {
         return this.display === "demo";
     }
 }

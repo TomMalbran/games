@@ -16,6 +16,7 @@ class Alerts {
     }
 
 
+
     /**
      * Adds a minus 1 life alert
      * @param {Mob} mob
@@ -31,8 +32,9 @@ class Alerts {
      * @returns {Void}
      */
     gold(mob) {
-        this.add(mob, "alertYellow", `+${mob.getGold()}`);
+        this.add(mob, "alertYellow", `+${mob.gold}`);
     }
+
 
 
     /**
@@ -61,8 +63,8 @@ class Alerts {
      */
     create(mob, className, text) {
         const element = document.createElement("DIV");
-        element.style.top  = Utils.toPX(mob.getPos().top);
-        element.style.left = Utils.toPX(mob.getPos().left);
+        element.style.top  = Utils.toPX(mob.pos.top);
+        element.style.left = Utils.toPX(mob.pos.left);
         element.className  = `alert ${className}`;
         element.innerHTML  = text;
 
@@ -76,7 +78,7 @@ class Alerts {
      * @returns {Void}
      */
     move(time) {
-        if (!this.list.isEmpty()) {
+        if (!this.list.isEmpty) {
             const it = this.list.iterate();
             while (it.hasNext()) {
                 const data = it.getNext();
@@ -86,7 +88,7 @@ class Alerts {
                     data.left    += this.moveX[data.pointer];
                     data.timer    = 100;
                     data.pointer += 1;
-                    data.element.style.transform = `translate(${data.left}px, ${data.top}px)`;
+                    data.element.style.transform = Utils.translate(data.left, data.top);
                 }
                 if (data.pointer >= this.moveX.length) {
                     Utils.removeElement(data.element);

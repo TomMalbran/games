@@ -23,6 +23,7 @@ class Keyboard {
     }
 
 
+
     /**
      * Called when holding a key
      */
@@ -44,6 +45,7 @@ class Keyboard {
     }
 
 
+
     /**
      * Key Press Event
      * @param {Number} key
@@ -51,12 +53,12 @@ class Keyboard {
      */
     pressKey(key, event) {
         let number = null;
-        if (this.scores.isFocused()) {
+        if (this.scores.isFocused) {
             if (key === 13) {
                 this.shortcuts.gameOver.O();
             }
         } else {
-            if (!this.display.isPlaying()) {
+            if (!this.display.isPlaying) {
                 event.preventDefault();
             }
 
@@ -101,7 +103,7 @@ class Keyboard {
      * @param {Event} event
      */
     onKeyDown(event) {
-        if (this.display.isPlaying() && this.fastKeys.includes(event.keyCode)) {
+        if (this.display.isPlaying && this.fastKeys.includes(event.keyCode)) {
             if (this.keyPressed === null) {
                 this.keyPressed = event.keyCode;
             } else {
@@ -124,7 +126,7 @@ class Keyboard {
      * When a key is pressed, this is called on each frame for fast key movements
      */
     onKeyHold() {
-        if (this.keyPressed !== null && this.display.isPlaying()) {
+        if (this.keyPressed !== null && this.display.isPlaying) {
             this.pressKey(this.keyPressed);
         }
     }

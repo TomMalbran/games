@@ -31,13 +31,14 @@ class Towers {
     }
 
 
+
     /**
      * Enables the Tower Build and Upgrade
      * @returns {Void}
      */
     enable() {
-        this.builder.enableBuilds(this.score.getGold());
-        this.selection.enableUpgrades(this.score.getGold());
+        this.builder.enableBuilds(this.score.gold);
+        this.selection.enableUpgrades(this.score.gold);
     }
 
     /**
@@ -45,9 +46,10 @@ class Towers {
      * @returns {Void}
      */
     disable() {
-        this.builder.disableBuilds(this.score.getGold());
-        this.selection.disableUpgrades(this.score.getGold());
+        this.builder.disableBuilds(this.score.gold);
+        this.selection.disableUpgrades(this.score.gold);
     }
+
 
 
     /**
@@ -67,7 +69,6 @@ class Towers {
         this.sounds.endMute();
     }
 
-
     /**
      * Updates the inner started state when the game starts
      * @returns {Void}
@@ -75,7 +76,7 @@ class Towers {
     gameStarted() {
         this.hasStarted = true;
 
-        if (this.selection.hasSelected()) {
+        if (this.selection.hasSelected) {
             this.selection.showDescription();
         }
     }
@@ -115,13 +116,14 @@ class Towers {
     }
 
 
+
     /**
      * Sells the Selected Tower
      * @returns {Void}
      */
     sell() {
-        if (this.selection.hasSelected()) {
-            this.manager.sell(this.selection.getTower());
+        if (this.selection.hasSelected) {
+            this.manager.sell(this.selection.tower);
         }
     }
 
@@ -140,8 +142,8 @@ class Towers {
      * @returns {Void}
      */
     upgrade() {
-        if (this.selection.hasSelected()) {
-            this.manager.upgrade(this.selection.getTower());
+        if (this.selection.hasSelected) {
+            this.manager.upgrade(this.selection.tower);
             this.selection.showDescription();
         }
     }
@@ -151,10 +153,10 @@ class Towers {
      * @returns {Void}
      */
     lock() {
-        if (this.selection.hasSelected()) {
-            const tower = this.selection.getTower();
+        if (this.selection.hasSelected) {
+            const tower = this.selection.tower;
 
-            if (tower.canLock()) {
+            if (tower.canLock) {
                 tower.toggleLock();
                 this.selection.showDescription();
             }
@@ -166,10 +168,10 @@ class Towers {
      * @returns {Void}
      */
     fire() {
-        if (this.selection.hasSelected() && this.hasStarted) {
-            const tower = this.selection.getTower();
+        if (this.selection.hasSelected && this.hasStarted) {
+            const tower = this.selection.tower;
 
-            if (tower.canFire() && tower.canDestroy()) {
+            if (tower.canFire && tower.canDestroy) {
                 this.shooter.processShot(tower);
                 this.selection.hideDescription();
             }
@@ -192,7 +194,7 @@ class Towers {
      * @returns {Void}
      */
     moveTower(deltaX, deltaY) {
-        if (this.builder.hasSelected()) {
+        if (this.builder.hasSelected) {
             this.builder.move(deltaX, deltaY);
         }
     }
@@ -202,10 +204,11 @@ class Towers {
      * @returns {Void}
      */
     buildTower() {
-        if (this.builder.hasSelected()) {
+        if (this.builder.hasSelected) {
             this.builder.build();
         }
     }
+
 
 
     /**
@@ -213,8 +216,8 @@ class Towers {
      * @returns {Void}
      */
     selectFirst() {
-        if (!this.manager.isEmpty()) {
-            this.selection.first();
+        if (!this.manager.isEmpty) {
+            this.selection.selectFirst();
         }
     }
 
@@ -223,8 +226,8 @@ class Towers {
      * @returns {Void}
      */
     selectLast() {
-        if (!this.manager.isEmpty()) {
-            this.selection.last();
+        if (!this.manager.isEmpty) {
+            this.selection.selectLast();
         }
     }
 
@@ -234,7 +237,7 @@ class Towers {
      * @returns {Void}
      */
     selectNextPrev(add) {
-        if (!this.manager.isEmpty()) {
+        if (!this.manager.isEmpty) {
             this.selection.nextPrev(add);
         }
     }

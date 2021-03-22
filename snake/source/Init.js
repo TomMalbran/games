@@ -18,6 +18,7 @@
     }
 
 
+
     /**
      * Reduces by 1 the initial count until it changes the mode to playing
      * @returns {Void}
@@ -56,31 +57,31 @@
             }
 
             if (score.time < 0) {
-                if (display.isDemoing()) {
+                if (display.isDemoing) {
                     demo.move();
                 }
-                if (display.isStarting()) {
+                if (display.isStarting) {
                     nextCount();
-                } else if (display.isPlaying()) {
+                } else if (display.isPlaying) {
                     const res = snake.move();
                     if (res === "crashed") {
                         sound.end();
                         gameOver();
                     } else if (res === "ate") {
                         sound.eat();
-                        score.incScore(food.getTimer());
+                        score.incScore(food.timer);
                         instance.saveScore(score.score);
                         food.add(matrix.addFood());
                     }
                 }
                 score.resetTime();
             }
-            if (display.isPlaying()) {
+            if (display.isPlaying) {
                 food.reduceTime(time);
-                score.showFoodTimer(food.getTimer());
+                score.showFoodTimer(food.timer);
             }
 
-            if (display.isDemoing() || display.isStarting() || display.isPlaying()) {
+            if (display.isDemoing || display.isStarting || display.isPlaying) {
                 requestAnimation();
             }
         });
@@ -158,6 +159,7 @@
     }
 
 
+
     /**
      * Starts the speed demo
      * @param {Number} level
@@ -175,7 +177,7 @@
      * @returns {Void}
      */
     function endDemo() {
-        if (display.isDemoing()) {
+        if (display.isDemoing) {
             display.set("mainScreen");
             cancelAnimation();
         }
@@ -215,13 +217,13 @@
      * @returns {Void}
      */
     function restoreGame() {
-        if (instance.hasGame()) {
-            const data = instance.getData();
+        if (instance.hasGame) {
+            const data = instance.generateData();
 
             display.set("continuing").show();
             score.set(data.level, data.score).show();
 
-            matrix = new Matrix(board, instance, data.matrix, data.head,   data.tail);
+            matrix = new Matrix(board, instance, data.matrix, data.head, data.tail);
             snake  = new Snake(board, matrix, data.links, data.dirTop, data.dirLeft);
             food   = new Food(board, null, data.foodTop, data.foodLeft);
         }
@@ -253,7 +255,7 @@
     function getShortcuts() {
         const turnSnake = (dirTop, dirLeft) => {
             if (snake.turn(dirTop, dirLeft)) {
-                instance.saveDirection(snake.getDirection());
+                instance.saveDirection(snake.direction);
             }
         };
 
@@ -342,9 +344,9 @@
         });
 
         document.querySelector(".snake").addEventListener("click", (e) => {
-            if (display.isPlaying()) {
+            if (display.isPlaying) {
                 if (snake.mouseTurn(e)) {
-                    instance.saveDirection(snake.getDirection());
+                    instance.saveDirection(snake.direction);
                 }
             }
         });

@@ -23,6 +23,8 @@ class DeathAnimation extends Animation {
         this.y          = blob.y;
     }
 
+
+
     /**
      * Does the Death animation
      * @returns {Void}

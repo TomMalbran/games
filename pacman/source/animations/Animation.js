@@ -10,6 +10,8 @@ class Animation {
         this.time = 0;
     }
 
+
+
     /**
      * Increases the timer
      * @param {Number} time
@@ -23,16 +25,8 @@ class Animation {
      * Returns true if the animation hasn't ended
      * @returns {Boolean}
      */
-    isAnimating() {
+    get isAnimating() {
         return this.endTime > this.time;
-    }
-
-    /**
-     * Returns true if the game loop stops while the animation is running
-     * @returns {Boolean}
-     */
-    blocksGameLoop() {
-        return this.blocksGame;
     }
 
     /**

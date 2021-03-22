@@ -17,6 +17,8 @@ class Keyboard {
         document.addEventListener("keydown", e => this.pressKey(e));
     }
 
+
+
     /**
      * Key Press Event
      * @param {Event} event
@@ -24,12 +26,12 @@ class Keyboard {
      */
     pressKey(event) {
         let key = event.keyCode;
-        if (this.scores.isFocused()) {
+        if (this.scores.isFocused) {
             if (key === 13) {
                 this.shortcuts.saveHighScore();
             }
         } else {
-            if (!this.display.isPlaying()) {
+            if (!this.display.isPlaying) {
                 event.preventDefault();
             }
             if ([ 89, 49, 97 ].includes(key)) {           // Y / 1

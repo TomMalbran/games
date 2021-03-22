@@ -20,6 +20,8 @@ class FruitScoreAnimation extends Animation {
         this.endTime    = 2400;
     }
 
+
+
     /**
      * Does the Fruit Score animation
      * @returns {Void}

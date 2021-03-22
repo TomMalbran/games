@@ -40,6 +40,7 @@ class Tetrimino {
     }
 
 
+
     /**
      * Sets the positions of each cube in the piece
      */
@@ -100,6 +101,7 @@ class Tetrimino {
     addElements() {
         return this.board.addElements(this.getMatrix(), this.type, this.top, this.left);
     }
+
 
 
     /**
@@ -218,22 +220,6 @@ class Tetrimino {
         return this.board.crashed(this.top + addTop, this.left + addLeft, this.getMatrix(rotation));
     }
 
-
-    /**
-     * Returns the top position
-     * @returns {Number}
-     */
-    getTop() {
-        return this.top;
-    }
-
-    /**
-     * Returns the drop counter
-     * @returns {Number}
-     */
-    getDrop() {
-        return this.drop;
-    }
 
 
     /**

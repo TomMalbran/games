@@ -18,44 +18,12 @@ class Score {
         this.timer   = document.querySelector(".time");
         this.leveler = document.querySelector(".level");
 
-        this._count  = 0;
-        this._level  = 1;
-        this._score  = 0;
-        this._time   = 0;
+        this.count  = 0;
+        this.level  = 1;
+        this.score  = 0;
+        this.time   = 0;
     }
 
-
-    /**
-     * Returns the game count
-     * @returns {Number}
-     */
-    get count() {
-        return this._count;
-    }
-
-    /**
-     * Returns the game level
-     * @returns {Number}
-     */
-    get level() {
-        return this._level;
-    }
-
-    /**
-     * Returns the game score
-     * @returns {Number}
-     */
-    get score() {
-        return this._score;
-    }
-
-    /**
-     * Returns the game time
-     * @returns {Number}
-     */
-    get time() {
-        return this._time;
-    }
 
 
     /**
@@ -65,13 +33,12 @@ class Score {
      * @returns {Score}
      */
     set(level, score) {
-        this._count = this.initialCount;
-        this._level = level;
-        this._score = score || 0;
+        this.count = this.initialCount;
+        this.level = level;
+        this.score = score || 0;
         this.resetTime();
         return this;
     }
-
 
     /**
      * Shows all the things
@@ -109,12 +76,13 @@ class Score {
     }
 
 
+
     /**
      * Decreases the Count by 1
      * @returns {Void}
      */
     decCount() {
-        this._count -= 1;
+        this.count -= 1;
     }
 
     /**
@@ -123,7 +91,7 @@ class Score {
      * @returns {Void}
      */
     incScore(score) {
-        this._score += score;
+        this.score += score;
         this.showScore();
     }
 
@@ -133,7 +101,7 @@ class Score {
      * @returns {Void}
      */
     decTime(time) {
-        this._time -= time;
+        this.time -= time;
     }
 
     /**
@@ -141,10 +109,10 @@ class Score {
      * @returns {Void}
      */
     resetTime() {
-        if (this.display.isStarting()) {
-            this._time = this.countTime;
+        if (this.display.isStarting) {
+            this.time = this.countTime;
         } else {
-            this._time = this.speedTimes[this.level - 1];
+            this.time = this.speedTimes[this.level - 1];
         }
     }
 }

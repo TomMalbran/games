@@ -19,6 +19,8 @@ class EndLevelAnimation extends Animation {
         this.endTime    = 1600;
     }
 
+
+
     /**
      * Does the End Level animation
      * @returns {Void}

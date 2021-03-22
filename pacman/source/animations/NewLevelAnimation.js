@@ -24,6 +24,8 @@ class NewLevelAnimation extends Animation {
         this.clearAll   = true;
     }
 
+
+
     /**
      * Does the New Level animation
      * @returns {Void}

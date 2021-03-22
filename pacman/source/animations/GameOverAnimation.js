@@ -18,6 +18,8 @@ class GameOverAnimation extends Animation {
         this.endTime    = 2000;
     }
 
+
+
     /**
      * Does the Game Over animation
      * @returns {Void}

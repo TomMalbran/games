@@ -21,11 +21,12 @@ class Ship {
         this.emWidth = shipWidth;
         this.setWidth();
 
-        this.top     = this.board.getHeight() - this.element.offsetHeight - 5;
-        this.left    = (this.board.getWidth() - this.width) / 2;
+        this.top     = this.board.height - this.element.offsetHeight - 5;
+        this.left    = (this.board.width - this.width) / 2;
 
         Utils.setPosition(this.element, this.top, this.left);
     }
+
 
 
     /**
@@ -34,7 +35,7 @@ class Ship {
      */
     setWidth() {
         this.element.style.width = Utils.toEM(this.emWidth);
-        this.width = this.element.offsetWidth;
+        this.actualWidth = this.element.offsetWidth;
     }
 
     /**
@@ -62,19 +63,19 @@ class Ship {
     mouseMove(e) {
         const mouseLeft  = Utils.getMousePos(e).left;
         const halfWidth  = this.width / 2;
-        const boardLeft  = this.board.getLeft() - this.board.getBorder();
-        const boardRight = this.board.getLeft() + this.board.getWidth() + this.board.getBorder();
-        const leftSide   = this.board.getLeft() + halfWidth;
-        const rightSide  = this.board.getLeft() + this.board.getWidth() - halfWidth;
+        const boardLeft  = this.board.left - this.board.border;
+        const boardRight = this.board.left + this.board.width + this.board.border;
+        const leftSide   = this.board.left + halfWidth;
+        const rightSide  = this.board.left + this.board.width - halfWidth;
         let   shipLeft   = 0;
 
         if (mouseLeft < boardLeft || mouseLeft > boardRight) {
             return;
         }
         if (mouseLeft >= leftSide && mouseLeft <= rightSide) {
-            shipLeft = mouseLeft - this.board.getLeft() - halfWidth;
+            shipLeft = mouseLeft - this.board.left - halfWidth;
         } else if (mouseLeft > rightSide) {
-            shipLeft = rightSide - this.board.getLeft() - halfWidth;
+            shipLeft = rightSide - this.board.left - halfWidth;
         }
         this.doMove(shipLeft);
     }
@@ -85,7 +86,7 @@ class Ship {
      * @returns {Void}
      */
     keyMove(direction) {
-        const maxim = this.board.getWidth() - this.width;
+        const maxim = this.board.width - this.width;
         let   left  = this.left + this.keyMovement * direction;
 
         left = Utils.clamp(left, 0, maxim);
@@ -114,7 +115,6 @@ class Ship {
         window.setTimeout(() => this.setTop(), 100);
     }
 
-
     /**
      * Reduce the width of the ship
      * @returns {Void}
@@ -130,11 +130,12 @@ class Ship {
     }
 
 
+
     /**
      * Returns the position of the Ship
      * @returns {{top: Number, left: Number}}
      */
-    getPosition() {
+    get pos() {
         return {
             top  : this.top,
             left : this.left - this.extraWidth / 2
@@ -145,7 +146,7 @@ class Ship {
      * Returns the width of the Ship
      * @returns {Number}
      */
-    getWidth() {
-        return this.width + this.extraWidth;
+    get width() {
+        return this.actualWidth + this.extraWidth;
     }
 }

@@ -27,6 +27,7 @@ class Bricks {
     }
 
 
+
     /**
      * Creates the bricks
      * @returns {Void}
@@ -69,13 +70,14 @@ class Bricks {
     }
 
 
+
     /**
      * Check if the Ball crashed any brick and remove it when it did
      * @param {Ball} ball
      * @returns {Boolean} True if the ball crashed a brick
      */
     crash(ball) {
-        if (ball.getPosition().top > this.bottom) {
+        if (ball.pos.top > this.bottom) {
             return false;
         }
 
@@ -98,8 +100,8 @@ class Bricks {
      * @returns {Boolean} True if the ball crashed the bottom part of the brick
      */
     bottomCrash(ball, brick) {
-        const pos = ball.getPosition();
-        if (this.isPointInElement(pos.top, pos.left + ball.getSize() / 2, brick)) {
+        const pos = ball.pos;
+        if (this.isPointInElement(pos.top, pos.left + ball.size / 2, brick)) {
             ball.setDirTop(1);
             return true;
         }
@@ -113,9 +115,9 @@ class Bricks {
      * @returns {Boolean} True if the ball crashed the left part of the brick
      */
     leftCrash(ball, brick) {
-        const pos  = ball.getPosition();
-        const top  = pos.top  + ball.getSize() / 2;
-        const left = pos.left + ball.getSize();
+        const pos  = ball.pos;
+        const top  = pos.top  + ball.size / 2;
+        const left = pos.left + ball.size;
 
         if (this.isPointInElement(top, left, brick)) {
             ball.setDirLeft(-1);
@@ -131,8 +133,8 @@ class Bricks {
      * @returns {Boolean} True if the ball crashed the right part of the brick
      */
     rightCrash(ball, brick) {
-        const pos = ball.getPosition();
-        if (this.isPointInElement(pos.top + ball.getSize() / 2, pos.left, brick)) {
+        const pos = ball.pos;
+        if (this.isPointInElement(pos.top + ball.size / 2, pos.left, brick)) {
             ball.setDirLeft(-1);
             return true;
         }
@@ -146,9 +148,9 @@ class Bricks {
      * @returns {Boolean} True if the ball crashed the top part of the brick
      */
     topCrash(ball, brick) {
-        const pos  = ball.getPosition();
-        const top  = pos.top  + ball.getSize();
-        const left = pos.left + ball.getSize() / 2;
+        const pos  = ball.pos;
+        const top  = pos.top  + ball.size;
+        const left = pos.left + ball.size / 2;
 
         if (this.isPointInElement(top, left, brick)) {
             ball.setDirTop(-1);
@@ -177,6 +179,7 @@ class Bricks {
     }
 
 
+
     /**
      * Recreate the bricks and reduce the ship width
      * @returns {Boolean}
@@ -197,6 +200,7 @@ class Bricks {
     removeContent() {
         this.container.innerHTML = "";
     }
+
 
 
     /**

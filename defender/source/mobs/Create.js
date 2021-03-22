@@ -24,8 +24,8 @@ class Create {
      * @returns {Void}
      */
     mobs(data) {
-        const starts  = this.parent.board.getStarts();
-        const targets = this.parent.board.getTargets();
+        const starts  = this.parent.board.starts;
+        const targets = this.parent.board.targets;
         let   amount  = 0;
 
         starts.forEach((element, index) => {
@@ -53,14 +53,14 @@ class Create {
             const dir   = this.parent.paths.getMobDir(path, 0, data.type === "Flying");
 
             mob = Mob.create(data.type, {
-                id          : this.parent.manager.getNextID(),
+                id          : this.parent.manager.nextID,
                 pos         : i,
-                boss        : data.isBoss,
+                isBoss      : data.isBoss,
                 wave        : data.wave,
                 row         : start[1],
                 col         : start[0],
-                top         : start[1] * this.parent.board.getSize(),
-                left        : start[0] * this.parent.board.getSize(),
+                top         : start[1] * MapsData.squareSize,
+                left        : start[0] * MapsData.squareSize,
                 dirTop      : dir.top,
                 dirLeft     : dir.left,
                 path        : path,
@@ -69,7 +69,7 @@ class Create {
                 angle       : this.parent.paths.getAngle(path),
                 deg         : this.parent.paths.getDeg(dir),
                 gameLevel   : this.parent.gameLevel,
-                boardSize   : this.parent.board.getSize()
+                boardSize   : MapsData.squareSize
             });
 
             this.parent.manager.add(mob);
@@ -82,7 +82,6 @@ class Create {
         return i;
     }
 
-
     /**
      * Creates all the childs of a single parent
      * @param {Mob} parent
@@ -91,11 +90,11 @@ class Create {
     childs(parent) {
         const cells  = this.getCloseCells(parent);
         const childs = [];
-        let   mob  = null;
+        let   mob    = null;
         let   i      = 0;
 
         do {
-            const dist  = Math.floor(this.parent.board.getSize() / 2);
+            const dist  = Math.floor(MapsData.squareSize / 2);
             const move  = Utils.rand(-dist, dist);
             const dtop  = Utils.rand(0, 1);
             const dleft = 1 - dtop;
@@ -105,28 +104,28 @@ class Create {
                 left : move < 0 ? -dleft : dleft
             };
 
-            mob = Mob.create(parent.getChildName(), {
+            mob = Mob.create(parent.childName, {
                 pos         : i,
-                id          : this.parent.manager.getNextID(),
-                boss        : parent.isBoss(),
-                wave        : parent.getWave(),
-                row         : parent.getRow(),
-                col         : parent.getCol(),
-                top         : parent.getPos().top,
-                left        : parent.getPos().left,
+                id          : this.parent.manager.nextID,
+                boss        : parent.isBoss,
+                wave        : parent.wave,
+                row         : parent.row,
+                col         : parent.col,
+                top         : parent.pos.top,
+                left        : parent.pos.left,
                 dirTop      : dir.top,
                 dirLeft     : dir.left,
                 path        : null,
-                targetPos   : parent.getTargetPos(),
-                targetValue : parent.getTargetValue(),
+                targetPos   : parent.targetPos,
+                targetValue : parent.targetValue,
                 angle       : 0,
                 deg         : this.parent.paths.getDeg(dir),
                 spawnTo     : {
-                    top  : cell[0] * this.parent.board.getSize() + move * dtop,
-                    left : cell[1] * this.parent.board.getSize() + move * dleft
+                    top  : cell[0] * MapsData.squareSize + move * dtop,
+                    left : cell[1] * MapsData.squareSize + move * dleft
                 },
                 gameLevel : this.parent.gameLevel,
-                boardSize : this.parent.board.getSize()
+                boardSize : MapsData.squareSize
             });
 
             this.parent.manager.add(mob);
@@ -138,7 +137,6 @@ class Create {
         this.parent.manager.addSpawn(childs);
     }
 
-
     /**
      * Creates the blood after killing a mob
      * @param {Mob} mob
@@ -147,10 +145,11 @@ class Create {
     createBlood(mob) {
         const element = document.createElement("DIV");
         element.className  = "blood";
-        element.style.top  = Utils.toPX(mob.getPos().top);
-        element.style.left = Utils.toPX(mob.getPos().left);
+        element.style.top  = Utils.toPX(mob.pos.top);
+        element.style.left = Utils.toPX(mob.pos.left);
         this.blooder.appendChild(element);
     }
+
 
 
     /**
@@ -160,12 +159,12 @@ class Create {
      * @returns {Void}
      */
     getCloseCells(mob) {
-        const nothing = this.parent.board.getNothingValue();
+        const nothing = MapsData.nothing;
         const cells   = [];
 
         this.moveDirs.forEach((dir) => {
-            const row = mob.getRow() + dir[0];
-            const col = mob.getCol() + dir[1];
+            const row = mob.row + dir[0];
+            const col = mob.col + dir[1];
 
             if (this.parent.board.inMatrix(row, col) &&
                     this.parent.board.getContent(row, col) <= nothing) {

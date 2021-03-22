@@ -35,6 +35,7 @@ class Score {
     }
 
 
+
     /**
      * Calls the on Game Over function
      * @returns {Void}
@@ -89,6 +90,7 @@ class Score {
             this.onGameOver();
         }
     }
+
 
 
     /**
@@ -148,7 +150,7 @@ class Score {
      * Returns the final Bonus for the Final Score
      * @returns {Number}
      */
-    getBonus() {
+    calcBonus() {
         return this.bonus * (this.lives <= 0 ? 0 : 1);
     }
 
@@ -156,9 +158,10 @@ class Score {
      * Returns the total Score for the Final Score
      * @returns {Number}
      */
-    getTotal() {
-        return (this.score + this.lives * this.livesMult + this.getBonus()) * this.level;
+    get total() {
+        return (this.score + this.lives * this.livesMult + this.calcBonus()) * this.level;
     }
+
 
 
     /**
@@ -183,44 +186,11 @@ class Score {
             <dt>${this.lives} lives x${this.livesMult}</dt>
             <dd>${this.lives * this.livesMult}</dd>
             <dt>+ Time Bonus</dt>
-            <dd>${this.getBonus()}</dd>
+            <dd>${this.calcBonus()}</dd>
             <dt>x Multiplier</dt>
             <dd>${this.level}</dd>
             <dt>Total Score</dt>
-            <dd>${this.getTotal()}</dd>
+            <dd>${this.total}</dd>
         `;
-    }
-
-
-    /**
-     * Returns the current Gold
-     * @returns {Number}
-     */
-    getGold () {
-        return this.gold;
-    }
-
-    /**
-     * Returns the current Lives
-     * @returns {Number}
-     */
-    getLives() {
-        return this.lives;
-    }
-
-    /**
-     * Returns the current Timer
-     * @returns {Number}
-     */
-    getTimer() {
-        return this.timer;
-    }
-
-    /**
-     * Returns the current Score
-     * @returns {Number}
-     */
-    getScore() {
-        return this.score;
     }
 }

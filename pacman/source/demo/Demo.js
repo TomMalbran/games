@@ -19,6 +19,7 @@ class Demo {
     }
 
 
+
     /**
      * Destroys the current Demo and leaves it ready for the next start
      * @returns {Void}
@@ -30,7 +31,6 @@ class Demo {
         this.canvas.clear();
         this.nextAnimation();
     }
-
 
     /**
      * Calls the animation the demo is at
@@ -78,6 +78,7 @@ class Demo {
     }
 
 
+
     /**
      * The Title Animation
      * @param {Number} time
@@ -115,6 +116,7 @@ class Demo {
         this.ctx.fillText("man", right.x, right.y);
         this.ctx.restore();
     }
+
 
 
     /**
@@ -162,6 +164,7 @@ class Demo {
             this.nextAnimation();
         }
     }
+
 
 
     /**
@@ -230,6 +233,7 @@ class Demo {
     }
 
 
+
     /**
      * Initializes the Players for the Present animation
      * @returns {Void}
@@ -292,6 +296,7 @@ class Demo {
             pos   : DemoData.present.namePos,
         });
     }
+
 
 
     /**

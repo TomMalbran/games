@@ -42,6 +42,7 @@ class Demo {
     }
 
 
+
     /**
      * Start the demo
      * @param {Number} level
@@ -63,6 +64,7 @@ class Demo {
             }
         }
     }
+
 
 
     /**

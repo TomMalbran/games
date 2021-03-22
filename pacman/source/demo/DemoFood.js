@@ -13,6 +13,8 @@ class DemoFood extends Food {
         this.ctx = Board.screenCanvas.context;
     }
 
+
+
     /**
      * The wink animation used for the chase anmiation
      * @returns {Void}

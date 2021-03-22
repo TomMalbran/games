@@ -11,26 +11,27 @@ class ArrowMob extends Mob {
     constructor(data) {
         super();
 
-        this.name     = "Arrow";
-        this.slogan   = "Fast and furious";
-        this.text     = "Fast in straight lines, slow in curves";
-        this.color    = "rgb(207, 99, 99)";
+        this.name      = "Arrow";
+        this.slogan    = "Fast and furious";
+        this.text      = "Fast in straight lines, slow in curves";
+        this.color     = "rgb(207, 99, 99)";
 
-        this.interval = 600;
-        this.amount   = 10;
-        this.bosses   = 1;
-        this.life     = 0.8;
-        this.money    = 1;
-        this.speed    = 2;
-        this.defense  = 0;
-        this.arrow    = true;
-        this.content  = `
+        this.interval  = 600;
+        this.amount    = 10;
+        this.bosses    = 1;
+        this.lifeMult  = 0.8;
+        this.baseSpeed = 2;
+        this.money     = 1;
+        this.defense   = 0;
+        this.isArrow   = true;
+        this.content   = `
             <div class="arrowHead"></div>
             <div class="arrowTail"></div>
         `;
 
         this.init(data);
     }
+
 
 
     /**

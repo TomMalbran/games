@@ -12,8 +12,11 @@ class Selection {
         this.tower  = null;
 
         this.parent.board.addListener("tower",   (event, element) => this.select(event, element));
+        this.parent.board.addListener("mob",     () => this.unselect());
         this.parent.board.addListener("default", () => this.drop());
     }
+
+
 
     /**
      * Selects the Tower with the given element, if the target is not in the range
@@ -36,7 +39,7 @@ class Selection {
      * @returns {Void}
      */
     pick(tower) {
-        if ((this.tower && this.tower.getID() !== tower.getID()) || !this.tower) {
+        if ((this.tower && this.tower.id !== tower.id) || !this.tower) {
             this.parent.builder.drop();
             if (this.tower) {
                 this.tower.toggleSelect(false);
@@ -45,7 +48,7 @@ class Selection {
             this.tower = tower;
             this.tower.toggleSelect(true);
 
-            this.parent.panel.showTower(this.tower, this.parent.score.getGold());
+            this.parent.panel.showTower(this.tower, this.parent.score.gold);
             this.enableUpgrades();
         }
     }
@@ -56,7 +59,7 @@ class Selection {
      * @returns {Void}
      */
     trash(id) {
-        if (this.tower && this.tower.getID() === id) {
+        if (this.tower && this.tower.id === id) {
             this.drop();
         }
     }
@@ -65,20 +68,31 @@ class Selection {
      * Unselects the currently selected tower, if there is one slected
      * @returns {Void}
      */
-    drop() {
+    unselect() {
         if (this.tower) {
             this.tower.toggleSelect(false);
             this.tower = null;
+        }
+    }
+
+    /**
+     * Unselects the currently selected tower and closes the panel, if there is one slected
+     * @returns {Void}
+     */
+    drop() {
+        if (this.tower) {
+            this.unselect();
             this.parent.panel.hide();
         }
     }
+
 
 
     /**
      * Select the First Tower of the list
      * @returns {Void}
      */
-    first() {
+    selectFirst() {
         this.drop();
         this.nextPrev(1);
     }
@@ -87,7 +101,7 @@ class Selection {
      * Selects the Last Tower of the list
      * @returns {Void}
      */
-    last() {
+    selectLast() {
         this.drop();
         this.nextPrev(-1);
     }
@@ -98,8 +112,8 @@ class Selection {
      * @returns {Void}
      */
     nextPrev(add) {
-        const ids   = Object.keys(this.parent.manager.getList());
-        const pos   = this.tower ? ids.indexOf(String(this.tower.getID())) : (add < 0 ? ids.length : -1);
+        const ids   = Object.keys(this.parent.manager.list);
+        const pos   = this.tower ? ids.indexOf(String(this.tower.id)) : (add < 0 ? ids.length : -1);
         const added = (pos + add) % ids.length;
         const index = added < 0 ? ids.length + added : added;
         const tower = this.parent.manager.get(ids[index]);
@@ -108,14 +122,15 @@ class Selection {
     }
 
 
+
     /**
      * Shows the Tower Description
      * @param {?Number} id
      * @returns {Void}
      */
     showDescription(id) {
-        if (this.tower && (this.tower.getID() === id || !id)) {
-            this.parent.panel.showTower(this.tower, this.parent.score.getGold());
+        if (this.tower && (this.tower.id === id || !id)) {
+            this.parent.panel.showTower(this.tower, this.parent.score.gold);
         }
     }
 
@@ -125,10 +140,11 @@ class Selection {
      * @returns {Void}
      */
     hideDescription(id) {
-        if (this.tower && (this.tower.getID() === id || !id)) {
+        if (this.tower && (this.tower.id === id || !id)) {
             this.parent.panel.hide();
         }
     }
+
 
 
     /**
@@ -137,7 +153,7 @@ class Selection {
      * @returns {Void}
      */
     enableUpgrades(gold) {
-        if (this.tower && this.tower.getUpgradeCost() <= gold) {
+        if (this.tower && this.tower.upgradeCost <= gold) {
             this.parent.panel.showTower(this.tower, gold);
         }
     }
@@ -148,25 +164,18 @@ class Selection {
      * @returns {Void}
      */
     disableUpgrades(gold) {
-        if (this.tower && this.tower.getUpgradeCost() > gold) {
+        if (this.tower && this.tower.upgradeCost > gold) {
             this.parent.panel.showTower(this.tower, gold);
         }
     }
+
 
 
     /**
      * Returns true if a Tower is selected
      * @returns {Boolean}
      */
-    hasSelected() {
+    get hasSelected() {
         return this.tower !== null;
-    }
-
-    /**
-     * Returns the selected Tower
-     * @returns {Tower}
-     */
-    getTower() {
-        return this.tower;
     }
 }

@@ -7,70 +7,15 @@ class Board {
      * Board Manager constructor
      */
     constructor() {
-        this._matrixRows    = 18;
-        this._matrixColumns = 24;
-        this._totalCells    = 354;
-        this._cellSize      = 1.5;
-        this._foodValue     = -3;
-        this._borderValue   = -1;
-        this._emptyValue    = -2;
+        this.matrixRows    = 18;
+        this.matrixColumns = 24;
+        this.totalCells    = 354;
+        this.cellSize      = 1.5;
+        this.foodValue     = -3;
+        this.borderValue   = -1;
+        this.emptyValue    = -2;
     }
 
-    /**
-     * Returns the amount of rows in the matrix
-     * @returns {Number}
-     */
-    get matrixRows() {
-        return this._matrixRows;
-    }
-
-    /**
-     * Returns the amount of columns in the matrix
-     * @returns {Number}
-     */
-    get matrixColumns() {
-        return this._matrixColumns;
-    }
-
-    /**
-     * Returns the amount of cells in the matrix
-     * @returns {Number}
-     */
-    get totalCells() {
-        return this._totalCells;
-    }
-
-    /**
-     * Returns the cell size
-     * @returns {Number}
-     */
-    get cellSize() {
-        return this._cellSize;
-    }
-
-    /**
-     * Returns the food value in the matrix
-     * @returns {Number}
-     */
-    get foodValue() {
-        return this._foodValue;
-    }
-
-    /**
-     * Returns the border value in the matrix
-     * @returns {Number}
-     */
-    get borderValue() {
-        return this._borderValue;
-    }
-
-    /**
-     * Returns the empty value in the matrix
-     * @returns {Number}
-     */
-    get emptyValue() {
-        return this._emptyValue;
-    }
 
 
     /**

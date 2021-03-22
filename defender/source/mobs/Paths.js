@@ -21,6 +21,7 @@ class Paths {
     }
 
 
+
     /**
      * Creates the Paths. Shows the preview if the game hasn't started and returns true
      * when there isn't possible to create at least one of the required paths
@@ -54,16 +55,15 @@ class Paths {
      * @returns {Void}
      */
     createNormalPaths(paths) {
-        const starts  = this.parent.board.getStarts();
-        const targets = this.parent.board.getTargets();
-        const wall    = this.parent.board.getWallsValue();
-        const matrix  = this.parent.board.getMatrix();
+        const starts  = this.parent.board.starts;
+        const targets = this.parent.board.targets;
+        const matrix  = this.parent.board.matrix;
 
         return starts.some((list, i) => {
             return list.some((start, j) => {
                 return [0, 1].some((k) => {
                     const cell  = this.getCellName(start.pos[0], start.pos[1], k);
-                    paths[cell] = new AStar(matrix, start.pos, targets[i][j].pos, this.getType(k), wall);
+                    paths[cell] = new AStar(matrix, start.pos, targets[i][j].pos, this.getType(k), MapsData.wall);
 
                     if (paths[cell].length === 0) {
                         return true;
@@ -80,16 +80,16 @@ class Paths {
      * @returns {Void}
      */
     createMobsPaths(paths) {
-        if (!this.parent.manager.isEmpty()) {
-            this.parent.manager.getList().forEach((mob) => {
-                const cell = this.getCellName(mob.getCol(), mob.getRow(), mob.isHopper());
+        if (!this.parent.manager.isEmpty) {
+            this.parent.manager.list.forEach((mob) => {
+                const cell = this.getCellName(mob.col, mob.row, mob.isHopper);
 
-                if (this.parent.board.inMatrix(mob.getRow(), mob.getCol()) && !mob.isFlyer()) {
+                if (this.parent.board.inMatrix(mob.row, mob.col) && !mob.isFlyer) {
                     paths[cell] = this.createMobPath(mob);
                     if (paths[cell].length === 0) {
                         return true;
                     }
-                    this.mobs[mob.getID()] = cell;
+                    this.mobs[mob.id] = cell;
                 }
             });
             return false;
@@ -102,8 +102,8 @@ class Paths {
      * @returns {Void}
      */
     createFlyersPaths() {
-        const starts  = this.parent.board.getStarts();
-        const targets = this.parent.board.getTargets();
+        const starts  = this.parent.board.starts;
+        const targets = this.parent.board.targets;
 
         starts.forEach((list, i) => {
             list.forEach((start, j) => {
@@ -119,14 +119,15 @@ class Paths {
     }
 
 
+
     /**
      * Asings to each mob a new path
      * @returns {Void}
      */
     asignPathsToMobs() {
-        if (!this.parent.manager.isEmpty()) {
-            this.parent.manager.getList().forEach((mob) => {
-                this.asignPathToMob(mob, this.mobs[mob.getID()]);
+        if (!this.parent.manager.isEmpty) {
+            this.parent.manager.list.forEach((mob) => {
+                this.asignPathToMob(mob, this.mobs[mob.id]);
             });
         }
     }
@@ -147,7 +148,7 @@ class Paths {
      * @returns {String}
      */
     newPath(mob) {
-        const cell = this.getCellName(mob.getCol(), mob.getRow(), mob.isHopper());
+        const cell = this.getCellName(mob.col, mob.row, mob.isHopper);
         this.normalPaths[cell] = this.createMobPath(mob);
         return cell;
     }
@@ -158,13 +159,13 @@ class Paths {
      * @returns {Array.<[Number, Number]>}
      */
     createMobPath(mob) {
-        const start  = [ mob.getCol(), mob.getRow() ];
-        const matrix = this.parent.board.getMatrix();
-        const type   = this.getType(mob.isHopper());
-        const wall   = this.parent.board.getWallsValue();
+        const start  = [ mob.col, mob.row ];
+        const matrix = this.parent.board.matrix;
+        const type   = this.getType(mob.isHopper);
 
-        return new AStar(matrix, start, mob.getTargetPos(), type, wall);
+        return new AStar(matrix, start, mob.targetPos, type, MapsData.wall);
     }
+
 
 
     /**
@@ -224,12 +225,13 @@ class Paths {
         const angle   = this.getDeg(this.getPathDir(path, pos, false));
         const element = document.createElement("DIV");
 
-        element.style.top       = Utils.toPX(row * this.parent.board.getSize());
-        element.style.left      = Utils.toPX(col * this.parent.board.getSize());
+        element.style.top       = Utils.toPX(row * MapsData.squareSize);
+        element.style.left      = Utils.toPX(col * MapsData.squareSize);
         element.style.transform = Utils.rotate(angle);
 
         this.element.appendChild(element);
     }
+
 
 
     /**
@@ -321,10 +323,10 @@ class Paths {
      * @returns {Boolean}
      */
     nextInPath(mob, row, col) {
-        if (mob.isFlyer()) {
-            return row !== mob.getRow() || col !== mob.getCol();
+        if (mob.isFlyer) {
+            return row !== mob.row || col !== mob.col;
         }
-        const path = this.normalPaths[mob.getPath()][mob.getPointer() + 1];
+        const path = this.normalPaths[mob.path][mob.pointer + 1];
         if (path) {
             return path[0] === col && path[1] === row;
         }

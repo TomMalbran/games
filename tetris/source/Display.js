@@ -59,11 +59,12 @@ class Display {
     }
 
 
+
     /**
      * Returns true if the display is in the main screen
      * @returns {Boolean}
      */
-    inMainScreen() {
+    get isMainScreen() {
         return this.display === "mainScreen";
     }
 
@@ -71,7 +72,7 @@ class Display {
      * Returns true if the display is in playing mode
      * @returns {Boolean}
      */
-    isPlaying() {
+    get isPlaying() {
         return this.display === "playing";
     }
 
@@ -79,7 +80,7 @@ class Display {
      * Returns true if the display is in paused mode
      * @returns {Boolean}
      */
-    isPaused() {
+    get isPaused() {
         return this.display === "paused";
     }
 }

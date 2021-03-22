@@ -41,6 +41,7 @@ class MissileTower extends Tower {
     }
 
 
+
     /**
      * Returns a list of Mobs close to the given one
      * @param {List.<Iterator>} mobs
@@ -66,6 +67,6 @@ class MissileTower extends Tower {
      * @returns {Boolean}
      */
     isValidTarget(mob) {
-        return !mob.isFlyer();
+        return !mob.isFlyer;
     }
 }

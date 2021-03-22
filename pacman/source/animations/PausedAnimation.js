@@ -20,12 +20,14 @@ class PausedAnimation extends Animation {
         this.clearAll   = true;
     }
 
+
+
     /**
      * Returns true if the animation hasn't ended
      * @param {Number} time
      * @returns {Boolean}
      */
-    isAnimating() {
+    get isAnimating() {
         return true;
     }
 

@@ -20,6 +20,8 @@ class GhostScoreAnimation extends Animation {
         this.endTime    = 1000;
     }
 
+
+
     /**
      * Does the Ghost Score animation
      * @returns {Void}

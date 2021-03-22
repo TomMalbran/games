@@ -25,13 +25,15 @@ class Tail {
         }
     }
 
+
+
     /**
      * Sets the initial positions of the tails elements
      * @param {Ball} ball
      * @returns {Void}
      */
     start(ball) {
-        const pos = ball.getPosition();
+        const pos = ball.pos;
         this.elements.forEach((data) => {
             data.top  = pos.top;
             data.left = pos.left;
@@ -46,7 +48,7 @@ class Tail {
      */
     move(ball) {
         const first = this.elements[0];
-        const pos   = ball.getPosition();
+        const pos   = ball.pos;
         let   top   = pos.top;
         let   left  = pos.left;
 

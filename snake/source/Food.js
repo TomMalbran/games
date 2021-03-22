@@ -28,6 +28,8 @@ class Food {
         }
     }
 
+
+
     /**
      * Checks if the given position is the food position and it hides it when it is
      * @param {Number} top
@@ -94,11 +96,12 @@ class Food {
     }
 
 
+
     /**
      * Returns the position of the food
      * @returns {{top: Number, left: Number}}
      */
-    getPosition() {
+    get pos() {
         return { top : this.top, left : this.left };
     }
 
@@ -106,7 +109,7 @@ class Food {
      * Returns the timer
      * @returns {Number}
      */
-    getTimer() {
+    get timer() {
         return this.time > 0 ? Math.round(this.time / 10) : 0;
     }
 }

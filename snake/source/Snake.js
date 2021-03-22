@@ -32,12 +32,14 @@ class Snake {
         }
     }
 
+
+
     /**
      * Moves the snake
      * @returns {String} The result of the movement
      */
     move() {
-        const pos = this.getPosition();
+        const pos = this.pos;
 
         if (this.matrix.crashed(pos.top, pos.left)) {
             return "crashed";
@@ -46,7 +48,7 @@ class Snake {
             this.newLink(pos.top, pos.left);
             return "ate";
         }
-        if (this.queue.size() < 3) {
+        if (this.queue.size < 3) {
             this.newLink(pos.top, pos.left);
         } else {
             this.moveLink(pos.top, pos.left);
@@ -101,6 +103,7 @@ class Snake {
     }
 
 
+
     /**
      * Change the direction of the snake
      * @param {Number} dirTop
@@ -124,7 +127,7 @@ class Snake {
      */
     mouseTurn(event) {
         const mouse = Utils.getMousePos(event);
-        const last  = this.queue.last();
+        const last  = this.queue.last;
         const cell  = this.board.cellSize;
         const top   = Math.floor((mouse.top  - this.position.top)  / cell);
         const left  = Math.floor((mouse.left - this.position.left) / cell);
@@ -147,16 +150,16 @@ class Snake {
     }
 
 
+
     /**
      * Returns the next position of the last element in the queue
      * @returns {{top: Number, left: nuber}}
      */
-    getPosition() {
-        if (this.queue.isEmpty()) {
+    get pos() {
+        if (this.queue.isEmpty) {
             return this.initialPos;
         }
-
-        const last = this.queue.last();
+        const last = this.queue.last;
         return {
             top  : last.top  + this.dirTop,
             left : last.left + this.dirLeft
@@ -167,7 +170,7 @@ class Snake {
      * Returns the current direction of the snake
      * @returns {{top: Number, left: nuber}}
      */
-    getDirection() {
+    get direction() {
         return { top : this.dirTop, left : this.dirLeft };
     }
 }

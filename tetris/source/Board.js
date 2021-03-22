@@ -32,6 +32,7 @@ class Board {
     }
 
 
+
     /**
      * Checks if there is a crash, given the Tetrimino Matrix and position
      * @param {Number} top
@@ -92,6 +93,7 @@ class Board {
         }
         this.rows[i] = 0;
     }
+
 
 
     /**
@@ -198,6 +200,7 @@ class Board {
     }
 
 
+
     /**
      * Returns true if the position is a border
      * @param {Number} top
@@ -234,6 +237,7 @@ class Board {
     getLeft(left) {
         return Utils.toEM(left * this.tetriminoSize);
     }
+
 
 
     /**

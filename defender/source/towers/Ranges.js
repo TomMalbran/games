@@ -15,32 +15,33 @@ class Ranges {
     }
 
 
+
     /**
      * It adds the Tower to the diferent cells in the matrices of Iterators where its range reaches it
      * @returns {({boosts: Array.<Iterator>, towers: Array.<Iterator>} | {complete: Array.<Iterator>, reduced: Array.<Iterator>})}
      */
     add(tower) {
-        const matrix = tower.getRangeMatrix();
-        const reduce = (matrix.length - tower.getSize()) / 2;
+        const matrix = tower.rangeMatrix;
+        const reduce = (matrix.length - tower.size) / 2;
         const list1  = [];
         const list2  = [];
 
         matrix.forEach((line, i) => {
             line.forEach((cell, j) => {
-                const row = tower.getRow() - reduce + i;
-                const col = tower.getCol() - reduce + j;
+                const row = tower.row - reduce + i;
+                const col = tower.col - reduce + j;
 
                 if (cell === 1 && this.parent.board.inBoard(row, col)) {
-                    if (tower.isBoost()) {
-                        this.addBoost(list1, list2, tower.getID(), row, col);
-                    } else if (!tower.canFire()) {
-                        this.addNormal(list1, list2, tower.getID(), row, col);
+                    if (tower.isBoost) {
+                        this.addBoost(list1, list2, tower.id, row, col);
+                    } else if (!tower.canFire) {
+                        this.addNormal(list1, list2, tower.id, row, col);
                     }
                 }
             });
         });
 
-        if (tower.isBoost()) {
+        if (tower.isBoost) {
             return { boosts: list1, towers: list2 };
         }
         return { complete: list1, reduced: list2 };
@@ -62,7 +63,7 @@ class Ranges {
         const tower   = this.parent.manager.get(towerID);
 
         list1.push(this.addTower("boosts", cell, id));
-        if (tower && !tower.isBoost() && !list2.includes(towerID)) {
+        if (tower && !tower.isBoost && !list2.includes(towerID)) {
             list2.push(towerID);
         }
     }
@@ -97,15 +98,13 @@ class Ranges {
         return this[list][cell].addLast({ id: id, cell: cell });
     }
 
-
     /**
      * Removes the Tower from all the internal lists
      * @param {Tower} tower
      * @returns {Void}
      */
     remove(tower) {
-        const lists = tower.getLists();
-        Object.keys(lists).forEach((name) => {
+        Object.keys(tower.lists).forEach((name) => {
             lists[name].forEach((it) => {
                 if (this[name]) {
                     it.removePrev();
@@ -115,13 +114,14 @@ class Ranges {
     }
 
 
+
     /**
      * When starting to shoot, it removes the Tower from the reduced array
      * @param {Tower} tower
      * @returns {Void}
      */
     startShoot(tower) {
-        tower.getLists().reduced.forEach((it) => {
+        tower.lists.reduced.forEach((it) => {
             if (it) {
                 it.removePrev();
             }
@@ -135,11 +135,12 @@ class Ranges {
      */
     endShoot(tower) {
         const list = [];
-        tower.getLists().complete.forEach((it) => {
+        tower.lists.complete.forEach((it) => {
             list.push(this.addTower("reduced", it.getPrev().cell, it.getPrev().id));
         });
         tower.setList("reduced", list);
     }
+
 
 
     /**
@@ -148,16 +149,11 @@ class Ranges {
      * @returns {Array.<Number>}
      */
     getBoostsList(tower) {
-        const startRow = tower.getRow();
-        const startCol = tower.getCol();
-        const endRow   = startRow + tower.getSize();
-        const endCol   = startCol + tower.getSize();
-        const list     = [];
-
-        for (let i = startRow; i < endRow; i += 1) {
-            for (let j = startCol; j < endCol; j += 1) {
+        const list = [];
+        for (let i = tower.row; i < tower.endRow; i += 1) {
+            for (let j = tower.col; j < tower.endCol; j += 1) {
                 const pos = this.getCell(i, j);
-                if (this.boosts[pos] && !this.boosts[pos].isEmpty()) {
+                if (this.boosts[pos] && !this.boosts[pos].isEmpty) {
                     const it = this.boosts[pos].iterate();
                     while (it.hasNext()) {
                         if (list.includes(it.getNext())) {
@@ -170,7 +166,6 @@ class Ranges {
         }
         return list;
     }
-
 
     /**
      * Returns a string that represents a position
@@ -190,7 +185,7 @@ class Ranges {
      */
     hasTowers(row, col) {
         const pos = this.getCell(row, col);
-        return this.reduced[pos] && !this.reduced[pos].isEmpty();
+        return this.reduced[pos] && !this.reduced[pos].isEmpty;
     }
 
     /**

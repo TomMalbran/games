@@ -11,25 +11,26 @@ class MorphMob extends Mob {
     constructor(data) {
         super();
 
-        this.name     = "Morph";
-        this.slogan   = "Cannot decide";
-        this.text     = "They change of type after a few seconds";
-        this.color    = "rgb(0, 128, 128)";
+        this.name      = "Morph";
+        this.slogan    = "Cannot decide";
+        this.text      = "They change of type after a few seconds";
+        this.color     = "rgb(0, 128, 128)";
 
-        this.interval = 400;
-        this.amount   = 10;
-        this.bosses   = 1;
-        this.life     = 1;
-        this.money    = 1;
-        this.speed    = 1;
-        this.defense  = 0;
-        this.morph    = [ "Normal", "Dark", "Inmune", "Fast" ];
-        this.content  = `<div class="normalMob"></div>`;
+        this.interval  = 400;
+        this.amount    = 10;
+        this.bosses    = 1;
+        this.lifeMult  = 1;
+        this.baseSpeed = 1;
+        this.money     = 1;
+        this.defense   = 0;
+        this.morph     = [ "Normal", "Dark", "Inmune", "Fast" ];
+        this.content   = `<div class="normalMob"></div>`;
 
         this.morphTime = 5000;
 
         this.init(data);
     }
+
 
 
     /**
@@ -46,7 +47,7 @@ class MorphMob extends Mob {
             this.type        = this.morph[this.counter];
             const mob        = Mob.create(this.type, {});
             this.actualSpeed = mob.speed;
-            this.inmune      = !!mob.inmune;
+            this.isInmune    = !!mob.isInmune;
             this.defense     = mob.defense || 0;
             this.timer       = 0;
 

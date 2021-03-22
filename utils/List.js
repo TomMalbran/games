@@ -39,7 +39,7 @@ let List = (function () {
          * @param {Node} prev
          * @param {Node} next
          */
-         constructor(list, prev, next) {
+        constructor(list, prev, next) {
             this.list      = list;
             this.previows  = prev;
             this.following = next;
@@ -145,13 +145,23 @@ let List = (function () {
 
     /**
      * The List Class
-     * @constructor
      */
     class List {
-        constructor() {
+        /**
+         * The List Constructor
+         * @constructor
+         * @param {Array=} array
+         */
+        constructor(array) {
             this.head   = null;
             this.tail   = null;
             this.length = 0;
+
+            if (array) {
+                for (const item of array) {
+                    this.addLast(item);
+                }
+            }
         }
 
         /**
@@ -201,10 +211,30 @@ let List = (function () {
         }
 
         /**
+         * Iterates througth the list calling the callback with the data as parameter,
+         * and remove the item if the callback returns true
+         * @param {Function(*, Number): Boolean} callback
+         * @returns {Boolean} True if the element was removed
+         */
+        remove(callback) {
+            if (this.head) {
+                for (let it = this.iterate(), count = 0; it.hasNext(); it.next(), count += 1) {
+                    if (callback(it.getNext(), count)) {
+                        it.removeNext();
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+
+
+        /**
          * Returns the data from the first element
          * @returns {*}
          */
-        first() {
+        get first() {
             if (this.head) {
                 return this.head.data;
             }
@@ -215,7 +245,7 @@ let List = (function () {
          * Returns the data from the last element
          * @returns {*}
          */
-        last() {
+        get last() {
             if (this.tail) {
                 return this.tail.data;
             }
@@ -223,20 +253,22 @@ let List = (function () {
         }
 
         /**
-         * Returns true if the queue is empty, and false otherwise
-         * @returns {Boolean}
+         * Returns the size of the List
+         * @returns {Number}
          */
-        isEmpty() {
-            return this.head === null;
+        get size() {
+            return this.length;
         }
 
         /**
-         * Returns the size of the list
-         * @returns {Number}
+         * Returns true if the List is empty, and false otherwise
+         * @returns {Boolean}
          */
-        size() {
-            return this.length;
+        get isEmpty() {
+            return this.head === null;
         }
+
+
 
         /**
          * Creates and returns a new Iterator at the start of the list
@@ -260,19 +292,17 @@ let List = (function () {
             return null;
         }
 
+
+
         /**
          * Iterates througth the list calling the callback with the data as parameter
-         * @param {Function(*, Number)}
+         * @param {Function(*, Number)} callback
          * @returns {Void}
          */
         forEach(callback) {
             if (this.head) {
-                const it    = this.iterate();
-                let   count = 0;
-                while (it.hasNext()) {
+                for (let it = this.iterate(), count = 0; it.hasNext(); it.next(), count += 1) {
                     callback(it.getNext(), count);
-                    it.next();
-                    count += 1;
                 }
             }
         }
@@ -280,24 +310,38 @@ let List = (function () {
         /**
          * Iterates througth the list calling the callback with the data as parameter,
          * but it breaks the loop if the function returns true
-         * @param {Function(*, Number): Boolean}
+         * @param {Function(*, Number): Boolean} callback
          * @returns {Boolean}
          */
         some(callback) {
             if (this.head) {
-                const it    = this.iterate();
-                let   count = 0;
-                while (it.hasNext()) {
+                for (let it = this.iterate(), count = 0; it.hasNext(); it.next(), count += 1) {
                     if (callback(it.getNext(), count)) {
                         return true;
                     }
-                    it.next();
-                    count += 1;
                 }
             }
             return false;
         }
+
+        /**
+         * Iterates througth the list calling the callback with the data as parameter,
+         * and returns the item if the callback returns true
+         * @param {Function(*, Number): Boolean} callback
+         * @returns {?*} The found element or null
+         */
+        find(callback) {
+            if (this.head) {
+                for (let it = this.iterate(), count = 0; it.hasNext(); it.next(), count += 1) {
+                    if (callback(it.getNext(), count)) {
+                        return it.getNext();
+                    }
+                }
+            }
+            return null;
+        }
     }
+
 
 
     return List;

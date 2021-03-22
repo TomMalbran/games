@@ -11,20 +11,20 @@ class SpawnMob extends Mob {
     constructor(data) {
         super();
 
-        this.name     = "Spawn";
-        this.slogan   = "Identity crisis";
-        this.text     = "After killing this mob it will split in 2.";
-        this.color    = "rgb(31, 142, 30)";
+        this.name      = "Spawn";
+        this.slogan    = "Identity crisis";
+        this.text      = "After killing this mob it will split in 2.";
+        this.color     = "rgb(31, 142, 30)";
 
-        this.interval = 1000;
-        this.amount   = 5;
-        this.bosses   = 1;
-        this.life     = 1.8;
-        this.money    = 2.5;
-        this.speed    = 1;
-        this.defense  = 0;
-        this.child    = "SpawnChild";
-        this.content  = `
+        this.interval  = 1000;
+        this.amount    = 5;
+        this.bosses    = 1;
+        this.lifeMult  = 1.8;
+        this.baseSpeed = 1;
+        this.money     = 2.5;
+        this.defense   = 0;
+        this.childName = "SpawnChild";
+        this.content   = `
             <div class="spawnHead"></div>
             <div class="spawnTail"></div>
         `;

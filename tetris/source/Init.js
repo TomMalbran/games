@@ -18,6 +18,7 @@
     }
 
 
+
     /**
      * Request an animation frame
      */
@@ -33,7 +34,7 @@
             }
             keyboard.holdingKey();
 
-            if (display.isPlaying() && !board.isWinking()) {
+            if (display.isPlaying && !board.isWinking()) {
                 requestAnimation();
             }
         });
@@ -77,7 +78,7 @@
      * Toggles the pause
      */
     function showPause() {
-        if (display.isPaused()) {
+        if (display.isPaused) {
             endPause();
         } else {
             startPause();
@@ -151,6 +152,7 @@
     }
 
 
+
     /**
      * Creates the shortcuts functions
      * @returns {Object}
@@ -192,7 +194,7 @@
                 M : () => sound.toggle()
             },
             number : (number) => {
-                if (display.inMainScreen()) {
+                if (display.isMainScreen) {
                     level.choose(number);
                 }
             }

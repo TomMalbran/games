@@ -58,14 +58,14 @@ class EarthquakeTower extends Tower {
      * @returns {Boolean}
      */
     isValidTarget(mob) {
-        return !mob.isFlyer();
+        return !mob.isFlyer;
     }
 
     /**
      * Returns true if it will stun a mob
      * @returns {Boolean}
      */
-    shouldStun() {
+    get shouldStun() {
         return Utils.rand(1, 6) === 3;
     }
 }

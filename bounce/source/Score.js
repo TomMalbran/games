@@ -12,6 +12,7 @@ class Score {
     }
 
 
+
     /**
      * Returns the current Score
      * @returns {Number}
@@ -19,7 +20,6 @@ class Score {
     get() {
         return this.score;
     }
-
 
     /**
      * Restarts the Score

@@ -31,54 +31,6 @@ class Map {
     }
 
 
-    /**
-     * Returns the Size of a Square in the map
-     * @returns {Number}
-     */
-    getSquareSize() {
-        return MapsData.squareSize;
-    }
-
-    /**
-     * Returns the Amount of columns in a map
-     * @returns {Number}
-     */
-    getColsAmount() {
-        return MapsData.colsAmount;
-    }
-
-    /**
-     * Returns the Amount of rows in a map
-     * @returns {Number}
-     */
-    getRowsAmount() {
-        return MapsData.rowsAmount;
-    }
-
-    /**
-     * Returns the value used for nothing
-     * @returns {Number}
-     */
-    getNothingValue() {
-        return MapsData.nothing;
-    }
-
-    /**
-     * Returns the value used for the walls
-     * @returns {Number}
-     */
-    getWallsValue() {
-        return MapsData.wall;
-    }
-
-    /**
-     * Returns the value used as the ID for the first tower
-     * @returns {Number}
-     */
-    getTowerStart() {
-        return MapsData.towerStart;
-    }
-
 
     /**
      * Returns true if the given value is equal to the start 1 value
@@ -124,6 +76,7 @@ class Map {
     isTarget2(value) {
         return value === MapsData.target2;
     }
+
 
 
     /**
@@ -231,6 +184,7 @@ class Map {
     }
 
 
+
     /**
      * Expands a Wall Horizontally
      * @param {Array.<Object>}         walls
@@ -283,6 +237,7 @@ class Map {
     }
 
 
+
     /**
      * Returns the Towers that will be built when starting this map
      * @returns {Array.<{type: String, col: Number, row: Number, level: Number}>}
@@ -309,13 +264,13 @@ class Map {
      * @returns {Void}
      */
     buildTower(tower) {
-        this.storage.set(`tower.${tower.getID()}`, {
-            type  : tower.getType(),
-            row   : tower.getRow(),
-            col   : tower.getCol(),
-            level : tower.getLevel()
+        this.storage.set(`tower.${tower.id}`, {
+            type  : tower.type,
+            row   : tower.row,
+            col   : tower.col,
+            level : tower.level,
         });
-        this.storage.set("towers", tower.getID());
+        this.storage.set("towers", tower.id);
     }
 
     /**
@@ -324,10 +279,10 @@ class Map {
      * @returns {Void}
      */
     upgradeTower(tower) {
-        const data = this.storage.get(`tower.${tower.getID()}`);
+        const data = this.storage.get(`tower.${tower.id}`);
         if (data) {
-            data.level = tower.getLevel();
-            this.storage.set(`tower.${tower.getID()}`, data);
+            data.level = tower.level;
+            this.storage.set(`tower.${tower.id}`, data);
         }
     }
 
@@ -337,6 +292,6 @@ class Map {
      * @returns {Void}
      */
     sellTower(tower) {
-        this.storage.remove(`tower.${tower.getID()}`);
+        this.storage.remove(`tower.${tower.id}`);
     }
 }

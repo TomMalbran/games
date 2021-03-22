@@ -23,13 +23,14 @@ class Keyboard {
     }
 
 
+
     /**
      * Key handler for the on key down event
      * @param {Event} event
      * @returns {Void}
      */
     onKeyDown(event) {
-        if (this.display.isPlaying() && this.fastKeys.includes(event.keyCode)) {
+        if (this.display.isPlaying && this.fastKeys.includes(event.keyCode)) {
             if (this.keyPressed === null) {
                 this.keyPressed = event.keyCode;
             } else {
@@ -52,10 +53,11 @@ class Keyboard {
      * @returns {Void}
      */
     onKeyHold() {
-        if (this.keyPressed !== null && this.display.isPlaying()) {
+        if (this.keyPressed !== null && this.display.isPlaying) {
             this.pressKey(this.keyPressed);
         }
     }
+
 
 
     /**
@@ -65,12 +67,12 @@ class Keyboard {
      * @returns {Void}
      */
     pressKey(key, event) {
-        if (this.scores.isFocused()) {
+        if (this.scores.isFocused) {
             if (key === 13) {
                 this.shortcuts.gameOver.O();
             }
         } else {
-            if (!this.display.isPlaying()) {
+            if (!this.display.isPlaying) {
                 event.preventDefault();
             }
 

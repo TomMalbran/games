@@ -12,6 +12,7 @@ class Display {
     }
 
 
+
     /**
      * Returns the display
      * @returns {String}
@@ -48,11 +49,12 @@ class Display {
     }
 
 
+
     /**
      * Returns true if the display is in the "playing" mode
      * @returns {Boolean}
      */
-    isPlaying() {
+    get isPlaying() {
         return this.display === "playing";
     }
 
@@ -60,7 +62,7 @@ class Display {
      * Returns true if the display is in the "planning" mode
      * @returns {Boolean}
      */
-    isPlanning() {
+    get isPlanning() {
         return this.display === "planning";
     }
 
@@ -68,7 +70,7 @@ class Display {
      * Returns true if the display is in the "planningPaused" mode
      * @returns {Boolean}
      */
-    isPlanningPaused() {
+     get isPlanningPaused() {
         return this.display === "planningPaused";
     }
 
@@ -76,7 +78,7 @@ class Display {
      * Returns true if the display is in the "playingPaused" mode
      * @returns {Boolean}
      */
-    isPlayingPaused() {
+    get isPlayingPaused() {
         return this.display === "playingPaused";
     }
 }

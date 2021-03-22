@@ -14,11 +14,13 @@ class HighScores {
         this.data      = null;
         this.total     = 0;
         this.maxScores = 5;
-        this.focused   = false;
+        this.isFocused = false;
 
-        this.input.onfocus = () => this.focused = true;
-        this.input.onblur  = () => this.focused = false;
+        this.input.onfocus = () => this.isFocused = true;
+        this.input.onblur  = () => this.isFocused = false;
     }
+
+
 
     /**
      * Creates the high scores for the given mode
@@ -63,6 +65,7 @@ class HighScores {
             this.scores.appendChild(div);
         }
     }
+
 
 
     /**
@@ -116,6 +119,7 @@ class HighScores {
     }
 
 
+
     /**
      * Shows or hides the no results element
      * @param {Boolean} show
@@ -132,13 +136,5 @@ class HighScores {
     setInput() {
         this.input.value = "";
         this.input.focus();
-    }
-
-    /**
-     * Returns true if the input is focus
-     * @returns {Void}
-     */
-    isFocused() {
-        return this.focused;
     }
 }

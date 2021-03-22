@@ -37,9 +37,10 @@ class LaserTower extends Tower {
      * @param {Number}      index
      * @returns {LaserAmmo}
      */
-     createAmmo(targets, index) {
+    createAmmo(targets, index) {
         return new LaserAmmo(this, targets, this.boardSize);
     }
+
 
 
     /**
@@ -66,12 +67,13 @@ class LaserTower extends Tower {
             const inRange    = this.inRange(mob, 3);
             const validAngle = this.validAngle(angle, this.getMobAngle(mob));
 
-            if (mob.getHitPoints() > 0 && inRange && validAngle) {
+            if (mob.hitPoints > 0 && inRange && validAngle) {
                 list.push(mob);
             }
         });
         return list;
     }
+
 
 
     /**

@@ -17,7 +17,7 @@
         let crash = false;
         ball.move(speed);
 
-        if (mode.isBricksMode() && bricks.crash(ball)) {
+        if (mode.isBricksMode && bricks.crash(ball)) {
             sound.brick();
             score.inc();
             ball.randomChange();
@@ -25,29 +25,29 @@
             sound.end();
             gameOver();
         } else {
-            if (ball.getDirection().top < 0) {
+            if (ball.direction.top < 0) {
                 crash = ball.topCrash();
             } else if (ball.shipCrash(ship)) {
                 sound.bounce();
                 ship.ballCrash();
-                if (mode.isSpeedMode()) {
+                if (mode.isSpeedMode) {
                     ball.changeAngle(ship);
                     ball.accelerate();
                 }
-                if (mode.isSpeedMode() || mode.isRandomMode()) {
+                if (mode.isSpeedMode || mode.isRandomMode) {
                     score.inc();
                 }
-                if (mode.isBricksMode() && bricks.restart()) {
+                if (mode.isBricksMode && bricks.restart()) {
                     ship.reduceWidth();
                 }
                 crash = true;
             }
-            if (ball.getDirection().left < 0) {
+            if (ball.direction.left < 0) {
                 crash = ball.leftCrash();
             } else {
                 crash = ball.rightCrash();
             }
-            if (crash && (mode.isRandomMode() || mode.isBricksMode())) {
+            if (crash && (mode.isRandomMode || mode.isBricksMode)) {
                 ball.randomChange();
             }
         }
@@ -76,7 +76,7 @@
             }
             keyboard.onKeyHold();
 
-            if (display.isPlaying()) {
+            if (display.isPlaying) {
                 requestAnimation();
             }
         });
@@ -107,7 +107,7 @@
      */
     function finishGame() {
         board.end();
-        if (mode.isBricksMode()) {
+        if (mode.isBricksMode) {
             bricks.destroy();
         }
         showMainScreen();
@@ -154,7 +154,7 @@
         scores.setInput();
         board.end();
 
-        if (mode.isBricksMode()) {
+        if (mode.isBricksMode) {
             bricks.destroy();
         }
     }
@@ -210,8 +210,8 @@
         mode.set(gameMode);
         score.restart();
 
-        ship = new Ship(board, mode.getShipWidth(), onShipMove);
-        ball = new Ball(board.getWidth(), board.getHeight());
+        ship = new Ship(board, mode.shipWidth, onShipMove);
+        ball = new Ball(board.width, board.height);
         tail = new Tail();
 
         board.start((e) => ship.mouseMove(e));
@@ -219,11 +219,12 @@
         ball.setStartLeft(ship);
         tail.start(ball);
 
-        if (mode.isBricksMode()) {
+        if (mode.isBricksMode) {
             bricks = new Bricks();
         }
         requestAnimation();
     }
+
 
 
     /**

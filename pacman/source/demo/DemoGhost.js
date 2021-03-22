@@ -61,7 +61,6 @@ class DemoGhost extends Ghost {
         this.speed = Data.getGhostSpeed(false);
     }
 
-
     /**
      * The animation used on the Demo
      * @param {Number} speed

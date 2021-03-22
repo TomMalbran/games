@@ -18,49 +18,16 @@ class Score {
         this.scoreElem = document.querySelector(".score .content");
         this.linesElem = document.querySelector(".lines .content");
 
-        this._level    = level;
-        this._score    = 0;
-        this._lines    = 0;
-        this._amount   = 0;
-        this._timer    = this.calculateTimer();
-        this._time     = this._timer;
+        this.level    = level;
+        this.score    = 0;
+        this.lines    = 0;
+        this.amount   = 0;
+        this.timer    = this.calculateTimer();
+        this.time     = this.timer;
 
         this.showLevel();
         this.showScore();
         this.showLines();
-    }
-
-
-    /**
-     * Returns the time between each drop
-     * @returns {Number}
-     */
-    get timer() {
-        return this._timer;
-    }
-
-    /**
-     * Returns the current time
-     * @returns {Number}
-     */
-    get time() {
-        return this._time;
-    }
-
-    /**
-     * Returns the current level
-     * @returns {Number}
-     */
-    get level() {
-        return this._level;
-    }
-
-    /**
-     * Returns the current Score
-     * @returns {Number}
-     */
-    get score() {
-        return this._score;
     }
 
 
@@ -70,15 +37,16 @@ class Score {
      * @param {Number} time
      */
     decTime(time) {
-        this._time -= time;
+        this.time -= time;
     }
 
     /**
      * Resets the time to the timer amount
      */
     resetTime() {
-        this._time = this._timer;
+        this.time = this.timer;
     }
+
 
 
     /**
@@ -86,7 +54,7 @@ class Score {
      * @param {Number} drop - Amount of cells the Tetrimino dropped before crashing the bottom
      */
     piece(drop) {
-        this._score += 21 + (3 * this._level) - drop;
+        this.score += 21 + (3 * this.level) - drop;
         this.showScore();
     }
 
@@ -105,7 +73,7 @@ class Score {
      * @param {Number} amount - Amount of lines completed in one move
      */
     addScore(amount) {
-        this._score += this._level * this.multipliers[amount - 1];
+        this.score += this.level * this.multipliers[amount - 1];
         this.showScore();
     }
 
@@ -114,7 +82,7 @@ class Score {
      * @param {Number} amount - Amount of lines completed in one move
      */
     addLine(amount) {
-        this._lines += amount;
+        this.lines += amount;
         this.showLines();
     }
 
@@ -123,36 +91,38 @@ class Score {
      * @param {Number} amount - Amount of lines completed in one move
      */
     addLevel(amount) {
-        this._amount += amount;
-        if (this._amount >= this.linesPerLevel) {
-            this._amount -= this.linesPerLevel;
-            this._timer   = this.calculateTimer();
-            this._level  += 1;
+        this.amount += amount;
+        if (this.amount >= this.linesPerLevel) {
+            this.amount -= this.linesPerLevel;
+            this.timer   = this.calculateTimer();
+            this.level  += 1;
             this.showLevel();
         }
     }
+
 
 
     /**
      * Displays the level in the Game
      */
     showLevel() {
-        this.levelElem.innerHTML = this._level;
+        this.levelElem.innerHTML = this.level;
     }
 
     /**
      * Displays the score in the Game
      */
     showScore() {
-        this.scoreElem.innerHTML = Utils.formatNumber(this._score, ",");
+        this.scoreElem.innerHTML = Utils.formatNumber(this.score, ",");
     }
 
     /**
      * Displays the lines in the Game
      */
     showLines() {
-        this.linesElem.innerHTML = this._lines;
+        this.linesElem.innerHTML = this.lines;
     }
+
 
 
     /**

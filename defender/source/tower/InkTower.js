@@ -42,6 +42,7 @@ class InkTower extends Tower {
     }
 
 
+
     /**
      * Returns a list of Mobs close to the given one
      * @param {List.<Iterator>} mobs

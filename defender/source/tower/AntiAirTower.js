@@ -42,6 +42,7 @@ class AntiAirTower extends Tower {
     }
 
 
+
     /**
      * Returns a list of Mobs close to the given one. Maximum of 4
      * @param {List.<Iterator>} mobs
@@ -85,6 +86,6 @@ class AntiAirTower extends Tower {
      * @returns {Boolean}
      */
     isValidTarget(mob) {
-        return mob.isFlyer();
+        return mob.isFlyer;
     }
 }

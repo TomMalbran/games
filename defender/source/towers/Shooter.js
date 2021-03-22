@@ -16,16 +16,17 @@ class Shooter {
     }
 
 
+
     /**
      * Iterates through the moving list of mobs and when posible, it asigns a tower to shoot each mob
      * @returns {Void}
      */
     shoot() {
-        this.parent.mobs.getMovingMobs().forEach((it) => {
+        this.parent.mobs.moving.forEach((it) => {
             const mob    = it.getPrev();
-            const towers = this.parent.ranges.getReducedList(mob.getRow(), mob.getCol());
+            const towers = this.parent.ranges.getReducedList(mob.row, mob.col);
 
-            if (mob.getHitPoints() > 0 && towers && !towers.isEmpty()) {
+            if (mob.hitPoints > 0 && towers && !towers.isEmpty) {
                 this.shootMob(towers, mob);
             }
         });
@@ -40,10 +41,10 @@ class Shooter {
     shootMob(towers, mob) {
         towers.some((element) => {
             const tower = this.parent.manager.get(element.id);
-            if (tower && !tower.isShooting() && tower.canShoot(mob)) {
+            if (tower && !tower.isShooting && tower.canShoot(mob)) {
                 this.processShot(tower, mob);
             }
-            if (mob.getHitPoints() <= 0) {
+            if (mob.hitPoints <= 0) {
                 return true;
             }
         });
@@ -56,28 +57,29 @@ class Shooter {
      * @returns {Void}
      */
     processShot(tower, mob) {
-        const targets = tower.getTargets(this.parent.mobs.getMovingMobs(), mob);
+        const targets = tower.getTargets(this.parent.mobs.moving, mob);
 
         this.parent.ranges.startShoot(tower);
         tower.startShoot();
 
         targets.forEach((list, index) => {
             const ammo = this.createAmmo(tower, list, index + 1);
-            this.parent.sounds[tower.getSoundName()]();
+            this.parent.sounds[tower.sound]();
 
             list.forEach(function (nmob) {
-                nmob.decHitPoints(tower.getDamage());
+                nmob.decHitPoints(tower.damage);
             });
 
-            if (tower.canLock()) {
+            if (tower.canLock) {
                 tower.setAngle(mob, ammo);
             }
             tower.addAmmo(list.length);
         });
 
-        this.parent.manager.addShoot(tower.getID());
+        this.parent.manager.addShoot(tower.id);
         tower.toggleAttack(targets.length);
     }
+
 
 
     /**
@@ -103,20 +105,21 @@ class Shooter {
      */
     moveAmmos(time) {
         this.ammos.forEach((ammo) => {
-            const tower = ammo.getTower();
+            const tower = ammo.tower;
             if (ammo.move(time)) {
-                this.attackTargets(ammo.getTargets(), tower.getDamage());
-                this.parent.mobs.addToList(ammo.getTargets(), tower);
+                this.attackTargets(ammo.targets, tower.damage);
+                this.parent.mobs.addToList(ammo.targets, tower);
 
-                if (tower.canFire() && tower.canDestroy()) {
+                if (tower.canFire && tower.canDestroy) {
                     this.parent.manager.destroyTower(tower);
                 }
-                if (ammo.getHitSound()) {
-                    this.parent.sounds[ammo.getHitSound()]();
+                if (ammo.hitSound) {
+                    this.parent.sounds[ammo.hitSound]();
                 }
             }
         });
     }
+
 
 
     /**
@@ -130,7 +133,7 @@ class Shooter {
             mob.hit(damage);
             this.parent.panel.updateMob(mob);
 
-            if (mob.getLife() <= 0 && !mob.isDead()) {
+            if (mob.life <= 0 && !mob.isDead) {
                 this.parent.mobs.killMob(mob);
             }
         });

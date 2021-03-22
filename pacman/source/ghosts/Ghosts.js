@@ -37,6 +37,7 @@ class Ghosts {
     }
 
 
+
     /**
      * Animates all the Ghosts, and reduces the ghosts modes timers
      * @param {Number} time
@@ -197,6 +198,7 @@ class Ghosts {
     areFrighten() {
         return Data.isFrighten(this.globalMode);
     }
+
 
 
     /**

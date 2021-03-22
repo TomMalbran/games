@@ -34,6 +34,7 @@ class Mobs {
     }
 
 
+
     /**
      * Updates the inner started state when the game starts
      * @returns {Void}
@@ -83,12 +84,14 @@ class Mobs {
         this.waves.next();
     }
 
+
+
     /**
      * Returns the list with the Mobs that are moving
      * @returns {List}
      */
-    getMovingMobs() {
-        return this.manager.getMovingMobs();
+    get moving() {
+        return this.manager.moving;
     }
 
     /**
@@ -107,12 +110,12 @@ class Mobs {
      * @returns {Void}
      */
     addToList(mobs, tower) {
-        if (tower.canSlow()) {
+        if (tower.canSlow) {
             this.manager.addSlow(mobs);
-        } else if (tower.canStun()) {
+        } else if (tower.canStun) {
             this.manager.addStun(mobs, tower);
-        } else if (tower.canBleed()) {
-            this.manager.addBleed(mobs, tower.getActualDamage());
+        } else if (tower.canBleed) {
+            this.manager.addBleed(mobs, tower.actualDamage);
         }
     }
 }

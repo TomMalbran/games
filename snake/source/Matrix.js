@@ -29,6 +29,8 @@ class Matrix {
         }
     }
 
+
+
     /**
      * Adds a snake body element
      * @param {Number} top

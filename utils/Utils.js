@@ -13,6 +13,16 @@ let Utils = (function () {
         },
 
         /**
+         * Returns a random item from the given array
+         * @param {Array} array
+         * @returns {*}
+         */
+        randArray(array) {
+            const index = Utils.rand(0, array.length - 1);
+            return array[index];
+        },
+
+        /**
          * Returns the value higher than the min and lower than the max
          * @param {Number} value
          * @param {Number} min
@@ -89,7 +99,7 @@ let Utils = (function () {
         },
 
         /**
-         * Returns the number with a px prefix
+         * Returns the number with a px suffix
          * @param {Number} value
          * @returns {String}
          */
@@ -98,7 +108,7 @@ let Utils = (function () {
         },
 
         /**
-         * Returns the number with a em prefix
+         * Returns the number with a em suffix
          * @param {Number} value
          * @returns {String}
          */
@@ -107,7 +117,7 @@ let Utils = (function () {
         },
 
         /**
-         * Returns the number with a em prefix
+         * Returns the rotate CSS property
          * @param {Number} value
          * @returns {String}
          */
@@ -116,14 +126,33 @@ let Utils = (function () {
         },
 
         /**
+         * Returns the translate CSS property
+         * @param {Number} x
+         * @param {Number} y
+         * @returns {String}
+         */
+        translate(x, y) {
+            return `translate(${x}px, ${y}px)`;
+        },
+
+
+
+        /**
          * Returns the closest element with an action
-         * @param {Event} event
+         * @param {Event}   event
+         * @param {String=} action
          * @returns {DOMElement}
          */
-        getTarget(event) {
+        getTarget(event, action) {
             let element = event.target;
-            while (element.parentElement && !element.dataset.action) {
-                element = element.parentElement;
+            if (action) {
+                while (element.parentElement && element.dataset.action !== action) {
+                    element = element.parentElement;
+                }
+            } else {
+                while (element.parentElement && !element.dataset.action) {
+                    element = element.parentElement;
+                }
             }
             return element;
         },
@@ -170,8 +199,26 @@ let Utils = (function () {
          */
         removeElement(element) {
             const parent = element.parentNode;
-            parent.removeChild(element);
+            if (parent) {
+                parent.removeChild(element);
+            }
         },
+
+        /**
+         * Returns true if the given Point is in the Bounds
+         * @param {Number}  top
+         * @param {Number}  left
+         * @param {Object}  bounds
+         * @param {Number=} scrollTop
+         * @returns {Boolean}
+         */
+        inBounds(top, left, bounds, scrollTop = 0) {
+            return (
+                top > bounds.top - scrollTop && top < bounds.bottom &&
+                left > bounds.left && left < bounds.right
+            );
+        },
+
 
 
         /**

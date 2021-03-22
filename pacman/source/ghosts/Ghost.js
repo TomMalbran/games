@@ -41,7 +41,7 @@ class Ghost {
         if (!this.dontSwitch(oldMode)) {
             this.mode   = newMode;
             this.target = this.getTarget(blob);
-            this.speed  = this.getSpeed();
+            this.speed  = this.calcSpeed();
 
             if (!this.dontHalfTurn(oldMode)) {
                 if (this.path === null) {
@@ -87,7 +87,7 @@ class Ghost {
      */
     pathMove(blob, switchMode) {
         const step = this.path[this.pathStep];
-        if (this.passedDist()) {
+        if (this.passedDist) {
             if (this.dir.x) {
                 this.x = step.targetX * Board.tileSize;
             }
@@ -126,14 +126,14 @@ class Ghost {
         this.newTile(blob);
         this.x = Board.tunnelEnds(this.x);
 
-        if (!this.center && this.passedCenter()) {
+        if (!this.center && this.passedCenter) {
             if (this.turn) {
                 this.makeTurn();
             }
-            if (this.isNextIntersection()) {
+            if (this.isNextIntersection) {
                 this.decideTurn();
             }
-            this.speed  = this.getSpeed();
+            this.speed  = this.calcSpeed();
             this.center = true;
         }
     }
@@ -212,7 +212,7 @@ class Ghost {
      * @returns {Array.<{x: Number, y: Number}>}
      */
     getTurns() {
-        const tile   = this.getNextTile();
+        const tile   = this.nextTile;
         const pos    = Board.tileToString(tile);
         const turns  = Board.getTurns(pos);
         const result = [];
@@ -231,7 +231,7 @@ class Ghost {
      * @returns {{x: Number, y: Number}}
      */
     getTargetTurn(turns) {
-        const tile   = this.getNextTile();
+        const tile   = this.nextTile;
         let   best   = 999999;
         let   result = {};
 
@@ -300,7 +300,7 @@ class Ghost {
      * Returns the Ghost's Speed based on diferent factors
      * @returns {Number}
      */
-    getSpeed() {
+    calcSpeed() {
         let speed = Data.getGhostSpeed(false);
         if (this.mode === "eyes") {
             speed = Data.eyesSpeed;
@@ -318,7 +318,7 @@ class Ghost {
      * Returns true if the Ghost moved past certain distance stored in the Path
      * @returns {Boolean}
      */
-    passedDist() {
+    get passedDist() {
         const path = this.path[this.pathStep];
         return (
             (this.dir.x ===  1 && this.x >= path.targetX * Board.tileSize) ||
@@ -332,7 +332,7 @@ class Ghost {
      * Returns true if the Ghost passed the center of the tile
      * @returns {Boolean}
      */
-    passedCenter() {
+    get passedCenter() {
         return (
             (this.dir.x ===  1 && this.x >= this.tileCenter.x) ||
             (this.dir.x === -1 && this.x <= this.tileCenter.x) ||
@@ -345,7 +345,7 @@ class Ghost {
      * Returns the next tile
      * @returns {{x: Number, y: Number}}
      */
-    getNextTile() {
+    get nextTile() {
         return Board.sumTiles(this.tile, this.dir);
     }
 
@@ -353,8 +353,8 @@ class Ghost {
      * Returns true if the next tile is an intersection
      * @returns {Boolean}
      */
-    isNextIntersection() {
-        const tile = this.getNextTile();
+    get isNextIntersection() {
+        const tile = this.nextTile;
         return Board.isIntersection(tile.x, tile.y);
     }
 

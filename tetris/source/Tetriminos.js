@@ -97,6 +97,8 @@ class Tetriminos {
         this.next       = this.createTetrimino();
     }
 
+
+
     /**
      * Creates a new Tetrimino
      * @returns {Tetrimino}
@@ -128,6 +130,7 @@ class Tetriminos {
     }
 
 
+
     /**
      * Soft drops the actual tetrimino
      */
@@ -150,12 +153,12 @@ class Tetriminos {
      * Called when the actual tetrimino crashes
      */
     crashed() {
-        if (this.actual.getTop() === 0 || this.actual.getTop() === 1) {
+        if (this.actual.top === 0 || this.actual.top === 1) {
             this.onGameOver();
             return;
         }
 
-        this.score.piece(this.actual.getDrop());
+        this.score.piece(this.actual.drop);
         const lines = this.actual.addElements();
         if (lines) {
             this.sound.line();
@@ -172,6 +175,7 @@ class Tetriminos {
         this.actual = this.next.fall();
         this.next   = this.createTetrimino();
     }
+
 
 
     /**
@@ -205,6 +209,7 @@ class Tetriminos {
     moveLeft() {
         this.actual.moveLeft();
     }
+
 
 
     /**

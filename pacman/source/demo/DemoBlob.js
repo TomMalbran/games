@@ -13,6 +13,8 @@ class DemoBlob extends Blob {
         this.init(Board.screenCanvas);
     }
 
+
+
     /**
      * Initialize some variables for the demo animation
      * @param {{x: Number, y: Number}} dir

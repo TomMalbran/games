@@ -14,6 +14,7 @@ class Level {
     }
 
 
+
     /**
      * Returns the initial level
      * @returns {Number}
@@ -21,7 +22,6 @@ class Level {
     get() {
         return this.level;
     }
-
 
     /**
      * Increases the initial level
@@ -55,6 +55,7 @@ class Level {
             this.show();
         }
     }
+
 
 
     /**

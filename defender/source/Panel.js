@@ -14,6 +14,8 @@ class Panel {
         this.width      = 161;
     }
 
+
+
     /**
      * Updates the inner started state when the game starts
      * @returns {Void}
@@ -30,19 +32,20 @@ class Panel {
     previewTower(tower) {
         this.create(
             tower.getName(true),
-            tower.getText(),
+            tower.text,
 
             this.towerInfo({
-                aCost   : tower.getActualCost(),
-                aDamage : tower.getActualDamage(),
-                isBoost : tower.isBoost(),
+                aCost   : tower.actualCost,
+                aDamage : tower.actualDamage,
+                isBoost : tower.isBoost,
                 aRange  : tower.getActualRange(),
-                aSpeed  : tower.getActualSpeed()
+                aSpeed  : tower.actualSpeed,
             })
         );
         this.towerSel = null;
         this.mobSel   = null;
     }
+
 
 
     /**
@@ -52,7 +55,7 @@ class Panel {
      * @returns {Void}
      */
     showTower(tower, gold) {
-        if (tower.isLoading()) {
+        if (tower.isLoading) {
             this.showLoad(tower);
         } else {
             this.showInfo(tower, gold);
@@ -69,8 +72,8 @@ class Panel {
     showLoad(tower) {
         this.create(
             tower.getName(),
-            tower.getText(),
-            this.towerLoading(tower.getLoad())
+            tower.text,
+            this.towerLoading(tower.loadValue)
         );
     }
 
@@ -83,31 +86,32 @@ class Panel {
     showInfo(tower, gold) {
         this.create(
             tower.getName(),
-            tower.getText(),
+            tower.text,
 
             this.towerInfo({
-                aCost   : tower.getActualCost(),
-                uCost   : tower.getUpgradeCost(),
-                aDamage : tower.getActualDamage(),
-                uDamage : tower.getUpgradeDamage(),
-                isBoost : tower.isBoost(),
-                boost   : tower.getBoost(),
+                aCost   : tower.actualCost,
+                uCost   : tower.upgradeCost,
+                aDamage : tower.actualDamage,
+                uDamage : tower.upgradeDamage,
+                isBoost : tower.isBoost,
+                boost   : tower.boost,
                 aRange  : tower.getActualRange(),
-                uRange  : tower.getUpgradeRange(),
-                aSpeed  : tower.getActualSpeed(),
-                uSpeed  : tower.getUpgradeSpeed()
+                uRange  : tower.upgradeRange,
+                aSpeed  : tower.actualSpeed,
+                uSpeed  : tower.upgradeSpeed,
             }),
 
             this.towerButtons({
-                cantUpgrade : tower.getUpgradeCost() > gold,
-                isMaxed     : tower.isMaxLevel(),
-                canLock     : tower.canLock(),
-                isLocked    : tower.isLocked(),
-                canFire     : tower.canFire() && this.hasStarted,
+                cantUpgrade : tower.upgradeCost > gold,
+                isMaxed     : tower.isMaxLevel,
+                canLock     : tower.canLock,
+                isLocked    : tower.isLocked,
+                canFire     : tower.canFire && this.hasStarted,
                 price       : tower.getPrice(this.hasStarted)
             })
         );
     }
+
 
 
     /**
@@ -117,9 +121,9 @@ class Panel {
      */
     showMob(mob) {
         this.create(
-            mob.getName(),
-            `${mob.getWave()}. ${mob.getText()}`,
-            this.mobInfo(mob.getLife(), mob.getGold(), mob.getSpeed())
+            mob.name,
+            `${mob.wave}. ${mob.text}`,
+            this.mobInfo(mob.life, mob.gold, mob.speed)
         );
         this.towerSel = null;
         this.mobSel   = mob;
@@ -248,6 +252,7 @@ class Panel {
     }
 
 
+
     /**
      * Hides the Panel after a few seconds
      * @returns {Void}
@@ -269,12 +274,13 @@ class Panel {
     }
 
 
+
     /**
      * Updates the Description of the currently selected Mob
      * @returns {Void}
      */
     updateMob(mob) {
-        if (this.mobSel && this.mobSel.getID() === mob.getID()) {
+        if (this.mobSel && this.mobSel.id === mob.id) {
             this.showMob(mob);
         }
     }
@@ -284,7 +290,7 @@ class Panel {
      * @returns {Void}
      */
     destroyMob(mob) {
-        if (this.mobSel && this.mobSel.getID() === mob.getID()) {
+        if (this.mobSel && this.mobSel.id === mob.id) {
             this.hide();
         }
     }

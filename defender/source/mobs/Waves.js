@@ -14,8 +14,8 @@ class Waves {
             "Group",     "Arrow",  "Dark",   "Spawn",  "Flying", "Normal", "Inmune", "GroupBoss",
             "Arrow",     "Dark",   "Spawn",  "Flying", "Decoy",  "Hopper", "Morph",  "FastBoss",
             "Dark",      "Spawn",  "Flying", "Decoy",  "Hopper", "Morph",  "Fast",   "DarkBoss",
-            "Spawn",     "Flying", "Decoy",  "Hopper", "Morth",  "Fast",   "Dark",   "FlyingBoss",
-            "SpawnBoss", "Normal"
+            "Spawn",     "Flying", "Decoy",  "Hopper", "Morph",  "Fast",   "Dark",   "FlyingBoss",
+            "SpawnBoss", "Normal",
         ];
 
         this.parent    = parent;
@@ -42,6 +42,7 @@ class Waves {
         this.button.style.display = "";
         this.total.innerHTML      = this.waves.length;
     }
+
 
 
     /**
@@ -86,6 +87,7 @@ class Waves {
     }
 
 
+
     /**
      * Moves all the waves elements
      * @returns {Void}
@@ -95,7 +97,7 @@ class Waves {
             this.button.style.display = "none";
             this.parent.score.removeTimer();
         } else {
-            if (this.parent.score.getTimer() === 0) {
+            if (this.parent.score.timer === 0) {
                 this.newWave();
                 this.simWaves = Math.min(this.simWaves + 1, this.maxWaves);
                 this.showButton();
@@ -129,12 +131,12 @@ class Waves {
         const mob = Mob.create(this.getType(add), { boss : this.isBossWave(add) });
         const div = document.createElement("DIV");
 
-        div.style.backgroundColor = mob.getColor();
+        div.style.backgroundColor = mob.color;
         div.style.left = Utils.toPX(this.getLeft(this.wave + add, 0));
         div.className  = "wave";
         div.innerHTML  = `
-            <h3>${this.wave + add + 1}. ${(mob.isBoss() ? "Boss" : mob.getName())}</h3>
-            <p>${mob.getSlogan()}</p>
+            <h3>${this.wave + add + 1}. ${mob.waveName}</h3>
+            <p>${mob.slogan}</p>
         `;
 
         this.container.appendChild(div);
@@ -155,7 +157,7 @@ class Waves {
      * @returns {Void}
      */
     setLeft() {
-        const timer = this.parent.score.getTimer();
+        const timer = this.parent.score.timer;
         const start = (timer - 25) * this.elemWidth / 25;
 
         this.elements.forEach((element, index) => {
@@ -170,6 +172,7 @@ class Waves {
     showButton() {
         this.button.style.display = this.simWaves <= 0 ? "none" : "block";
     }
+
 
 
     /**

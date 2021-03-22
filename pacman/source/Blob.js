@@ -92,7 +92,7 @@ class Blob {
             if (this.turn && this.inBoard(this.turn) && !this.isWall(this.turn)) {
                 this.delta = {
                     x : this.dir.x || this.turn.x,
-                    y : this.dir.y || this.turn.y
+                    y : this.dir.y || this.turn.y,
                 };
             }
         }

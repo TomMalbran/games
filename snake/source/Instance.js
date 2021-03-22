@@ -12,11 +12,12 @@ class Instance {
         this.data  = new Storage("snake.game");
         this.main  = document.querySelector(".main");
 
-        if (this.hasGame()) {
+        if (this.hasGame) {
             this.main.classList.remove("help");
             this.main.classList.add("continue");
         }
     }
+
 
 
     /**
@@ -62,11 +63,12 @@ class Instance {
     }
 
 
+
     /**
      * Returns the saved data of a game
      * @returns {Object}
      */
-    getData() {
+    generateData() {
         const head    = this.data.get("matrix.head");
         const matrix  = [];
         const links   = [];
@@ -109,6 +111,7 @@ class Instance {
             foodLeft : foodPos.left
         };
     }
+
 
 
     /**
@@ -162,7 +165,7 @@ class Instance {
      * Returns true if there is a saved Game
      * @returns {Boolean}
      */
-    hasGame() {
+    get hasGame() {
         return this.data.get("playing");
     }
 }

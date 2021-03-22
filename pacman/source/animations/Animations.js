@@ -11,13 +11,15 @@ class Animations {
         this.animations = [];
     }
 
+
+
     /**
      * Returns true if there is an animation
      * @returns {Boolean}
      */
-    isAnimating() {
+    get isAnimating() {
         return this.animations.length &&
-            this.animations.some((anim) => anim.blocksGameLoop());
+            this.animations.some((anim) => anim.blocksGame);
     }
 
     /**
@@ -29,7 +31,7 @@ class Animations {
         if (this.animations.length) {
             this.animations.forEach((animation, index, object) => {
                 animation.incTimer(time);
-                if (animation.isAnimating()) {
+                if (animation.isAnimating) {
                     animation.animate();
                 } else {
                     animation.onEnd();

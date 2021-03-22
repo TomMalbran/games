@@ -14,8 +14,8 @@ class Ammo {
         this.tower     = tower;
         this.targets   = targets;
         this.timer     = 300;
-        this.top       = this.getPos(tower.getRow());
-        this.left      = this.getPos(tower.getCol());
+        this.top       = this.getPos(tower.row);
+        this.left      = this.getPos(tower.col);
         this.boardSize = boardSize;
         this.display   = false;
         this.missile   = 0;
@@ -96,7 +96,7 @@ class Ammo {
      * @returns {Void}
      */
     changePos(time) {
-        const targetPos = this.targets[0].getCenterPos();
+        const targetPos = this.targets[0].centerPos;
         this.top       += this.getDist(targetPos.top  - this.top, time);
         this.left      += this.getDist(targetPos.left - this.left, time);
 
@@ -120,8 +120,8 @@ class Ammo {
      */
     changeDisplay() {
         if (!this.display) {
-            const size = this.tower.getSize() * this.boardSize / 2;
-            const pos  = this.tower.getCenterPos();
+            const size = this.tower.size * this.boardSize / 2;
+            const pos  = this.tower.centerPos;
             const dist = Math.hypot(this.top - pos.top, this.left - pos.left);
 
             if (dist > size) {
@@ -142,21 +142,6 @@ class Ammo {
     }
 
 
-    /**
-     * Returns the Tower which shoot this ammo
-     * @returns {Tower}
-     */
-    getTower() {
-        return this.tower;
-    }
-
-    /**
-     * Returns the Mobs that this ammo will hit
-     * @returns {Array.<Mob>}
-     */
-    getTargets() {
-        return this.targets;
-    }
 
     /**
      * Sets the missle index
@@ -165,21 +150,5 @@ class Ammo {
      */
     setMissile(index) {
         this.missile = index;
-    }
-
-    /**
-     * Returns the missle index
-     * @returns {Number}
-     */
-    getMissile() {
-        return this.missile;
-    }
-
-    /**
-     * Returns the sound made when hitting the target, if it has one
-     * @returns {String}
-     */
-    getHitSound() {
-        return this.hitSound;
     }
 }

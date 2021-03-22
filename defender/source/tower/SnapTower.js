@@ -42,6 +42,7 @@ class SnapTower extends Tower {
     }
 
 
+
     /**
      * Returns a list of Mobs in the range of the tower
      * @param {List.<Iterator>} mobs
@@ -62,7 +63,7 @@ class SnapTower extends Tower {
      * Returns true if it will stun a mob
      * @returns {Boolean}
      */
-    shouldStun() {
+    get shouldStun() {
         return Utils.rand(0, 9) === 5;
     }
 }

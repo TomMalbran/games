@@ -11,26 +11,27 @@ class HopperMob extends Mob {
     constructor(data) {
         super();
 
-        this.name     = "Hopper";
-        this.slogan   = "Jumping all around";
-        this.text     = "This mob can jump throught diagonal spaces in between towers.";
-        this.color    = "rgb(195, 60, 195)";
+        this.name      = "Hopper";
+        this.slogan    = "Jumping all around";
+        this.text      = "This mob can jump throught diagonal spaces in between towers.";
+        this.color     = "rgb(195, 60, 195)";
 
-        this.interval = 600;
-        this.amount   = 10;
-        this.bosses   = 1;
-        this.life     = 1;
-        this.money    = 1;
-        this.speed    = 2;
-        this.defense  = 0;
-        this.hopper   = true;
-        this.content  = `<div class="hopperMob"></div>`;
+        this.interval  = 600;
+        this.amount    = 10;
+        this.bosses    = 1;
+        this.lifeMult  = 1;
+        this.baseSpeed = 2;
+        this.money     = 1;
+        this.defense   = 0;
+        this.isHopper  = true;
+        this.content   = `<div class="hopperMob"></div>`;
 
         this.minHopTime = 300;
         this.maxHopTime = 600;
 
         this.init(data);
     }
+
 
 
     /**

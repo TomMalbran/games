@@ -22,6 +22,7 @@ class Display {
     }
 
 
+
     /**
      * Gets the Game Display
      * @returns {String}
@@ -39,6 +40,7 @@ class Display {
         this.display = display;
         return this;
     }
+
 
 
     /**
@@ -59,12 +61,11 @@ class Display {
         this.container.className = "playing";
     }
 
-
     /**
      * Returns true if the display is in playing mode
      * @returns {Boolean}
      */
-    isPlaying() {
+    get isPlaying() {
         return this.display === "playing";
     }
 }
