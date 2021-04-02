@@ -15,7 +15,7 @@ body {
     position: relative;
     height: 100%;
     margin: 0px;
-    font: 12px/18px "HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font: 12px/18px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
     background-image: radial-gradient(50% 50%, transparent, black);
 }
 
@@ -34,11 +34,11 @@ header {
     margin: 0;
     z-index: 1;
     box-shadow: 0 5px rgba(0,0,0,0.8);
-    background: linear-gradient(to bottom, rgba(60, 60, 60, 0.8), rgba(20, 20, 20, 0.8));
+    background: rgba(20, 20, 20, 0.8);
     border-left: 8px solid #900;
     transition: all 0.5s;
 }
-header.expand {
+header:hover {
     height: 80px;
 }
 
@@ -58,18 +58,17 @@ header h1 {
     display: inline-block;
     margin: 0;
     padding: 8px;
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-family: Georgia, Times, "Times New Roman", serif;
     color: white;
     font-size: 18px;
     font-weight: normal;
-    text-shadow: 3px 3px 3px black;
     text-transform: capitalize;
 }
 header p {
     display: inline-block;
     margin: 0;
     color: #999;
-    font-size: 0.8em;
+    font-size: 1em;
     font-style: italic;
     transition: opacity 0.5s;
 }
@@ -79,8 +78,12 @@ header p {
     opacity: 0;
 }
 
-header.expand #expand { opacity: 0; }
-header.expand #select { opacity: 1; }
+header:hover #expand {
+    opacity: 0;
+}
+header:hover #select {
+    opacity: 1;
+}
 
 
 
@@ -109,7 +112,7 @@ header.expand #select { opacity: 1; }
     opacity: 0;
     transition: opacity 0.5s;
 }
-header.expand #nav a {
+header:hover #nav a {
     opacity: 1;
 }
 #nav a:hover {
