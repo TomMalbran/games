@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Puzzler</title>
+    <link rel="stylesheet" href="design/style.css" />
+
+    <script src="source/Piece.js"></script>
+    <script src="source/Set.js"></script>
+    <script src="source/Board.js"></script>
+    <script src="source/Table.js"></script>
+    <script src="source/Drawer.js"></script>
+    <script src="source/Instance.js"></script>
+    <script src="source/Metrics.js"></script>
+    <script src="source/Puzzle.js"></script>
+    <script src="source/Selection.js"></script>
+    <script src="source/Init.js"></script>
+
+    <script src="../utils/Utils.js"></script>
+    <script src="../utils/List.js"></script>
+    <script src="../utils/Storage.js"></script>
+    <script src="../utils/Sounds.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Puzzle</h1>
+        <ul class="menu">
+            <li><button data-action="preview">Preview</button></li>
+            <li><button data-action="pause">Pause</button></li>
+            <li><button data-action="mute">Mute</button></li>
+            <li><button data-action="exit">Exit</button></li>
+        </ul>
+        <div class="score">
+            <span class="placed">0</span>
+            <span class="total"></span>
+            <span class="percent"></span>
+            <span class="timer"></span>
+        </div>
+    </header>
+
+    <div class="selection">
+        <h2>Select a Puzzle</h2>
+        <p>And the amount of pieces</p>
+        <div class="slider-content">
+            <ul class="slider-list"></ul>
+        </div>
+        <p class="selection-desc"></p>
+        <button data-action="start"></button>
+        <nav class="slider-nav">
+            <a href="#" class="slider-prev" data-action="prev"></a>
+            <a href="#" class="slider-next" data-action="next"></a>
+        </nav>
+    </div>
+
+    <div class="pause backdrop">
+        <div class="dialog">
+            <h2>Pause</h2>
+            <p>The game is currently paused</p>
+            <button data-action="pause">Continue playing</button>
+        </div>
+    </div>
+
+    <div class="congrats backdrop">
+        <div class="dialog">
+            <h2>Congratulations!</h2>
+            <p>You completed the puzzle</p>
+            <button data-action="restart">Select a new puzzle</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="table">
+            <div class="content">
+                <div class="board"></div>
+            </div>
+        </div>
+        <div class="drawer">
+            <button data-action="borders">Only Borders</button>
+            <div class="grid"></div>
+        </div>
+    </div>
+
+    <div class="preview" data-action="preview">
+        <a href="#" class="close"></a>
+        <img src="" alt="" />
+    </div>
+</body>
+</html>

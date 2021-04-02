@@ -57,6 +57,16 @@ let Utils = (function () {
         },
 
         /**
+         * Returns the distance between pos and other
+         * @param {{top: Number, left: Number}} pos
+         * @param {{top: Number, left: Number}} other
+         * @returns {Boolean}
+         */
+        dist(pos, other) {
+            return Math.hypot(pos.top - other.top, pos.left - other.left);
+        },
+
+        /**
          * Returns the angle between two values
          * @param {Number} x
          * @param {Number} y
@@ -82,6 +92,25 @@ let Utils = (function () {
         toEven(number) {
             const rounded = Math.round(number);
             return rounded % 2 === 1 ? rounded + 1 : rounded;
+        },
+
+        /**
+         * Parses the time and returns an array of hours, minutes and seconds
+         * @param {Number} time
+         * @returns {String[]}
+         */
+        parseTime(time) {
+            const hours   = Math.floor(time / 3600);
+            const minutes = Math.floor(time / 60) - hours * 60;
+            const seconds = time - minutes * 60 - hours * 3600;
+            const parts   = [];
+
+            if (hours > 0) {
+                parts.push(hours < 10 ? `0${hours}` : hours);
+            }
+            parts.push(minutes < 10 ? `0${minutes}` : minutes);
+            parts.push(seconds < 10 ? `0${seconds}` : seconds);
+            return parts;
         },
 
 
@@ -139,14 +168,14 @@ let Utils = (function () {
 
         /**
          * Returns the closest element with an action
-         * @param {Event}   event
-         * @param {String=} action
+         * @param {Event}     event
+         * @param {...String} actions
          * @returns {DOMElement}
          */
-        getTarget(event, action) {
+        getTarget(event, ...actions) {
             let element = event.target;
-            if (action) {
-                while (element.parentElement && element.dataset.action !== action) {
+            if (actions && actions.length) {
+                while (element.parentElement && !actions.includes(element.dataset.action)) {
                     element = element.parentElement;
                 }
             } else {
@@ -205,28 +234,44 @@ let Utils = (function () {
         },
 
         /**
-         * Returns true if the given Point is in the Bounds
-         * @param {Number}  top
-         * @param {Number}  left
-         * @param {Object}  bounds
-         * @param {Number=} scrollTop
+         * Returns true if the given Position is in the Bounds
+         * @param {{top: Number, left: Number}} pos
+         * @param {Object}                      bounds
+         * @param {Number=}                     scrollTop
+         * @param {Number=}                     scrollLeft
          * @returns {Boolean}
          */
-        inBounds(top, left, bounds, scrollTop = 0) {
+        inBounds(pos, bounds, scrollTop = 0, scrollLeft = 0) {
+            const top  = pos.top  - scrollTop;
+            const left = pos.left - scrollLeft;
             return (
-                top > bounds.top - scrollTop && top < bounds.bottom &&
+                top  > bounds.top  && top  < bounds.bottom &&
                 left > bounds.left && left < bounds.right
             );
+        },
+
+        /**
+         * Returns true if the given Position is in the Element
+         * @param {{top: Number, left: Number}} pos
+         * @param {DOMElement}                  element
+         * @param {Number=}                     scrollTop
+         * @param {Number=}                     scrollLeft
+         * @returns {Boolean}
+         */
+        inElement(pos, element, scrollTop = 0, scrollLeft = 0) {
+            const bounds = element.getBoundingClientRect();
+            return Utils.inBounds(pos, bounds, scrollTop, scrollLeft);
         },
 
 
 
         /**
          * Returns the Mouse Position
-         * @param {Event} event
+         * @param {Event}    event
+         * @param {Boolean=} withScroll
          * @returns {{top: Number, left: Number}}
          */
-        getMousePos(event) {
+        getMousePos(event, withScroll = true) {
             let top = 0, left = 0;
             if (!event) {
                 event = window.event;
@@ -235,8 +280,12 @@ let Utils = (function () {
                 top  = event.pageY;
                 left = event.pageX;
             } else if (event.clientX) {
-                top  = event.clientY + (document.documentElement.scrollTop  || document.body.scrollTop);
-                left = event.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft);
+                top  = event.clientY;
+                left = event.clientX;
+                if (withScroll) {
+                    top  += document.documentElement.scrollTop  || document.body.scrollTop;
+                    left += document.documentElement.scrollLeft || document.body.scrollLeft;
+                }
             }
             return { top, left };
         },

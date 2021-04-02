@@ -37,13 +37,14 @@ let Sounds = (function () {
         /**
          * Sound Controller Constructor
          * @constructor
-         * @param {Array.<String>} soundFiles - An array of sound names to use
-         * @param {String} storageName - The name of the storage
-         * @param {Boolean} usesElement - True if it uses elements
+         * @param {Array.<String>} soundFiles  - An array of sound names to use
+         * @param {String}         storageName - The name of the storage
+         * @param {Boolean}        usesElement - True if it uses elements
+         * @param {String=}        format      - Format of the files
          */
-        constructor(soundFiles, storageName, usesElement) {
+        constructor(soundFiles, storageName, usesElement, format) {
             this.data   = new Storage(storageName, true);
-            this.format = supportsOGG() ? ".ogg" : (supportsMP3() ? ".mp3" : null);
+            this.format = format || (supportsOGG() ? ".ogg" : (supportsMP3() ? ".mp3" : null));
             this.mute   = !!this.data.get();
             this.old    = this.mute;
 

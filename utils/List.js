@@ -211,7 +211,22 @@ let List = (function () {
         }
 
         /**
-         * Iterates througth the list calling the callback with the data as parameter,
+         * Empties the List
+         * @returns {Void}
+         */
+        empty() {
+            if (this.head) {
+                for (let it = this.iterate(); it.hasNext(); it.next()) {
+                    it.removeNext();
+                }
+            }
+            this.head   = null;
+            this.tail   = null;
+            this.length = 0;
+        }
+
+        /**
+         * Iterates throught the list calling the callback with the data as parameter,
          * and remove the item if the callback returns true
          * @param {Function(*, Number): Boolean} callback
          * @returns {Boolean} True if the element was removed
@@ -295,7 +310,7 @@ let List = (function () {
 
 
         /**
-         * Iterates througth the list calling the callback with the data as parameter
+         * Iterates throught the list calling the callback with the data as parameter
          * @param {Function(*, Number)} callback
          * @returns {Void}
          */
@@ -308,7 +323,7 @@ let List = (function () {
         }
 
         /**
-         * Iterates througth the list calling the callback with the data as parameter,
+         * Iterates throught the list calling the callback with the data as parameter,
          * but it breaks the loop if the function returns true
          * @param {Function(*, Number): Boolean} callback
          * @returns {Boolean}
@@ -325,7 +340,7 @@ let List = (function () {
         }
 
         /**
-         * Iterates througth the list calling the callback with the data as parameter,
+         * Iterates throught the list calling the callback with the data as parameter,
          * and returns the item if the callback returns true
          * @param {Function(*, Number): Boolean} callback
          * @returns {?*} The found element or null
@@ -339,6 +354,44 @@ let List = (function () {
                 }
             }
             return null;
+        }
+
+        /**
+         * Iterates throught the list calling the callback with the data as parameter,
+         * and returns the item if the callback returns true
+         * @param {Function(*, Number): Boolean} callback
+         * @returns {Array} The found elements
+         */
+        findAll(callback) {
+            const result = [];
+            if (this.head) {
+                for (let it = this.iterate(), count = 0; it.hasNext(); it.next(), count += 1) {
+                    if (callback(it.getNext(), count)) {
+                        result.push(it.getNext());
+                    }
+                }
+            }
+            return result;
+        }
+
+        /**
+         * Iterates throught the list calling the callback with the data as parameter,
+         * and creates an array as a result
+         * @param {Function(*, Number): Boolean=} callback
+         * @returns {Array} The array result
+         */
+        toArray(callback = null) {
+            const result = [];
+            if (this.head) {
+                for (let it = this.iterate(), count = 0; it.hasNext(); it.next(), count += 1) {
+                    if (callback) {
+                        result.push(callback(it.getNext(), count));
+                    } else {
+                        result.push(it.getNext());
+                    }
+                }
+            }
+            return result;
         }
     }
 

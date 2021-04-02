@@ -39,12 +39,12 @@ let Storage = (function () {
         /**
          * The Storage Constructor
          * @constructor
-         * @param {String} name  The name of the storage
-         * @param {Boolean=} single  True to have a storage for a single value
+         * @param {String}   name     The name of the storage.
+         * @param {Boolean=} isSingle True to have a storage for a single value.
          */
-        constructor(name, single) {
+        constructor(name, isSingle) {
             this.name     = name;
-            this.single   = single || false;
+            this.isSingle = isSingle || false;
             this.supports = supportsStorage();
         }
 
@@ -76,7 +76,7 @@ let Storage = (function () {
          */
         set(name, value) {
             if (this.supports) {
-                if (this.single) {
+                if (this.isSingle) {
                     value = name;
                     name  = "";
                 }
