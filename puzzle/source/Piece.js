@@ -89,7 +89,7 @@ class Piece {
         } else {
             this.drawSide(padding, padding + size, 1.5, this.borders.left);
         }
-        this.ctx.strokeStyle = "rgba(0, 0, 0, 0.5)";
+        this.ctx.strokeStyle = "rgba(240, 240, 240, 0.3)";
         this.ctx.lineWidth   = 1;
         this.ctx.stroke();
         this.ctx.clip();
@@ -184,14 +184,6 @@ class Piece {
         this.top  = pos.top  - this.startPos.top;
         this.left = pos.left - this.startPos.left;
         this.canvas.style.transform = Utils.translate(this.left, this.top);
-    }
-
-    /**
-     * Returns true if the Piece can be picked
-     * @returns {Boolean}
-     */
-    canPick() {
-        return true;
     }
 
     /**

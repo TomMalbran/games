@@ -112,20 +112,18 @@ class Puzzle {
 
     /**
      * Finds a Piece or Set in the Drawer or Table to pick
-     * @param {Event}  event
      * @param {Number} id
      * @returns {?(Piece|Set)}
      */
-    pickAny(event, id) {
+    pickAny(id) {
         let partial = this.drawer.findPiece(id);
         if (!partial) {
             partial = this.table.findAny(id);
         }
-        if (partial && partial.canPick(event)) {
+        if (partial) {
             partial.pick();
-            return partial;
         }
-        return null;
+        return partial;
     }
 
     /**
@@ -174,12 +172,14 @@ class Puzzle {
             }
 
             // Find a neighbour Piece in the Table
-            const neighbourPiece = this.table.findNeighbourPiece(piece);
-            if (neighbourPiece && neighbourPiece.canFit(piece)) {
-                const set = new Set(neighbourPiece, piece);
-                this.table.dropSet(set);
-                this.sounds.piece();
-                return;
+            const neighbourPieces = this.table.findNeighbourPieces(piece);
+            for (const neighbourPiece of neighbourPieces) {
+                if (neighbourPiece && neighbourPiece.canFit(piece)) {
+                    const set = new Set(neighbourPiece, piece);
+                    this.table.dropSet(set);
+                    this.sounds.piece();
+                    return;
+                }
             }
 
             // Find a neighbour Set in the Table
@@ -216,12 +216,15 @@ class Puzzle {
         }
 
         // Find a neighbour Piece in the Table
-        const neighbourPiece = this.table.findNeighbourPiece(set);
-        if (neighbourPiece && set.canFit(neighbourPiece)) {
-            this.table.removePiece(neighbourPiece);
-            set.addPiece(neighbourPiece);
-            this.sounds.set();
-            foundNeighbour = true;
+        const neighbourPieces = this.table.findNeighbourPieces(set);
+        for (const neighbourPiece of neighbourPieces) {
+            if (set.canFit(neighbourPiece)) {
+                this.table.removePiece(neighbourPiece);
+                set.addPiece(neighbourPiece);
+                this.sounds.piece();
+                foundNeighbour = true;
+                break;
+            }
         }
 
         // Find a neighbour Set in the Table

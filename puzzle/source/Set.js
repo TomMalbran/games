@@ -10,7 +10,7 @@ class Set {
      */
     constructor(piece, ...otherPieces) {
         this.id       = `s${Utils.rand(0, 999999)}`;
-        this.list     = [ piece ];
+        this.list     = [];
         this.matrix   = [[ piece ]];
 
         this.startRow = piece.row;
@@ -25,12 +25,10 @@ class Set {
         this.left     = piece.left;
         this.metrics  = piece.metrics;
 
-        this.element                = document.createElement("div");
-        this.element.className      = "set";
-        this.element.dataset.action = "set";
-        this.element.dataset.id     = this.id;
+        this.element           = document.createElement("div");
+        this.element.className = "set";
 
-        this.element.appendChild(piece.canvas);
+        this.insertPiece(piece);
         for (const otherPiece of otherPieces) {
             this.addPiece(otherPiece);
         }
@@ -143,8 +141,7 @@ class Set {
 
         // Add the Piece
         this.matrix[row][col] = piece;
-        this.list.push(piece);
-        this.element.appendChild(piece.canvas);
+        this.insertPiece(piece);
         this.position();
     }
 
@@ -195,10 +192,21 @@ class Set {
         this.top      = Math.min(this.top,  set.top);
 
         for (const piece of set.list) {
-            this.list.push(piece);
-            this.element.appendChild(piece.canvas);
+            this.insertPiece(piece);
         }
         this.position();
+    }
+
+    /**
+     * Inserts a Piece into the Set
+     * @param {Piece} piece
+     * @returns {Void}
+     */
+    insertPiece(piece) {
+        this.list.push(piece);
+        this.element.appendChild(piece.canvas);
+        piece.canvas.dataset.action = "set";
+        piece.canvas.dataset.id     = this.id;
     }
 
     /**
@@ -296,22 +304,6 @@ class Set {
      */
     translate() {
         this.element.style.transform = Utils.translate(this.left, this.top);
-    }
-
-    /**
-     * Returns true if the Piece can be picked
-     * @param {Event} event
-     * @param {Event} scroll
-     * @returns {Boolean}
-     */
-    canPick(event) {
-        const pos = Utils.getMousePos(event);
-        for (const piece of this.list) {
-            if (Utils.inElement(pos, piece.canvas)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**

@@ -45,7 +45,9 @@ class Selection {
                 <div class="slider-image">
                     <h3>${i}</h3>
                     <img src="images/art${i}.jpg" />
-                    ${completed > 0 ? `<h4>${completed}/${pieces.length}</h4>` : ""}
+                    ${completed > 0 ? `<h4 ${(completed === pieces.length) ? "class='done'" : ""}>
+                        ${completed}/${pieces.length}
+                    </h4>` : ""}
                 </div>
                 <ul data-image="art${i}">${selects}</ul>
             `;
@@ -100,7 +102,7 @@ class Selection {
         this.button.style.display = "block";
         const score = this.storage.get(`${this.image}.${this.pieces}.score`);
         if (score) {
-            const percent = Math.round(score.placed * 100 / score.total);
+            const percent = Math.floor(score.placed * 100 / score.total);
             const time    = this.storage.get(`${this.image}.${this.pieces}.time`);
             let   desc    = `Completed <b>${percent}%</b> of this puzzle.`;
             if (time) {

@@ -65,7 +65,7 @@
             }
             const element = Utils.getTarget(e, "piece", "set");
             if (element) {
-                partial = puzzle.pickAny(e, element.dataset.id);
+                partial = puzzle.pickAny(element.dataset.id);
                 e.preventDefault();
             }
         });

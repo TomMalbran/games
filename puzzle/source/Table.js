@@ -82,18 +82,18 @@
     }
 
     /**
-     * Finds a Piece in the Table that is next to the given one
+     * Finds the Pieces in the Table that is next to the given one
      * @param {(Piece|Set)} other
-     * @returns {?Piece}
+     * @returns {Array.<Piece>}
      */
-    findNeighbourPiece(other) {
-        return this.pieces.find((piece) => piece.id !== other.id && other.isNeighbour(piece));
+    findNeighbourPieces(other) {
+        return this.pieces.findAll((piece) => piece.id !== other.id && other.isNeighbour(piece));
     }
 
     /**
-     * Finds a Sets in the Table that is next to the given one
+     * Finds the Sets in the Table that is next to the given one
      * @param {(Piece|Set)} other
-     * @returns {Array<Set>}
+     * @returns {Array.<Set>}
      */
     findNeighbourSets(other) {
         return this.sets.findAll((set) => set.id !== other.id && set.isNeighbour(other));

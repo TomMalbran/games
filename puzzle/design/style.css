@@ -195,6 +195,9 @@ h2 {
     font-family: var(--title-font);
     font-size: 20px;
 }
+.done.done {
+    color: green;
+}
 .slider-image img {
     display: block;
     max-width: 300px;
@@ -354,6 +357,8 @@ h2 {
  * The Puzzle
  */
 .container {
+    position: relative;
+    z-index: 1;
     display: flex;
     height: 100vh;
     overflow: hidden;
@@ -369,7 +374,7 @@ h2 {
 }
 .board {
     position: relative;
-    background-color: rgba(21, 26, 33, 0.7);
+    background-color: rgba(255, 255, 255, 0.2);
     border: 5px solid rgba(21, 26, 33);
 }
 
@@ -379,7 +384,7 @@ h2 {
     width: 218px;
     padding: 64px 16px 16px 16px;
     border-left: 10px solid rgba(11, 16, 23);
-    background-color: rgba(21, 26, 33, 0.7);
+    background-color: rgba(220, 220, 220, 0.3);
     overflow-y: scroll;
 }
 .drawer button {
@@ -486,12 +491,13 @@ body > .piece {
     position: absolute;
     top: 0;
     left: 0;
-    cursor: grab;
     z-index: 1;
+    pointer-events: none;
 }
 .set > .piece {
     position: absolute;
-    pointer-events: none;
+    cursor: grab;
+    pointer-events: all;
 }
 .dragging {
     cursor: grabbing;

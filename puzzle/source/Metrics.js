@@ -110,7 +110,7 @@
      */
     drawScore() {
         this.placedElem.innerHTML  = this.placedPieces;
-        this.percentElem.innerHTML = Math.round(this.placedPieces * 100 / this.totalPieces);
+        this.percentElem.innerHTML = Math.floor(this.placedPieces * 100 / this.totalPieces);
     }
 
 
