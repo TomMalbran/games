@@ -41,16 +41,21 @@
 
     <div class="selection">
         <h2>Select a Puzzle</h2>
-        <p>And the amount of pieces</p>
-        <div class="slider-content">
-            <ul class="slider-list"></ul>
+        <ul class="selection-tabs">
+            <li class="selected" data-action="tab">Art</li>
+            <li data-action="tab">Apple</li>
+        </ul>
+        <div class="slider-container">
+            <div class="slider-content">
+                <ul class="slider-list"></ul>
+            </div>
+            <nav class="slider-nav">
+                <a href="#" class="slider-prev" data-action="prev"></a>
+                <a href="#" class="slider-next" data-action="next"></a>
+            </nav>
         </div>
         <p class="selection-desc"></p>
         <button data-action="start"></button>
-        <nav class="slider-nav">
-            <a href="#" class="slider-prev" data-action="prev"></a>
-            <a href="#" class="slider-next" data-action="next"></a>
-        </nav>
     </div>
 
     <div class="pause backdrop">

@@ -9,10 +9,12 @@ class Selection {
     constructor() {
         this.storage = new Storage("puzzle");
         this.element = document.querySelector(".selection");
+        this.tabs    = document.querySelector(".selection-tabs");
         this.list    = document.querySelector(".slider-list");
         this.desc    = document.querySelector(".selection-desc");
         this.button  = document.querySelector(".selection button");
 
+        this.tab     = "art";
         this.index   = 0;
         this.amount  = 2;
         this.total   = 10;
@@ -33,7 +35,7 @@ class Selection {
             let completed = 0;
             let selects   = "";
             for (const pieceCount of pieces) {
-                const score  = this.storage.get(`art${i}.${pieceCount}.score`);
+                const score  = this.storage.get(`${this.tab}${i}.${pieceCount}.score`);
                 const isDone = score && score.placed === score.total
                 completed += isDone ? 1 : 0;
                 selects   += `<li data-action="select" ${isDone ? "class='completed'" : ""}>${pieceCount}</li>`;
@@ -44,12 +46,12 @@ class Selection {
             li.innerHTML = `
                 <div class="slider-image">
                     <h3>${i}</h3>
-                    <img src="images/art${i}.jpg" />
+                    <img src="images/${this.tab}${i}.jpg" />
                     ${completed > 0 ? `<h4 ${(completed === pieces.length) ? "class='done'" : ""}>
                         ${completed}/${pieces.length}
                     </h4>` : ""}
                 </div>
-                <ul data-image="art${i}">${selects}</ul>
+                <ul data-image="${this.tab}${i}">${selects}</ul>
             `;
             this.list.appendChild(li);
         }
@@ -67,6 +69,26 @@ class Selection {
     }
 
     /**
+     * Changes the current Tab
+     * @param {DOMElement} element
+     * @returns {Void}
+     */
+    changeTab(element) {
+        this.tab   = element.innerText.toLowerCase();
+        this.index = 0;
+
+        this.tabs.querySelector(".selected").classList.remove("selected");
+        element.classList.add("selected");
+        this.build();
+
+        this.desc.style.display   = "none";
+        this.button.style.display = "none";
+        this.transform();
+    }
+
+
+
+    /**
      * Moves the Slider one to the left or right
      * @param {Number} dir
      * @returns {Void}
@@ -78,7 +100,14 @@ class Selection {
         } else if (this.index > this.last - 1) {
             this.index = 0;
         }
+        this.transform();
+    }
 
+    /**
+     * Sets the Slider transform
+     * @returns {Void}
+     */
+    transform() {
         this.list.style.transform = `translateX(calc(-100%/${this.total}*${this.index}))`;
     }
 

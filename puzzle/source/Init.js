@@ -13,6 +13,9 @@
         document.body.addEventListener("click", (e) => {
             const element = Utils.getTarget(e);
             switch (element.dataset.action) {
+            case "tab":
+                selection.changeTab(element);
+                break;
             case "next":
                 selection.moveSlider(1);
                 break;

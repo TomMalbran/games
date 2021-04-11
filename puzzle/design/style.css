@@ -152,8 +152,37 @@ h2 {
     color: white;
 }
 
-.slider-content {
+.selection-tabs {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 16px 0 8px 0;
+    padding: 0;
+}
+.selection-tabs li {
+    display: block;
+    margin: 0 8px;
+    padding: 6px 20px;
+    color: white;
+    border: 1px solid white;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.selection-tabs li.selected {
+    color: var(--main-color);
+    border-color: var(--main-color);
+}
+.selection-tabs li:hover {
+    color: white;
+    border-color: var(--main-color);
+}
+
+.slider-container {
     position: relative;
+    min-height: 380px;
+}
+.slider-content {
     overflow: hidden;
 }
 .slider-list {
@@ -242,7 +271,7 @@ h2 {
     --slider-arrow-color: var(--main-color);
     --slider-arrow-width: 24px;
     --slider-arrow-height: 3px;
-    --slider-arrow-space: 0;
+    --slider-arrow-space: -32px;
     --slider-arrow-gap: 16px;
 }
 .slider-nav a {
