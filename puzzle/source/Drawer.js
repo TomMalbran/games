@@ -83,10 +83,17 @@ class Drawer {
         } else {
             this.grid.appendChild(piece.canvas);
         }
-        if (!piece.inDrawer) {
-            this.list.addLast(piece);
-            this.instance.saveDrawerPieces(this.list);
+
+        if (piece.inDrawer) {
+            this.list.remove((item) => item.id === piece.id);
         }
+        if (closestPiece) {
+            this.list.addBefore(piece, (item) => item.id === closestPiece.id);
+        } else {
+            this.list.addLast(piece);
+        }
+        this.instance.saveDrawerPieces(this.list);
+
         piece.dropInDrawer();
     }
 

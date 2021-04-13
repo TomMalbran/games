@@ -75,7 +75,10 @@
                     borders.left = matrix[row][col - 1].right * -1;
                 }
 
-                const id = `p${Utils.rand(0, 999999)}`;
+                let id;
+                do {
+                    id = `p${Utils.rand(0, 999999)}`;
+                } while (this.pieces[id]);
                 this.pieces[id]  = new Piece(this.metrics, this.image, id, col, row, borders);
                 matrix[row][col] = borders;
                 values.push({ id, col, row, borders });
@@ -114,9 +117,7 @@
         const result = [];
         if (pieces) {
             for (const pieceID of pieces) {
-                if (this.pieces[pieceID]) {
-                    result.push(this.pieces[pieceID]);
-                }
+                result.push(this.pieces[pieceID]);
             }
         }
         return result;

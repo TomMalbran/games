@@ -104,11 +104,32 @@ let List = (function () {
         }
 
         /**
+         * Adds an item at the current position
+         * @param {*} item
+         * @returns {Void}
+         */
+        add(item) {
+            const node = new Node(item, this.previows, this.following);
+
+            if (this.previows) {
+                this.previows.next = node;
+            } else {
+                this.list.head = node;
+            }
+            if (this.following) {
+                this.following.prev = node;
+            } else {
+                this.list.tail = node;
+            }
+            this.list.length += 1;
+        }
+
+        /**
          * Removes the follwing element and sets the next one as the new following element
          * @returns {Void}
          */
         removeNext() {
-            // Cant remove next if there isnt one
+            // Cant remove next if there isn't one
             if (!this.hasNext()) {
                 return;
             }
@@ -208,6 +229,25 @@ let List = (function () {
         addLast(item) {
             this.add(item, this.tail, null);
             return this.iterateLast();
+        }
+
+        /**
+         * Iterates throught the list calling the callback with the data as parameter,
+         * and adds the item if the callback returns true
+         * @param {*} item
+         * @param {Function(*, Number): Boolean} callback
+         * @returns {Boolean} True if the element was added
+         */
+        addBefore(item, callback) {
+            if (this.head) {
+                for (let it = this.iterate(), count = 0; it.hasNext(); it.next(), count += 1) {
+                    if (callback(it.getNext(), count)) {
+                        it.add(item);
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         /**
