@@ -33,7 +33,7 @@ header {
     height: 34px;
     margin: 0;
     z-index: 1;
-    box-shadow: 0 5px rgba(0,0,0,0.8);
+    box-shadow: 0 5px rgba(0, 0, 0, 0.8);
     background: rgba(20, 20, 20, 0.8);
     border-left: 8px solid #900;
     transition: all 0.5s;
@@ -142,6 +142,6 @@ header:hover #nav a {
     color: #646464;
 }
 
-#nav li.selected a {
+#nav li a.selected {
     color: white;
 }
