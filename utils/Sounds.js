@@ -39,25 +39,28 @@ let Sounds = (function () {
          * @constructor
          * @param {Array.<String>} soundFiles  - An array of sound names to use
          * @param {String}         storageName - The name of the storage
-         * @param {Boolean}        usesElement - True if it uses elements
          * @param {String=}        format      - Format of the files
          */
-        constructor(soundFiles, storageName, usesElement, format) {
+        constructor(soundFiles, storageName, format) {
             this.data   = new Storage(storageName, true);
             this.format = format || (supportsOGG() ? ".ogg" : (supportsMP3() ? ".mp3" : null));
             this.mute   = !!this.data.get();
             this.old    = this.mute;
 
-            if (usesElement) {
-                this.audio = document.querySelector(".audio");
-                this.waves = document.querySelector(".waves");
-            }
+            this.audio   = document.querySelector(".audio");
+            this.waves   = document.querySelector(".waves");
+            this.element = document.querySelector(".mute");
 
             if (this.format) {
                 this.setSounds(soundFiles);
                 this.setDisplay();
-            } else if (this.audio) {
-                this.audio.style.display = "none";
+            } else {
+                if (this.audio) {
+                    this.audio.style.display = "none";
+                }
+                if (this.element) {
+                    this.element.style.display = "none";
+                }
             }
         }
 
@@ -117,8 +120,11 @@ let Sounds = (function () {
          * @returns {Void}
          */
         setDisplay() {
-            if (this.waves) {
+            if (this.audio && this.waves) {
                 this.waves.style.display = this.mute ? "none" : "block";
+            }
+            if (this.element) {
+                this.element.innerText = this.mute ? "Unmute" : "Mute";
             }
         }
     }

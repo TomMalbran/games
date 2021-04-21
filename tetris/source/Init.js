@@ -236,7 +236,7 @@
 
         display  = new Display();
         level    = new Level(maxInitialLevel);
-        sound    = new Sounds([ "pause", "crash", "drop", "line", "rotate", "end" ], "tetris.sound", true);
+        sound    = new Sounds([ "pause", "crash", "drop", "line", "rotate", "end" ], "tetris.sound");
         scores   = new HighScores();
         keyboard = new Keyboard(display, scores, getShortcuts());
     }

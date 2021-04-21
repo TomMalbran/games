@@ -68,7 +68,6 @@ class Puzzle {
 
     /**
      * Toggles the Preview
-     * @param {Event} event
      * @returns {Void}
      */
     togglePreview() {
@@ -84,7 +83,6 @@ class Puzzle {
 
     /**
      * Toggles the Pause
-     * @param {Event} event
      * @returns {Void}
      */
     togglePause() {

@@ -203,20 +203,11 @@
 
 
     /**
-     * Sets the text of the Audio button
-     * @returns {Void}
-     */
-    function setAudioText() {
-        audio.innerHTML = sounds.isMute() ? "Unmute" : "Mute";
-    }
-
-    /**
      * Toggles the sound on and off
      * @returns {Void}
      */
     function toggleSound() {
         sounds.toggle();
-        setAudioText();
     }
 
     /**
@@ -396,9 +387,7 @@
         sounds  = new Sounds([
             "build", "upgrade", "sell", "blocking", "enter", "exit", "death", "shoot", "hit",
             "fast", "missile", "antiair", "frost", "earth", "ink", "snap", "laser"
-        ], "defender.sound", false);
-
-        setAudioText();
+        ], "defender.sound");
     }
 
 

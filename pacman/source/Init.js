@@ -340,7 +340,7 @@
         display    = new Display(onShow);
         demo       = new Demo();
         animations = new Animations();
-        sounds     = new Sounds([ "start", "death", "eat1", "eat2", "kill" ], "pacman.sound", true);
+        sounds     = new Sounds([ "start", "death", "eat1", "eat2", "kill" ], "pacman.sound");
         scores     = new HighScores();
 
         createActionsShortcuts();

@@ -364,7 +364,7 @@
         board    = new Board();
         demo     = new Demo(board);
         instance = new Instance(board);
-        sound    = new Sounds([ "start", "eat", "end" ], "snake.sound", true);
+        sound    = new Sounds([ "start", "eat", "end" ], "snake.sound");
         scores   = new HighScores();
         keyboard = new Keyboard(display, scores, getShortcuts());
     }
