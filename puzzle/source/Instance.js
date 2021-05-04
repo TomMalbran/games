@@ -1,7 +1,7 @@
 /**
  * Instance Manager
  */
- class Instance {
+class Instance {
 
     /**
      * The Instance constructor

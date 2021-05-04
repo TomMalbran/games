@@ -11,6 +11,7 @@ class Selection {
         this.element = document.querySelector(".selection");
         this.tabs    = document.querySelector(".selection-tabs");
         this.list    = document.querySelector(".slider-list");
+        this.pack    = document.querySelector(".selection-pack");
         this.desc    = document.querySelector(".selection-desc");
         this.button  = document.querySelector(".selection button");
 
@@ -29,6 +30,7 @@ class Selection {
      */
     build() {
         const pieces = [ "50", "100", "250", "500" ];
+        let   done   = 0;
 
         this.list.innerHTML = "";
         for (let i = 1; i <= this.total; i += 1) {
@@ -37,6 +39,7 @@ class Selection {
             for (const pieceCount of pieces) {
                 const score  = this.storage.get(`${this.tab}${i}.${pieceCount}.score`);
                 const isDone = score && score.placed === score.total
+                done      += isDone ? 1 : 0;
                 completed += isDone ? 1 : 0;
                 selects   += `<li data-action="select" ${isDone ? "class='completed'" : ""}>${pieceCount}</li>`;
             }
@@ -55,6 +58,10 @@ class Selection {
             `;
             this.list.appendChild(li);
         }
+
+        const total   = (this.total * pieces.length);
+        const percent = Math.floor(done * 100 / total);
+        this.pack.innerHTML = `Completed <b>${done}/${total}</b> puzzles <i>(${percent}%)</i> of this pack.`;
 
         this.list.style.setProperty("--slider-count", this.amount);
         this.list.style.setProperty("--slider-total", this.total);

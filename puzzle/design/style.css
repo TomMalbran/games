@@ -130,10 +130,12 @@ h1 {
     top: 50%;
     left: 50%;
     max-width: calc((300px + 32px) * 2);
+    max-height: calc(100vh - 140px);
     padding: 16px 32px;
     transform: translate(-50%, -50%);
     background-color: var(--dialog-color);
     border-radius: 8px;
+    overflow: auto;
     z-index: var(--z-selection);
 }
 h2 {
@@ -150,6 +152,13 @@ h2 {
 }
 .selection p b {
     color: white;
+}
+.selection p i {
+    font-style: normal;
+    color: green;
+}
+.selection-pack.selection-pack {
+    margin-top: 16px;
 }
 
 .selection-tabs {
