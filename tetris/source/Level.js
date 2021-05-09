@@ -50,7 +50,7 @@ class Level {
      * @param {Number}
      */
     choose(level) {
-        if (level > 0 && level <= this.maxInitialLevel) {
+        if (level > 0 && level <= this.maxLevels) {
             this.level = level;
             this.show();
         }
