@@ -25,43 +25,47 @@ class Keyboard {
      * @returns {Void}
      */
     pressKey(event) {
-        let key = event.keyCode;
+        const key      = event.keyCode;
+        const keyCode  = KeyCode.keyToCode(key);
+        let   shortcut = "";
+
         if (this.scores.isFocused) {
-            if (key === 13) {
+            if (KeyCode.isEnter(key)) {
                 this.shortcuts.saveHighScore();
             }
         } else {
             if (!this.display.isPlaying) {
                 event.preventDefault();
             }
-            if ([ 89, 49, 97 ].includes(key)) {           // Y / 1
-                key = "Y";
-            } else if ([ 69, 50, 98 ].includes(key)) {    // E / 2
-                key = "E";
-            } else if ([ 82, 51, 99 ].includes(key)) {    // R / 3
-                key = "R";
-            } else if ([ 85, 52, 100 ].includes(key)) {   // U / 4
-                key = "U";
-            } else if ([ 8, 66, 78 ].includes(key)) {     // Backspace / B / N
-                key = "B";
-            } else if ([ 13, 32, 79 ].includes(key)) {    // Enter / Space / O
-                key = "O";
-            } else if ([ 80, 67 ].includes(key)) {        // P / C
-                key = "P";
-            } else if ([ 38, 87 ].includes(key)) {        // Up    / W
-                key = "W";
-            } else if ([ 37, 65 ].includes(key)) {        // Left  / A
-                key = "A";
-            } else if ([ 40, 83 ].includes(key)) {        // Down  / S
-                key = "S";
-            } else if ([ 39, 68 ].includes(key)) {        // Right / D
-                key = "D";
+
+            if ([ "Y", "1", "Numpad1" ].includes(keyCode)) {
+                shortcut = "Y";
+            } else if ([ "E", "2", "Numpad2" ].includes(keyCode)) {
+                shortcut = "E";
+            } else if ([ "R", "3", "Numpad3" ].includes(keyCode)) {
+                shortcut = "R";
+            } else if ([ "U", "4", "Numpad4" ].includes(keyCode)) {
+                shortcut = "U";
+            } else if ([ "Enter", "Return", "Space", "O" ].includes(keyCode)) {
+                shortcut = "O";
+            } else if (KeyCode.isErase(key)) {
+                shortcut = "B";
+            } else if (KeyCode.isPauseContinue(key)) {
+                shortcut = "P";
+            } else if (KeyCode.isUp(key)) {
+                shortcut = "W";
+            } else if (KeyCode.isLeft(key)) {
+                shortcut = "A";
+            } else if (KeyCode.isDown(key)) {
+                shortcut = "S";
+            } else if (KeyCode.isRight(key)) {
+                shortcut = "D";
             } else {
-                key = String.fromCharCode(key);
+                shortcut = keyCode;
             }
 
-            if (this.shortcuts[this.display.get()][key]) {
-                this.shortcuts[this.display.get()][key]();
+            if (this.shortcuts[this.display.get()][shortcut]) {
+                this.shortcuts[this.display.get()][shortcut]();
             }
         }
     }

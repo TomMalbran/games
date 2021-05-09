@@ -11,7 +11,6 @@ class Keyboard {
      * @returns {Void}
      */
     constructor(display, scores, shortcuts) {
-        this.fastKeys   = [ 37, 65, 39, 68 ];
         this.shortcuts  = shortcuts;
         this.keyPressed = null;
 
@@ -30,7 +29,7 @@ class Keyboard {
      * @returns {Void}
      */
     onKeyDown(event) {
-        if (this.display.isPlaying && this.fastKeys.includes(event.keyCode)) {
+        if (this.display.isPlaying && KeyCode.isFastKey(event.keyCode)) {
             if (this.keyPressed === null) {
                 this.keyPressed = event.keyCode;
             } else {
@@ -67,8 +66,11 @@ class Keyboard {
      * @returns {Void}
      */
     pressKey(key, event) {
+        const keyCode  = KeyCode.keyToCode(key);
+        let   shortcut = "";
+
         if (this.scores.isFocused) {
-            if (key === 13) {
+            if (KeyCode.isEnter(key)) {
                 this.shortcuts.gameOver.O();
             }
         } else {
@@ -76,28 +78,28 @@ class Keyboard {
                 event.preventDefault();
             }
 
-            if ([ 69, 49, 97 ].includes(key)) {           // E / 1
-                key = "E";
-            } else if ([ 82, 50, 98 ].includes(key)) {    // R / 2
-                key = "R";
-            } else if ([ 75, 51, 99 ].includes(key)) {    // K / 3
-                key = "C";
-            } else if ([ 8, 66, 78 ].includes(key)) {     // Backspace / B / N
-                key = "B";
-            } else if ([ 13, 32, 79 ].includes(key)) {    // Enter / Space / O
-                key = "O";
-            } else if ([ 80, 67 ].includes(key)) {        // P / C
-                key = "P";
-            } else if ([ 37, 65 ].includes(key)) {        // Left  / A
-                key = "A";
-            } else if ([ 39, 68 ].includes(key)) {        // Right / D
-                key = "D";
+            if ([ "E", "1", "Numpad1" ].includes(keyCode)) {
+                shortcut = "E";
+            } else if ([ "R", "2", "Numpad2" ].includes(keyCode)) {
+                shortcut = "R";
+            } else if ([ "K", "3", "Numpad3" ].includes(keyCode)) {
+                shortcut = "C";
+            } else if ([ "Enter", "Return", "Space", "O" ].includes(keyCode)) {
+                shortcut = "O";
+            } else if (KeyCode.isErase(key)) {
+                shortcut = "B";
+            } else if (KeyCode.isPauseContinue(key)) {
+                shortcut = "P";
+            } else if (KeyCode.isLeft(key)) {
+                shortcut = "A";
+            } else if (KeyCode.isRight(key)) {
+                shortcut = "D";
             } else {
-                key = String.fromCharCode(key);
+                shortcut = keyCode;
             }
 
-            if (this.shortcuts[this.display.get()][key]) {
-                this.shortcuts[this.display.get()][key]();
+            if (this.shortcuts[this.display.get()][shortcut]) {
+                this.shortcuts[this.display.get()][shortcut]();
             }
         }
     }

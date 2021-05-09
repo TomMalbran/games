@@ -252,10 +252,10 @@
      */
     function createShortcuts() {
         const paused = {
-            P     : "pause",
-            C     : "pause",
-            R     : "restart",
-            Q     : "endGame"
+            P : "pause",
+            C : "pause",
+            R : "restart",
+            Q : "endGame"
         };
         const game = {
             P        : "pause",
@@ -278,7 +278,7 @@
             X        : ()  => towers.selectNextPrev(+1),
             PageUp   : ()  => towers.selectNextPrev(-5),
             PageDown : ()  => towers.selectNextPrev(+5),
-            Esc      : ()  => endSelection()
+            Escape   : ()  => endSelection()
         };
 
         shortcuts = {
@@ -340,24 +340,16 @@
         });
 
         document.addEventListener("keydown", (e) => {
-            const key  = e.keyCode;
-            const code = specialKeys[key] || String.fromCharCode(key);
-            let   data = code, dec, hexa;
+            const key    = e.keyCode;
+            const number = KeyCode.keyToNumber(key);
+            const hexa   = KeyCode.keyToHexa(key);
+            let   code   = KeyCode.keyToCode(key);
+            let   data   = code;
 
-            if (key >= 48 && key <= 57) {
-                dec  = key - 48;
-                hexa = dec;
-            } else if (key >= 96 && key <= 105) {
-                dec  = key - 96;
-                hexa = dec;
-            } else if ([ "A", "B", "C", "D", "E", "F" ].includes(code)) {
-                hexa = code;
-            }
-
-            if (shortcuts[display.get()].HN && hexa !== undefined) {
+            if (shortcuts[display.get()].HN && hexa !== null) {
                 code = "HN";
                 data = hexa;
-            } else if (shortcuts[display.get()].DN && dec !== undefined) {
+            } else if (shortcuts[display.get()].DN && number !== null) {
                 code = "DN";
                 data = dec;
             }

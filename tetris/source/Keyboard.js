@@ -10,7 +10,6 @@ class Keyboard {
      * @param {Object}  shortcuts
      */
     constructor(display, scores, shortcuts) {
-        this.fastKeys   = [ 37, 65, 40, 83, 39, 68 ];
         this.shortcuts  = shortcuts;
         this.keyPressed = null;
         this.count      = 0;
@@ -52,9 +51,12 @@ class Keyboard {
      * @param {?Event} event
      */
     pressKey(key, event) {
-        let number = null;
+        const keyCode  = KeyCode.keyToCode(key);
+        const number   = KeyCode.keyToNumber(key, true);
+        let   shortcut = "";
+
         if (this.scores.isFocused) {
-            if (key === 13) {
+            if (KeyCode.isEnter(key)) {
                 this.shortcuts.gameOver.O();
             }
         } else {
@@ -62,38 +64,30 @@ class Keyboard {
                 event.preventDefault();
             }
 
-            if ([ 8, 66, 78 ].includes(key)) {            // Backspace / B / N
-                key = "B";
-            } else if ([ 13, 79, 84 ].includes(key)) {    // Enter / O / T
-                key = "O";
-            } else if ([ 80, 67 ].includes(key)) {        // P / C
-                key = "P";
-            } else if ([ 17, 32 ].includes(key)) {        // Ctrl / Space
-                key = "C";
-            } else if ([ 38, 87 ].includes(key)) {        // Up    / W
-                key = "W";
-            } else if ([ 37, 65 ].includes(key)) {        // Left  / A
-                key = "A";
-            } else if ([ 40, 83 ].includes(key)) {        // Down  / S
-                key = "S";
-            } else if ([ 39, 68 ].includes(key)) {        // Right / D
-                key = "D";
+            if ([ "Enter", "Return", "O", "T" ].includes(keyCode)) {
+                shortcut = "O";
+            } else if ([ "Control", "Space" ].includes(keyCode)) {
+                shortcut = "C";
+            } else if (KeyCode.isErase(key)) {
+                shortcut = "B";
+            } else if (KeyCode.isPauseContinue(key)) {
+                shortcut = "P";
+            } else if (KeyCode.isUp(key)) {
+                shortcut = "W";
+            } else if (KeyCode.isLeft(key)) {
+                shortcut = "A";
+            } else if (KeyCode.isDown(key)) {
+                shortcut = "S";
+            } else if (KeyCode.isRight(key)) {
+                shortcut = "D";
             } else {
-                if (key === 48 || key === 96) {
-                    number = 10;
-                } else if (key > 48 && key < 58) {
-                    number = key - 48;
-                } else if (key > 96 && key < 106) {
-                    number = key - 96;
-                }
-                key = String.fromCharCode(key);
+                shortcut = keyCode;
             }
 
             if (number !== null) {
                 this.shortcuts.number(number);
-            }
-            if (this.shortcuts[this.display.get()][key]) {
-                this.shortcuts[this.display.get()][key]();
+            } else if (this.shortcuts[this.display.get()][shortcut]) {
+                this.shortcuts[this.display.get()][shortcut]();
             }
         }
     }
@@ -103,7 +97,7 @@ class Keyboard {
      * @param {Event} event
      */
     onKeyDown(event) {
-        if (this.display.isPlaying && this.fastKeys.includes(event.keyCode)) {
+        if (this.display.isPlaying && KeyCode.isFastKey(event.keyCode)) {
             if (this.keyPressed === null) {
                 this.keyPressed = event.keyCode;
             } else {

@@ -284,20 +284,6 @@
      * @returns {Void}
      */
     function initDomListeners() {
-        const specialKeys = {
-            8  : "BaackSpace",
-            13 : "Enter",
-            32 : "Space",
-            37 : "Left",
-            65 : "Left",
-            38 : "Up",
-            87 : "Up",
-            39 : "Right",
-            68 : "Right",
-            40 : "Down",
-            83 : "Down",
-        };
-
         document.body.addEventListener("click", (e) => {
             const element = Utils.getTarget(e);
             if (actions[element.dataset.action]) {
@@ -307,9 +293,7 @@
         });
 
         document.addEventListener("keydown", (e) => {
-            const key  = e.keyCode;
-            const code = specialKeys[key] || String.fromCharCode(key);
-
+            const code = KeyCode.keyToCode(e.keyCode, true);
             if (shortcuts[display.get()] && shortcuts[display.get()][code]) {
                 if (typeof shortcuts[display.get()][code] === "string") {
                     actions[shortcuts[display.get()][code]]();
