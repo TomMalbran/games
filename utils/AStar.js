@@ -1,7 +1,7 @@
 /**
  * A* (A-Star) algorithm for a path finder
  */
-let AStar = (function () {
+const AStar = (function () {
     "use strict";
 
 

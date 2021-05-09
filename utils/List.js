@@ -2,7 +2,7 @@
  * Creates a new List. A list lets you add and remove elements at the current position
  * of the iterator, which starts at the start of the list and can be moved with the functions.
  */
-let List = (function () {
+const List = (function () {
     "use strict";
 
 

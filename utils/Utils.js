@@ -1,4 +1,4 @@
-let Utils = (function () {
+const Utils = (function () {
     "use strict";
 
     return {

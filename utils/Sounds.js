@@ -1,4 +1,4 @@
-let Sounds = (function () {
+const Sounds = (function () {
     "use strict";
 
 

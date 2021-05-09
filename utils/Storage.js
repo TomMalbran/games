@@ -1,7 +1,7 @@
 /**
  * Creates a new Storage. A storage uses local storage capabilities to save JSON data
  */
-let Storage = (function () {
+const Storage = (function () {
     "use strict";
 
 
