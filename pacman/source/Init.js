@@ -128,7 +128,7 @@
         startTime = new Date().getTime();
         animation = window.requestAnimationFrame(() => {
             const time  = new Date().getTime() - startTime;
-            const speed = time / 16;
+            const speed = (time / 16) * 1.5;
 
             if (speed > 5) {
                 return requestAnimation();
