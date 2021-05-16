@@ -541,3 +541,29 @@ body > .piece {
     cursor: grabbing;
     z-index: var(--z-dragging);
 }
+
+
+
+/**
+ * The Scrollbars
+ */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+::-webkit-scrollbar,
+::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    border: 2px solid transparent;
+    border-left-width: 2px;
+}
+::-webkit-scrollbar-thumb {
+    box-shadow: 0 0 0 8px transparent inset;
+}
+:hover::-webkit-scrollbar-thumb {
+    box-shadow: 0 0 0 8px rgba(11, 16, 23) inset;
+}
