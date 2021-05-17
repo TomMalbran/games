@@ -294,11 +294,11 @@
 
         document.addEventListener("keydown", (e) => {
             const code = KeyCode.keyToCode(e.keyCode, true);
-            if (shortcuts[display.get()] && shortcuts[display.get()][code]) {
-                if (typeof shortcuts[display.get()][code] === "string") {
-                    actions[shortcuts[display.get()][code]]();
+            if (shortcuts[display.current] && shortcuts[display.current][code]) {
+                if (typeof shortcuts[display.current][code] === "string") {
+                    actions[shortcuts[display.current][code]]();
                 } else {
-                    shortcuts[display.get()][code]();
+                    shortcuts[display.current][code]();
                 }
                 e.preventDefault();
             }

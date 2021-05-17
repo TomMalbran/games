@@ -86,8 +86,8 @@ class Keyboard {
 
             if (number !== null) {
                 this.shortcuts.number(number);
-            } else if (this.shortcuts[this.display.get()][shortcut]) {
-                this.shortcuts[this.display.get()][shortcut]();
+            } else if (this.shortcuts[this.display.current][shortcut]) {
+                this.shortcuts[this.display.current][shortcut]();
             }
         }
     }

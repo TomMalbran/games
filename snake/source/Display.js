@@ -7,7 +7,7 @@ class Display {
      * The Game Display constructor
      */
     constructor() {
-        this.display   = "mainScreen";
+        this.current   = "mainScreen";
         this.container = document.querySelector("#container");
         this.header    = document.querySelector(".messages h2");
         this.paragraph = document.querySelector(".messages p");
@@ -22,23 +22,13 @@ class Display {
         };
     }
 
-
-
-    /**
-     * Gets the Game Display
-     * @returns {String}
-     */
-    get() {
-        return this.display;
-    }
-
     /**
      * Sets the Game Display
-     * @param {String} display
+     * @param {String} current
      * @returns {Display}
      */
-    set(display) {
-        this.display = display;
+    set(current) {
+        this.current = current;
         return this;
     }
 
@@ -49,7 +39,7 @@ class Display {
      * @returns {Void}
      */
     setClass() {
-        this.container.className = this.display;
+        this.container.className = this.current;
     }
 
     /**
@@ -57,8 +47,8 @@ class Display {
      * @returns {Void}
      */
     show() {
-        this.header.innerHTML    = this.messages[this.display][0];
-        this.paragraph.innerHTML = this.messages[this.display][1];
+        this.header.innerHTML    = this.messages[this.current][0];
+        this.paragraph.innerHTML = this.messages[this.current][1];
         this.setClass();
     }
 
@@ -77,7 +67,7 @@ class Display {
      * @returns {Boolean}
      */
     get isStarting() {
-        return this.display === "starting";
+        return this.current === "starting";
     }
 
     /**
@@ -85,7 +75,7 @@ class Display {
      * @returns {Boolean}
      */
     get isPlaying() {
-        return this.display === "playing";
+        return this.current === "playing";
     }
 
     /**
@@ -93,6 +83,6 @@ class Display {
      * @returns {Boolean}
      */
     get isDemoing() {
-        return this.display === "demo";
+        return this.current === "demo";
     }
 }

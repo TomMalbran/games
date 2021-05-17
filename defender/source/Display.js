@@ -8,35 +8,25 @@ class Display {
      */
     constructor() {
         this.container = document.querySelector("#container");
-        this.display   = "mainScreen";
-    }
-
-
-
-    /**
-     * Returns the display
-     * @returns {String}
-     */
-    get() {
-        return this.display;
+        this.current   = "mainScreen";
     }
 
     /**
-     * Sets the display and changes the container class
-     * @param {String} display
+     * Sets the current and changes the container class
+     * @param {String} current
      * @returns {Void}
      */
-    set(display) {
-        this.display = display;
+    set(current) {
+        this.current = current;
         this.show();
     }
 
     /**
-     * Changes the display to the paused version and changes the container class
+     * Changes the current to the paused version and changes the container class
      * @returns {Void}
      */
     setPause() {
-        this.display = `${this.display}Paused`;
+        this.current = `${this.current}Paused`;
         this.show();
     }
 
@@ -45,40 +35,40 @@ class Display {
      * @returns {Void}
      */
     show() {
-        this.container.className = this.display;
+        this.container.className = this.current;
     }
 
 
 
     /**
-     * Returns true if the display is in the "playing" mode
+     * Returns true if the current is in the "playing" mode
      * @returns {Boolean}
      */
     get isPlaying() {
-        return this.display === "playing";
+        return this.current === "playing";
     }
 
     /**
-     * Returns true if the display is in the "planning" mode
+     * Returns true if the current is in the "planning" mode
      * @returns {Boolean}
      */
     get isPlanning() {
-        return this.display === "planning";
+        return this.current === "planning";
     }
 
     /**
-     * Returns true if the display is in the "planningPaused" mode
+     * Returns true if the current is in the "planningPaused" mode
      * @returns {Boolean}
      */
      get isPlanningPaused() {
-        return this.display === "planningPaused";
+        return this.current === "planningPaused";
     }
 
     /**
-     * Returns true if the display is in the "playingPaused" mode
+     * Returns true if the current is in the "playingPaused" mode
      * @returns {Boolean}
      */
     get isPlayingPaused() {
-        return this.display === "playingPaused";
+        return this.current === "playingPaused";
     }
 }

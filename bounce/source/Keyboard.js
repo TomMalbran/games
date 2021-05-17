@@ -98,8 +98,8 @@ class Keyboard {
                 shortcut = keyCode;
             }
 
-            if (this.shortcuts[this.display.get()][shortcut]) {
-                this.shortcuts[this.display.get()][shortcut]();
+            if (this.shortcuts[this.display.current][shortcut]) {
+                this.shortcuts[this.display.current][shortcut]();
             }
         }
     }

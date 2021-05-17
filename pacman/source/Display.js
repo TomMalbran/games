@@ -9,27 +9,17 @@ class Display {
      */
     constructor(callback) {
         this.container = document.querySelector("#container");
-        this.display   = "mainScreen";
+        this.current   = "mainScreen";
         this.callback  = callback;
-    }
-
-
-
-    /**
-     * Gets the Game Display
-     * @returns {String}
-     */
-    get() {
-        return this.display;
     }
 
     /**
      * Sets the Game Display
-     * @param {String} display
+     * @param {String} current
      * @returns {Display}
      */
-    set(display) {
-        this.display = display;
+    set(current) {
+        this.current = current;
         return this;
     }
 
@@ -40,7 +30,7 @@ class Display {
      * @returns {Void}
      */
     show() {
-        this.container.className = this.display;
+        this.container.className = this.current;
         this.callback();
     }
 
@@ -49,7 +39,7 @@ class Display {
      * @returns {Boolean}
      */
     get isMainScreen() {
-        return this.display === "mainScreen";
+        return this.current === "mainScreen";
     }
 
     /**
@@ -57,7 +47,7 @@ class Display {
      * @returns {Boolean}
      */
     get isPlaying() {
-        return [ "ready", "playing", "paused" ].includes(this.display);
+        return [ "ready", "playing", "paused" ].includes(this.current);
     }
 
     /**
@@ -65,6 +55,6 @@ class Display {
      * @returns {Boolean}
      */
     get isPaused() {
-        return this.display === "paused";
+        return this.current === "paused";
     }
 }

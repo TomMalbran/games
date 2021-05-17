@@ -316,19 +316,6 @@
      * @returns {Void}
      */
     function initDomListeners() {
-        const specialKeys = {
-            8  : "BackSpace",
-            27 : "Esc",
-            33 : "PageDown",
-            34 : "PageUp",
-            35 : "End",
-            36 : "Home",
-            37 : "Left",
-            38 : "Up",
-            39 : "Right",
-            40 : "Down",
-        };
-
         audio = document.querySelector(".audioButton");
 
         document.body.addEventListener("click", (e) => {
@@ -346,19 +333,19 @@
             let   code   = KeyCode.keyToCode(key);
             let   data   = code;
 
-            if (shortcuts[display.get()].HN && hexa !== null) {
+            if (shortcuts[display.current].HN && hexa !== null) {
                 code = "HN";
                 data = hexa;
-            } else if (shortcuts[display.get()].DN && number !== null) {
+            } else if (shortcuts[display.current].DN && number !== null) {
                 code = "DN";
                 data = dec;
             }
 
-            if (shortcuts[display.get()][code]) {
-                if (typeof shortcuts[display.get()][code] === "string") {
-                    actions[shortcuts[display.get()][code]](data);
+            if (shortcuts[display.current] && shortcuts[display.current][code]) {
+                if (typeof shortcuts[display.current][code] === "string") {
+                    actions[shortcuts[display.current][code]](data);
                 } else {
-                    shortcuts[display.get()][code](data);
+                    shortcuts[display.current][code](data);
                 }
                 e.preventDefault();
             }

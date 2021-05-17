@@ -7,7 +7,7 @@ class Display {
      * The Game Display constructor
      */
     constructor() {
-        this.display   = "mainScreen";
+        this.current   = "mainScreen";
         this.container = document.querySelector("#container");
         this.header    = document.querySelector(".messages h2");
         this.paragraph = document.querySelector(".messages p");
@@ -28,16 +28,16 @@ class Display {
      * @returns {String}
      */
     get() {
-        return this.display;
+        return this.current;
     }
 
     /**
      * Sets the Game Display
-     * @param {String} display
+     * @param {String} current
      * @returns {Display}
      */
-    set(display) {
-        this.display = display;
+    set(current) {
+        this.current = current;
         return this;
     }
 
@@ -46,9 +46,9 @@ class Display {
      * Show the message
      */
     show() {
-        this.container.className = this.display;
-        this.header.innerHTML    = this.messages[this.display][0];
-        this.paragraph.innerHTML = this.messages[this.display][1];
+        this.container.className = this.current;
+        this.header.innerHTML    = this.messages[this.current][0];
+        this.paragraph.innerHTML = this.messages[this.current][1];
     }
 
     /**
@@ -61,26 +61,26 @@ class Display {
 
 
     /**
-     * Returns true if the display is in the main screen
+     * Returns true if the current is in the main screen
      * @returns {Boolean}
      */
     get isMainScreen() {
-        return this.display === "mainScreen";
+        return this.current === "mainScreen";
     }
 
     /**
-     * Returns true if the display is in playing mode
+     * Returns true if the current is in playing mode
      * @returns {Boolean}
      */
     get isPlaying() {
-        return this.display === "playing";
+        return this.current === "playing";
     }
 
     /**
-     * Returns true if the display is in paused mode
+     * Returns true if the current is in paused mode
      * @returns {Boolean}
      */
     get isPaused() {
-        return this.display === "paused";
+        return this.current === "paused";
     }
 }
