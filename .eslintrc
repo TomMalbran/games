@@ -4,7 +4,14 @@
         "es6": true
     },
     "ecmaFeatures": {
+        "modules": true
     },
+    "parserOptions": {
+        "sourceType": "module"
+    },
+    "plugins": [
+        "jsdoc"
+    ],
     "extends": "eslint:recommended",
     "rules": {
         "block-scoped-var": 2,
@@ -80,6 +87,7 @@
         "no-new-object": 2,
 
         "valid-jsdoc": [2, {
+            "requireReturn": true,
             "requireParamDescription": false,
             "requireReturnDescription": false,
             "prefer": {
@@ -95,6 +103,7 @@
             }
         }],
         "valid-typeof": 2,
+        "jsdoc/no-undefined-types": 1,
 
         "indent": [2, 4],
         "quotes": [2, "double", "avoid-escape"],
@@ -102,7 +111,8 @@
         "comma-dangle": [2, "always-multiline"],
         "prefer-const": 2,
         "no-var": 2,
-        "one-var": [2, "never"],
+        "one-var": [2, "always"],
+        "one-var-declaration-per-line": [2, "always"],
         "arrow-parens": [2, "always"],
         "object-curly-spacing": [2, "always"],
         "array-bracket-spacing": [2, "always", { "objectsInArrays" : false }],
@@ -110,12 +120,9 @@
         "key-spacing": [2, { "beforeColon": true, "afterColon": true, "mode": "minimum" }],
         "eol-last": 2
     },
-    "globals": {
-        "AStar": true,
-        "List": true,
-        "Queue": true,
-        "Storage": true,
-        "Sounds": true,
-        "Utils": true
+    "settings": {
+        "import/extensions": [
+            ".js"
+        ]
     }
 }

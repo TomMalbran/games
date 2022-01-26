@@ -1,7 +1,8 @@
 {
-    "compilerOptions": {
-        "checkJs" : false,
-        "target"  : "es6",
-        "lib"     : [ "es2018", "dom" ]
+    "compilerOptions" : {
+        "checkJs" : true,
+        "target"  : "es2020",
+        "lib"     : [ "es2020", "dom" ],
+        "module"  : "es2020",
     }
 }
