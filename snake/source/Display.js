@@ -1,10 +1,10 @@
 /**
- * The Game Display
+ * Snake Display
  */
-class Display {
+export default class Display {
 
     /**
-     * The Game Display constructor
+     * Snake Display constructor
      */
     constructor() {
         this.current   = "mainScreen";

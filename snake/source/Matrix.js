@@ -1,15 +1,23 @@
+import Board        from "./Board.js";
+import Instance     from "./Instance.js";
+
+// Utils
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
- * Matrix Manager
+ * Snake Matrix
  */
-class Matrix {
+export default class Matrix {
 
     /**
-     * Matrix Manager constructor
-     * @param {Board}    board
-     * @param {Instance} instance
-     * @param {?Array.<Array.<number>>} matrix
-     * @param {?Number} head
-     * @param {?Number} tail
+     * Snake Matrix constructor
+     * @param {Board}       board
+     * @param {Instance}    instance
+     * @param {Number[][]=} matrix
+     * @param {Number=}     head
+     * @param {Number=}     tail
      */
     constructor(board, instance, matrix, head, tail) {
         this.board    = board;

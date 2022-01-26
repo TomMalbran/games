@@ -1,10 +1,17 @@
+import Display      from "./Display.js";
+
+// Utils
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
- * The Game Score
+ * Snake Score
  */
-class Score {
+export default class Score {
 
     /**
-     * The Game Score constructor
+     * Snake Score constructor
      * @param {Display} display
      */
     constructor(display) {
@@ -68,11 +75,11 @@ class Score {
 
     /**
      * Shows the food timer
-     * @param {(String|number)=} timer
+     * @param {(String|Number)=} time
      * @returns {Void}
      */
     showFoodTimer(time) {
-        this.timer.innerHTML = time || "";
+        this.timer.innerHTML = time ? String(time) : "";
     }
 
 

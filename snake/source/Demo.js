@@ -1,21 +1,30 @@
+import Board        from "./Board.js"
+
+// Utils
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
- * Speed Demo
+ * Snake Demo
  */
-class Demo {
+export default class Demo {
 
     /**
-     * Speed Demo constructor
+     * Snake Demo constructor
      * @param {Board} board
      */
     constructor(board) {
         this.board        = board;
-        this.container    = document.querySelector(".demo");
-        this.left         = Utils.getPosition(document.querySelector(".messages")).left;
-        this.width        = this.container.offsetWidth;
         this.elements     = [];
         this.pointer      = -2;
         this.rows         = 5;
         this.initialParts = 3;
+
+        /** @type {HTMLElement} */
+        this.container    = document.querySelector(".demo");
+        this.left         = Utils.getPosition(document.querySelector(".messages")).left;
+        this.width        = this.container.offsetWidth;
 
         for (let i = 0; i < this.rows; i += 1) {
             this.createElement(i, 0, this.rows - i - 1);

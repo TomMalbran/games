@@ -1,10 +1,14 @@
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
- * Board Manager
+ * Snake Board
  */
-class Board {
+export default class Board {
 
     /**
-     * Board Manager constructor
+     * Snake Board constructor
      */
     constructor() {
         this.matrixRows    = 18;
@@ -42,7 +46,7 @@ class Board {
 
     /**
      * Creates a new snake link and returns the element
-     * @returns {DOMElement}
+     * @returns {HTMLElement}
      */
     createSnakeElement() {
         const div = document.createElement("DIV");

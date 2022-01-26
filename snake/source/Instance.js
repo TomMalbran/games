@@ -1,10 +1,17 @@
+import Board        from "./Board.js";
+
+// Utils
+import Storage      from "../../utils/Storage.js";
+
+
+
 /**
- * A local storage saved version of the Instance
+ * Snake Instance
  */
-class Instance {
+export default class Instance {
 
     /**
-     * The Instance constructor
+     * Snake Instance constructor
      * @param {Board} board
      */
     constructor(board) {

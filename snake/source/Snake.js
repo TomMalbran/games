@@ -1,28 +1,39 @@
+import Board        from "./Board.js";
+import Matrix       from "./Matrix.js";
+
+// Utils
+import Queue        from "../../utils/Queue.js";
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
- * Snake Manager
+ * Snake Snake
  */
-class Snake {
+export default class Snake {
 
     /**
-     * Snake Manager constructor
-     * @param {Board}   board
-     * @param {Matrix}  matrix
-     * @param {?Array.<{top: Number, left: Number}>} links
-     * @param {?Number} dirTop
-     * @param {?Number} dirLeft
+     * Snake Snake constructor
+     * @param {Board}                          board
+     * @param {Matrix}                         matrix
+     * @param {{top: Number, left: Number}[]=} links
+     * @param {Number=}                        dirTop
+     * @param {Number=}                        dirLeft
      */
     constructor(board, matrix, links, dirTop, dirLeft) {
         this.board      = board;
         this.matrix     = matrix;
 
-        this.container  = document.querySelector(".snake");
-        this.position   = Utils.getPosition(this.container);
         this.queue      = new Queue();
         this.dirTop     = dirTop  !== undefined ? dirTop  : 1;
         this.dirLeft    = dirLeft !== undefined ? dirLeft : 0;
         this.newDir     = false;
         this.initialPos = { top : 3, left : 11 };
 
+        /** @type {HTMLElement} */
+        this.container  = document.querySelector(".snake");
+        this.bounds     = this.container.getBoundingClientRect();
+        this.cellSize   = Math.floor(this.bounds.width / this.board.matrixColumns);
         this.container.innerHTML = "";
 
         if (links) {
@@ -85,9 +96,9 @@ class Snake {
 
     /**
      * Adds a link to the head of the snake
-     * @param {DOMElement} element
-     * @param {Number}     top
-     * @param {Number}     left
+     * @param {HTMLElement} element
+     * @param {Number}      top
+     * @param {Number}      left
      * @returns {Void}
      */
     addLink(element, top, left) {
@@ -122,15 +133,14 @@ class Snake {
 
     /**
      * Turns the snake using the mouse
-     * @param {Event} event
+     * @param {MouseEvent} event
      * @returns {Boolean} True if the snake changed direction
      */
     mouseTurn(event) {
         const mouse = Utils.getMousePos(event);
         const last  = this.queue.last;
-        const cell  = this.board.cellSize;
-        const top   = Math.floor((mouse.top  - this.position.top)  / cell);
-        const left  = Math.floor((mouse.left - this.position.left) / cell);
+        const top   = Math.floor((mouse.top  - this.bounds.top)  / this.cellSize);
+        const left  = Math.floor((mouse.left - this.bounds.left) / this.cellSize);
         const dtop  = top  - last.top;
         const dleft = left - last.left;
         let   can   = false;
@@ -153,7 +163,7 @@ class Snake {
 
     /**
      * Returns the next position of the last element in the queue
-     * @returns {{top: Number, left: nuber}}
+     * @returns {{top: Number, left: Number}}
      */
     get pos() {
         if (this.queue.isEmpty) {
@@ -168,7 +178,7 @@ class Snake {
 
     /**
      * Returns the current direction of the snake
-     * @returns {{top: Number, left: nuber}}
+     * @returns {{top: Number, left: Number}}
      */
     get direction() {
         return { top : this.dirTop, left : this.dirLeft };

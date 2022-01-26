@@ -1,27 +1,35 @@
+import Display      from "./Display.js";
+import HighScores   from "./HighScores.js";
+
+// Utils
+import KeyCode      from "../../utils/KeyCode.js";
+
+
+
 /**
- * The Game Keyboard
+ * Snake Keyboard
  */
-class Keyboard {
+export default class Keyboard {
 
     /**
-     * The Game Keyboard constructor
-     * @param {Display} display
-     * @param {Scores}  scores
-     * @param {Object}  shortcuts
+     * Snake Keyboard constructor
+     * @param {Display}    display
+     * @param {HighScores} scores
+     * @param {Object}     shortcuts
      */
     constructor(display, scores, shortcuts) {
         this.display   = display;
         this.scores    = scores;
         this.shortcuts = shortcuts;
 
-        document.addEventListener("keydown", e => this.pressKey(e));
+        document.addEventListener("keydown", (e) => this.pressKey(e));
     }
 
 
 
     /**
      * Key Press Event
-     * @param {Event} event
+     * @param {KeyboardEvent} event
      * @returns {Void}
      */
     pressKey(event) {

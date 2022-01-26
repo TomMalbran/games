@@ -1,25 +1,37 @@
+import Board        from "./Board.js";
+
+// Utils
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
- * Food Manager
+ * Snake Food
  */
-class Food {
+export default class Food {
 
     /**
-     * Food Manager constructor
-     * @param {Board} board
-     * @param {?{top: Number, left: Number}} pos
-     * @param {?Number} top
-     * @param {?Number} left
+     * Snake Food constructor
+     * @param {Board}                        board
+     * @param {{top: Number, left: Number}=} pos
+     * @param {Number=}                      top
+     * @param {Number=}                      left
      */
     constructor(board, pos, top, left) {
         this.board    = board;
-        this.element  = document.querySelector(".food");
-        this.body     = this.element.querySelector(".foodBody");
-        this.shadow   = this.element.querySelector(".foodShadow");
-
         this.top      = top  || 0;
         this.left     = left || 0;
         this.foodTime = 1000;
         this.time     = this.foodTime;
+
+        /** @type {HTMLElement} */
+        this.element  = document.querySelector(".food");
+
+        /** @type {HTMLElement} */
+        this.body     = this.element.querySelector(".foodBody");
+
+        /** @type {HTMLElement} */
+        this.shadow   = this.element.querySelector(".foodShadow");
 
         if (top) {
             this.setPosition();
