@@ -1,10 +1,10 @@
 /**
- * The Game Display
+ * Tetris Display
  */
-class Display {
+export default class Display {
 
     /**
-     * The Game Display constructor
+     * Tetris Display constructor
      */
     constructor() {
         this.current   = "mainScreen";

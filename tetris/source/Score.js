@@ -1,10 +1,13 @@
+import Utils        from "../../utils/Utils.js";
+
+
 /**
- * The Scorer Class
+ * Tetris Score
  */
-class Score {
+export default class Score {
 
     /**
-     * The Scorer constructor
+     * Tetris Score constructor
      * @param {Number} level
      * @param {Number} maxInitialLevel
      */
@@ -35,6 +38,7 @@ class Score {
     /**
      * Decreases the time by the given amount
      * @param {Number} time
+     * @returns {Void}
      */
     decTime(time) {
         this.time -= time;
@@ -42,6 +46,7 @@ class Score {
 
     /**
      * Resets the time to the timer amount
+     * @returns {Void}
      */
     resetTime() {
         this.time = this.timer;
@@ -52,6 +57,7 @@ class Score {
     /**
      * Adds the score for a new Piece that dropped
      * @param {Number} drop - Amount of cells the Tetrimino dropped before crashing the bottom
+     * @returns {Void}
      */
     piece(drop) {
         this.score += 21 + (3 * this.level) - drop;
@@ -61,6 +67,7 @@ class Score {
     /**
      * Adds the score for a new Line
      * @param {Number} amount - Amount of lines completed in one move
+     * @returns {Void}
      */
     line(amount) {
         this.addScore(amount);
@@ -71,6 +78,7 @@ class Score {
     /**
      * Increases the score
      * @param {Number} amount - Amount of lines completed in one move
+     * @returns {Void}
      */
     addScore(amount) {
         this.score += this.level * this.multipliers[amount - 1];
@@ -80,6 +88,7 @@ class Score {
     /**
      * Increases the lines
      * @param {Number} amount - Amount of lines completed in one move
+     * @returns {Void}
      */
     addLine(amount) {
         this.lines += amount;
@@ -89,6 +98,7 @@ class Score {
     /**
      * Increases the level
      * @param {Number} amount - Amount of lines completed in one move
+     * @returns {Void}
      */
     addLevel(amount) {
         this.amount += amount;
@@ -104,13 +114,15 @@ class Score {
 
     /**
      * Displays the level in the Game
+     * @returns {Void}
      */
     showLevel() {
-        this.levelElem.innerHTML = this.level;
+        this.levelElem.innerHTML = String(this.level);
     }
 
     /**
      * Displays the score in the Game
+     * @returns {Void}
      */
     showScore() {
         this.scoreElem.innerHTML = Utils.formatNumber(this.score, ",");
@@ -118,9 +130,10 @@ class Score {
 
     /**
      * Displays the lines in the Game
+     * @returns {Void}
      */
     showLines() {
-        this.linesElem.innerHTML = this.lines;
+        this.linesElem.innerHTML = String(this.lines);
     }
 
 

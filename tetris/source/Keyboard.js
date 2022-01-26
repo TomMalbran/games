@@ -1,13 +1,21 @@
+import Display      from "./Display.js";
+import HighScores   from "./HighScores.js";
+
+// Utils
+import KeyCode      from "../../utils/KeyCode.js";
+
+
+
 /**
- * The Game Keyboard
+ * Tetris Keyboard
  */
-class Keyboard {
+export default class Keyboard {
 
     /**
-     * The Game Keyboard constructor
-     * @param {Display} display
-     * @param {Scores}  scores
-     * @param {Object}  shortcuts
+     * Tetris Keyboard constructor
+     * @param {Display}    display
+     * @param {HighScores} scores
+     * @param {Object}     shortcuts
      */
     constructor(display, scores, shortcuts) {
         this.shortcuts  = shortcuts;
@@ -18,7 +26,7 @@ class Keyboard {
         this.scores     = scores;
 
         document.addEventListener("keydown", (e) => this.onKeyDown(e));
-        document.addEventListener("keyup",   (e) => this.onKeyUp(e));
+        document.addEventListener("keyup",   (e) => this.onKeyUp());
     }
 
 
@@ -47,8 +55,9 @@ class Keyboard {
 
     /**
      * Key Press Event
-     * @param {Number} key
-     * @param {?Event} event
+     * @param {Number}         key
+     * @param {KeyboardEvent=} event
+     * @returns {Void}
      */
     pressKey(key, event) {
         const keyCode  = KeyCode.keyToCode(key);
@@ -94,7 +103,8 @@ class Keyboard {
 
     /**
      * Key handler for the on key down event
-     * @param {Event} event
+     * @param {KeyboardEvent} event
+     * @returns {Void}
      */
     onKeyDown(event) {
         if (this.display.isPlaying && KeyCode.isFastKey(event.keyCode)) {
@@ -109,7 +119,7 @@ class Keyboard {
 
     /**
      * Key handler for the on key up event
-     * @param {Event} event
+     * @returns {Void}
      */
     onKeyUp() {
         this.keyPressed = null;
@@ -118,6 +128,7 @@ class Keyboard {
 
     /**
      * When a key is pressed, this is called on each frame for fast key movements
+     * @returns {Void}
      */
     onKeyHold() {
         if (this.keyPressed !== null && this.display.isPlaying) {

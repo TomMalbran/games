@@ -1,17 +1,24 @@
+import Board        from "./Board.js";
+import Tetrimino    from "./Tetrimino.js";
+import Score        from "./Score.js";
+import Sounds       from "../../utils/Sounds.js";
+import Utils        from "../../utils/Utils.js";
+
+
 /**
- * The Tetriminos Class
+ * Tetris Tetriminos
  */
-class Tetriminos {
+export default class Tetriminos {
 
     /**
-     * The Tetriminos constructor
+     * Tetris Tetriminos constructor
      * @param {Board}    board
-     * @param {Sound}    sound
+     * @param {Sounds}   sounds
      * @param {Score}    score
      * @param {Number}   size
      * @param {Function} onGameOver
      */
-    constructor(board, sound, score, size, onGameOver) {
+    constructor(board, sounds, score, size, onGameOver) {
         this.tetriminos = [
             { // I Tetrimino
                 matrix : [
@@ -86,7 +93,7 @@ class Tetriminos {
         ];
 
         this.board      = board;
-        this.sound      = sound;
+        this.sounds     = sounds;
         this.score      = score;
         this.size       = size;
         this.onGameOver = onGameOver;
@@ -146,7 +153,7 @@ class Tetriminos {
     hardDrop() {
         this.actual.hardDrop();
         this.crashed();
-        this.sound.drop();
+        this.sounds.play("drop");
     }
 
     /**
@@ -161,10 +168,10 @@ class Tetriminos {
         this.score.piece(this.actual.drop);
         const lines = this.actual.addElements();
         if (lines) {
-            this.sound.line();
+            this.sounds.play("line");
             this.score.line(lines);
         }
-        this.sound.crash();
+        this.sounds.play("crash");
         this.dropNext();
     }
 
@@ -183,7 +190,7 @@ class Tetriminos {
      */
     rotateRight() {
         if (this.actual.rotateRight()) {
-            this.sound.rotate();
+            this.sounds.play("rotate");
         }
     }
 
@@ -192,7 +199,7 @@ class Tetriminos {
      */
     rotateLeft() {
         if (this.actual.rotateLeft()) {
-            this.sound.rotate();
+            this.sounds.play("rotate");
         }
     }
 

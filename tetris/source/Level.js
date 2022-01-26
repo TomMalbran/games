@@ -1,10 +1,14 @@
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
- * The Level Class
+ * Tetris Level
  */
-class Level {
+export default class Level {
 
     /**
-     * The Level constructor
+     * Tetris Level constructor
      * @param {Number} maxLevels
      */
     constructor(maxLevels) {
@@ -25,6 +29,7 @@ class Level {
 
     /**
      * Increases the initial level
+     * @returns {Void}
      */
     inc() {
         Utils.unselect();
@@ -36,6 +41,7 @@ class Level {
 
     /**
      * Decreases the initial level
+     * @returns {Void}
      */
     dec() {
         Utils.unselect();
@@ -47,7 +53,8 @@ class Level {
 
     /**
      * Sets the initial level
-     * @param {Number}
+     * @param {Number} level
+     * @returns {Void}
      */
     choose(level) {
         if (level > 0 && level <= this.maxLevels) {
@@ -60,8 +67,9 @@ class Level {
 
     /**
      * Sets the initial level
+     * @returns {Void}
      */
     show() {
-        this.levelerElem.innerHTML = this.level;
+        this.levelerElem.innerHTML = String(this.level);
     }
 }

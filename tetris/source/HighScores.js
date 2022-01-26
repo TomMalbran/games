@@ -1,19 +1,30 @@
+import Storage      from "../../utils/Storage.js";
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
- * The Game High Scores
+ * Tetris High Scores
  */
-class HighScores {
+export default class HighScores {
 
     /**
-     * The Game High Scores constructor
+     * Tetris High Scores constructor
      */
     constructor() {
-        this.input     = document.querySelector(".input input");
-        this.scores    = document.querySelector(".scores");
-        this.none      = document.querySelector(".none");
         this.data      = new Storage("tetris.hs");
         this.total     = this.data.get("total") || 0;
         this.maxScores = 9;
         this.isFocused = false;
+
+        /** @type {HTMLInputElement} */
+        this.input     = document.querySelector(".input input");
+
+        /** @type {HTMLElement} */
+        this.scores    = document.querySelector(".scores");
+
+        /** @type {HTMLElement} */
+        this.none      = document.querySelector(".none");
 
         this.input.onfocus = () => this.isFocused = true;
         this.input.onblur  = () => this.isFocused = false;

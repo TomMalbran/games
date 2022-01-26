@@ -1,10 +1,14 @@
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
- * The Board Class
+ * Tetris Board
  */
-class Board {
+export default class Board {
 
     /**
-     * The Board constructor
+     * Tetris Board constructor
      * @param {Number}   tetriminoSize
      * @param {Function} onWindEnd
      */
@@ -35,9 +39,9 @@ class Board {
 
     /**
      * Checks if there is a crash, given the Tetrimino Matrix and position
-     * @param {Number} top
-     * @param {Number} left
-     * @param {Array.<Array.<Number>>} matrix
+     * @param {Number}     top
+     * @param {Number}     left
+     * @param {Number[][]} matrix
      * @returns {Boolean}
      */
     crashed(top, left, matrix) {
@@ -53,9 +57,10 @@ class Board {
 
     /**
      * Adds Tetrimino Elements to the Matrix
-     * @param {DOMElement} element
-     * @param {Number} top
-     * @param {Number} left
+     * @param {HTMLElement} element
+     * @param {Number}      top
+     * @param {Number}      left
+     * @returns {Boolean}
      */
     addToMatrix(element, top, left) {
         this.matrix[top][left + 1] = element;
@@ -67,6 +72,7 @@ class Board {
     /**
      * Removes a Row from the Matrix
      * @param {Number} line
+     * @returns {Void}
      */
     removeLine(line) {
         let i = 1;
@@ -98,10 +104,10 @@ class Board {
 
     /**
      * Adds all the elements in the Tetrimino to the board
-     * @param {Array.<Array.<Number>>} matrix
-     * @param {Number} type
-     * @param {Number} elemTop
-     * @param {Number} elemLeft
+     * @param {Number[][]} matrix
+     * @param {Number}     type
+     * @param {Number}     elemTop
+     * @param {Number}     elemLeft
      * @returns {Number}
      */
     addElements(matrix, type, elemTop, elemLeft) {
@@ -130,7 +136,7 @@ class Board {
      * @param {Number} type
      * @param {Number} top
      * @param {Number} left
-     * @returns {DOMElement}
+     * @returns {HTMLElement}
      */
     append(type, top, left) {
         const element = document.createElement("DIV");
@@ -144,7 +150,7 @@ class Board {
 
     /**
      * Starts the wink animation
-     * @param {Array.<Number>} lines
+     * @param {Number[]} lines
      */
     startWink(lines) {
         lines.forEach((line) => {
@@ -160,13 +166,13 @@ class Board {
     /**
      * Creates a new wink Element
      * @param {Number} top
-     * @returns {DOMElement}
+     * @returns {HTMLElement}
      */
     createWink(top) {
         const element = document.createElement("div");
         element.className   = "wink";
         element.style.top   = this.getTop(top);
-        element.dataset.top = top;
+        element.dataset.top = String(top);
 
         this.winkElem.appendChild(element);
 
@@ -231,7 +237,7 @@ class Board {
 
     /**
      * Returns the left position for styling
-     * @param {Number} top
+     * @param {Number} left
      * @returns {String}
      */
     getLeft(left) {

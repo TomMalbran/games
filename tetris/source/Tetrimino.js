@@ -1,10 +1,14 @@
+import Board        from "./Board.js";
+import Utils        from "../../utils/Utils.js";
+
+
 /**
- * The Tetrimino Class
+ * Tetris Tetrimino
  */
-class Tetrimino {
+export default class Tetrimino {
 
     /**
-     * The Tetrimino constructor
+     * Tetris Tetrimino constructor
      * @param {Board}  board
      * @param {Number} type
      * @param {Object} data
@@ -12,9 +16,6 @@ class Tetrimino {
      */
     constructor(board, type, data, size) {
         this.tetriminer   = document.querySelectorAll(".tetriminos > div");
-        this.nextElem     = document.querySelector("#next");
-        this.pieceElem    = document.querySelector("#piece");
-        this.ghostElem    = document.querySelector("#ghost");
 
         this.nexterWidth  = 9.6;
         this.nexterHeight = 6.3;
@@ -31,6 +32,15 @@ class Tetrimino {
         this.hard         = 0;
         this.drop         = 0;
 
+        /** @type {HTMLElement} */
+        this.nextElem     = document.querySelector("#next");
+
+        /** @type {HTMLElement} */
+        this.pieceElem    = document.querySelector("#piece");
+
+        /** @type {HTMLElement} */
+        this.ghostElem    = document.querySelector("#ghost");
+
         this.nextElem.className  = `piece${this.type} rot0`;
         this.nextElem.innerHTML  = this.tetriminer[this.type].innerHTML;
         this.nextElem.style.top  = Utils.toEM((this.nexterHeight - this.data.rows * this.size - this.border) / 2);
@@ -43,13 +53,14 @@ class Tetrimino {
 
     /**
      * Sets the positions of each cube in the piece
+     * @returns {Void}
      */
     setCubePositions() {
         const elements = this.nextElem.querySelectorAll("div");
 
         for (let i = 0; i < elements.length; i += 1) {
-            elements[i].style.top  = Utils.toEM(elements[i].dataset.top  * this.size);
-            elements[i].style.left = Utils.toEM(elements[i].dataset.left * this.size);
+            elements[i].style.top  = Utils.toEM(Number(elements[i].dataset.top)  * this.size);
+            elements[i].style.left = Utils.toEM(Number(elements[i].dataset.left) * this.size);
         }
     }
 
@@ -88,6 +99,7 @@ class Tetrimino {
 
     /**
      * Moves the Tetrimino to the bottom most possible cell
+     * @returns {Void}
      */
     hardDrop() {
         this.top = this.getHardDrop();
@@ -106,6 +118,7 @@ class Tetrimino {
 
     /**
      * Moves the Tetrimino one cell to the left
+     * @returns {Void}
      */
     moveLeft() {
         if (!this.crashed(0, -1)) {
@@ -117,6 +130,7 @@ class Tetrimino {
 
     /**
      * Moves the Tetrimino one cell to the right
+     * @returns {Void}
      */
     moveRight() {
         if (!this.crashed(0, 1)) {
@@ -171,6 +185,7 @@ class Tetrimino {
 
     /**
      * Sets the position of the Tetrimino and the Ghost
+     * @returns {Void}
      */
     setDropPosition() {
         this.pieceElem.style.top  = this.board.getTop(this.top);
@@ -182,7 +197,7 @@ class Tetrimino {
     /**
      * Returns a matrix that represents the Tetrimino for the given rotation
      * @param {Number=} rotation
-     * @returns {Array.<Array.<Number>>}
+     * @returns {Number[][]}
      */
     getMatrix(rotation) {
         const rot = rotation || rotation === 0 ? rotation : this.rotation;
@@ -191,6 +206,7 @@ class Tetrimino {
 
     /**
      * Sets the bottom most cell
+     * @returns {Void}
      */
     setHardDrop() {
         this.hard = this.getHardDrop();
@@ -211,9 +227,9 @@ class Tetrimino {
 
     /**
      * Returns a possible crash from the matrix
-     * @param {Number} addTop
-     * @param {Number} addLeft
-     * @param {Number} rotation
+     * @param {Number}  addTop
+     * @param {Number}  addLeft
+     * @param {Number=} rotation
      * @returns {Boolean}
      */
     crashed(addTop, addLeft, rotation) {
