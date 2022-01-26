@@ -1,10 +1,17 @@
+import Piece        from "./Piece.js";
+
+// Utils
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
  * Puzzle Set
  */
-class Set {
+export default class Set {
 
     /**
-     * The Puzzle constructor
+     * Puzzle Puzzle constructor
      * @param {Piece}    piece
      * @param {...Piece} otherPieces
      */
@@ -83,7 +90,7 @@ class Set {
 
     /**
      * Sets the Position
-     * @param {{top: Number, left: Number}}
+     * @param {{top: Number, left: Number}} pos
      * @returns {Void}
      */
     set pos(pos) {
@@ -147,7 +154,7 @@ class Set {
 
     /**
      * Adds a Set to the Set
-     * @param {Piece} piece
+     * @param {Set} set
      * @returns {Void}
      */
     addSet(set) {
@@ -243,7 +250,7 @@ class Set {
             if (!this.isClose(row, col)) {
                 return false;
             }
-            return (
+            return Boolean(
                 (this.matrix[row + 1] && this.matrix[row + 1][col]) ||
                 (this.matrix[row - 1] && this.matrix[row - 1][col]) ||
                 (this.matrix[row] && this.matrix[row][col + 1]) ||
@@ -287,7 +294,7 @@ class Set {
         }
         for (const piece of other.list) {
             const fitPos  = this.metrics.calcPiecePos(piece, this.top, this.left, this.startRow, this.startCol);
-            const realPos = { top : other.top + piece.top, left : other.left + piece.left };
+            const realPos = { top : other.top + piece.top, left : other.left + piece.left };
             const dist    = Utils.dist(fitPos, realPos);
             if (dist < this.metrics.delta) {
                 return true;
@@ -308,7 +315,7 @@ class Set {
 
     /**
      * Picks the Set
-     * @param {Event} event
+     * @param {MouseEvent} event
      * @returns {Void}
      */
     pick(event) {
@@ -322,7 +329,7 @@ class Set {
 
     /**
      * Drags the Set
-     * @param {Event} event
+     * @param {MouseEvent} event
      * @returns {Void}
      */
     drag(event) {

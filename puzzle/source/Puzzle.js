@@ -1,10 +1,24 @@
+import Board        from "./Board.js";
+import Drawer       from "./Drawer.js";
+import Instance     from "./Instance.js";
+import Metrics      from "./Metrics.js";
+import Piece        from "./Piece.js";
+import Set          from "./Set.js";
+import Table        from "./Table.js";
+
+// Utils
+import Sounds       from "../../utils/Sounds.js";
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
- * Puzzle Manager
+ * Puzzle Puzzle
  */
-class Puzzle {
+export default class Puzzle {
 
     /**
-     * The Puzzle constructor
+     * Puzzle Puzzle constructor
      * @param {Sounds} sounds
      * @param {String} imageName
      * @param {Number} pieceCount
@@ -12,10 +26,16 @@ class Puzzle {
     constructor(sounds, imageName, pieceCount) {
         this.sounds       = sounds;
 
+        /** @type {HTMLElement} */
         this.congrats     = document.querySelector(".congrats");
+
+        /** @type {HTMLElement} */
         this.pause        = document.querySelector(".pause");
+
+        /** @type {HTMLElement} */
         this.preview      = document.querySelector(".preview");
 
+        /** @type {HTMLImageElement} */
         this.image        = this.preview.querySelector("img");
         this.image.src    = `images/${imageName}.jpg`;
         this.image.alt    = imageName;
@@ -24,7 +44,6 @@ class Puzzle {
 
     /**
      * Builds the Puzzle
-     * @param {String} imgName
      * @param {Number} pieceCount
      * @returns {Void}
      */
@@ -68,9 +87,10 @@ class Puzzle {
 
     /**
      * Toggles the Preview
+     * @param {MouseEvent} event
      * @returns {Void}
      */
-    togglePreview() {
+    togglePreview(event) {
         if (this.preview.style.display !== "flex") {
             this.preview.style.display = "flex";
         } else {
@@ -110,23 +130,25 @@ class Puzzle {
 
     /**
      * Finds a Piece or Set in the Drawer or Table to pick
-     * @param {Number} id
+     * @param {MouseEvent} event
+     * @param {Number}     id
      * @returns {?(Piece|Set)}
      */
-    pickAny(id) {
+    pickAny(event, id) {
+        /** @type {(Piece|Set)} */
         let partial = this.drawer.findPiece(id);
         if (!partial) {
             partial = this.table.findAny(id);
         }
         if (partial) {
-            partial.pick();
+            partial.pick(event);
         }
         return partial;
     }
 
     /**
      * Drops a Piece or Set
-     * @param {Event}       event
+     * @param {MouseEvent}  event
      * @param {(Piece|Set)} partial
      * @returns {Void}
      */
@@ -151,7 +173,7 @@ class Puzzle {
         if (this.drawer.inBounds(pos)) {
             this.table.removePiece(piece);
             this.drawer.dropPiece(piece, pos);
-            this.sounds.drop();
+            this.sounds.play("drop");
             return;
         }
 
@@ -164,7 +186,7 @@ class Puzzle {
             if (this.board.canFit(piece, this.table.scroll)) {
                 this.board.addPiece(piece);
                 this.table.removePiece(piece);
-                this.sounds.piece();
+                this.sounds.play("piece");
                 this.complete();
                 return;
             }
@@ -175,7 +197,7 @@ class Puzzle {
                 if (neighbourPiece && neighbourPiece.canFit(piece)) {
                     const set = new Set(neighbourPiece, piece);
                     this.table.dropSet(set);
-                    this.sounds.piece();
+                    this.sounds.play("piece");
                     return;
                 }
             }
@@ -186,12 +208,12 @@ class Puzzle {
                 if (neighbourSet.canFit(piece)) {
                     neighbourSet.addPiece(piece);
                     this.table.removePiece(piece);
-                    this.sounds.piece();
+                    this.sounds.play("piece");
                     return;
                 }
             }
 
-            this.sounds.drop();
+            this.sounds.play("drop");
         }
     }
 
@@ -207,7 +229,7 @@ class Puzzle {
         if (this.board.canFit(set, this.table.scroll)) {
             this.table.removeSet(set);
             this.board.addSet(set);
-            this.sounds.set();
+            this.sounds.play("set");
             set.destroy();
             this.complete();
             return;
@@ -219,7 +241,7 @@ class Puzzle {
             if (set.canFit(neighbourPiece)) {
                 this.table.removePiece(neighbourPiece);
                 set.addPiece(neighbourPiece);
-                this.sounds.piece();
+                this.sounds.play("piece");
                 foundNeighbour = true;
                 break;
             }
@@ -228,11 +250,11 @@ class Puzzle {
         // Find a neighbour Set in the Table
         const neighbourSets = this.table.findNeighbourSets(set);
         for (const neighbourSet of neighbourSets) {
-            if (set.canFit(neighbourSet, this.table)) {
+            if (set.canFit(neighbourSet)) {
                 set.addSet(neighbourSet);
                 neighbourSet.destroy();
                 this.table.removeSet(neighbourSet);
-                this.sounds.set();
+                this.sounds.play("set");
                 foundNeighbour = true;
                 break;
             }
@@ -241,7 +263,7 @@ class Puzzle {
         set.drop();
         this.table.saveSets();
         if (!foundNeighbour) {
-            this.sounds.drop();
+            this.sounds.play("drop");
         }
     }
 
@@ -252,7 +274,7 @@ class Puzzle {
     complete() {
         if (this.metrics.isComplete) {
             this.congrats.style.display = "block";
-            this.sounds.fireworks();
+            this.sounds.play("fireworks");
             if (this.interval) {
                 window.clearInterval(this.interval);
             }

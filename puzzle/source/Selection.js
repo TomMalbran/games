@@ -1,25 +1,45 @@
+import Storage      from "../../utils/Storage.js";
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
- * Selection Manager
+ * Puzzle Selection
  */
-class Selection {
+export default class Selection {
 
     /**
-     * The Selection constructor
+     * Puzzle Selection constructor
      */
     constructor() {
         this.storage = new Storage("puzzle");
-        this.element = document.querySelector(".selection");
-        this.tabs    = document.querySelector(".selection-tabs");
-        this.list    = document.querySelector(".slider-list");
-        this.pack    = document.querySelector(".selection-pack");
-        this.desc    = document.querySelector(".selection-desc");
-        this.button  = document.querySelector(".selection button");
-
+        this.image   = "";
         this.tab     = "art";
         this.index   = 0;
         this.amount  = 2;
         this.total   = 10;
         this.last    = this.total - this.amount + 1;
+
+        /** @type {Function} */
+        this.onStart = null;
+
+        /** @type {HTMLElement} */
+        this.element = document.querySelector(".selection");
+
+        /** @type {HTMLElement} */
+        this.tabs    = document.querySelector(".selection-tabs");
+
+        /** @type {HTMLElement} */
+        this.list    = document.querySelector(".slider-list");
+
+        /** @type {HTMLElement} */
+        this.pack    = document.querySelector(".selection-pack");
+
+        /** @type {HTMLElement} */
+        this.desc    = document.querySelector(".selection-desc");
+
+        /** @type {HTMLElement} */
+        this.button  = document.querySelector(".selection button");
 
         this.build();
     }
@@ -63,8 +83,8 @@ class Selection {
         const percent = Math.floor(done * 100 / total);
         this.pack.innerHTML = `Completed <b>${done}/${total}</b> puzzles <i>(${percent}%)</i> of this pack.`;
 
-        this.list.style.setProperty("--slider-count", this.amount);
-        this.list.style.setProperty("--slider-total", this.total);
+        this.list.style.setProperty("--slider-count", String(this.amount));
+        this.list.style.setProperty("--slider-total", String(this.total));
     }
 
     /**
@@ -77,7 +97,7 @@ class Selection {
 
     /**
      * Changes the current Tab
-     * @param {DOMElement} element
+     * @param {HTMLElement} element
      * @returns {Void}
      */
     changeTab(element) {
@@ -120,20 +140,20 @@ class Selection {
 
     /**
      * Selects the Pieces
-     * @param {DOMElement} element
+     * @param {HTMLElement} element
      * @returns {Void}
      */
     select(element) {
-        this.image  = element.parentNode.getAttribute("data-image");
+        this.image  = element.parentElement.getAttribute("data-image");
         this.pieces = Number(element.innerHTML);
 
         if (this.selElement) {
             this.selElement.classList.remove("selected");
-            this.selElement.parentNode.parentNode.classList.remove("selected");
+            this.selElement.parentElement.parentElement.classList.remove("selected");
         }
         this.selElement = element;
         this.selElement.classList.add("selected");
-        this.selElement.parentNode.parentNode.classList.add("selected");
+        this.selElement.parentElement.parentElement.classList.add("selected");
 
         this.button.style.display = "block";
         const score = this.storage.get(`${this.image}.${this.pieces}.score`);
@@ -160,7 +180,7 @@ class Selection {
      */
     start() {
         this.selElement.classList.remove("selected");
-        this.selElement.parentNode.parentNode.classList.remove("selected");
+        this.selElement.parentElement.parentElement.classList.remove("selected");
 
         this.element.style.display = "none";
         this.desc.style.display    = "none";

@@ -1,10 +1,21 @@
+import Instance     from "./Instance.js";
+import Metrics      from "./Metrics.js";
+import Piece        from "./Piece.js";
+import Set          from "./Set.js";
+
+// Utils
+import List         from "../../utils/List.js";
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
- * Table Manager
+ * Puzzle Table
  */
- class Table {
+export default class Table {
 
     /**
-     * The Table constructor
+     * Puzzle Table constructor
      * @param {Metrics}  metrics
      * @param {Instance} instance
      */
@@ -13,6 +24,8 @@
 
         this.pieces   = new List(instance.getTablePieces());
         this.sets     = new List(instance.getTableSets());
+
+        /** @type {HTMLElement} */
         this.element  = document.querySelector(".table");
 
         const bounds  = this.element.getBoundingClientRect();
@@ -84,7 +97,7 @@
     /**
      * Finds the Pieces in the Table that is next to the given one
      * @param {(Piece|Set)} other
-     * @returns {Array.<Piece>}
+     * @returns {Piece[]}
      */
     findNeighbourPieces(other) {
         return this.pieces.findAll((piece) => piece.id !== other.id && other.isNeighbour(piece));
@@ -93,7 +106,7 @@
     /**
      * Finds the Sets in the Table that is next to the given one
      * @param {(Piece|Set)} other
-     * @returns {Array.<Set>}
+     * @returns {Set[]}
      */
     findNeighbourSets(other) {
         return this.sets.findAll((set) => set.id !== other.id && set.isNeighbour(other));

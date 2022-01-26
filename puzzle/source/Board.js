@@ -1,10 +1,21 @@
+import Instance     from "./Instance.js";
+import Metrics      from "./Metrics.js";
+import Piece        from "./Piece.js";
+import Set          from "./Set.js";
+
+// Utils
+import List         from "../../utils/List.js";
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
- * Board Manager
+ * Puzzle Board
  */
- class Board {
+export default class Board {
 
     /**
-     * The Board constructor
+     * Puzzle Board constructor
      * @param {Metrics}  metrics
      * @param {Instance} instance
      */
@@ -13,7 +24,11 @@
         this.instance = instance;
 
         this.list     = new List(instance.getBoardPieces());
+
+        /** @type {HTMLElement} */
         this.content  = document.querySelector(".content");
+
+        /** @type {HTMLElement} */
         this.element  = document.querySelector(".board");
 
         this.content.style.display = "block";
@@ -29,7 +44,7 @@
                 this.matrix[row][col] = null;
             }
         }
-        this.list.forEach((elem) => this.insertPiece(elem, false));
+        this.list.forEach((elem) => this.insertPiece(elem));
     }
 
     /**

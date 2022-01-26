@@ -1,10 +1,20 @@
+import Instance     from "./Instance.js";
+import Metrics      from "./Metrics.js";
+import Piece        from "./Piece.js";
+
+// Utils
+import List         from "../../utils/List.js";
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
- * Drawer Manager
+ * Puzzle Drawer
  */
-class Drawer {
+export default class Drawer {
 
     /**
-     * The Drawer constructor
+     * Puzzle Drawer constructor
      * @param {Metrics}  metrics
      * @param {Instance} instance
      */
@@ -12,10 +22,16 @@ class Drawer {
         this.instance     = instance;
 
         this.list         = new List(instance.getDrawerPieces());
-        this.element      = document.querySelector(".drawer");
-        this.grid         = document.querySelector(".grid");
-        this.button       = document.querySelector(".drawer button");
         this.onlyBorders  = false;
+
+        /** @type {HTMLElement} */
+        this.element      = document.querySelector(".drawer");
+
+        /** @type {HTMLElement} */
+        this.grid         = document.querySelector(".grid");
+
+        /** @type {HTMLElement} */
+        this.button       = document.querySelector(".drawer button");
 
         const optimalSize = 210;
         const minAmount   = Math.floor(optimalSize / metrics.fullSize);
@@ -123,7 +139,7 @@ class Drawer {
     /**
      * Finds the closest Piece to the given position
      * @param {{top: Number, left: Number}} pos
-     * @param {Number}                      skipID
+     * @param {String}                      skipID
      * @returns {?Piece}
      */
     findClosest(pos, skipID) {

@@ -1,16 +1,23 @@
+import Metrics      from "./Metrics.js";
+
+// Utils
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
  * Puzzle Piece
  */
-class Piece {
+export default class Piece {
 
     /**
-     * The Piece constructor
-     * @param {Metrics} metrics
-     * @param {Image}   image
-     * @param {Number}  id
-     * @param {Number}  col
-     * @param {Number}  row
-     * @param {Array}   borders
+     * Puzzle Piece constructor
+     * @param {Metrics}          metrics
+     * @param {HTMLImageElement} image
+     * @param {String}           id
+     * @param {Number}           col
+     * @param {Number}           row
+     * @param {{top: Number, right: Number, bottom: Number, left: Number}} borders
      */
     constructor(metrics, image, id, col, row, borders) {
         this.id       = id;
@@ -21,7 +28,7 @@ class Piece {
         this.top      = 0;
         this.left     = 0;
         this.borders  = borders;
-        this.isBorder = !this.borders.top || !this.borders.right || !this.borders.bottom || !this.borders.left;
+        this.isBorder = !this.borders.top || !this.borders.right || !this.borders.bottom || !this.borders.left;
         this.inDrawer = true;
 
         this.canvas                = document.createElement("canvas");
@@ -30,7 +37,7 @@ class Piece {
         this.canvas.height         = this.metrics.fullSize;
         this.canvas.className      = "piece" + (this.isBorder ? " border" : "");
         this.canvas.dataset.action = "piece";
-        this.canvas.dataset.id     = this.id;
+        this.canvas.dataset.id     = String(this.id);
 
         this.draw();
     }
@@ -188,7 +195,7 @@ class Piece {
 
     /**
      * Picks the Piece
-     * @param {Event} event
+     * @param {MouseEvent} event
      * @returns {Void}
      */
     pick(event) {
@@ -202,7 +209,7 @@ class Piece {
 
     /**
      * Drags the Piece
-     * @param {Event} event
+     * @param {MouseEvent} event
      * @returns {Void}
      */
     drag(event) {
@@ -212,8 +219,6 @@ class Piece {
 
     /**
      * Drops the Piece in the Drawer
-     * @param {DOMElement} container
-     * @param {Piece}      otherPiece
      * @returns {Void}
      */
     dropInDrawer() {
@@ -223,6 +228,7 @@ class Piece {
 
     /**
      * Drops the Piece in the Board
+     * @param {{top: Number, left: Number}} pos
      * @returns {Void}
      */
     dropInTable(pos) {

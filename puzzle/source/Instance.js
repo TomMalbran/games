@@ -1,12 +1,23 @@
+import Metrics      from "./Metrics.js";
+import Piece        from "./Piece.js";
+import Set          from "./Set.js";
+
+// Utils
+import List         from "../../utils/List.js";
+import Storage      from "../../utils/Storage.js";
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
- * Instance Manager
+ * Puzzle Instance
  */
-class Instance {
+export default class Instance {
 
     /**
-     * The Instance constructor
-     * @param {Image}   image
-     * @param {Metrics} metrics
+     * Puzzle Instance constructor
+     * @param {HTMLImageElement} image
+     * @param {Metrics}          metrics
      */
     constructor(image, metrics) {
         this.image   = image;
@@ -61,8 +72,10 @@ class Instance {
         for (let row = 0; row < this.metrics.rows; row += 1) {
             matrix[row] = [];
             for (let col = 0; col < this.metrics.cols; col += 1) {
+                /** @type {{top: Number, right: Number, bottom: Number, left: Number}} */
                 const borders = { top : 0, right : 0, bottom : 0, left : 0 };
                 if (row > 0) {
+                    // @ts-ignore
                     borders.top = matrix[row - 1][col].bottom * -1;
                 }
                 if (col < this.metrics.cols - 1) {
@@ -72,6 +85,7 @@ class Instance {
                     borders.bottom = Utils.randArray(options);
                 }
                 if (col > 0) {
+                    // @ts-ignore
                     borders.left = matrix[row][col - 1].right * -1;
                 }
 
@@ -197,7 +211,7 @@ class Instance {
      * @returns {Void}
      */
     saveTablePieces(list) {
-        const pieces = list.toArray(({ id, top, left }) => ({ id, top, left }));
+        const pieces = list.toArray(({ id, top, left }) => ({ id, top, left }));
         this.storage.set("tablePieces", pieces);
     }
 
@@ -210,13 +224,18 @@ class Instance {
         const result = [];
         if (sets) {
             for (const { top, left, pieces } of sets) {
-                const pieceList = [];
+                let   firstPiece  = null;
+                const otherPieces = [];
                 for (const pieceID of pieces) {
                     if (this.pieces[pieceID]) {
-                        pieceList.push(this.pieces[pieceID]);
+                        if (!firstPiece) {
+                            firstPiece = this.pieces[pieceID];
+                        } else {
+                            otherPieces.push(this.pieces[pieceID]);
+                        }
                     }
                 }
-                const set = new Set(...pieceList);
+                const set = new Set(firstPiece, ...otherPieces);
                 set.initInTable(top, left);
                 result.push(set);
             }

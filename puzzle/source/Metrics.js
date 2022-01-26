@@ -1,12 +1,19 @@
+import Piece        from "./Piece.js";
+
+// Utils
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
- * Metrics Manager
+ * Puzzle Metrics
  */
- class Metrics {
+export default class Metrics {
 
     /**
-     * The Metrics constructor
-     * @param {Image}  image
-     * @param {Number} pieceCount
+     * Puzzle Metrics constructor
+     * @param {HTMLImageElement} image
+     * @param {Number}           pieceCount
      */
     constructor(image, pieceCount) {
         const ratio = image.width / image.height;
@@ -35,16 +42,28 @@
         this.placedPieces = 0;
         this.elapsedTime  = 0;
 
+        /** @type {HTMLElement} */
         this.menuElem     = document.querySelector(".menu");
+
+        /** @type {HTMLElement} */
         this.scoreElem    = document.querySelector(".score");
+
+        /** @type {HTMLElement} */
         this.placedElem   = document.querySelector(".placed");
+
+        /** @type {HTMLElement} */
         this.percentElem  = document.querySelector(".percent");
+
+        /** @type {HTMLElement} */
         this.timerElem    = document.querySelector(".timer");
+
+        /** @type {HTMLElement} */
+        this.totalElem    = document.querySelector(".total");
 
         this.menuElem.style.display  = "flex";
         this.scoreElem.style.display = "flex";
         this.timerElem.innerHTML     = "00<span>:</span>00";
-        document.querySelector(".total").innerHTML = this.totalPieces;
+        this.totalElem.innerHTML     = String(this.totalPieces);
         this.drawScore();
     }
 
@@ -109,8 +128,8 @@
      * @returns {Void}
      */
     drawScore() {
-        this.placedElem.innerHTML  = this.placedPieces;
-        this.percentElem.innerHTML = Math.floor(this.placedPieces * 100 / this.totalPieces);
+        this.placedElem.innerHTML  = String(this.placedPieces);
+        this.percentElem.innerHTML = String(Math.floor(this.placedPieces * 100 / this.totalPieces));
     }
 
 
