@@ -1,23 +1,33 @@
+import Storage      from "../../utils/Storage.js";
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
- * The Game High Scores
+ * Bounce High Scores
  */
-class HighScores {
+export default class HighScores {
 
     /**
-     * High Scores constructor
+     * Bounce High Scores constructor
      */
     constructor() {
-        this.input     = document.querySelector(".input input");
-        this.scores    = document.querySelector(".scores");
-        this.none      = document.querySelector(".none");
         this.mode      = "";
         this.data      = {};
         this.total     = 0;
         this.maxScores = 5;
         this.isFocused = false;
 
-        this.input.onfocus = () => this.isFocused = true;
-        this.input.onblur  = () => this.isFocused = false;
+        /** @type {HTMLElement} */
+        this.scores    = document.querySelector(".scores");
+
+        /** @type {HTMLElement} */
+        this.none      = document.querySelector(".none");
+
+        /** @type {HTMLInputElement} */
+        this.input         = document.querySelector(".input input");
+        this.input.onfocus = () => { this.isFocused = true; };
+        this.input.onblur  = () => { this.isFocused = false; };
     }
 
     /**
@@ -94,7 +104,7 @@ class HighScores {
         const data   = [];
         const actual = {
             name  : this.input.value,
-            score : score
+            score : score,
         };
         let saved = false;
 
@@ -120,6 +130,7 @@ class HighScores {
 
     /**
      * Shows or hides the no results element
+     * @param {Boolean} show
      * @returns {Void}
      */
     showHideNone(show) {

@@ -1,28 +1,37 @@
+import Board        from "./Board.js";
+
+// Utils
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
- * Ship Manager
+ * Bounce Ship
  */
-class Ship {
+export default class Ship {
 
     /**
-     * Ship Manager constructor
+     * Bounce Ship constructor
      * @param {Board}    board
      * @param {Number}   shipWidth
      * @param {Function} onMove
      */
     constructor(board, shipWidth, onMove) {
+        this.board          = board;
+        this.emWidth        = shipWidth;
+        this.onMove         = onMove;
         this.minWidth       = 3;
         this.extraWidth     = 1;
         this.decreaseAmount = 1;
         this.keyMovement    = 10;
-        this.onMove         = onMove;
 
-        this.board   = board;
-        this.element = document.querySelector(".ship");
-        this.emWidth = shipWidth;
+        /** @type {HTMLElement} */
+        this.element        = document.querySelector(".ship");
+
         this.setWidth();
 
-        this.top     = this.board.height - this.element.offsetHeight - 5;
-        this.left    = (this.board.width - this.width) / 2;
+        this.top            = this.board.height - this.element.offsetHeight - 5;
+        this.left           = (this.board.width - this.width) / 2;
 
         Utils.setPosition(this.element, this.top, this.left);
     }
@@ -57,11 +66,11 @@ class Ship {
 
     /**
      * Move the Ship using the mouse
-     * @param {Event} e
+     * @param {MouseEvent} event
      * @returns {Void}
      */
-    mouseMove(e) {
-        const mouseLeft  = Utils.getMousePos(e).left;
+    mouseMove(event) {
+        const mouseLeft  = Utils.getMousePos(event).left;
         const halfWidth  = this.width / 2;
         const boardLeft  = this.board.left - this.board.border;
         const boardRight = this.board.left + this.board.width + this.board.border;
@@ -138,7 +147,7 @@ class Ship {
     get pos() {
         return {
             top  : this.top,
-            left : this.left - this.extraWidth / 2
+            left : this.left - this.extraWidth / 2,
         };
     }
 

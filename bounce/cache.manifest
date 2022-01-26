@@ -12,7 +12,7 @@ CACHE MANIFEST
 /source/Score.js
 /source/Ship.js
 /source/Tail.js
-/source/Init.js
+/source/Main.js
 
 ../utils/Utils.js
 ../utils/Storage.js

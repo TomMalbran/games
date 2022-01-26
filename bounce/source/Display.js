@@ -1,10 +1,10 @@
 /**
- * The Game Display
+ * Bounce Display
  */
-class Display {
+export default class Display {
 
     /**
-     * The Game Display constructor
+     * Bounce Display constructor
      */
     constructor() {
         this.current   = "mainScreen";
@@ -17,7 +17,7 @@ class Display {
             paused     : [ "Paused",     "Continue the game?" ],
             gameOver   : [ "GameOver",   "Write your name"    ],
             highScores : [ "HighScores", "Select a game"      ],
-            help       : [ "Help",       "Game controls"      ]
+            help       : [ "Help",       "Game controls"      ],
         };
     }
 

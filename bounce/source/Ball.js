@@ -1,10 +1,17 @@
+import Ship         from "./Ship.js";
+
+// Utils
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
- * Ball Manager
+ * Bounce Ball
  */
-class Ball {
+export default class Ball {
 
     /**
-     * Ball Manager constructor
+     * Bounce Ball constructor
      * @param {Number} boardWidth
      * @param {Number} boardHeight
      */
@@ -15,7 +22,9 @@ class Ball {
         this.maxAngle    = 75;
         this.speedInc    = 0.1;
 
+        /** @type {HTMLElement} */
         this.element     = document.querySelector(".ball");
+
         this.angle       = Utils.rand(50, 70);
         this.dirTop      = -1;
         this.dirLeft     = -1;
@@ -121,7 +130,7 @@ class Ball {
     /**
      * If the ball crashed the ship, perform the required actions
      * @param {Ship} ship
-     * @returns {Void}
+     * @returns {Boolean}
      */
     shipCrash(ship) {
         if (this.onShip(ship)) {
@@ -133,7 +142,7 @@ class Ball {
 
     /**
      * Check if the ball is touching the ship
-     * @param {{top: Number, left: Number}} shipPos
+     * @param {Ship} ship
      * @returns {Boolean}
      */
     onShip(ship) {

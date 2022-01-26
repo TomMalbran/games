@@ -1,13 +1,13 @@
 /**
- * The Game Mode
+ * Bounce Mode
  */
-class Mode {
+export default class Mode {
 
     /**
-     * The Game Mode consructor
+     * Bounce Mode constructor
      */
     constructor() {
-        this.mode = "speed";
+        this.mode            = "speed";
         this.shipNormalWidth = 5;
         this.shipBricksWidth = 12;
     }
@@ -17,7 +17,6 @@ class Mode {
     /**
      * Gets the Game Mode
      * @returns {String}
-     * @returns {Void}
      */
     get() {
         return this.mode;

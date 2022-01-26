@@ -1,14 +1,22 @@
+import Ball         from "./Ball.js";
+import Brick        from "./Brick.js";
+
+// Utils
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
- * Bricks Manager
+ * Bounce Bricks
  */
-class Bricks {
+export default class Bricks {
 
     /**
-     * Bricks Manager constructor
+     * Bounce Bricks constructor
      */
     constructor() {
         this.container   = document.querySelector(".bricks");
-        this.elements    = [];
+        this.bricks      = [];
         this.horizBricks = 5;
         this.vertBricks  = 4;
         this.brickHeight = 2.5;
@@ -39,8 +47,8 @@ class Bricks {
             }
         }
 
-        this.elements.reverse();
-        this.bottom = this.elements[0].height * this.vertBricks;
+        this.bricks.reverse();
+        this.bottom = this.bricks[0].height * this.vertBricks;
 
         this.container.classList.add("fade");
         window.setTimeout(() => {
@@ -55,18 +63,12 @@ class Bricks {
      * @returns {Void}
      */
     createBrick(row, column) {
-        const data = { element : document.createElement("DIV") };
+        const element = document.createElement("DIV");
 
-        data.element.style.top  = Utils.toEM(this.brickHeight * row);
-        data.element.style.left = Utils.toEM(this.brickWidth  * column);
-        this.container.appendChild(data.element);
-
-        data.top    = data.element.offsetTop;
-        data.left   = data.element.offsetLeft;
-        data.width  = data.element.offsetWidth;
-        data.height = data.element.offsetHeight;
-
-        this.elements.push(data);
+        element.style.top  = Utils.toEM(this.brickHeight * row);
+        element.style.left = Utils.toEM(this.brickWidth  * column);
+        this.container.appendChild(element);
+        this.bricks.push(new Brick(element));
     }
 
 
@@ -80,13 +82,9 @@ class Bricks {
         if (ball.pos.top > this.bottom) {
             return false;
         }
-
-        return this.elements.some((element, index) => {
-            if (this.bottomCrash(ball, element)    ||
-                    this.leftCrash(ball, element)  ||
-                    this.rightCrash(ball, element) ||
-                    this.topCrash(ball, element)) {
-                this.remove(element, index);
+        return this.bricks.some((brick, index) => {
+            if (brick.didCrash(ball)) {
+                this.remove(brick, index);
                 return true;
             }
             return false;
@@ -94,81 +92,15 @@ class Bricks {
     }
 
     /**
-     * If the ball crashed the bottom part of the brick, change the ball direction
-     * @param {Ball} ball
-     * @param {{element: DOM, top: Number, left: Number}} brick
-     * @returns {Boolean} True if the ball crashed the bottom part of the brick
-     */
-    bottomCrash(ball, brick) {
-        const pos = ball.pos;
-        if (this.isPointInElement(pos.top, pos.left + ball.size / 2, brick)) {
-            ball.setDirTop(1);
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * If the ball crashed the left part of the brick, change the ball direction
-     * @param {Ball} ball
-     * @param {{element: DOM, top: Number, left: Number}} brick
-     * @returns {Boolean} True if the ball crashed the left part of the brick
-     */
-    leftCrash(ball, brick) {
-        const pos  = ball.pos;
-        const top  = pos.top  + ball.size / 2;
-        const left = pos.left + ball.size;
-
-        if (this.isPointInElement(top, left, brick)) {
-            ball.setDirLeft(-1);
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * If the ball crashed the right part of the brick, change the ball direction
-     * @param {Ball} ball
-     * @param {{element: DOM, top: Number, left: Number}} brick
-     * @returns {Boolean} True if the ball crashed the right part of the brick
-     */
-    rightCrash(ball, brick) {
-        const pos = ball.pos;
-        if (this.isPointInElement(pos.top + ball.size / 2, pos.left, brick)) {
-            ball.setDirLeft(-1);
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * If the ball crashed the top part of the brick, change the ball direction
-     * @param {Ball} ball
-     * @param {{element: DOM, top: Number, left: Number}} brick
-     * @returns {Boolean} True if the ball crashed the top part of the brick
-     */
-    topCrash(ball, brick) {
-        const pos  = ball.pos;
-        const top  = pos.top  + ball.size;
-        const left = pos.left + ball.size / 2;
-
-        if (this.isPointInElement(top, left, brick)) {
-            ball.setDirTop(-1);
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Destroys a Brick at the given index
-     * @param {{element: DOM, top: Number, left: Number}} element
+     * @param {Brick}  brick
      * @param {Number} index
      * @returns {Void}
      */
-    remove(element, index) {
-        this.elements.splice(index, 1);
+    remove(brick, index) {
+        this.bricks.splice(index, 1);
 
-        const el = element.element;
+        const el = brick.element;
         el.style.borderWidth = "1.5em";
 
         window.setTimeout(() => {
@@ -185,7 +117,7 @@ class Bricks {
      * @returns {Boolean}
      */
     restart() {
-        if (this.elements.length === 0) {
+        if (this.bricks.length === 0) {
             this.removeContent();
             this.create();
             return true;
@@ -199,21 +131,5 @@ class Bricks {
      */
     removeContent() {
         this.container.innerHTML = "";
-    }
-
-
-
-    /**
-     * Check if the given position is inside the given element
-     * @param {Number} top
-     * @param {Number} left
-     * @param {{element: DOM, top: Number, left: Number}} element
-     * @returns {Boolean}
-     */
-    isPointInElement(top, left, element) {
-        return (
-            top  >= element.top  && top  <= element.top  + element.height &&
-            left >= element.left && left <= element.left + element.width
-        );
     }
 }

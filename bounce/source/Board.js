@@ -1,32 +1,37 @@
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
- * Board Manager
+ * Bounce Board
  */
-class Board {
+export default class Board {
 
     /**
-     * Board Manager constructor
+     * Bounce Board constructor
      * @param {Function} callback
      */
     constructor(callback) {
+        /** @type {HTMLElement} */
         this.element  = document.querySelector(".board");
         this.width    = this.element.offsetWidth;
         this.height   = this.element.offsetHeight;
         this.position = Utils.getPosition(this.element);
         this.border   = 1;
 
-        this.element.addEventListener("click", callback);
+        this.element.addEventListener("click", () => callback());
     }
 
 
 
     /**
      * Add the event listeners
-     * @param {Function} mouseCB
+     * @param {Function} callback
      * @returns {Void}
      */
-    start(mouseCB) {
-        this.func = mouseCB;
-        this.element.addEventListener("mousemove", this.func);
+    start(callback) {
+        this.func = callback;
+        this.element.addEventListener("mousemove", (e) => this.func(e));
     }
 
     /**
@@ -34,7 +39,7 @@ class Board {
      * @returns {Void}
      */
     end() {
-        this.element.removeEventListener("mousemove", this.func);
+        this.element.removeEventListener("mousemove", (e) => this.func(e));
     }
 
     /**

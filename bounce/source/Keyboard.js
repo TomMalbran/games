@@ -1,14 +1,21 @@
+import Display      from "./Display.js";
+import HighScores   from "./HighScores.js";
+
+// Utils
+import KeyCode      from "../../utils/KeyCode.js";
+
+
+
 /**
- * The Game Keyboard
+ * Bounce Keyboard
  */
-class Keyboard {
+export default class Keyboard {
 
     /**
-     * The Game Keyboard constructor
-     * @param {Display} display
-     * @param {Scores}  scores
-     * @param {Object}  shortcuts
-     * @returns {Void}
+     * Bounce Keyboard constructor
+     * @param {Display}    display
+     * @param {HighScores} scores
+     * @param {Object}     shortcuts
      */
     constructor(display, scores, shortcuts) {
         this.shortcuts  = shortcuts;
@@ -17,15 +24,15 @@ class Keyboard {
         this.display    = display;
         this.scores     = scores;
 
-        document.addEventListener("keydown", e => this.onKeyDown(e));
-        document.addEventListener("keyup",   e => this.onKeyUp(e));
+        document.addEventListener("keydown", (e) => this.onKeyDown(e));
+        document.addEventListener("keyup",   (e) => this.onKeyUp());
     }
 
 
 
     /**
      * Key handler for the on key down event
-     * @param {Event} event
+     * @param {KeyboardEvent} event
      * @returns {Void}
      */
     onKeyDown(event) {
@@ -62,7 +69,7 @@ class Keyboard {
     /**
      * Key Press Event
      * @param {Number} key
-     * @param {?Event} event
+     * @param {Event=} event
      * @returns {Void}
      */
     pressKey(key, event) {

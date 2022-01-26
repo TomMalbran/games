@@ -1,10 +1,17 @@
+import Ball         from "./Ball.js";
+
+// Utils
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
- * Tail Manager
+ * Bounce Tail
  */
-class Tail {
+export default class Tail {
 
     /**
-     * Tail Manager constructor
+     * Bounce Tail constructor
      */
     constructor() {
         this.amount      = 15;
@@ -20,7 +27,7 @@ class Tail {
             this.elements.push({
                 element : div,
                 top     : 0,
-                left    : 0
+                left    : 0,
             });
         }
     }

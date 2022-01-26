@@ -1,10 +1,10 @@
 /**
- * The Game Score
+ * Bounce Score
  */
-class Score {
+export default class Score {
 
     /**
-     * The Game Score constructor
+     * Bounce Score constructor
      */
     constructor() {
         this.score     = 0;
@@ -36,6 +36,6 @@ class Score {
      */
     inc() {
         this.score += 1;
-        this.container.innerHTML = this.score;
+        this.container.innerHTML = String(this.score);
     }
 }
