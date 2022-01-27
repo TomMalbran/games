@@ -1,22 +1,28 @@
+import Board        from "./Board.js";
+import Canvas       from "./Canvas.js";
+import Ghost        from "../ghosts/Ghost.js";
+
+
+
 /**
- * The Game Canvas Class
+ * Pacman Game Canvas
  * @extends {Canvas}
  */
-class GameCanvas extends Canvas {
+export default class GameCanvas extends Canvas {
 
     /**
-     * The Game Canvas constructor
+     * Pacman Game Canvas constructor
+     * @param {Board} board
      */
-    constructor() {
-        super();
-        this.init("game");
+    constructor(board) {
+        super(board, "game");
     }
 
 
 
     /**
      * Draws the Ghosts Targets for testing
-     * @param {Array.<Ghost>} ghosts
+     * @param {Ghost[]} ghosts
      * @returns {Void}
      */
     drawTargets(ghosts) {
@@ -25,7 +31,7 @@ class GameCanvas extends Canvas {
             this.ctx.fillStyle   = ghost.bodyColor;
             this.ctx.strokeStyle = ghost.bodyColor;
 
-            const tile = Board.getTileXYCenter(ghost.target);
+            const tile = this.board.getTileXYCenter(ghost.target);
             this.ctx.beginPath();
             this.ctx.moveTo(ghost.x, ghost.y);
             this.ctx.lineTo(tile.x, tile.y);

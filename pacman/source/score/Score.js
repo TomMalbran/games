@@ -1,17 +1,25 @@
+import Board        from "../board/Board.js";
+import Fruit        from "../Fruit.js";
+import ScoreBlob    from "./ScoreBlob.js";
+
+
+
 /**
- * The Score Class
+ * Pacman Score
  */
-class Score {
+export default class Score {
 
     /**
-     * The Score constructor
+     * Pacman Score constructor
+     * @param {Board} board
      */
-    constructor() {
-        this.canvas = Board.boardCanvas;
-        this.ctx    = this.canvas.context;
+    constructor(board) {
+        this.board  = board;
+        this.level  = board.level;
+        this.canvas = board.boardCanvas;
+        this.ctx    = this.canvas.ctx;
 
         this.score  = 0;
-        this.level  = 1;
         this.lives  = 2;
         this.bonus  = 0;
         this.ghosts = 0;
@@ -25,8 +33,8 @@ class Score {
         this.scoreColor  = "rgb(255, 255, 51)";
         this.fruitTile   = { x: 26, y: 31.5 };
 
-        this.blobs = [ new ScoreBlob(0), new ScoreBlob(1) ];
-        this.food  = new Fruit();
+        this.blobs = [ new ScoreBlob(this.board, 0), new ScoreBlob(this.board, 1) ];
+        this.food  = new Fruit(this.board);
     }
 
     /**
@@ -37,9 +45,7 @@ class Score {
         this.drawTexts();
         this.drawScore();
 
-        this.blobs.forEach(function (blob) {
-            blob.draw();
-        });
+        this.blobs.forEach((blob) => blob.draw());
         this.food.draw(this.fruitTile);
     }
 
@@ -52,7 +58,7 @@ class Score {
      */
     incScore(amount) {
         this.score += amount;
-        if (this.score > Data.extraLife * Math.pow(10, this.bonus)) {
+        if (this.score > this.level.extraLife * Math.pow(10, this.bonus)) {
             if (this.lives < 4) {
                 this.incLife(true);
             }
@@ -70,7 +76,7 @@ class Score {
         this.lives += isIncrease ? 1 : -1;
 
         if (isIncrease) {
-            const blob = new ScoreBlob(this.lives - 1);
+            const blob = new ScoreBlob(this.board, this.lives - 1);
             this.blobs.push(blob);
             blob.draw();
         } else if (this.blobs.length) {
@@ -86,9 +92,8 @@ class Score {
      * @returns {Void}
      */
     newLevel() {
-        this.level += 1;
         this.ghosts = 0;
-        Data.level  = this.level;
+        this.level.inc();
     }
 
     /**
@@ -97,7 +102,7 @@ class Score {
      * @returns {Void}
      */
     pill(value) {
-        this.incScore(value * Data.pillMult);
+        this.incScore(value * this.level.pillMult);
     }
 
     /**
@@ -105,7 +110,7 @@ class Score {
      * @returns {Number}
      */
     fruit() {
-        const score = Data.getLevelData("fruitScore");
+        const score = this.level.getNumber("fruitScore");
         this.incScore(score);
         return score;
     }
@@ -116,13 +121,13 @@ class Score {
      * @returns {Number}
      */
     kill(amount) {
-        const score = Data.getGhostScore(amount);
+        const score = this.level.getGhostScore(amount);
         this.incScore(score);
 
         if (amount === 4) {
             this.ghosts += 1;
             if (this.ghosts === 4) {
-                this.incScore(Data.eyesBonus);
+                this.incScore(this.level.eyesBonus);
             }
         }
         return score;
@@ -130,7 +135,7 @@ class Score {
 
     /**
      * The Blob died, decrease the lifes
-     * @returns {Boolean} True on Game Over
+     * @returns {Boolean}
      */
     died() {
         this.incLife(false);
@@ -145,14 +150,20 @@ class Score {
      */
     drawTexts() {
         this.canvas.drawText({
-            text : "Score",
-            size : 1.8,
-            pos  : { x: this.scoreLeft, y: this.textTop },
+            text  : "Score",
+            size  : 1.8,
+            pos   : { x: this.scoreLeft, y: this.textTop },
+            color : null,
+            align : null,
+            alpha : null,
         });
         this.canvas.drawText({
-            text : "Lives",
-            size : 1.8,
-            pos  : { x: this.livesLeft, y: this.textTop },
+            text  : "Lives",
+            size  : 1.8,
+            pos   : { x: this.livesLeft, y: this.textTop },
+            color : null,
+            align : null,
+            alpha : null,
         });
     }
 
@@ -162,17 +173,17 @@ class Score {
      */
     drawScore() {
         const left   = this.ctx.measureText("Score").width;
-        const margin = this.scoreMargin * Board.tileSize;
-        const top    = this.textTop     * Board.tileSize;
-        const width  = this.scoreWidth  * Board.tileSize + margin / 2;
-        const height = this.scoreHeight * Board.tileSize;
+        const margin = this.scoreMargin * this.board.tileSize;
+        const top    = this.textTop     * this.board.tileSize;
+        const width  = this.scoreWidth  * this.board.tileSize + margin / 2;
+        const height = this.scoreHeight * this.board.tileSize;
 
         this.ctx.save();
         this.ctx.fillStyle = this.scoreColor;
         this.ctx.textAlign = "left";
         this.ctx.font      = `1.8em "Whimsy TT"`;
         this.ctx.clearRect(left + margin / 2, top - height / 2 - 2, width, height + 2);
-        this.ctx.fillText(this.score, left + margin, top);
+        this.ctx.fillText(String(this.score), left + margin, top);
         this.ctx.restore();
     }
 }

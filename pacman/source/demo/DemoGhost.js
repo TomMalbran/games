@@ -1,19 +1,25 @@
+import Board        from "../board/Board.js";
+import Ghost        from "../ghosts/Ghost.js";
+
+
+
 /**
- * The Demo Ghost Class
+ * Pacman Demo Ghost
  * @extends {Ghost}
  */
-class DemoGhost extends Ghost {
+export default class DemoGhost extends Ghost {
 
     /**
-     * The Demo Ghost constructor
+     * Pacman Demo Ghost constructor
+     * @param {Board}  board
      * @param {String} name
      * @param {String} color
      */
-    constructor(name, color) {
-        super();
+    constructor(board, name, color) {
+        super(board);
 
-        this.canvas = Board.screenCanvas;
-        this.ctx    = this.canvas.context;
+        this.canvas = board.screenCanvas;
+        this.ctx    = this.canvas.ctx;
         this.feet   = 0;
 
         this.name   = name;
@@ -34,7 +40,7 @@ class DemoGhost extends Ghost {
         this.x     = x;
         this.y     = y;
         this.mode  = "chase";
-        this.speed = Data.getGhostSpeed(false);
+        this.speed = this.level.getGhostSpeed(false);
     }
 
     /**
@@ -56,9 +62,9 @@ class DemoGhost extends Ghost {
      */
     presentDemo(dir) {
         this.dir   = Object.create(dir);
-        this.x     = -Board.ghostSize;
+        this.x     = -this.board.ghostSize;
         this.mode  = "chase";
-        this.speed = Data.getGhostSpeed(false);
+        this.speed = this.level.getGhostSpeed(false);
     }
 
     /**

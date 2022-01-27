@@ -1,27 +1,48 @@
+import Board        from "../board/Board.js";
+import Blob         from "../Blob.js";
+import Blinky       from "./Blinky.js";
+import Pinky        from "./Pinky.js";
+import Inky         from "./Inky.js";
+import Clyde        from "./Clyde.js";
+
+
+
 /**
- * The Ghosts Class
+ * Pacman Ghosts
  */
-class Ghosts {
+export default class Ghosts {
 
     /**
-     * The Ghosts constructor
-     * @param {?oldManager} Ghosts
+     * Pacman Ghosts constructor
+     * @param {Board}   board
+     * @param {?Ghosts} oldManager
      */
-    constructor(oldManager) {
+    constructor(board, oldManager) {
+        this.level = board.level;
+
         // Ghosts Data
         this.globalMode  = "scatter";                   // Global Mode
         this.modeCounter = 0;                           // Amount of switchs between Scatter-Chase
-        this.modeTimer   = Data.getSwitchTime(0);       // Scatter/Chase timer
+        this.modeTimer   = this.level.getSwitchTime(0); // Scatter/Chase timer
         this.frightTimer = 0;                           // Frigthen timer
         this.blinksCount = 0;                           // Amount of blinks at frighten end
         this.eyesCounter = 0;                           // Amount of dead Ghost during a fright mode
 
         // The Ghosts
-        const canvas     = Board.gameCanvas;
-        this.blinky      = new Blinky(canvas, oldManager ? oldManager.blinky.dotsCount : null);
-        this.pinky       = new Pinky(canvas, oldManager ? oldManager.pinky.dotsCount : null);
-        this.inky        = new Inky(canvas, oldManager ? oldManager.inky.dotsCount : null, this.blinky);
-        this.clyde       = new Clyde(canvas, oldManager ? oldManager.clyde.dotsCount : null);
+        const canvas     = board.gameCanvas;
+        // @ts-ignore
+        const blinkyDots = oldManager && oldManager.blinky ? oldManager.blinky.dotsCount : null;
+        // @ts-ignore
+        const pinkyDots  = oldManager && oldManager.pinky  ? oldManager.pinky.dotsCount  : null;
+        // @ts-ignore
+        const inkyDots   = oldManager && oldManager.inky   ? oldManager.inky.dotsCount   : null;
+        // @ts-ignore
+        const clydeDots  = oldManager && oldManager.clyde  ? oldManager.clyde.dotsCount  : null;
+
+        this.blinky      = new Blinky(board, canvas, blinkyDots);
+        this.pinky       = new Pinky(board, canvas, pinkyDots);
+        this.inky        = new Inky(board, canvas, inkyDots, this.blinky);
+        this.clyde       = new Clyde(board, canvas, clydeDots);
         this.ghosts      = [ this.blinky, this.pinky, this.inky, this.clyde ];
 
         // Pen Data
@@ -29,6 +50,8 @@ class Ghosts {
                                                        // ... ghost's dot counters | true = using global dot counter)
         this.penTimer    = 0;                          // Pen Leaving Force Timer
         this.globalDots  = 0;                          // Global dots counter
+
+        /** @type {(Blinky|Pinky|Inky|Clyde)[]} */
         this.inPen       = [ this.pinky, this.inky, this.clyde ];
 
         if (!this.penType) {
@@ -48,7 +71,7 @@ class Ghosts {
     animate(time, speed, blob) {
         if (this.frightTimer > 0) {
             this.frightTimer -= time;
-        } else if (this.modeCounter < Data.totalSwitches && this.modeTimer > 0) {
+        } else if (this.modeCounter < this.level.totalSwitches && this.modeTimer > 0) {
             this.modeTimer -= time;
         }
 
@@ -64,11 +87,11 @@ class Ghosts {
      */
     switchMode(blob) {
         const oldMode = this.globalMode;
-        if (Data.isFrighten(this.globalMode) && this.frightTimer <= 0) {
+        if (this.level.isFrighten(this.globalMode) && this.frightTimer <= 0) {
             this.blinksCount -= 1;
 
             if (this.blinksCount >= 0) {
-                this.frightTimer = Data.blinksTimer;
+                this.frightTimer = this.level.blinksTimer;
                 this.globalMode  = this.globalMode === "white" ? "blue" : "white";
             } else {
                 this.globalMode  = this.getSwitchMode();
@@ -78,14 +101,14 @@ class Ghosts {
         } else if (this.modeTimer <= 0) {
             this.modeCounter += 1;
             this.globalMode   = this.getSwitchMode();
-            this.modeTimer    = Data.getSwitchTime(this.modeCounter);
+            this.modeTimer    = this.level.getSwitchTime(this.modeCounter);
             this.switchGhostsMode(oldMode, blob);
         }
     }
 
     /**
      * Changes the mode of each Ghost
-     * @param {Number} oldMode
+     * @param {String} oldMode
      * @param {Blob}   blob
      * @returns {Void}
      */
@@ -126,7 +149,7 @@ class Ghosts {
     setTargets(blob) {
         this.ghosts.forEach((ghost) => {
             if (ghost.shouldChangeTarget(this.globalMode)) {
-                ghost.setChaseTarget(blob, this.blinky);
+                ghost.setChaseTarget(blob);
             }
         });
     }
@@ -148,8 +171,8 @@ class Ghosts {
     frighten(blob) {
         const oldMode    = this.globalMode;
         this.globalMode  = "blue";
-        this.frightTimer = Data.frightTime;
-        this.blinksCount = Data.blinks;
+        this.frightTimer = this.level.frightTime;
+        this.blinksCount = this.level.blinks;
         this.eyesCounter = 0;
 
         this.switchGhostsMode(oldMode, blob);
@@ -158,7 +181,7 @@ class Ghosts {
     /**
      * The Ghost kills the Blob or Dies from it. Returns true if the Blob died
      * @param {{x: Number, y: Number}} blobTile
-     * @param {Function}               onKll
+     * @param {Function}               onKill
      * @param {Function}               onDie
      * @returns {Void}
      */
@@ -167,7 +190,7 @@ class Ghosts {
             const result = ghost.killOrDie(blobTile);
             if (result === "kill") {
                 this.eyesCounter += 1;
-                onKill(this.eyesCounter, ghost.target);
+                onKill(this.eyesCounter, ghost.tile);
             } else if (result === "die") {
                 onDie();
             }
@@ -185,7 +208,7 @@ class Ghosts {
 
     /**
      * Returns the current Mode, including the Fright variations
-     * @returns {Number}
+     * @returns {String}
      */
     getMode() {
         return this.globalMode;
@@ -196,7 +219,7 @@ class Ghosts {
      * @returns {Boolean}
      */
     areFrighten() {
-        return Data.isFrighten(this.globalMode);
+        return this.level.isFrighten(this.globalMode);
     }
 
 
@@ -229,7 +252,7 @@ class Ghosts {
      * @returns {Void}
      */
     checkDotLimit() {
-        const limits = Data.getLevelData("penLeavingLimit");
+        const limits = this.level.getData("penLeavingLimit");
         const ghost  = this.inPen[0];
 
         if (limits[ghost.id] <= ghost.dotsCount) {
@@ -245,7 +268,7 @@ class Ghosts {
         this.globalDots += 1;
 
         this.inPen.forEach((ghost) => {
-            if (this.globalDots === Data.getPenDotsCount(ghost.id)) {
+            if (this.globalDots === this.level.getPenDotsCount(ghost.id)) {
                 if (ghost.id <= 2) {
                     this.releaseGhostFromPen();
                 } else {
@@ -263,7 +286,7 @@ class Ghosts {
      */
     increasePenTimer(time) {
         this.penTimer += time;
-        if (this.inPen.length > 0 && this.penTimer >= Data.penForceTime) {
+        if (this.inPen.length > 0 && this.penTimer >= this.level.penForceTime) {
             this.releaseGhostFromPen();
             this.penTimer = 0;
         }
@@ -292,7 +315,7 @@ class Ghosts {
 
     /**
      * Adds the given Ghost to Pen
-     * @param {Ghost} ghost
+     * @param {(Blinky|Pinky|Inky|Clyde)} ghost
      * @returns {Void}
      */
     addGhostToPen(ghost) {

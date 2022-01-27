@@ -1,16 +1,22 @@
+import Board        from "../board/Board.js";
+import Food         from "../Food.js";
+import DemoData     from "./DemoData.js";
+
+
+
 /**
- * The Demo Food Class. Used in the chase animation
+ * Pacman Demo Food
  * @extends {Food}
  */
-class DemoFood extends Food {
+export default class DemoFood extends Food {
 
     /**
-     * The Demo Food constructor
+     * Pacman Demo Food constructor
+     * @param {Board} board
      */
-    constructor() {
-        super();
-        this.init();
-        this.ctx = Board.screenCanvas.context;
+    constructor(board) {
+        super(board);
+        this.ctx = board.screenCanvas.ctx;
     }
 
 
@@ -20,8 +26,8 @@ class DemoFood extends Food {
      * @returns {Void}
      */
     wink() {
-        const x = Board.getTileCenter(DemoData.chase.enerX);
-        const y = Board.getTileCenter(DemoData.chase.enerY);
+        const x = this.board.getTileCenter(DemoData.chase.enerX);
+        const y = this.board.getTileCenter(DemoData.chase.enerY);
 
         this.calcRadius();
         this.clearEnergizer(x, y);

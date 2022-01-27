@@ -1,10 +1,10 @@
 /**
- * The Game Display
+ * Pacman Display
  */
-class Display {
+export default class Display {
 
     /**
-     * The Game Display constructor
+     * Pacman Display constructor
      * @param {Function} callback
      */
     constructor(callback) {

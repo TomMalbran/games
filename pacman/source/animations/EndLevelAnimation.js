@@ -1,17 +1,21 @@
+import Animation    from "./Animation.js";
+import Board        from "../board/Board.js";
+
+
+
 /**
- * The End Level Animation
+ * Pacman End Level Animation
  * @extends {Animation}
  */
-class EndLevelAnimation extends Animation {
+export default class EndLevelAnimation extends Animation {
 
     /**
-     * The End Level Animation constructor
+     * Pacman End Level Animation constructor
+     * @param {Board}    board
      * @param {Function} callback
      */
-    constructor(callback) {
-        super();
-
-        this.callback   = callback;
+    constructor(board, callback) {
+        super(board, callback);
 
         this.blinks     = 0;
         this.blocksGame = true;
@@ -27,8 +31,8 @@ class EndLevelAnimation extends Animation {
      */
     animate() {
         if (this.time > this.blinkTimer) {
-            Board.boardCanvas.clear();
-            Board.drawBoard(this.blinks % 2 === 0);
+            this.board.boardCanvas.clear();
+            this.board.drawBoard(this.blinks % 2 === 0);
             this.blinks     += 1;
             this.blinkTimer += 150;
         }

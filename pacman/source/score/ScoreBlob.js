@@ -1,21 +1,27 @@
+import Board        from "../board/Board.js";
+import Blob         from "../Blob.js";
+
+
+
 /**
- * The Score Blob Class
+ * Pacman Score Blob
  * @extends {Blob}
  */
-class ScoreBlob extends Blob {
+export default class ScoreBlob extends Blob {
 
     /**
-     * The Demo Blob constructor
+     * Pacman Score Blob constructor
+     * @param {Board}  board
      * @param {Number} number
      */
-    constructor(number) {
-        super();
-        this.init(Board.boardCanvas);
+    constructor(board, number) {
+        super(board);
+        this.init(board.boardCanvas);
 
         this.tile = { x: 19.5, y: 31.8 },
-        this.x    = Board.getTileCenter(this.tile.x + number * 1.4);
-        this.y    = Board.getTileCenter(this.tile.y);
-        this.dir  = Board.startingDir;
+        this.x    = board.getTileCenter(this.tile.x + number * 1.4);
+        this.y    = board.getTileCenter(this.tile.y);
+        this.dir  = board.startingDir;
     }
 
     /**

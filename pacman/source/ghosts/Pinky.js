@@ -1,16 +1,24 @@
+import Board        from "../board/Board.js";
+import Canvas       from "../board/Canvas.js";
+import Blob         from "../Blob.js";
+import Ghost        from "./Ghost.js";
+
+
+
 /**
- * The Pinky Class
+ * Pacman Pinky
  * @extends {Ghost}
  */
-class Pinky extends Ghost {
+export default class Pinky extends Ghost {
 
     /**
-     * The Pinky constructor
+     * Pacman Pinky constructor
+     * @param {Board}   board
      * @param {Canvas}  canvas
      * @param {?Number} dots
      */
-    constructor(canvas, dots) {
-        super();
+    constructor(board, canvas, dots) {
+        super(board);
 
         this.paths = {
             inPen    : [
@@ -40,7 +48,7 @@ class Pinky extends Ghost {
      * Returns the Ghost's name
      * @returns {String}
      */
-    static get name() {
+    static get text() {
         return "Pinky";
     }
 

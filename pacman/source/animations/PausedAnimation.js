@@ -1,17 +1,21 @@
+import Animation    from "./Animation.js";
+import Board        from "../board/Board.js";
+
+
+
 /**
- * The Paused Animation
+ * Pacman Paused Animation
  * @extends {Animation}
  */
-class PausedAnimation extends Animation {
+export default class PausedAnimation extends Animation {
 
     /**
-     * The Paused Animation
-     * @param {Canvas} canvas
+     * Pacman Paused Animation constructor
+     * @param {Board} board
      */
-    constructor(canvas) {
-        super();
+    constructor(board) {
+        super(board);
 
-        this.canvas     = canvas;
         this.blocksGame = true;
         this.timePart   = 500;
         this.partDiv    = 5;
@@ -24,7 +28,6 @@ class PausedAnimation extends Animation {
 
     /**
      * Returns true if the animation hasn't ended
-     * @param {Number} time
      * @returns {Boolean}
      */
     get isAnimating() {
@@ -48,8 +51,9 @@ class PausedAnimation extends Animation {
             size  : size,
             color : "rgb(255, 255, 51)",
             text  : "Paused!",
-            pos   : { x: 14, y: Board.centerTextTop },
+            pos   : { x: 14, y: this.board.centerTextTop },
             alpha : 0.8,
+            align : null,
         });
     }
 }

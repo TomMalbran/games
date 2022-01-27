@@ -1,13 +1,20 @@
+import Board        from "./board/Board.js";
+
+
+
 /**
- * The Fruit Class
+ * Pacman Fruit
  */
-class Fruit {
+export default class Fruit {
 
     /**
-     * The Fruit constructor
+     * Pacman Fruit constructor
+     * @param {Board} board
      */
-    constructor() {
-        this.ctx   = Board.boardCanvas.context;
+    constructor(board) {
+        this.board = board;
+        this.level = board.level;
+        this.ctx   = board.boardCanvas.ctx;
         this.timer = 0;
     }
 
@@ -19,9 +26,9 @@ class Fruit {
      * @returns {Void}
      */
     add(dotsLeft) {
-        if (dotsLeft === Data.fruitDots1 || dotsLeft === Data.fruitDots2) {
-            this.timer = Data.fruitTime;
-            this.draw(Board.fruitTile);
+        if (dotsLeft === this.level.fruitDots1 || dotsLeft === this.level.fruitDots2) {
+            this.timer = this.level.fruitTime;
+            this.draw(this.board.fruitTile);
         }
     }
 
@@ -50,15 +57,15 @@ class Fruit {
 
     /**
      * Returns true if the given tile is at the fruit position
-     * @param {{x: Number, y: Number}}
+     * @param {{x: Number, y: Number}} tile
      * @returns {Boolean}
      */
     isAtPos(tile) {
         if (this.timer <= 0) {
             return false;
         }
-        const rect = Board.fruitRect;
-        const pos  = Board.tileToPos(tile);
+        const rect = this.board.fruitRect;
+        const pos  = this.board.tileToPos(tile);
         return (
             pos.x >= rect.left && pos.x <= rect.right &&
             pos.y >= rect.top  && pos.y <= rect.bottom
@@ -69,14 +76,14 @@ class Fruit {
 
     /**
      * Draws a Fruit
-     * @param {{x: Number, y: Number}}
+     * @param {{x: Number, y: Number}} tile
      * @returns {Void}
      */
     draw(tile) {
-        const pos = Board.tileToPos(tile);
+        const pos = this.board.tileToPos(tile);
         this.ctx.save();
         this.ctx.translate(pos.x, pos.y);
-        this[`draw${Data.fruitName}`]();
+        this[`draw${this.level.fruitName}`]();
         this.ctx.restore();
     }
 
@@ -85,8 +92,8 @@ class Fruit {
      * @returns {Void}
      */
     clear() {
-        const pos = Board.fruitPos;
-        this.ctx.clearRect(pos.x - 1, pos.y - 1, Board.fruitSize, Board.fruitSize);
+        const pos = this.board.fruitPos;
+        this.ctx.clearRect(pos.x - 1, pos.y - 1, this.board.fruitSize, this.board.fruitSize);
     }
 
 
@@ -96,7 +103,7 @@ class Fruit {
      * @returns {Void}
      */
     drawCherries() {
-        const nums = Board.numbers;
+        const nums = this.board.numbers;
 
         this.ctx.fillStyle = "rgb(255, 0, 0)";
         this.ctx.beginPath();
@@ -133,7 +140,7 @@ class Fruit {
      * @returns {Void}
      */
     drawStrawberry() {
-        const nums = Board.numbers;
+        const nums = this.board.numbers;
         const dots = [
             nums.n3, nums.n7, nums.n5, nums.n6, nums.n4, nums.n10, nums.n7,
             nums.n8, nums.n6, nums.n11, nums.n7, nums.n13, nums.n9, nums.n10,
@@ -172,7 +179,7 @@ class Fruit {
      * @returns {Void}
      */
     drawPeach() {
-        const nums = Board.numbers;
+        const nums = this.board.numbers;
 
         this.ctx.fillStyle = "rgb(255, 181, 33)";
         this.ctx.beginPath();
@@ -197,7 +204,7 @@ class Fruit {
      * @returns {Void}
      */
     drawApple() {
-        const nums = Board.numbers;
+        const nums = this.board.numbers;
 
         this.ctx.fillStyle = "rgb(222, 0, 0)";
         this.ctx.beginPath();
@@ -227,7 +234,7 @@ class Fruit {
      * @returns {Void}
      */
     drawGrapes() {
-        const nums = Board.numbers;
+        const nums = this.board.numbers;
 
         this.ctx.fillStyle = "rgb(0, 222, 0)";
         this.ctx.beginPath();
@@ -264,7 +271,7 @@ class Fruit {
      * @returns {Void}
      */
     drawGalaxian() {
-        const nums = Board.numbers;
+        const nums = this.board.numbers;
 
         this.ctx.fillStyle   = "rgb(255, 250, 55)";
         this.ctx.strokeStyle = "rgb(255, 250, 55)";
@@ -306,7 +313,7 @@ class Fruit {
      * @returns {Void}
      */
     drawBell() {
-        const nums = Board.numbers;
+        const nums = this.board.numbers;
 
         this.ctx.fillStyle = "rgb(255, 255, 33)";
         this.ctx.beginPath();
@@ -332,7 +339,7 @@ class Fruit {
      * @returns {Void}
      */
     drawKey() {
-        const nums = Board.numbers;
+        const nums = this.board.numbers;
 
         this.ctx.fillStyle = "rgb(0, 222, 222)";
         this.ctx.beginPath();

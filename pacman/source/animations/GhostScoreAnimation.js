@@ -1,19 +1,23 @@
+import Animation    from "./Animation.js";
+import Board        from "../board/Board.js";
+
+
+
 /**
- * The Ghost Score Animation
+ * Pacman Ghost Score Animation
  * @extends {Animation}
  */
-class GhostScoreAnimation extends Animation {
+export default class GhostScoreAnimation extends Animation {
 
     /**
-     * The Ghost Score Animation constructor
-     * @param {Canvas} canvas
+     * Pacman Ghost Score Animation constructor
+     * @param {Board}  board
      * @param {String} text
      * @param {{x: Number, y: Number}} pos
      */
-    constructor(canvas, text, pos) {
-        super();
+    constructor(board, text, pos) {
+        super(board);
 
-        this.canvas     = canvas;
         this.text       = text;
         this.pos        = pos;
         this.blocksGame = true;
@@ -38,6 +42,8 @@ class GhostScoreAnimation extends Animation {
                 x : this.pos.x + 0.5,
                 y : this.pos.y + 0.5,
             },
+            align : null,
+            alpha : null,
         });
 
         if (this.time > 200) {

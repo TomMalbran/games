@@ -1,16 +1,24 @@
+import Board        from "../board/Board.js";
+import Canvas       from "../board/Canvas.js";
+import Blob         from "../Blob.js";
+import Ghost        from "./Ghost.js";
+
+
+
 /**
- * The Blinky Class
+ * Pacman Blinky
  * @extends {Ghost}
  */
-class Blinky extends Ghost {
+export default class Blinky extends Ghost {
 
     /**
-     * The Blinky constructor
+     * Pacman Blinky constructor
+     * @param {Board}   board
      * @param {Canvas}  canvas
      * @param {?Number} dots
      */
-    constructor(canvas, dots) {
-        super();
+    constructor(board, canvas, dots) {
+        super(board);
 
         this.paths = {
             exitPen : [
@@ -22,24 +30,22 @@ class Blinky extends Ghost {
             ],
         };
 
-        this.id      = 0;
-        this.start   = { x: 14, y: 11.5 };
-        this.dir     = { x: -1, y:    0 };
-        this.scatter = { x: 25, y:   -3 };
-        this.inPen   = false;
-        this.color   = Blinky.color;
+        this.id          = 0;
+        this.start       = { x: 14, y: 11.5 };
+        this.dir         = { x: -1, y:    0 };
+        this.scatter     = { x: 25, y:   -3 };
+        this.inPen       = false;
+        this.color       = Blinky.color;
+        this.activeElroy = dots !== null;
 
         this.init(canvas, dots);
-
-        this.elroyMode   = 0;
-        this.activeElroy = dots !== null;
     }
 
     /**
      * Returns the Ghost's name
      * @returns {String}
      */
-    static get name() {
+    static get text() {
         return "Blinky";
     }
 
@@ -68,9 +74,9 @@ class Blinky extends Ghost {
      * @returns {Void}
      */
     checkElroyDots(dots) {
-        if (dots === Data.getLevelData("elroyDotsLeft1") ||
-                dots === Data.getLevelData("elroyDotsLeft2")) {
-            this.elroy += 1;
+        if (dots === this.level.getNumber("elroyDotsLeft1") ||
+                dots === this.level.getNumber("elroyDotsLeft2")) {
+            this.elroyMode += 1;
         }
     }
 
@@ -79,7 +85,7 @@ class Blinky extends Ghost {
      * @returns {Boolean}
      */
     isElroy() {
-        return this.activeElroy && this.elroy > 0;
+        return this.activeElroy && this.elroyMode > 0;
     }
 
     /**

@@ -1,13 +1,20 @@
+import Board        from "./board/Board.js";
+
+
+
 /**
- * The Food Class
+ * Pacman Food
  */
-class Food {
+export default class Food {
 
     /**
-     * The Food constructor
+     * Pacman Food constructor
+     * @param {Board} board
      */
-    constructor() {
-        this.ctx = Board.boardCanvas.context;
+    constructor(board) {
+        this.board = board;
+        this.level = board.level;
+        this.ctx   = board.boardCanvas.ctx;
 
         this.init();
         this.createMatrix();
@@ -19,9 +26,9 @@ class Food {
      * @returns {Void}
      */
     init() {
-        this.total      = Board.pillAmount;
-        this.minRadius  = Board.pillSize;
-        this.maxRadius  = Board.energizerSize;
+        this.total      = this.board.pillAmount;
+        this.minRadius  = this.board.pillSize;
+        this.maxRadius  = this.board.energizerSize;
         this.radius     = this.maxRadius;
         this.energizers = [];
         this.matrix     = [];
@@ -33,15 +40,15 @@ class Food {
      * @returns {Void}
      */
     createMatrix() {
-        for (let i = 0; i < Board.rows; i += 1) {
+        for (let i = 0; i < this.board.rows; i += 1) {
             this.matrix[i] = [];
-            for (let j = 0; j < Board.cols; j += 1) {
-                this.matrix[i][j] = Board.hasPill(j, i) ? Data.pillValue : 0;
+            for (let j = 0; j < this.board.cols; j += 1) {
+                this.matrix[i][j] = this.board.hasPill(j, i) ? this.level.pillValue : 0;
             }
         }
 
-        Board.energizers.forEach((pos) => {
-            this.matrix[pos.y][pos.x] = Data.energizerValue;
+        this.board.energizers.forEach((pos) => {
+            this.matrix[pos.y][pos.x] = this.level.energizerValue;
         });
     }
 
@@ -52,9 +59,9 @@ class Food {
     createEnergizers() {
         this.energizers = [];
 
-        Board.energizers.forEach((pos) => {
-            if (this.matrix[pos.y][pos.x] === Data.energizerValue) {
-                this.energizers.push(Board.getTileXYCenter(pos));
+        this.board.energizers.forEach((pos) => {
+            if (this.matrix[pos.y][pos.x] === this.level.energizerValue) {
+                this.energizers.push(this.board.getTileXYCenter(pos));
             }
         });
     }
@@ -105,8 +112,8 @@ class Food {
 
         this.matrix.forEach((row, y) => {
             row.forEach((value, x) => {
-                const rect = Board.getPillRect(x, y);
-                if (value === Data.pillValue) {
+                const rect = this.board.getPillRect(x, y);
+                if (value === this.level.pillValue) {
                     this.ctx.fillRect(rect.x, rect.y, rect.size, rect.size);
                 }
             });
@@ -121,7 +128,7 @@ class Food {
      * @returns {Void}
      */
     clearPill(x, y) {
-        const rect = Board.getPillRect(x, y);
+        const rect = this.board.getPillRect(x, y);
         this.ctx.clearRect(rect.x, rect.y, rect.size, rect.size);
     }
 
@@ -181,13 +188,13 @@ class Food {
      */
     eatPill(tile) {
         const value = this.matrix[tile.y][tile.x];
-        const pos   = Board.getTileXYCenter(tile);
+        const pos   = this.board.getTileXYCenter(tile);
 
         this.clearPill(tile.x, tile.y);
         this.matrix[tile.y][tile.x] = 0;
         this.total -= 1;
 
-        if (value === Data.energizerValue) {
+        if (value === this.level.energizerValue) {
             this.clearEnergizer(pos.x, pos.y);
             this.createEnergizers();
         }

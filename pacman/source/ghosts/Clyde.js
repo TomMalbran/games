@@ -1,16 +1,24 @@
+import Board        from "../board/Board.js";
+import Canvas       from "../board/Canvas.js";
+import Blob         from "../Blob.js";
+import Ghost        from "./Ghost.js";
+
+
+
 /**
- * The Clyde Class
+ * Pacman Clyde
  * @extends {Ghost}
  */
-class Clyde extends Ghost {
+export default class Clyde extends Ghost {
 
     /**
-     * The Clyde constructor
+     * Pacman Clyde constructor
+     * @param {Board}   board
      * @param {Canvas}  canvas
      * @param {?Number} dots
      */
-    constructor(canvas, dots) {
-        super();
+    constructor(board, canvas, dots) {
+        super(board);
 
         this.paths = {
             inPen    : [
@@ -42,7 +50,7 @@ class Clyde extends Ghost {
      * Returns the Ghost's name
      * @returns {String}
      */
-    static get name() {
+    static get text() {
         return "Clyde";
     }
 

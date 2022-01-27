@@ -1,26 +1,32 @@
+import Animation    from "./Animation.js";
+import Board        from "../board/Board.js";
+
+
+
 /**
- * The Ready Animation
+ * Pacman Ready Animation
  * @extends {Animation}
  */
-class ReadyAnimation extends Animation {
+export default class ReadyAnimation extends Animation {
 
     /**
-     * The Ready Animation constructor
-     * @param {Canvas}   canvas
+     * Pacman Ready Animation constructor
+     * @param {Board}    board
      * @param {Function} callback
      */
-    constructor(canvas, callback) {
-        super();
+    constructor(board, callback) {
+        super(board, callback);
 
-        this.canvas     = canvas;
-        this.callback   = callback;
         this.blocksGame = true;
         this.endTime    = 3000;
 
         this.canvas.drawText({
             color : "rgb(255, 255, 51)",
             text  : "Ready!",
-            pos   : { x: 14, y: Board.centerTextTop },
+            pos   : { x: 14, y: this.board.centerTextTop },
+            size  : null,
+            align : null,
+            alpha : null,
         });
     }
 }

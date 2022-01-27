@@ -1,13 +1,21 @@
+import Board        from "./board/Board.js";
+import Canvas       from "./board/Canvas.js";
+
+
+
 /**
- * The Blob Class
+ * Pacman Blob
  */
-class Blob {
+export default class Blob {
 
     /**
-     * The Blob constructor
+     * Pacman Blob constructor
+     * @param {Board} board
      */
-    constructor() {
-        this.init(Board.gameCanvas);
+    constructor(board) {
+        this.board = board;
+        this.level = board.level;
+        this.init(board.gameCanvas);
     }
 
     /**
@@ -17,19 +25,19 @@ class Blob {
      */
     init(canvas) {
         this.canvas     = canvas;
-        this.ctx        = canvas.context;
+        this.ctx        = canvas.ctx;
 
-        this.tile       = Board.startingPos;
-        this.tileCenter = Board.getTileXYCenter(this.tile);
+        this.tile       = this.board.startingPos;
+        this.tileCenter = this.board.getTileXYCenter(this.tile);
         this.x          = this.tileCenter.x;
         this.y          = this.tileCenter.y;
-        this.dir        = Board.startingDir;
-        this.speed      = Data.getLevelData("pmSpeed");
+        this.dir        = this.board.startingDir;
+        this.speed      = this.level.getNumber("pmSpeed");
         this.center     = true;
         this.turn       = null;
         this.delta      = null;
         this.mouth      = 5;
-        this.radius     = Board.blobRadius;
+        this.radius     = this.board.blobRadius;
         this.sound      = 1;
     }
 
@@ -66,7 +74,7 @@ class Blob {
         this.newTile();
         const newTile = this.atCenter();
 
-        this.x = Board.tunnelEnds(this.x);
+        this.x = this.board.tunnelEnds(this.x);
         return newTile;
     }
 
@@ -83,10 +91,10 @@ class Blob {
      * @returns {Void}
      */
     newTile() {
-        const tile = Board.getTilePos(this.x, this.y);
-        if (!Board.equalTiles(this.tile, tile)) {
+        const tile = this.board.getTilePos(this.x, this.y);
+        if (!this.board.equalTiles(this.tile, tile)) {
             this.tile       = tile;
-            this.tileCenter = Board.getTileXYCenter(tile);
+            this.tileCenter = this.board.getTileXYCenter(tile);
             this.center     = false;
 
             if (this.turn && this.inBoard(this.turn) && !this.isWall(this.turn)) {
@@ -165,7 +173,7 @@ class Blob {
         } else {
             key = atPill ? "eatingSpeed" : "pmSpeed";
         }
-        this.speed = Data.getLevelData(key);
+        this.speed = this.level.getNumber(key);
     }
 
     /**
@@ -228,8 +236,8 @@ class Blob {
 
     /**
      * Draws the next step in the Blob's death animation
-     * @param {Context} ctx
-     * @param {Number}  count
+     * @param {CanvasRenderingContext2D} ctx
+     * @param {Number}                   count
      * @returns {Void}
      */
     drawDeath(ctx, count) {
@@ -244,8 +252,8 @@ class Blob {
 
     /**
      * Draws a circle as the next step in the Blob Death animation
-     * @param {Context} ctx
-     * @param {Number}  count
+     * @param {CanvasRenderingContext2D} ctx
+     * @param {Number}                   count
      * @returns {Void}
      */
     drawCircle(ctx, count) {
@@ -283,7 +291,7 @@ class Blob {
 
     /**
      * Returns true if the Blob has to turn now
-     * @param {{x: Number, y: Number}}
+     * @param {{x: Number, y: Number}} turn
      * @returns {Boolean}
      */
     turnNow(turn) {
@@ -295,22 +303,22 @@ class Blob {
 
     /**
      * Returns true if the next tile is a wall
-     * @param {{x: Number, y: Number}}
+     * @param {{x: Number, y: Number}} turn
      * @returns {Boolean}
      */
     isWall(turn) {
-        const tile = Board.sumTiles(this.tile, turn);
-        return Board.isWall(tile.x, tile.y);
+        const tile = this.board.sumTiles(this.tile, turn);
+        return this.board.isWall(tile.x, tile.y);
     }
 
     /**
      * Returns true if the next tile is a wall
-     * @param {{x: Number, y: Number}}
+     * @param {{x: Number, y: Number}} turn
      * @returns {Boolean}
      */
     inBoard(turn) {
-        const tile = Board.sumTiles(this.tile, turn);
-        return Board.inBoard(tile.x, tile.y);
+        const tile = this.board.sumTiles(this.tile, turn);
+        return this.board.inBoard(tile.x, tile.y);
     }
 
     /**

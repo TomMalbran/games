@@ -1,19 +1,25 @@
+import Animation    from "./Animation.js";
+import Board        from "../board/Board.js";
+
+// Utils
+import Utils        from "../../../utils/Utils.js";
+
+
+
 /**
- * The Game Over Animation
+ * Pacman Game Over Animation
  * @extends {Animation}
  */
-class GameOverAnimation extends Animation {
+export default class GameOverAnimation extends Animation {
 
     /**
-     * The Game Over constructor
-     * @param {Canvas}   canvas
+     * Pacman Game Over constructor
+     * @param {Board}   board
      * @param {Function} callback
      */
-    constructor(canvas, callback) {
-        super();
+    constructor(board, callback) {
+        super(board, callback);
 
-        this.canvas     = canvas;
-        this.callback   = callback;
         this.blocksGame = true;
         this.endTime    = 2000;
     }
@@ -37,6 +43,7 @@ class GameOverAnimation extends Animation {
             text  : "Game Over",
             pos   : { x: 14, y: 17.3 },
             alpha : 0.8,
+            align : null,
         });
     }
 }

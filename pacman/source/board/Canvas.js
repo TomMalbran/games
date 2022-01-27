@@ -1,18 +1,29 @@
+import Board        from "./Board.js";
+
+// Utils
+import Utils        from "../../../utils/Utils.js";
+
+
+
 /**
- * The Canvas Base Class
+ * Pacman Canvas
  */
-class Canvas {
+export default class Canvas {
 
     /**
-     * Initializes the Canvas Object
+     * Pacman Canvas Constructor
+     * @param {Board}  board
      * @param {String} name
-     * @returns {Canvas}
      */
-    init(name) {
-        const canvas  = document.querySelector(`.${name}`);
-        canvas.width  = Board.width;
-        canvas.height = Board.height;
+    constructor(board, name) {
+        this.board = board;
 
+        /** @type {HTMLCanvasElement} */
+        const canvas  = document.querySelector(`.${name}`);
+        canvas.width  = this.board.width;
+        canvas.height = this.board.height;
+
+        /** @type {CanvasRenderingContext2D} */
         this.ctx              = canvas.getContext("2d");
         this.ctx.font         = `2em "Whimsy TT"`;
         this.ctx.fillStyle    = "white";
@@ -22,14 +33,6 @@ class Canvas {
         this.rects            = [];
 
         return this;
-    }
-
-    /**
-     * Returns the conetext for the board element
-     * @returns {RenderingContext}
-     */
-    get context() {
-        return this.ctx;
     }
 
     /**
@@ -44,7 +47,7 @@ class Canvas {
     fill(alpha, x, y, width, height) {
         this.ctx.save();
         this.ctx.fillStyle = Utils.rgba(0, 0, 0, alpha);
-        this.ctx.fillRect(x || 0, y || 0, width || Board.width, height || Board.height);
+        this.ctx.fillRect(x || 0, y || 0, width || this.board.width, height || this.board.height);
         this.ctx.restore();
     }
 
@@ -53,7 +56,7 @@ class Canvas {
      * @returns {Void}
      */
     clear() {
-        this.ctx.clearRect(0, 0, Board.width, Board.height);
+        this.ctx.clearRect(0, 0, this.board.width, this.board.height);
         this.rects = [];
     }
 
@@ -79,10 +82,10 @@ class Canvas {
      */
     savePos(x, y) {
         this.rects.push({
-            x      : x - Board.eraseSize / 2,
-            y      : y - Board.eraseSize / 2,
-            width  : Board.eraseSize,
-            height : Board.eraseSize,
+            x      : x - this.board.eraseSize / 2,
+            y      : y - this.board.eraseSize / 2,
+            width  : this.board.eraseSize,
+            height : this.board.eraseSize,
         });
     }
 
@@ -97,31 +100,34 @@ class Canvas {
 
     /**
      * Draws the Text in the canvas
-     * @param {{text: String, pos: {x: Number, y: Number}, color: String, size: ?numer, align: ?String}} data
+     * @param {{text: String, pos: {x: Number, y: Number}, color: ?String, size: ?Number, align: ?String, alpha: ?Number}} data
      * @returns {Void}
      */
     drawText(data) {
-        let mult = 0.5;
+        const posX = data.pos.x * this.board.tileSize;
+        const posY = data.pos.y * this.board.tileSize;
+        let   mult = 0.5;
 
         this.ctx.save();
         if (data.size) {
             this.ctx.font = `${data.size}em "Whimsy TT"`;
         }
         if (data.align) {
+            // @ts-ignore
             this.ctx.textAlign = data.align;
             mult = data.align === "left" ? 1 : 0;
         }
         this.ctx.fillStyle = data.color;
-        this.ctx.fillText(data.text, data.pos.x * Board.tileSize, data.pos.y * Board.tileSize);
+        this.ctx.fillText(data.text, posX, posY);
         this.ctx.restore();
 
         const metrics = this.ctx.measureText(data.text);
-        const width   = metrics.width + Board.tileSize;
-        const height  = data.size ? (data.size + 0.5) * Board.tileSize : 2.5 * Board.tileSize;
+        const width   = metrics.width + this.board.tileSize;
+        const height  = data.size ? (data.size + 0.5) * this.board.tileSize : 2.5 * this.board.tileSize;
 
         this.saveRect({
-            x      : data.pos.x * Board.tileSize - mult * width,
-            y      : data.pos.y * Board.tileSize - height / 2,
+            x      : posX - mult * width,
+            y      : posY - height / 2,
             width  : width,
             height : height,
             alpha  : data.alpha || 0,

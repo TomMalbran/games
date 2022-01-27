@@ -1,19 +1,35 @@
+import BigBlob      from "./BigBlob.js";
+import DemoBlob     from "./DemoBlob.js";
+import DemoFood     from "./DemoFood.js";
+import DemoGhost    from "./DemoGhost.js";
+import Board        from "../board/Board.js";
+import Blinky       from "../ghosts/Blinky.js";
+import Pinky        from "../ghosts/Pinky.js";
+import Inky         from "../ghosts/Inky.js";
+import Clyde        from "../ghosts/Clyde.js";
+import DemoData     from "./DemoData.js";
+
+
+
 /**
- * The Demo Class
+ * Pacman Demo
  */
-class Demo {
+export default class Demo {
 
     /**
-     * The Demo constructor
+     * Pacman Demo constructor
+     * @param {Board} board
      */
-    constructor() {
-        this.canvas  = Board.screenCanvas;
-        this.ctx     = this.canvas.context;
+    constructor(board) {
+        this.board   = board;
+        this.level   = board.level;
+        this.canvas  = board.screenCanvas;
+        this.ctx     = this.canvas.ctx;
 
         this.step    = -1;
         this.name    = "";
-        this.bigBlob = new BigBlob();
-        this.food    = new DemoFood();
+        this.bigBlob = new BigBlob(this.board);
+        this.food    = new DemoFood(this.board);
 
         this.nextAnimation();
     }
@@ -26,7 +42,7 @@ class Demo {
      */
     destroy() {
         this.step    = -1;
-        this.bigBlob = new BigBlob();
+        this.bigBlob = new BigBlob(this.board);
 
         this.canvas.clear();
         this.nextAnimation();
@@ -105,8 +121,8 @@ class Demo {
      * @returns {Void}
      */
     drawTitle() {
-        const left  = Board.tileToPos(DemoData.title.leftText);
-        const right = Board.tileToPos(DemoData.title.rightText);
+        const left  = this.board.tileToPos(DemoData.title.leftText);
+        const right = this.board.tileToPos(DemoData.title.rightText);
 
         this.ctx.save();
         this.ctx.font      = `6em "Whimsy TT"`;
@@ -124,7 +140,7 @@ class Demo {
      * @returns {Void}
      */
     initChase() {
-        const size = Board.tileSize;
+        const size = this.board.tileSize;
         const yPos = DemoData.chase.playersY * size;
         const dir  = DemoData.chase.playersDir;
 
@@ -135,7 +151,7 @@ class Demo {
         this.inky.chaseDemo(dir,   -8 * size, yPos);
         this.clyde.chaseDemo(dir, -10 * size, yPos);
 
-        this.endPos = DemoData.chase.endTile * Board.tileSize;
+        this.endPos = DemoData.chase.endTile * this.board.tileSize;
     }
 
     /**
@@ -143,11 +159,11 @@ class Demo {
      * @returns {Void}
      */
     createPlayers() {
-        this.blob   = new DemoBlob();
-        this.blinky = new DemoGhost(Blinky.name, Blinky.color);
-        this.pinky  = new DemoGhost(Pinky.name, Pinky.color);
-        this.inky   = new DemoGhost(Inky.name, Inky.color);
-        this.clyde  = new DemoGhost(Clyde.name, Clyde.color);
+        this.blob   = new DemoBlob(this.board);
+        this.blinky = new DemoGhost(this.board, Blinky.text, Blinky.color);
+        this.pinky  = new DemoGhost(this.board, Pinky.text, Pinky.color);
+        this.inky   = new DemoGhost(this.board, Inky.text, Inky.color);
+        this.clyde  = new DemoGhost(this.board, Clyde.text, Clyde.color);
 
         this.ghosts = [ this.blinky, this.pinky, this.inky, this.clyde ];
     }
@@ -172,7 +188,7 @@ class Demo {
      * @returns {Void}
      */
     initFrighten() {
-        const speed = Data.getLevelData("ghostFrightSpeed") * DemoData.frighten.speedMult;
+        const speed = this.level.getNumber("ghostFrightSpeed") * DemoData.frighten.speedMult;
         const dir   = DemoData.frighten.playersDir;
 
         this.blob.frightenDemo(dir);
@@ -182,7 +198,7 @@ class Demo {
         this.clyde.frightenDemo(dir, speed);
 
         this.scores = [];
-        this.endPos = DemoData.frighten.endTile * Board.tileSize;
+        this.endPos = DemoData.frighten.endTile * this.board.tileSize;
     }
 
     /**
@@ -202,9 +218,9 @@ class Demo {
                 timer : 0,
                 size  : 1,
                 color : "rgb(51, 255, 255)",
-                text  : Data.getGhostScore(4 - this.ghosts.length),
+                text  : this.level.getGhostScore(4 - this.ghosts.length),
                 pos   : {
-                    x : this.blob.x / Board.tileSize,
+                    x : this.blob.x / this.board.tileSize,
                     y : DemoData.frighten.textTile,
                 },
             });
@@ -248,8 +264,8 @@ class Demo {
         this.ghosts   = [ this.blinky ];
         this.others   = [ this.pinky, this.inky, this.clyde ];
         this.count    = 4;
-        this.presentX = DemoData.present.tile * Board.tileSize;
-        this.exitX    = Board.width + Board.tileSize;
+        this.presentX = DemoData.present.tile * this.board.tileSize;
+        this.exitX    = this.board.width + this.board.tileSize;
     }
 
     /**
@@ -285,7 +301,7 @@ class Demo {
 
     /**
      * Draws the Name of the given Ghost
-     * @param {Ghost} ghost
+     * @param {DemoGhost} ghost
      * @returns {Void}
      */
     drawName(ghost) {
@@ -294,6 +310,8 @@ class Demo {
             color : ghost.bodyColor,
             text  : `‘${ghost.name}’`,
             pos   : DemoData.present.namePos,
+            align : null,
+            alpha : null,
         });
     }
 
@@ -302,7 +320,7 @@ class Demo {
     /**
      * Animates all the players
      * @param {Number}   speed
-     * @param {?Boolean} food
+     * @param {Boolean=} food
      * @returns {Void}
      */
     animatePlayers(speed, food) {

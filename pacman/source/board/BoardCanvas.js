@@ -1,19 +1,23 @@
+import Board        from "./Board.js";
+import Canvas       from "./Canvas.js";
+
+
+
 /**
- * The Board Canvas Class
+ * Pacman Board Canvas
  * @extends {Canvas}
  */
-class BoardCanvas extends Canvas {
+export default class BoardCanvas extends Canvas {
 
     /**
-     * The Board Canvas constructor
+     * Pacman Board Canvas constructor
+     * @param {Board} board
      */
-    constructor() {
-        super();
+    constructor(board) {
+        super(board, "board");
 
-        this.init("board");
-
-        this.ctx.lineWidth   = Board.lineWidth;
-        this.ctx.strokeStyle = Board.boardColor;
+        this.ctx.lineWidth   = board.lineWidth;
+        this.ctx.strokeStyle = board.boardColor;
 
 
         this.drawTShapes = {
@@ -57,7 +61,7 @@ class BoardCanvas extends Canvas {
 
 
     /**
-     * Draw the Board
+     * Draw the this.board
      * @param {Boolean} newLevel
      * @returns {Void}
      */
@@ -65,7 +69,7 @@ class BoardCanvas extends Canvas {
         this.drawGhostsPen();
 
         this.ctx.save();
-        this.ctx.strokeStyle = newLevel ? "white" : Board.boardColor;
+        this.ctx.strokeStyle = newLevel ? "white" : this.board.boardColor;
         this.drawOuterBorder();
         this.drawInnerBorder();
 
@@ -106,19 +110,19 @@ class BoardCanvas extends Canvas {
      * @returns {Void}
      */
     drawGhostsPen() {
-        this.ctx.strokeRect(10.5 * Board.tileSize,                  12.5 * Board.tileSize,                  7 * Board.tileSize,                   4 * Board.tileSize);
-        this.ctx.strokeRect(11   * Board.tileSize - Board.halfLine, 13   * Board.tileSize - Board.halfLine, 6 * Board.tileSize + Board.lineWidth, 3 * Board.tileSize + Board.lineWidth);
-        this.ctx.strokeRect(13   * Board.tileSize - Board.halfLine, 12.5 * Board.tileSize,                  2 * Board.tileSize + Board.lineWidth, Board.tileSize / 2 - Board.halfLine);
-        this.ctx.clearRect(13    * Board.tileSize,                  12.5 * Board.tileSize - Board.halfLine, 2 * Board.tileSize,                   Board.tileSize / 2 + Board.halfLine);
+        this.ctx.strokeRect(10.5 * this.board.tileSize,                  12.5 * this.board.tileSize,                  7 * this.board.tileSize,                   4 * this.board.tileSize);
+        this.ctx.strokeRect(11   * this.board.tileSize - this.board.halfLine, 13   * this.board.tileSize - this.board.halfLine, 6 * this.board.tileSize + this.board.lineWidth, 3 * this.board.tileSize + this.board.lineWidth);
+        this.ctx.strokeRect(13   * this.board.tileSize - this.board.halfLine, 12.5 * this.board.tileSize,                  2 * this.board.tileSize + this.board.lineWidth, this.board.tileSize / 2 - this.board.halfLine);
+        this.ctx.clearRect(13    * this.board.tileSize,                  12.5 * this.board.tileSize - this.board.halfLine, 2 * this.board.tileSize,                   this.board.tileSize / 2 + this.board.halfLine);
 
         this.ctx.save();
         this.ctx.strokeStyle = "white";
-        this.ctx.strokeRect(13   * Board.tileSize + Board.halfLine, 12.5 * Board.tileSize + Board.lineWidth, 2 * Board.tileSize - Board.lineWidth, Board.halfLine);
+        this.ctx.strokeRect(13   * this.board.tileSize + this.board.halfLine, 12.5 * this.board.tileSize + this.board.lineWidth, 2 * this.board.tileSize - this.board.lineWidth, this.board.halfLine);
         this.ctx.restore();
     }
 
     /**
-     * Draws the Board outer border
+     * Draws the this.board outer border
      * @returns {Void}
      */
     drawOuterBorder() {
@@ -132,8 +136,8 @@ class BoardCanvas extends Canvas {
         this.drawOuterBigCorner(27,    9, "bottom-right");
         this.drawOuterSmallCorner(22,  9, "top-left");
         this.drawOuterSmallCorner(22, 13, "bottom-left");
-        this.ctx.lineTo(28 * Board.tileSize, 13 * Board.tileSize + Board.halfLine);
-        this.ctx.moveTo(28 * Board.tileSize, 16 * Board.tileSize - Board.halfLine);
+        this.ctx.lineTo(28 * this.board.tileSize, 13 * this.board.tileSize + this.board.halfLine);
+        this.ctx.moveTo(28 * this.board.tileSize, 16 * this.board.tileSize - this.board.halfLine);
         this.drawOuterSmallCorner(22, 15, "top-left");
         this.drawOuterSmallCorner(22, 19, "bottom-left");
         this.drawOuterBigCorner(27,   19, "top-right");
@@ -146,18 +150,18 @@ class BoardCanvas extends Canvas {
         this.drawOuterBigCorner(0,    19, "top-left");
         this.drawOuterSmallCorner(5,  19, "bottom-right");
         this.drawOuterSmallCorner(5,  15, "top-right");
-        this.ctx.lineTo(0, 16 * Board.tileSize - Board.halfLine);
-        this.ctx.moveTo(0, 13 * Board.tileSize + Board.halfLine);
+        this.ctx.lineTo(0, 16 * this.board.tileSize - this.board.halfLine);
+        this.ctx.moveTo(0, 13 * this.board.tileSize + this.board.halfLine);
         this.drawOuterSmallCorner(5,  13, "bottom-right");
         this.drawOuterSmallCorner(5,   9, "top-right");
         this.drawOuterBigCorner(0,     9, "bottom-left");
 
-        this.ctx.lineTo(Board.halfLine, Board.bigRadius + Board.halfLine);
+        this.ctx.lineTo(this.board.halfLine, this.board.bigRadius + this.board.halfLine);
         this.ctx.stroke();
     }
 
     /**
-     * Draws the Board inner border
+     * Draws the this.board inner border
      * @returns {Void}
      */
     drawInnerBorder() {
@@ -175,8 +179,8 @@ class BoardCanvas extends Canvas {
         this.drawInnerCorner(27,  9, "bottom-right", false, false);
         this.drawInnerCorner(22,  9, "top-left",     true,  true);
         this.drawInnerCorner(22, 13, "bottom-left",  true,  true);
-        this.ctx.lineTo(28 * Board.tileSize, 13.5 * Board.tileSize);
-        this.ctx.moveTo(28 * Board.tileSize, 15.5 * Board.tileSize);
+        this.ctx.lineTo(28 * this.board.tileSize, 13.5 * this.board.tileSize);
+        this.ctx.moveTo(28 * this.board.tileSize, 15.5 * this.board.tileSize);
         this.drawInnerCorner(22, 15, "top-left",     true,  true);
         this.drawInnerCorner(22, 19, "bottom-left",  true,  true);
         this.drawInnerCorner(27, 19, "top-right",    false, false);
@@ -197,12 +201,12 @@ class BoardCanvas extends Canvas {
         this.drawInnerCorner(0,  19, "top-left",     false, false);
         this.drawInnerCorner(5,  19, "bottom-right", true,  true);
         this.drawInnerCorner(5,  15, "top-right",    true,  true);
-        this.ctx.lineTo(0, 15.5 * Board.tileSize);
-        this.ctx.moveTo(0, 13.5 * Board.tileSize);
+        this.ctx.lineTo(0, 15.5 * this.board.tileSize);
+        this.ctx.moveTo(0, 13.5 * this.board.tileSize);
         this.drawInnerCorner(5,  13, "bottom-right", true,  true);
         this.drawInnerCorner(5,   9, "top-right",    true,  true);
         this.drawInnerCorner(0,   9, "bottom-left",  false, false);
-        this.ctx.lineTo(Board.tileSize / 2, Board.tileSize / 2 + Board.smallRadius);
+        this.ctx.lineTo(this.board.tileSize / 2, this.board.tileSize / 2 + this.board.smallRadius);
 
         this.ctx.stroke();
     }
@@ -219,7 +223,7 @@ class BoardCanvas extends Canvas {
      */
     drawRectangle(x, y, width, height) {
         this.ctx.save();
-        this.ctx.translate(x * Board.tileSize, y * Board.tileSize);
+        this.ctx.translate(x * this.board.tileSize, y * this.board.tileSize);
 
         this.ctx.beginPath();
         this.drawInnerCorner(0,                  0, "top-left",     true, false);
@@ -246,9 +250,9 @@ class BoardCanvas extends Canvas {
         const width = left + right;
 
         this.ctx.save();
-        this.ctx.translate(x * Board.tileSize, y * Board.tileSize);
+        this.ctx.translate(x * this.board.tileSize, y * this.board.tileSize);
         this.ctx.rotate(data.radians * Math.PI);
-        this.ctx.translate(data.x * width * Board.tileSize, data.y * Board.tileSize);
+        this.ctx.translate(data.x * width * this.board.tileSize, data.y * this.board.tileSize);
 
         this.ctx.beginPath();
         this.drawInnerCorner(0,         0, "top-left",     true,  false);
@@ -273,11 +277,11 @@ class BoardCanvas extends Canvas {
      */
     drawLShape(x, y, reflect) {
         this.ctx.save();
-        this.ctx.translate(x * Board.tileSize, y * Board.tileSize);
+        this.ctx.translate(x * this.board.tileSize, y * this.board.tileSize);
 
         if (reflect) {
             this.ctx.transform(-1, 0, 0, 1, 0, 0);
-            this.ctx.translate(-4 * Board.tileSize, 0);
+            this.ctx.translate(-4 * this.board.tileSize, 0);
         }
 
         this.ctx.beginPath();
@@ -303,10 +307,10 @@ class BoardCanvas extends Canvas {
     drawOuterBigCorner(x, y, type) {
         const data = this.corners[type];
         const pos  = {
-            x : x * Board.tileSize + Board.bigRadius + data.x * Board.halfLine,
-            y : y * Board.tileSize + Board.bigRadius + data.y * Board.halfLine
+            x : x * this.board.tileSize + this.board.bigRadius + data.x * this.board.halfLine,
+            y : y * this.board.tileSize + this.board.bigRadius + data.y * this.board.halfLine
         };
-        this.drawCorner(pos, Board.bigRadius, type, false);
+        this.drawCorner(pos, this.board.bigRadius, type, false);
     }
 
     /**
@@ -320,10 +324,10 @@ class BoardCanvas extends Canvas {
         const radius = this.corners[type];
         const data   = this.smallCorners[type];
         const pos    = {
-            x : (x + data.x.cell) * Board.tileSize + radius.x * Board.smallRadius + data.x.line * Board.halfLine,
-            y : (y + data.y.cell) * Board.tileSize + radius.y * Board.smallRadius + data.y.line * Board.halfLine
+            x : (x + data.x.cell) * this.board.tileSize + radius.x * this.board.smallRadius + data.x.line * this.board.halfLine,
+            y : (y + data.y.cell) * this.board.tileSize + radius.y * this.board.smallRadius + data.y.line * this.board.halfLine
         };
-        this.drawCorner(pos, Board.smallRadius, type, true);
+        this.drawCorner(pos, this.board.smallRadius, type, true);
     }
 
     /**
@@ -336,11 +340,11 @@ class BoardCanvas extends Canvas {
      * @returns {Void}
      */
     drawInnerCorner(x, y, type, isBig, anitclockwise) {
-        const radius = isBig ? Board.bigRadius : Board.smallRadius;
+        const radius = isBig ? this.board.bigRadius : this.board.smallRadius;
         const data   = this.corners[type];
         const pos    = {
-            x : (x + 0.5) * Board.tileSize + data.x * radius,
-            y : (y + 0.5) * Board.tileSize + data.y * radius
+            x : (x + 0.5) * this.board.tileSize + data.x * radius,
+            y : (y + 0.5) * this.board.tileSize + data.y * radius
         };
         this.drawCorner(pos, radius, type, anitclockwise);
     }
@@ -376,13 +380,13 @@ class BoardCanvas extends Canvas {
         this.ctx.lineWidth   = 1;
         this.ctx.beginPath();
 
-        for (let i = 0; i < Board.rows; i += 1) {
-            this.ctx.moveTo(0,           i * Board.tileSize);
-            this.ctx.lineTo(Board.width, i * Board.tileSize);
+        for (let i = 0; i < this.board.rows; i += 1) {
+            this.ctx.moveTo(0,           i * this.board.tileSize);
+            this.ctx.lineTo(this.board.width, i * this.board.tileSize);
         }
-        for (let i = 0; i < Board.cols; i += 1) {
-            this.ctx.moveTo(i * Board.tileSize, 0);
-            this.ctx.lineTo(i * Board.tileSize, Board.canvasHeight);
+        for (let i = 0; i < this.board.cols; i += 1) {
+            this.ctx.moveTo(i * this.board.tileSize, 0);
+            this.ctx.lineTo(i * this.board.tileSize, this.board.canvasHeight);
         }
         this.ctx.stroke();
     }
@@ -392,21 +396,21 @@ class BoardCanvas extends Canvas {
      * @returns {Void}
      */
     drawIntersections() {
-        Object.keys(Board.boardTurns).forEach((key) => {
+        Object.keys(this.board.boardTurns).forEach((key) => {
             const coords = key.replace("x", "").split("y");
-            const x      = Board.getTileCorner(Number(coords[0]));
-            const y      = Board.getTileCorner(Number(coords[1]));
+            const x      = this.board.getTileCorner(Number(coords[0]));
+            const y      = this.board.getTileCorner(Number(coords[1]));
 
-            this.ctx.fillRect(x, y, Board.tileSize, Board.tileSize);
+            this.ctx.fillRect(x, y, this.board.tileSize, this.board.tileSize);
             this.ctx.save();
             this.ctx.strokeStyle = "white";
 
-            Board.boardTurns[key].forEach((value) => {
-                const dir = Board.numberToDir(value);
-                const bx  = Board.getTileCorner(Number(coords[0]) + dir.x);
-                const by  = Board.getTileCorner(Number(coords[1]) + dir.y);
+            this.board.boardTurns[key].forEach((value) => {
+                const dir = this.board.numberToDir(value);
+                const bx  = this.board.getTileCorner(Number(coords[0]) + dir.x);
+                const by  = this.board.getTileCorner(Number(coords[1]) + dir.y);
 
-                this.ctx.strokeRect(bx, by, Board.tileSize, Board.tileSize);
+                this.ctx.strokeRect(bx, by, this.board.tileSize, this.board.tileSize);
             });
             this.ctx.restore();
         });

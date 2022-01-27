@@ -1,19 +1,30 @@
+import Storage      from "../../utils/Storage.js";
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
- * The Game High Scores
+ * Pacman High Scores
  */
-class HighScores {
+export default class HighScores {
 
     /**
-     * The Game High Scores constructor
+     * Pacman High Scores constructor
      */
     constructor() {
-        this.input     = document.querySelector(".input input");
-        this.scores    = document.querySelector(".scores");
-        this.none      = document.querySelector(".none");
         this.data      = new Storage("pacman.hs");
         this.total     = this.data.get("total") || 0;
         this.isFocused = false;
         this.maxScores = 10;
+
+        /** @type {HTMLInputElement} */
+        this.input     = document.querySelector(".input input");
+
+        /** @type {HTMLElement} */
+        this.scores    = document.querySelector(".scores");
+
+        /** @type {HTMLElement} */
+        this.none      = document.querySelector(".none");
 
         this.input.onfocus = () => this.isFocused = true;
         this.input.onblur  = () => this.isFocused = false;
@@ -59,7 +70,7 @@ class HighScores {
 
     /**
      * Creates the content for each High Score
-     * @returns {Void}
+     * @returns {HTMLElement}
      */
     createContent(name, level, score) {
         const element = document.createElement("DIV");

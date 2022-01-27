@@ -1,13 +1,26 @@
+import Board        from "../board/Board.js";
+
+
+
 /**
- * The Animation Base Class
+ * Pacman Animation
  */
-class Animation {
+export default class Animation {
 
     /**
-     * The Animation Base constructor
+     * Pacman Animation constructor
+     * @param {Board}     board
+     * @param {Function=} callback
      */
-    constructor() {
-        this.time = 0;
+    constructor(board, callback = null) {
+        this.board    = board;
+        this.canvas   = board.screenCanvas;
+        this.ctx      = this.canvas.ctx;
+        this.callback = callback;
+
+        this.time     = 0;
+        this.endTime  = 0;
+        this.clearAll = false;
     }
 
 
@@ -31,7 +44,6 @@ class Animation {
 
     /**
      * Does the Animation
-     * @param {Number} time
      * @returns {Void}
      */
     animate() {

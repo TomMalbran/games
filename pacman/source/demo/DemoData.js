@@ -1,4 +1,4 @@
-let DemoData = {
+export default {
 
     /** The list of animations */
     animations : [ "title", "chase", "frighten", "present" ],

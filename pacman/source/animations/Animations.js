@@ -1,13 +1,28 @@
+import DeathAnimation      from "./DeathAnimation.js";
+import EndLevelAnimation   from "./EndLevelAnimation.js";
+import FruitScoreAnimation from "./FruitScoreAnimation.js";
+import GameOverAnimation   from "./GameOverAnimation.js";
+import GhostScoreAnimation from "./GhostScoreAnimation.js";
+import NewLevelAnimation   from "./NewLevelAnimation.js";
+import PausedAnimation     from "./PausedAnimation.js";
+import ReadyAnimation      from "./ReadyAnimation.js";
+import Board               from "../board/Board.js";
+import Blob                from "../Blob.js";
+
+
+
 /**
- * The Animations Manager Class
+ * Pacman Animations
  */
-class Animations {
+export default class Animations {
 
     /**
-     * The Animations Manager constructor
+     * Pacman Animations constructor
+     * @param {Board} board
      */
-    constructor() {
-        this.canvas     = Board.screenCanvas;
+    constructor(board) {
+        this.board      = board;
+        this.canvas     = board.screenCanvas;
         this.animations = [];
     }
 
@@ -52,7 +67,7 @@ class Animations {
 
     /**
      * Adds a new animation
-     * @param {Animation} animation
+     * @param {*} animation
      * @returns {Void}
      */
     add(animation) {
@@ -67,7 +82,7 @@ class Animations {
      * @returns {Void}
      */
     ready(callback) {
-        this.add(new ReadyAnimation(this.canvas, callback));
+        this.add(new ReadyAnimation(this.board, callback));
     }
 
     /**
@@ -75,7 +90,7 @@ class Animations {
      * @returns {Void}
      */
     paused() {
-        this.add(new PausedAnimation(this.canvas));
+        this.add(new PausedAnimation(this.board));
     }
 
     /**
@@ -85,7 +100,7 @@ class Animations {
      * @returns {Void}
      */
     death(blob, callback) {
-        this.add(new DeathAnimation(this.canvas, blob, callback));
+        this.add(new DeathAnimation(this.board, callback, blob));
     }
 
     /**
@@ -94,27 +109,27 @@ class Animations {
      * @returns {Void}
      */
     gameOver(callback) {
-        this.add(new GameOverAnimation(this.canvas, callback));
+        this.add(new GameOverAnimation(this.board, callback));
     }
 
     /**
      * Creates the Ghost Score Animation
-     * @param {String} text
+     * @param {String} score
      * @param {{x: Number, y: Number}} pos
      * @returns {Void}
      */
     ghostScore(score, pos) {
-        this.add(new GhostScoreAnimation(this.canvas, score, pos));
+        this.add(new GhostScoreAnimation(this.board, score, pos));
     }
 
     /**
      * Creates the Fruit Score Animation
-     * @param {String} text
+     * @param {String} score
      * @param {{x: Number, y: Number}} pos
      * @returns {Void}
      */
     fruitScore(score, pos) {
-        this.add(new FruitScoreAnimation(this.canvas, score, pos));
+        this.add(new FruitScoreAnimation(this.board, score, pos));
     }
 
     /**
@@ -123,7 +138,7 @@ class Animations {
      * @returns {Void}
      */
     endLevel(callback) {
-        this.add(new EndLevelAnimation(callback));
+        this.add(new EndLevelAnimation(this.board, callback));
     }
 
     /**
@@ -133,6 +148,6 @@ class Animations {
      * @returns {Void}
      */
     newLevel(level, callback) {
-        this.add(new NewLevelAnimation(this.canvas, level, callback));
+        this.add(new NewLevelAnimation(this.board, callback, level));
     }
 }

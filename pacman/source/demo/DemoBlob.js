@@ -1,16 +1,21 @@
+import Board        from "../board/Board.js";
+import Blob         from "../Blob.js";
+
+
+
 /**
- * The Demo Blob Class
+ * Pacman Demo Blob
  * @extends {Blob}
  */
-class DemoBlob extends Blob {
+export default class DemoBlob extends Blob {
 
     /**
-     * The Demo Blob Cconstructor
+     * Pacman Demo Blob constructor
+     * @param {Board} board
      */
-    constructor() {
-        super();
-
-        this.init(Board.screenCanvas);
+    constructor(board) {
+        super(board);
+        this.init(board.screenCanvas);
     }
 
 
@@ -26,7 +31,7 @@ class DemoBlob extends Blob {
         this.dir   = Object.create(dir);
         this.x     = x;
         this.y     = y;
-        this.speed = Data.getLevelData("pmSpeed");
+        this.speed = this.level.getNumber("pmSpeed");
     }
 
     /**
@@ -36,18 +41,19 @@ class DemoBlob extends Blob {
      */
     frightenDemo(dir) {
         this.dir   = Object.create(dir);
-        this.speed = Data.getLevelData("pmFrightSpeed");
+        this.speed = this.level.getNumber("pmFrightSpeed");
     }
 
     /**
      * The animation used on the Demo
      * @param {Number} speed
-     * @returns {Void}
+     * @returns {Boolean}
      */
     animate(speed) {
         this.x += this.dir.x * this.speed * speed;
 
         this.moveMouth();
         this.draw();
+        return false;
     }
 }

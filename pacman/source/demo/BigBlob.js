@@ -1,24 +1,31 @@
+import Board        from "../board/Board.js";
+import Blob         from "../Blob.js";
+import DemoData     from "./DemoData.js";
+
+
+
 /**
- * The Big Blob Class. Used in the title animation
+ * Pacman Big Blob
  * @extends {Blob}
  */
-class BigBlob extends Blob {
+export default class BigBlob extends Blob {
 
     /**
-     * The Big Blob constructor
+     * Pacman Big Blob constructor
+     * @param {Board} board
      */
-    constructor() {
-        super();
+    constructor(board) {
+        super(board);
 
-        this.ctx    = Board.screenCanvas.context;
-        this.radius = DemoData.title.blobRadius * Board.tileSize;
+        this.ctx    = board.screenCanvas.ctx;
+        this.radius = DemoData.title.blobRadius * board.tileSize;
         this.x      = -this.radius;
-        this.y      = DemoData.title.blobY * Board.tileSize;
+        this.y      = DemoData.title.blobY * board.tileSize;
         this.dir    = Object.create(DemoData.title.blobDir);
         this.mouth  = DemoData.title.blobMouth;
         this.timer  = 0;
 
-        this.endPos = DemoData.title.endTile * Board.tileSize;
+        this.endPos = DemoData.title.endTile * board.tileSize;
     }
 
 
@@ -26,7 +33,7 @@ class BigBlob extends Blob {
     /**
      * Moves the Big Blob. Specially made for the title animation
      * @param {Number} time
-     * @returns {Void}
+     * @returns {Boolean}
      */
     animate(time) {
         this.timer += time;
@@ -34,6 +41,7 @@ class BigBlob extends Blob {
 
         this.moveMouth();
         this.draw();
+        return false;
     }
 
     /**

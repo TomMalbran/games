@@ -1,22 +1,25 @@
+import Animation    from "./Animation.js";
+import Board        from "../board/Board.js";
+import Blob         from "../Blob.js";
+
+
+
 /**
- * The Paused Animation
+ * Pacman Death Animation
  * @extends {Animation}
  */
-class DeathAnimation extends Animation {
+export default class DeathAnimation extends Animation {
 
     /**
-     * The Paused Animation constructor
-     * @param {Canvas}   canvas
-     * @param {Blob}     blob
+     * Pacman Death Animation constructor
+     * @param {Board}    board
      * @param {Function} callback
+     * @param {Blob}     blob
      */
-    constructor(canvas, blob, callback) {
-        super();
+    constructor(board, callback, blob) {
+        super(board, callback);
 
-        this.canvas     = canvas;
-        this.ctx        = canvas.context;
         this.blob       = blob;
-        this.callback   = callback;
         this.blocksGame = true;
         this.endTime    = 1350;
         this.x          = blob.x;

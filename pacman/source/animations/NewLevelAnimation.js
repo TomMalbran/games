@@ -1,22 +1,24 @@
+import Animation    from "./Animation.js";
+import Board        from "../board/Board.js";
+
+
+
 /**
- * The New Level Animation
+ * Pacman New Level Animation
  * @extends {Animation}
  */
-class NewLevelAnimation extends Animation {
+export default class NewLevelAnimation extends Animation {
 
     /**
-     * The New Level Animation constructor
-     * @param {Canvas}   canvas
-     * @param {Number}   level
+     * Pacman New Level Animation constructor
+     * @param {Board}    board
      * @param {Function} callback
+     * @param {Number}   level
      */
-    constructor(canvas, level, callback) {
-        super();
+    constructor(board, callback, level) {
+        super(board, callback);
 
-        this.canvas     = canvas;
         this.level      = level;
-        this.callback   = callback;
-
         this.blinks     = 0;
         this.blocksGame = true;
         this.blinkTimer = 150;
@@ -34,7 +36,7 @@ class NewLevelAnimation extends Animation {
         const calc  = Math.round(this.time * 0.03);
         const pos   = calc < 17.15 ? calc - 2 : 15;
         const lvl   = (this.level < 10 ? "0" : "") + this.level;
-        const right = Board.cols;
+        const right = this.board.cols;
 
         this.canvas.clear();
         this.canvas.fill(0.8);
@@ -43,13 +45,17 @@ class NewLevelAnimation extends Animation {
             color : "rgb(255,255,255)",
             align : "right",
             text  : "Level",
-            pos   : { x: pos, y: Board.centerTextTop },
+            pos   : { x: pos, y: this.board.centerTextTop },
+            size  : null,
+            alpha : null,
         });
         this.canvas.drawText({
             color : "rgb(255,255,51)",
             align : "left",
             text  : lvl,
-            pos   : { x: right - pos + 2, y: Board.centerTextTop },
+            pos   : { x: right - pos + 2, y: this.board.centerTextTop },
+            size  : null,
+            alpha : null,
         });
     }
 }
