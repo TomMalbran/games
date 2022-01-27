@@ -1,11 +1,19 @@
+import Towers       from "./Towers.js";
+import Factory      from "../Factory.js";
+import Data         from "../maps/Data.js";
+
+// Utils
+import Utils        from "../../../utils/Utils.js";
+
+
+
 /**
- * The Tower Builder Class
- * @param {Towers} parent
+ * Defender Towers Builder
  */
-class Builder {
+export default class Builder {
 
     /**
-     * The Tower Builder constructor
+     * Defender Towers Builder constructor
      * @param {Towers} parent
      */
     constructor(parent) {
@@ -13,15 +21,18 @@ class Builder {
         this.tower    = null;
         this.row      = 1;
         this.col      = 1;
-        this.top      = 0;
-        this.left     = 0;
+        this.top      = "0px";
+        this.left     = "0px";
         this.size     = 2;
         this.range    = 120;
         this.selected = null;
         this.canPay   = true;
         this.canBuild = true;
 
+        /** @type {HTMLElement} */
         this.towers   = document.querySelector(".towersPanel");
+
+        /** @type {HTMLElement} */
         this.building = document.querySelector(".building");
 
         this.addListeners();
@@ -54,33 +65,36 @@ class Builder {
 
     /**
      * The select Tower listener
-     * @param {Event} event
+     * @param {MouseEvent} event
      * @returns {Void}
      */
     select(event) {
-        if (event.target.classList.contains("towerBuild")) {
-            this.selectByElement(event.target);
+        const element = Utils.getElement(event);
+        if (element.classList.contains("towerBuild")) {
+            this.selectByElement(element);
         }
     }
 
     /**
      * The preview Tower listener
-     * @param {Event} event
+     * @param {MouseEvent} event
      * @returns {Void}
      */
     preview(event) {
-        if (event.target.classList.contains("towerBuild")) {
-            this.showPreview(event.target);
+        const element = Utils.getElement(event);
+        if (element.classList.contains("towerBuild")) {
+            this.showPreview(element);
         }
     }
 
     /**
      * The hide Tower listener
-     * @param {Event} event
+     * @param {MouseEvent} event
      * @returns {Void}
      */
     hide(event) {
-        if (event.target.classList.contains("towerBuild")) {
+        const element = Utils.getElement(event);
+        if (element.classList.contains("towerBuild")) {
             this.hidePreview();
         }
     }
@@ -89,12 +103,12 @@ class Builder {
 
     /**
      * Shows the Tower Description
-     * @param {DOMElement} element
+     * @param {HTMLElement} element
      * @returns {Void}
      */
     showPreview(element) {
         if (!this.selected && !this.parent.selection.hasSelected) {
-            this.parent.panel.previewTower(Tower.create(element.dataset.type));
+            this.parent.panel.previewTower(Factory.createTower(element.dataset.type));
         }
     }
 
@@ -113,7 +127,7 @@ class Builder {
     /**
      * Selects a new tower to build from a Dom Element, or it ends the builder
      * if the selected tower is the currently selected one
-     * @param {DOMElement} element
+     * @param {HTMLElement} element
      * @returns {Void}
      */
     selectByElement(element) {
@@ -138,7 +152,7 @@ class Builder {
 
     /**
      * Picks the tower and starts the Dragging
-     * @param {DOMElement} element
+     * @param {HTMLElement} element
      * @returns {Void}
      */
     pick(element) {
@@ -147,7 +161,7 @@ class Builder {
         }
         this.parent.selection.drop();
 
-        this.tower    = Tower.create(element.dataset.type);
+        this.tower    = Factory.createTower(element.dataset.type);
         this.selected = element;
         this.canBuild = false;
 
@@ -172,14 +186,14 @@ class Builder {
 
     /**
      * Drags the Tower around the board
-     * @param {Event} event
+     * @param {MouseEvent} event
      * @returns {Void}
      */
     drag(event) {
         if (this.selected) {
             const mouse = Utils.getMousePos(event);
             const board = this.parent.board.pos;
-            const size  = MapsData.squareSize;
+            const size  = Data.squareSize;
             const top   = mouse.top  - board.top;
             const left  = mouse.left - board.left;
             const row   = Math.floor(top  / size) - 1;
@@ -281,9 +295,10 @@ class Builder {
             this.building.classList.remove("invalid");
 
             this.parent.manager.build({
-                type : this.tower.type,
-                row  : this.row,
-                col  : this.col
+                type  : this.tower.type,
+                row   : this.row,
+                col   : this.col,
+                level : 0,
             });
         }
     }
@@ -300,7 +315,7 @@ class Builder {
 
         for (let i = 0; i < selects.length; i += 1) {
             const type  = selects[i].dataset.type;
-            const tower = Tower.create(type);
+            const tower = Factory.createTower(type);
 
             if (tower.actualCost <= gold) {
                 selects[i].classList.remove("disabled");
@@ -322,7 +337,7 @@ class Builder {
 
         for (let i = 0; i < selects.length; i += 1) {
             const type  = selects[i].dataset.type;
-            const tower = Tower.create(type);
+            const tower = Factory.createTower(type);
 
             if (tower.actualCost > gold) {
                 selects[i].classList.add("disabled");
@@ -353,22 +368,22 @@ class Builder {
 
     /**
      * Transform a cell number to a px position
-     * @param {Number} cell
-     * @returns {Number}
+     * @param {Number} pos
+     * @returns {String}
      */
     cellToPx(pos) {
-        const center = (this.size * MapsData.squareSize) / 2;
-        return Utils.toPX((pos + this.size) * MapsData.squareSize - center);
+        const center = (this.size * Data.squareSize) / 2;
+        return Utils.toPX((pos + this.size) * Data.squareSize - center);
     }
 
 
 
     /**
      * Returns the Towers Element
-     * @returns {Array.<DOMElement>}
+     * @returns {HTMLElement[]}
      */
     get towersElems() {
-        return this.towers.querySelectorAll(".towerBuild");
+        return Array.from(this.towers.querySelectorAll(".towerBuild"));
     }
 
     /**

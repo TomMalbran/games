@@ -1,7 +1,17 @@
+import Towers       from "./Towers.js";
+import Tower        from "../tower/Tower.js";
+import Ammo         from "../ammo/Ammo.js";
+import Mob          from "../mob/Mob.js";
+
+// Utils
+import List, { Iterator } from "../../../utils/List.js";
+
+
+
 /**
- * The Towers Shooter Class
+ * Defender Towers Shooter
  */
-class Shooter {
+export default class Shooter {
 
     /**
      * The Towers Shooter constructor
@@ -22,30 +32,21 @@ class Shooter {
      * @returns {Void}
      */
     shoot() {
-        this.parent.mobs.moving.forEach((it) => {
+        this.parent.mobs.manager.moving.forEach((it) => {
+            /** @type {Mob} */
             const mob    = it.getPrev();
             const towers = this.parent.ranges.getReducedList(mob.row, mob.col);
 
             if (mob.hitPoints > 0 && towers && !towers.isEmpty) {
-                this.shootMob(towers, mob);
-            }
-        });
-    }
-
-    /**
-     * For a single mob, shot it with all the towers that can reach it and attack it
-     * @param {List.<Tower>} towers
-     * @param {Mob}          mob
-     * @returns {Void}
-     */
-    shootMob(towers, mob) {
-        towers.some((element) => {
-            const tower = this.parent.manager.get(element.id);
-            if (tower && !tower.isShooting && tower.canShoot(mob)) {
-                this.processShot(tower, mob);
-            }
-            if (mob.hitPoints <= 0) {
-                return true;
+                towers.some((data) => {
+                    const tower = this.parent.manager.get(data.id);
+                    if (tower && !tower.isShooting && tower.canShoot(mob)) {
+                        this.processShot(tower, mob);
+                    }
+                    if (mob.hitPoints <= 0) {
+                        return true;
+                    }
+                });
             }
         });
     }
@@ -57,7 +58,7 @@ class Shooter {
      * @returns {Void}
      */
     processShot(tower, mob) {
-        const targets = tower.getTargets(this.parent.mobs.moving, mob);
+        const targets = tower.getTargets(this.parent.mobs.manager.moving, mob);
 
         this.parent.ranges.startShoot(tower);
         tower.startShoot();
@@ -84,9 +85,9 @@ class Shooter {
 
     /**
      * Creates a new Ammo
-     * @param {Tower}       tower
-     * @param {Array.<Mob>} targets
-     * @param {Number}      index
+     * @param {Tower}  tower
+     * @param {Mob[]}  targets
+     * @param {Number} index
      * @returns {Ammo}
      */
     createAmmo(tower, targets, index) {
@@ -124,7 +125,7 @@ class Shooter {
 
     /**
      * Does the final attack on the mobs reducing their actual life
-     * @param {Array.<Mob>} targets
+     * @param {Mob[]} targets
      * @param {Number}      damage
      * @returns {Void}
      */

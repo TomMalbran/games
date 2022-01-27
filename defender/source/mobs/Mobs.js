@@ -1,22 +1,39 @@
+import Alerts       from "./Alerts.js";
+import Create       from "./Create.js";
+import Manager      from "./Manager.js";
+import Paths        from "./Paths.js";
+import Waves        from "./Waves.js";
+import Board        from "../Board.js";
+import Panel        from "../Panel.js";
+import Score        from "../Score.js";
+import Mob          from "../mob/Mob.js";
+import Tower        from "../tower/Tower.js";
+
+// Utils
+import Sounds       from "../../../utils/Sounds.js";
+import List         from "../../../utils/List.js";
+
+
+
 /**
- * The Mobs Class
+ * Defender Mobs
  */
-class Mobs {
+export default class Mobs {
 
     /**
-     * The Mobs constructor
-     * @param {Score}  score
+     * Defender Mobs constructor
      * @param {Board}  board
      * @param {Panel}  panel
+     * @param {Score}  score
      * @param {Sounds} sounds
      * @param {Number} gameLevel
      */
-    constructor(score, board, panel, sounds, gameLevel) {
-        this.score      = score;
+    constructor(board, panel, score, sounds, gameLevel) {
         this.board      = board;
         this.panel      = panel;
+        this.score      = score;
         this.sounds     = sounds;
-        this.manager    = new MobsManager(this);
+        this.manager    = new Manager(this);
         this.create     = new Create(this);
         this.alerts     = new Alerts();
         this.paths      = new Paths(this);
@@ -87,14 +104,6 @@ class Mobs {
 
 
     /**
-     * Returns the list with the Mobs that are moving
-     * @returns {List}
-     */
-    get moving() {
-        return this.manager.moving;
-    }
-
-    /**
      * Removes the Mob when it's life is lower or equal to cero
      * @param {Mob} mob
      * @returns {Void}
@@ -105,8 +114,8 @@ class Mobs {
 
     /**
      * Adds all the mobs to one of the lists, if possible
-     * @param {Array.<Mob>} mobs
-     * @param {Tower}       tower
+     * @param {Mob[]} mobs
+     * @param {Tower} tower
      * @returns {Void}
      */
     addToList(mobs, tower) {

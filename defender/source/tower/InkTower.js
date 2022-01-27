@@ -1,11 +1,20 @@
+import Tower        from "./Tower.js";
+import InkAmmo      from "../ammo/InkAmmo.js";
+import Mob          from "../mob/Mob.js";
+
+// Utils
+import List         from "../../../utils/List.js";
+
+
+
 /**
- * The Ink Tower Class
+ * Defender Ink Tower
  * @extends {Tower}
  */
-class InkTower extends Tower {
+export default class InkTower extends Tower {
 
     /**
-     * The Ink Tower constructor
+     * Defender Ink Tower constructor
      * @param {Number} id
      * @param {Number} row
      * @param {Number} col
@@ -34,7 +43,7 @@ class InkTower extends Tower {
 
     /**
      * Creates a new Ammo
-     * @param {Array.<Mob>} targets
+     * @param {Mob[]} targets
      * @returns {InkAmmo}
      */
     createAmmo(targets) {
@@ -45,9 +54,9 @@ class InkTower extends Tower {
 
     /**
      * Returns a list of Mobs close to the given one
-     * @param {List.<Iterator>} mobs
-     * @param {Mob}             mob
-     * @returns {Array.<Array.<Mob>>}
+     * @param {List} mobs
+     * @param {Mob}  mob
+     * @returns {Mob[][]}
      */
     getTargets(mobs, mob) {
         return [ this.getCloseTargets(mobs, mob) ];

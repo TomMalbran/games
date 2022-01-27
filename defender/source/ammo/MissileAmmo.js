@@ -1,13 +1,19 @@
+import Ammo         from "./Ammo.js";
+import Tower        from "../tower/Tower.js";
+import Mob          from "../mob/Mob.js";
+
+
+
 /**
- * The Missile Ammo Class
+ * Defender Missile Ammo
  * @extends {Ammo}
  */
-class MissileAmmo extends Ammo {
+export default class MissileAmmo extends Ammo {
 
     /**
-     * The Missile Ammo constructor
+     * Defender Missile Ammo constructor
      * @param {Tower}  tower
-     * @param {Array}  targets
+     * @param {Mob[]}  targets
      * @param {Number} boardSize
      */
     constructor(tower, targets, boardSize) {
@@ -36,7 +42,7 @@ class MissileAmmo extends Ammo {
         this.changePos(time);
 
         if (this.decTimer(time)) {
-            this.tower.toggleAttack();
+            this.tower.toggleAttack(0);
             this.destroy();
             return true;
         }

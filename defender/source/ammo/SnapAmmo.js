@@ -1,13 +1,19 @@
+import Ammo         from "./Ammo.js";
+import Tower        from "../tower/Tower.js";
+import Mob          from "../mob/Mob.js";
+
+
+
 /**
- * The Snap Ammo Class
+ * Defender Snap Ammo
  * @extends {Ammo}
  */
-class SnapAmmo extends Ammo {
+export default class SnapAmmo extends Ammo {
 
     /**
-     * The Snap Ammo constructor
-     * @param {Tower} tower
-     * @param {Array} targets
+     * Defender Snap Ammo constructor
+     * @param {Tower}  tower
+     * @param {Mob[]}  targets
      * @param {Number} boardSize
      */
     constructor(tower, targets, boardSize) {

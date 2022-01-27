@@ -1,10 +1,20 @@
+import Towers       from "./Towers.js";
+import Factory      from "../Factory.js";
+import Tower        from "../tower/Tower.js";
+import Data         from "../maps/Data.js";
+
+// Utils
+import List         from "../../../utils/List.js";
+
+
+
 /**
- * The Towers Manager Class
+ * Defender Towers Manager
  */
-class TowersManager {
+export default class Manager {
 
     /**
-     * The Towers Manager constructor
+     * Defender Towers Manager constructor
      * @param {Towers} parent
      */
     constructor(parent) {
@@ -13,7 +23,7 @@ class TowersManager {
         this.upgrading = new List();
         this.selling   = new List();
         this.shooting  = new List();
-        this.count     = MapsData.towerStart;
+        this.count     = Data.towerStart;
 
         this.container = document.querySelector(".defenses");
         this.container.innerHTML = "";
@@ -22,11 +32,11 @@ class TowersManager {
     /**
      * Adds the given Tower to the list to the List
      * @param {{type: String, row: Number, col: Number}} data
-     * @returns {Void}
+     * @returns {Tower}
      */
     add(data) {
         this.count += 1;
-        const tower = Tower.create(data.type, this.count, data.row, data.col, MapsData.squareSize);
+        const tower = Factory.createTower(data.type, this.count, data.row, data.col, Data.squareSize);
         this.list[this.count] = tower;
         return tower;
     }
@@ -53,7 +63,7 @@ class TowersManager {
 
     /**
      * Build the given Tower
-     * @param {{type: String, row: Number, col: Number, content: String}} data
+     * @param {{type: String, row: Number, col: Number, level: Number}} data
      * @returns {Tower}
      */
     build(data) {
@@ -68,7 +78,7 @@ class TowersManager {
             tower.setLists(this.parent.ranges.add(tower));
             this.addBoost(tower);
             this.parent.score.decGold(tower.actualCost);
-            this.parent.sounds.build();
+            this.parent.sounds.play("build");
         }
         return tower;
     }
@@ -103,7 +113,7 @@ class TowersManager {
             }
         });
         this.parent.sounds.endMute();
-        this.parent.sounds.sell();
+        this.parent.sounds.play("sell");
     }
 
     /**
@@ -131,7 +141,7 @@ class TowersManager {
      */
     processSale(tower) {
         this.parent.score.incGold(tower.getPrice(this.parent.hasStarted));
-        this.parent.sounds.sell();
+        this.parent.sounds.play("sell");
         this.destroyTower(tower);
     }
 
@@ -151,7 +161,7 @@ class TowersManager {
 
         this.parent.selection.showDescription(tower.id);
         this.parent.board.upgradeTower(tower);
-        this.parent.sounds.upgrade();
+        this.parent.sounds.play("upgrade");
     }
 
 
@@ -192,8 +202,8 @@ class TowersManager {
      * @returns {Void}
      */
     boostTower(tower) {
-        tower.lists.towers.forEach((element) => {
-            this.get(element).addBoost(tower.actualDamage);
+        tower.lists.towers.forEach((towerID) => {
+            this.get(towerID).addBoost(tower.actualDamage);
         });
     }
 
@@ -207,7 +217,7 @@ class TowersManager {
         let   boost = 0;
 
         list.forEach((element) => {
-            const btower = self.get(element);
+            const btower = this.get(element);
             btower.lists.towers.push(tower.id);
             boost += btower.actualDamage;
         });
@@ -224,8 +234,8 @@ class TowersManager {
      */
     removeBoost(tower) {
         if (tower.isBoost) {
-            tower.lists.towers.forEach((element) => {
-                const subtower = this.get(element);
+            tower.lists.towers.forEach((towerID) => {
+                const subtower = this.get(towerID);
                 if (subtower) {
                     subtower.addBoost(-tower.actualDamage);
                 }
@@ -308,20 +318,22 @@ class TowersManager {
      * @returns {Void}
      */
     decShoots(time) {
-        if (!this.shooting.isEmpty) {
-            const it = this.shooting.iterate();
-            while (it.hasNext()) {
-                const tower = this.list[it.getNext()];
+        if (this.shooting.isEmpty) {
+            return;
+        }
+        const it = this.shooting.iterate();
+        while (it.hasNext()) {
+            /** @type {Tower} */
+            const tower = this.list[it.getNext()];
 
-                if (tower.decTimer(time)) {
-                    if (!tower.isLoading) {
-                        this.parent.ranges.endShoot(tower);
-                    }
-                    tower.endShoot();
-                    it.removeNext();
-                } else {
-                    it.next();
+            if (tower.decTimer(time)) {
+                if (!tower.isLoading) {
+                    this.parent.ranges.endShoot(tower);
                 }
+                tower.endShoot();
+                it.removeNext();
+            } else {
+                it.next();
             }
         }
     }
@@ -330,8 +342,7 @@ class TowersManager {
 
     /**
      * Returns true when there are no towers
-     * @param {Boolean}
-     * @returns {Void}
+     * @returns {Boolean}
      */
     get isEmpty() {
         return this.list.length === 0;

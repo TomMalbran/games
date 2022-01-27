@@ -1,10 +1,18 @@
+import Towers       from "./Towers.js";
+import Tower        from "../tower/Tower.js";
+
+// Utils
+import Utils        from "../../../utils/Utils.js";
+
+
+
 /**
- * The Tower Selection Class
+ * Defender Towers Selection
  */
-class Selection {
+export default class Selection {
 
     /**
-     * The Tower Selection constructor
+     * Defender Towers Selection constructor
      * @param {Towers} parent
      */
     constructor(parent) {
@@ -20,14 +28,15 @@ class Selection {
 
     /**
      * Selects the Tower with the given element, if the target is not in the range
-     * @param {Event} event
-     * @param {DOMEvent} element
+     * @param {MouseEvent}  event
+     * @param {HTMLElement} element
      */
     select(event, element) {
-        if (event.target.classList.contains("towerRange")) {
+        const target = Utils.getElement(event);
+        if (target.classList.contains("towerRange")) {
             this.drop();
         } else {
-            const id    = element.dataset.id;
+            const id    = Number(element.dataset.id);
             const tower = this.parent.manager.get(id);
             this.pick(tower);
         }
@@ -49,7 +58,7 @@ class Selection {
             this.tower.toggleSelect(true);
 
             this.parent.panel.showTower(this.tower, this.parent.score.gold);
-            this.enableUpgrades();
+            this.enableUpgrades(this.parent.score.gold);
         }
     }
 
@@ -116,7 +125,8 @@ class Selection {
         const pos   = this.tower ? ids.indexOf(String(this.tower.id)) : (add < 0 ? ids.length : -1);
         const added = (pos + add) % ids.length;
         const index = added < 0 ? ids.length + added : added;
-        const tower = this.parent.manager.get(ids[index]);
+        const id    = Number(ids[index]);
+        const tower = this.parent.manager.get(id);
 
         this.pick(tower);
     }
@@ -125,7 +135,7 @@ class Selection {
 
     /**
      * Shows the Tower Description
-     * @param {?Number} id
+     * @param {Number=} id
      * @returns {Void}
      */
     showDescription(id) {
@@ -136,7 +146,7 @@ class Selection {
 
     /**
      * Hides the Tower Description
-     * @param {?Number} id
+     * @param {Number=} id
      * @returns {Void}
      */
     hideDescription(id) {

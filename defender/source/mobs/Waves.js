@@ -1,15 +1,23 @@
+import Mobs         from "./Mobs.js";
+import Factory      from "../Factory.js";
+
+// Utils
+import Utils        from "../../../utils/Utils.js";
+
+
+
 /**
- * The Mobs Waves Class
+ * Defender Mobs Waves
  */
-class Waves {
+export default class Waves {
 
     /**
-     * The Mobs Waves constructor
+     * Defender Mobs Waves constructor
      * @param {Mobs} parent
      */
     constructor(parent) {
         this.waves = [
-            "Normal",    "Inmune", "Group",  "Fast",   "Normal", "Spawn",  "Flying", "NormalBoss",
+            "Arrow",    "Inmune", "Group",  "Fast",   "Normal", "Spawn",  "Flying", "NormalBoss",
             "Inmune",    "Group",  "Arrow",  "Normal", "Spawn",  "Flying", "Normal", "InmuneBoss",
             "Group",     "Arrow",  "Dark",   "Spawn",  "Flying", "Normal", "Inmune", "GroupBoss",
             "Arrow",     "Dark",   "Spawn",  "Flying", "Decoy",  "Hopper", "Morph",  "FastBoss",
@@ -22,6 +30,8 @@ class Waves {
         this.container = document.querySelector(".waves");
         this.waver     = document.querySelector(".currentWave");
         this.total     = document.querySelector(".totalWaves");
+
+        /** @type {HTMLElement} */
         this.button    = document.querySelector(".nextButton");
 
         this.maxWaves  = 3;
@@ -40,7 +50,7 @@ class Waves {
         }
 
         this.button.style.display = "";
-        this.total.innerHTML      = this.waves.length;
+        this.total.innerHTML      = String(this.waves.length);
     }
 
 
@@ -70,7 +80,7 @@ class Waves {
             lastWave : this.isLastWave()
         });
         this.parent.score.startTimer();
-        this.parent.sounds.enter();
+        this.parent.sounds.play("enter");
     }
 
     /**
@@ -128,7 +138,7 @@ class Waves {
      * @returns {Void}
      */
     createElement(add) {
-        const mob = Mob.create(this.getType(add), { boss : this.isBossWave(add) });
+        const mob = Factory.createMob(this.getType(add), { boss : this.isBossWave(add) });
         const div = document.createElement("DIV");
 
         div.style.backgroundColor = mob.color;
@@ -177,20 +187,20 @@ class Waves {
 
     /**
      * Returns the type of the current + add wave
-     * @param {Number} add
+     * @param {Number=} add
      * @returns {String}
      */
-    getType(add) {
-        return this.waves[this.wave + (add || 0)].replace("Boss", "");
+    getType(add = 0) {
+        return this.waves[this.wave + add].replace("Boss", "");
     }
 
     /**
      * Returns true if the wave of the current + add is a boss wave
-     * @param {Number} add
+     * @param {Number=} add
      * @returns {Boolean}
      */
-    isBossWave(add) {
-        return this.waves[this.wave + (add || 0)].includes("Boss");
+    isBossWave(add = 0) {
+        return this.waves[this.wave + add].includes("Boss");
     }
 
     /**
@@ -205,7 +215,7 @@ class Waves {
 
     /**
      * Returns true if this is the last wave
-     * @returns {Void}
+     * @returns {Boolean}
      */
     isLastWave() {
         return this.wave + 1 === this.waves.length;
@@ -216,6 +226,6 @@ class Waves {
      * @returns {Void}
      */
     setWave() {
-        this.waver.innerHTML = this.wave + 1;
+        this.waver.innerHTML = String(this.wave + 1);
     }
 }

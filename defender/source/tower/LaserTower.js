@@ -1,11 +1,20 @@
+import Tower        from "./Tower.js";
+import LaserAmmo    from "../ammo/LaserAmmo.js";
+import Mob          from "../mob/Mob.js";
+
+// Utils
+import List         from "../../../utils/List.js";
+
+
+
 /**
- * The Laser Tower Class
+ * Defender Laser Tower
  * @extends {Tower}
  */
-class LaserTower extends Tower {
+export default class LaserTower extends Tower {
 
     /**
-     * The Laser Tower Class
+     * Defender Laser Tower Class
      * @param {Number} id
      * @param {Number} row
      * @param {Number} col
@@ -33,8 +42,8 @@ class LaserTower extends Tower {
 
     /**
      * Creates a new Ammo
-     * @param {Array.<Mob>} targets
-     * @param {Number}      index
+     * @param {Mob[]}  targets
+     * @param {Number} index
      * @returns {LaserAmmo}
      */
     createAmmo(targets, index) {
@@ -45,9 +54,9 @@ class LaserTower extends Tower {
 
     /**
      * Returns a list of Mobs in a lineal range of the tower
-     * @param {List.<Iterator>} mobs
-     * @param {Mob}             mob
-     * @returns {Array.<Array.<Mob>>}
+     * @param {List} mobs
+     * @param {Mob}  mob
+     * @returns {Mob[][]}
      */
     getTargets(mobs, mob) {
         const angle = this.getMobAngle(mob);
@@ -56,13 +65,14 @@ class LaserTower extends Tower {
 
     /**
      * Returns a list with the targets in the same line as the position of the tower canon
-     * @param {Array.<Mob>} mobs
-     * @param {Number}      angle
-     * @returns {Array.<Mob>}
+     * @param {List}   mobs
+     * @param {Number} angle
+     * @returns {Mob[]}
      */
     getLinealTargets(mobs, angle) {
         const list = [];
         mobs.forEach((it) => {
+            /** @type {Mob} */
             const mob        = it.getPrev();
             const inRange    = this.inRange(mob, 3);
             const validAngle = this.validAngle(angle, this.getMobAngle(mob));
@@ -83,22 +93,6 @@ class LaserTower extends Tower {
      */
     isValidTarget(mob) {
         const angle = this.getMobAngle(mob);
-        return !this.locked || this.validAngle(this.angle, angle);
-    }
-
-    /**
-     * Rotates the Tower and Ammo right after it starts shooting
-     * @param {Mob} mob
-     * @param {Ammo} ammo
-     * @returns {Void}
-     */
-    setAngle(mob, ammo) {
-        let angle = this.getMobAngle(mob);
-        if (this.locked) {
-            angle = this.angle;
-        } else {
-            this.rotateCanon(angle);
-        }
-        ammo.rotate(angle);
+        return !this.isLocked || this.validAngle(this.angle, angle);
     }
 }

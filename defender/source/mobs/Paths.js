@@ -1,20 +1,34 @@
+import Mobs         from "./Mobs.js";
+import Mob          from "../mob/Mob.js";
+import Data         from "../maps/Data.js";
+
+// Utils
+import AStar        from "../../../utils/AStar.js";
+import Utils        from "../../../utils/Utils.js";
+
+
+
 /**
- * The Mobs Paths Class
+ * Defender Mobs Paths
  */
-class Paths {
+export default class Paths {
 
     /**
-     * The Mobs Paths constructor
+     * Defender Mobs Paths constructor
      * @param {Mobs} parent
      */
     constructor(parent) {
         this.parent      = parent;
-        this.element     = document.querySelector(".path");
-        this.blocker     = document.querySelector(".blocking");
         this.normalPaths = {};
         this.flyerPaths  = {};
         this.mobs        = {};
         this.arrows      = {};
+
+        /** @type {HTMLElement} */
+        this.element     = document.querySelector(".path");
+
+        /** @type {HTMLElement} */
+        this.blocker     = document.querySelector(".blocking");
 
         this.createPaths();
         this.createFlyersPaths();
@@ -51,8 +65,8 @@ class Paths {
 
     /**
      * Creates the Paths for non-flyer mobs
-     * @param {Object.<Array.<[Number, Number]>>}
-     * @returns {Void}
+     * @param {Object} paths
+     * @returns {Boolean}
      */
     createNormalPaths(paths) {
         const starts  = this.parent.board.starts;
@@ -61,9 +75,11 @@ class Paths {
 
         return starts.some((list, i) => {
             return list.some((start, j) => {
-                return [0, 1].some((k) => {
-                    const cell  = this.getCellName(start.pos[0], start.pos[1], k);
-                    paths[cell] = new AStar(matrix, start.pos, targets[i][j].pos, this.getType(k), MapsData.wall);
+                return [ false, true ].some((free) => {
+                    const cell      = this.getCellName(start.col, start.row, free);
+                    const startPos  = { x: start.col, y: start.row };
+                    const targetPos = { x: targets[i][j].col, y: targets[i][j].row };
+                    paths[cell]     = AStar(matrix, startPos, targetPos, this.getType(free), Data.wall);
 
                     if (paths[cell].length === 0) {
                         return true;
@@ -76,24 +92,25 @@ class Paths {
     /**
      * Creates special Paths that start on the mobs location and goes to its previows target.
      * This is used when creating towers while playing
-     * @param {Object.<Array.<[Number, Number]>>}
-     * @returns {Void}
+     * @param {Object} paths
+     * @returns {Boolean}
      */
     createMobsPaths(paths) {
-        if (!this.parent.manager.isEmpty) {
-            this.parent.manager.list.forEach((mob) => {
-                const cell = this.getCellName(mob.col, mob.row, mob.isHopper);
-
-                if (this.parent.board.inMatrix(mob.row, mob.col) && !mob.isFlyer) {
-                    paths[cell] = this.createMobPath(mob);
-                    if (paths[cell].length === 0) {
-                        return true;
-                    }
-                    this.mobs[mob.id] = cell;
-                }
-            });
+        if (this.parent.manager.isEmpty) {
             return false;
         }
+        this.parent.manager.list.forEach((mob) => {
+            const cell = this.getCellName(mob.col, mob.row, mob.isHopper);
+
+            if (this.parent.board.inMatrix(mob.row, mob.col) && !mob.isFlyer) {
+                paths[cell] = this.createMobPath(mob);
+                if (paths[cell].length === 0) {
+                    return true;
+                }
+                this.mobs[mob.id] = cell;
+            }
+        });
+        return false;
     }
 
     /**
@@ -107,13 +124,13 @@ class Paths {
 
         starts.forEach((list, i) => {
             list.forEach((start, j) => {
-                const p = this.getCellName(start.pos[0], start.pos[1], false);
-                const x = targets[i][j].pos[0] - start.pos[0];
-                const y = targets[i][j].pos[1] - start.pos[1];
-                const h = Math.hypot(x, y);
-                const d = Utils.calcAngle(x, y);
+                const cell = this.getCellName(start.col, start.row, false);
+                const x    = targets[i][j].col - start.col;
+                const y    = targets[i][j].row - start.row;
+                const h    = Math.hypot(x, y);
+                const deg  = Utils.calcAngle(x, y);
 
-                this.flyerPaths[p] = { dir: { top: y / h, left: x / h }, deg: d };
+                this.flyerPaths[cell] = { dir: { top: y / h, left: x / h }, deg };
             });
         });
     }
@@ -156,14 +173,15 @@ class Paths {
     /**
      * Creates a path for the given mob
      * @param {Mob} mob
-     * @returns {Array.<[Number, Number]>}
+     * @returns {{x: Number, y: Number}[]}
      */
     createMobPath(mob) {
-        const start  = [ mob.col, mob.row ];
-        const matrix = this.parent.board.matrix;
-        const type   = this.getType(mob.isHopper);
+        const matrix    = this.parent.board.matrix;
+        const type      = this.getType(mob.isHopper);
+        const startPos  = { x: mob.col, y: mob.row };
+        const targetPos = { x: mob.target.col, y: mob.target.row };
 
-        return new AStar(matrix, start, mob.targetPos, type, MapsData.wall);
+        return AStar(matrix, startPos, targetPos, type, Data.wall);
     }
 
 
@@ -174,7 +192,7 @@ class Paths {
      */
     blocking() {
         this.blocker.style.display = "block";
-        this.parent.sounds.blocking();
+        this.parent.sounds.play("blocking");
 
         window.setTimeout(() => {
             this.blocker.style.display = "none";
@@ -191,8 +209,8 @@ class Paths {
         Object.keys(this.normalPaths).forEach((name) => {
             if (name.substr(-1) !== "f") {
                 this.normalPaths[name].forEach((path, pos) => {
-                    const row  = path[1];
-                    const col  = path[0];
+                    const row  = path.y;
+                    const col  = path.x;
                     const cell = this.getCellName(col, row, false);
 
                     if (!this.arrows[cell] && !this.parent.board.isTarget(row, col)) {
@@ -222,11 +240,11 @@ class Paths {
      * @returns {Void}
      */
     createElement(path, pos, row, col) {
-        const angle   = this.getDeg(this.getPathDir(path, pos, false));
+        const angle   = this.getDeg(this.getPathDir(path, pos));
         const element = document.createElement("DIV");
 
-        element.style.top       = Utils.toPX(row * MapsData.squareSize);
-        element.style.left      = Utils.toPX(col * MapsData.squareSize);
+        element.style.top       = Utils.toPX(row * Data.squareSize);
+        element.style.left      = Utils.toPX(col * Data.squareSize);
         element.style.transform = Utils.rotate(angle);
 
         this.element.appendChild(element);
@@ -283,8 +301,8 @@ class Paths {
             return { top: null, left: null };
         }
         return {
-            top  : this.normalPaths[path][pos + 1][1] - this.normalPaths[path][pos][1],
-            left : this.normalPaths[path][pos + 1][0] - this.normalPaths[path][pos][0]
+            top  : this.normalPaths[path][pos + 1].y - this.normalPaths[path][pos].y,
+            left : this.normalPaths[path][pos + 1].x - this.normalPaths[path][pos].x,
         };
     }
 
@@ -328,7 +346,7 @@ class Paths {
         }
         const path = this.normalPaths[mob.path][mob.pointer + 1];
         if (path) {
-            return path[0] === col && path[1] === row;
+            return path.x === col && path.y === row;
         }
         return false;
     }

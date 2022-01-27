@@ -1,27 +1,42 @@
+import Builder      from "./Builder.js";
+import Manager      from "./Manager.js";
+import Ranges       from "./Ranges.js";
+import Selection    from "./Selection.js";
+import Shooter      from "./Shooter.js";
+import Board        from "../Board.js";
+import Panel        from "../Panel.js";
+import Score        from "../Score.js";
+import Mobs         from "../mobs/Mobs.js";
+
+// Utils
+import Sounds       from "../../../utils/Sounds.js";
+
+
+
 /**
- * The Towers Class
+ * Defender Towers
  */
-class Towers {
+export default class Towers {
 
     /**
-     * The Towers constructor
-     * @param {Score}  score
+     * Defender Towers constructor
      * @param {Board}  board
      * @param {Panel}  panel
+     * @param {Score}  score
      * @param {Mobs}   mobs
      * @param {Sounds} sounds
      */
-    constructor(score, board, panel, mobs, sounds) {
-        this.score      = score;
+    constructor(board, panel, score, mobs, sounds) {
         this.board      = board;
         this.panel      = panel;
+        this.score      = score;
         this.mobs       = mobs;
         this.sounds     = sounds;
-        this.manager    = new TowersManager(this);
-        this.shooter    = new Shooter(this);
         this.builder    = new Builder(this);
-        this.selection  = new Selection(this);
+        this.manager    = new Manager(this);
         this.ranges     = new Ranges(this);
+        this.selection  = new Selection(this);
+        this.shooter    = new Shooter(this);
         this.hasStarted = false;
 
         this.score.setFunctions(() => this.enable(), () => this.disable());
@@ -172,7 +187,7 @@ class Towers {
             const tower = this.selection.tower;
 
             if (tower.canFire && tower.canDestroy) {
-                this.shooter.processShot(tower);
+                this.shooter.processShot(tower, null);
                 this.selection.hideDescription();
             }
         }

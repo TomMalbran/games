@@ -1,11 +1,15 @@
+import Mob          from "./Mob.js";
+
+
+
 /**
- * The Group Mob Class
+ * Defender Group Mob
  * @extends {Mob}
  */
-class GroupMob extends Mob {
+export default class GroupMob extends Mob {
 
     /**
-     * The Group Mob constructor
+     * Defender Group Mob constructor
      * @param {Object} data
      */
     constructor(data) {

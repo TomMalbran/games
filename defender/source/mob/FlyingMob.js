@@ -1,11 +1,15 @@
+import Mob          from "./Mob.js";
+
+
+
 /**
- * The Flying Mob Class
+ * Defender Flying Mob
  * @extends {Mob}
  */
-class FlyingMob extends Mob {
+export default class FlyingMob extends Mob {
 
     /**
-     * The Flying Mob constructor
+     * Defender Flying Mob constructor
      * @param {Object} data
      */
     constructor(data) {

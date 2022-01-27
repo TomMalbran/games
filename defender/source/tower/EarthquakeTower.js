@@ -1,11 +1,21 @@
+import Tower          from "./Tower.js";
+import EarthquakeAmmo from "../ammo/EarthquakeAmmo.js";
+import Mob            from "../mob/Mob.js";
+
+// Utils
+import List           from "../../../utils/List.js";
+import Utils          from "../../../utils/Utils.js";
+
+
+
 /**
- * The Earthquake Tower Class
+ * Defender Earthquake Tower
  * @extends {Tower}
  */
-class EarthquakeTower extends Tower {
+export default class EarthquakeTower extends Tower {
 
     /**
-     * The Earthquake Tower constructor
+     * Defender Earthquake Tower constructor
      * @param {Number} id
      * @param {Number} row
      * @param {Number} col
@@ -33,10 +43,11 @@ class EarthquakeTower extends Tower {
 
     /**
      * Creates a new Ammo
-     * @param {Array.<Mob>} targets
+     * @param {Mob[]}  targets
+     * @param {Number} index
      * @returns {EarthquakeAmmo}
      */
-    createAmmo(targets) {
+    createAmmo(targets, index) {
         return new EarthquakeAmmo(this, targets, this.boardSize);
     }
 
@@ -44,9 +55,9 @@ class EarthquakeTower extends Tower {
 
     /**
      * Returns a list of Mobs in the range of the tower
-     * @param {List.<Iterator>} mobs
-     * @param {Mob} mob
-     * @returns {Array.<Array.<Mob>>}
+     * @param {List} mobs
+     * @param {Mob}  mob
+     * @returns {Mob[][]}
      */
     getTargets(mobs, mob) {
         return [ this.getRangeTargets(mobs) ];

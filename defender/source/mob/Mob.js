@@ -1,10 +1,37 @@
+import List, { Iterator } from "../../../utils/List.js";
+import Utils              from "../../../utils/Utils.js";
+
+
+
 /**
- * The Mob Base Class
+ * Defender Mob
  */
-class Mob {
+export default class Mob {
 
     /**
-     * The Mob Base constructor
+     * Defender Mob constructor
+     */
+    constructor() {
+        this.name      = "";
+        this.slogan    = "";
+        this.text      = "";
+        this.color     = "";
+        this.childName = "";
+        this.content   = "";
+
+        this.lifeMult  = 0;
+        this.bosses    = 0;
+        this.amount    = 0;
+        this.defense   = 0;
+        this.baseSpeed = 0;
+        this.interval  = 0;
+        this.isFlyer   = false;
+        this.isHopper  = false;
+        this.isInmune  = false;
+    }
+
+    /**
+     * Defender Mob initializer
      * @param {Object} data
      * @returns {Void}
      */
@@ -41,8 +68,7 @@ class Mob {
         this.angle       = this.isFlyer ? data.angle : data.deg;
         this.path        = data.path;
         this.pointer     = 0;
-        this.targetPos   = data.targetPos;
-        this.targetValue = data.targetValue;
+        this.target      = data.target;
 
         this.moveIt      = null;
         this.spawning    = 0;
@@ -64,26 +90,40 @@ class Mob {
 
     /**
      * Creates the element for the Mob
-     * @returns {DOMElement}
+     * @returns {HTMLElement}
      */
     createElement() {
         this.element = document.createElement("DIV");
-
         this.element.dataset.id    = this.id;
         this.element.className     = "mob";
         this.element.style.display = "none";
         this.element.style.top     = Utils.toPX(this.top);
         this.element.style.left    = Utils.toPX(this.left);
-        this.element.style.zIndex  = this.isFlyer ? 2 : 1;
-        this.element.innerHTML     = `
-            <div class="mobDeath"><div class="mobLife"></div></div>
-            <div class="mobSlow"></div>
-            <div class="mobBleed"></div>
-            <div class="mobBody" data-type="mob">${this.content}</div>
-        `;
+        this.element.style.zIndex  = String(this.isFlyer ? 2 : 1);
 
-        this.mbody    = this.element.querySelector(".mobBody");
-        this.lifeElem = this.element.querySelector(".mobLife");
+        const mobDeath = document.createElement("DIV");
+        mobDeath.className = "mobDeath";
+
+        this.lifeElem = document.createElement("DIV");
+        this.lifeElem.className = "mobLife";
+        mobDeath.appendChild(this.lifeElem);
+
+        const mobSlow = document.createElement("DIV");
+        mobSlow.className = "mobSlow";
+
+        const mobBleed = document.createElement("DIV");
+        mobBleed.className = "mobBleed";
+
+        this.mbody = document.createElement("DIV");
+        this.mbody.className    = "mobBody";
+        this.mbody.dataset.type = "mob";
+        this.mbody.innerHTML    = this.content;
+
+        this.element.appendChild(mobDeath);
+        this.element.appendChild(mobSlow);
+        this.element.appendChild(mobBleed);
+        this.element.appendChild(this.mbody);
+
         this.setTransform();
 
         return this.element;
@@ -94,7 +134,7 @@ class Mob {
     /**
      * Decreases the Creation time. Once it reaches cero the mob will start moving in the board
      * @param {Number} time
-     * @returns {Void}
+     * @returns {Boolean}
      */
     decTimer(time) {
         this.timer -= time;
@@ -114,7 +154,7 @@ class Mob {
 
     /**
      * Moves the Mob according to the given speed
-     * @param {Number} spped
+     * @param {Number} speed
      * @returns {Void}
      */
     move(speed) {
@@ -144,8 +184,8 @@ class Mob {
 
     /**
      * Makes the mob change its direction
-     * @param {{top: Number, left: Number}}
-     * @param {Number} deg
+     * @param {{top: Number, left: Number}} dir
+     * @param {Number=} deg
      * @returns {Void}
      */
     turn(dir, deg) {
@@ -171,7 +211,7 @@ class Mob {
     /**
      * Gives the Mob a new path and direction
      * @param {String} path
-     * @param {{top: Number, left: Number}}
+     * @param {{top: Number, left: Number}} newDir
      * @returns {Void}
      */
     newPath(path, newDir) {
@@ -245,7 +285,7 @@ class Mob {
     /**
      * Mobs the mob slowly to the new position. Returns true when it reached this position
      * @param {Number} time
-     * @returns {Void}
+     * @returns {Boolean}
      */
     moveSpawn(time) {
         const top  = this.top  + this.getDist(this.spawnTo.top  - this.top, time);
@@ -270,7 +310,7 @@ class Mob {
     /**
      * Calculates the distance to move the mob depending on the time
      * @param {Number} time
-     * @returns {Void}
+     * @returns {Number}
      */
     getDist(dist, time) {
         return dist * time / this.spawning;
@@ -280,13 +320,13 @@ class Mob {
 
     /**
      * Starts a slow period where the speed of the mob is reduced by halth
-     * @param {Iterator}
+     * @param {Iterator} it
      * @returns {Void}
      */
     startSlow(it) {
         this.slowed      = this.slowTime;
         this.slowIt      = it;
-        this.actualSpeed = this.speed * 0.5;
+        this.actualSpeed = this.baseSpeed * 0.5;
         this.element.classList.add("slowed");
     }
 
@@ -306,7 +346,7 @@ class Mob {
      */
     endSlow() {
         this.slowIt      = null;
-        this.actualSpeed = this.speed;
+        this.actualSpeed = this.baseSpeed;
         this.element.classList.remove("slowed");
     }
 
@@ -322,7 +362,7 @@ class Mob {
 
     /**
      * Starts a stun period, where the mob can't move for some time
-     * @param {Iterator}
+     * @param {Iterator} it
      * @returns {Void}
      */
     startStun(it) {
@@ -356,7 +396,7 @@ class Mob {
     endStun() {
         this.stunIt      = null;
         this.translate   = 0;
-        this.actualSpeed = this.speed;
+        this.actualSpeed = this.baseSpeed;
         this.setTransform();
     }
 
@@ -395,7 +435,7 @@ class Mob {
      * Decreases the bleed timers for all the bleeds and reduces the hit points of the mob.
      * Returns true once the bleed list is empty
      * @param {Number} time
-     * @returns {Void}
+     * @returns {Boolean}
      */
     decBleed(time) {
         if (!this.bleed.isEmpty) {
@@ -439,7 +479,7 @@ class Mob {
 
     /**
      * Rotates, scales and/or translates the mob
-     * @param {Number} angle
+     * @param {Number=} angle
      * @returns {Void}
      */
     setTransform(angle) {
@@ -541,7 +581,7 @@ class Mob {
 
     /**
      * Decreases the hit points of the mob, right after a ammo leaves a tower
-     * @param {Number}
+     * @param {Number} points
      * @returns {Void}
      */
     decHitPoints(points) {
@@ -624,32 +664,5 @@ class Mob {
      */
     getCreationTimer(pos) {
         return (this.interval * pos) + Utils.rand(0, this.interval);
-    }
-
-
-
-    /**
-     * Creates a new Mob given is type
-     * @param {String} type
-     * @param {...}    params
-     * @returns {Mob}
-     */
-    static create(type, ...params) {
-        const Mob = {
-            Normal     : NormalMob,
-            Inmune     : InmuneMob,
-            Group      : GroupMob,
-            Fast       : FastMob,
-            Spawn      : SpawnMob,
-            SpawnChild : SpawnChild,
-            Flying     : FlyingMob,
-            Arrow      : ArrowMob,
-            Dark       : DarkMob,
-            Decoy      : DecoyMob,
-            DecoyChild : DecoyChild,
-            Hopper     : HopperMob,
-            Morph      : MorphMob
-        };
-        return new Mob[type](...params);
     }
 }

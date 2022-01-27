@@ -1,13 +1,19 @@
+import Ammo         from "./Ammo.js";
+import Tower        from "../tower/Tower.js";
+import Mob          from "../mob/Mob.js";
+
+
+
 /**
- * The Frost Ammo Class
+ * Defender Frost Ammo
  * @extends {Ammo}
  */
-class FrostAmmo extends Ammo {
+export default class FrostAmmo extends Ammo {
 
     /**
-     * The Frost Ammo constructor
-     * @param {Tower} tower
-     * @param {Array} targets
+     * Defender Frost Ammo constructor
+     * @param {Tower}  tower
+     * @param {Mob[]}  targets
      * @param {Number} boardSize
      */
     constructor(tower, targets, boardSize) {

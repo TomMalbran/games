@@ -1,10 +1,17 @@
+import Data         from "./Data.js";
+
+// Utils
+import Storage      from "../../../utils/Storage.js";
+
+
+
 /**
- * The Maps Class
+ * Defender Maps
  */
-class Maps {
+export default class Maps {
 
     /**
-     * The Maps constructor
+     * Defender Maps constructor
      */
     constructor() {
         this.maps    = document.querySelector(".maps");
@@ -23,12 +30,12 @@ class Maps {
      */
     codeToMap(code) {
         let map = "classic";
-        if (MapsData.maps[code]) {
+        if (Data.maps[code]) {
             return code;
         }
 
-        Object.keys(MapsData.maps).some((name) => {
-            if (MapsData.maps[name].index === String(code)) {
+        Object.keys(Data.maps).some((name) => {
+            if (Data.maps[name].index === String(code)) {
                 map = name;
                 return true;
             }
@@ -75,17 +82,17 @@ class Maps {
         let total = 0;
         this.maps.innerHTML = "";
 
-        Object.keys(MapsData.maps).forEach((id) => {
+        Object.keys(Data.maps).forEach((id) => {
             const score   = this.storage.get(`${id}.score`) || 0;
             const won     = this.storage.get(`${id}.won`);
             const element = document.createElement("button");
 
             element.dataset.action = "selectLevel";
             element.dataset.data   = id;
-            element.dataset.name   = MapsData.maps[id].name;
+            element.dataset.name   = Data.maps[id].name;
             element.dataset.score  = score;
             element.className      = won ? "navButton" : "menuButton";
-            element.innerHTML      = MapsData.maps[id].index;
+            element.innerHTML      = Data.maps[id].index;
 
             this.maps.appendChild(element);
             total += score;

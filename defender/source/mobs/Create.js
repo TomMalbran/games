@@ -1,14 +1,24 @@
+import Mobs         from "./Mobs.js";
+import Factory      from "../Factory.js";
+import Mob          from "../mob/Mob.js";
+import Data         from "../maps/Data.js";
+
+// Utils
+import Utils        from "../../../utils/Utils.js";
+
+
+
 /**
- * The Mobs Create Class
+ * Defender Mobs Create
  */
-class Create {
+export default class Create {
 
     /**
-     * The Mobs Create constructor
+     * Defender Mobs Create constructor
      * @param {Mobs} parent
      */
     constructor(parent) {
-        this.moveDirs = [[0,1], [1,1], [1,0], [1,-1], [0,-1], [-1,-1], [-1,0], [-1,1], [0,0]];
+        this.moveDirs = [ [0, 1], [1, 1], [1, 0], [1, -1], [0,-1], [-1,-1], [-1,0], [-1,1], [0,0] ];
 
         this.parent   = parent;
         this.monsters = document.querySelector(".monsters");
@@ -21,7 +31,7 @@ class Create {
     /**
      * Creates the Mobs for all the starts
      * @param {{type: String, isBoss: Boolean, wave: Number, lastWave: Boolean}} data
-     * @returns {Void}
+     * @returns {Number}
      */
     mobs(data) {
         const starts  = this.parent.board.starts;
@@ -37,9 +47,9 @@ class Create {
     /**
      * For a single path, it creates all the required Mobs
      * @param {{type: String, isBoss: Boolean, wave: Number, lastWave: Boolean}} data
-     * @param {Array.<Array.<[Number, Number]>>} starts
-     * @param {Array.<Array.<[Number, Number]>>} targets
-     * @returns {Void}
+     * @param {{col: Number, row: Number, value: Number}[]} starts
+     * @param {{col: Number, row: Number, value: Number}[]} targets
+     * @returns {Number}
      */
     createMobs(data, starts, targets) {
         const mobs = [];
@@ -48,28 +58,27 @@ class Create {
 
         do {
             const pos   = Utils.rand(0, starts.length - 1);
-            const start = starts[pos].pos;
-            const path  = this.parent.paths.getCellName(start[0], start[1], data.type === "Hopper");
+            const start = starts[pos];
+            const path  = this.parent.paths.getCellName(start.col, start.row, data.type === "Hopper");
             const dir   = this.parent.paths.getMobDir(path, 0, data.type === "Flying");
 
-            mob = Mob.create(data.type, {
+            mob = Factory.createMob(data.type, {
                 id          : this.parent.manager.nextID,
                 pos         : i,
                 isBoss      : data.isBoss,
                 wave        : data.wave,
-                row         : start[1],
-                col         : start[0],
-                top         : start[1] * MapsData.squareSize,
-                left        : start[0] * MapsData.squareSize,
+                row         : start.row,
+                col         : start.col,
+                top         : start.row * Data.squareSize,
+                left        : start.col * Data.squareSize,
                 dirTop      : dir.top,
                 dirLeft     : dir.left,
                 path        : path,
-                targetPos   : targets[pos].pos,
-                targetValue : targets[pos].value,
+                target      : targets[pos],
                 angle       : this.parent.paths.getAngle(path),
                 deg         : this.parent.paths.getDeg(dir),
                 gameLevel   : this.parent.gameLevel,
-                boardSize   : MapsData.squareSize
+                boardSize   : Data.squareSize
             });
 
             this.parent.manager.add(mob);
@@ -94,7 +103,7 @@ class Create {
         let   i      = 0;
 
         do {
-            const dist  = Math.floor(MapsData.squareSize / 2);
+            const dist  = Math.floor(Data.squareSize / 2);
             const move  = Utils.rand(-dist, dist);
             const dtop  = Utils.rand(0, 1);
             const dleft = 1 - dtop;
@@ -104,7 +113,7 @@ class Create {
                 left : move < 0 ? -dleft : dleft
             };
 
-            mob = Mob.create(parent.childName, {
+            mob = Factory.createMob(parent.childName, {
                 pos         : i,
                 id          : this.parent.manager.nextID,
                 boss        : parent.isBoss,
@@ -116,23 +125,22 @@ class Create {
                 dirTop      : dir.top,
                 dirLeft     : dir.left,
                 path        : null,
-                targetPos   : parent.targetPos,
-                targetValue : parent.targetValue,
+                target      : parent.target,
                 angle       : 0,
                 deg         : this.parent.paths.getDeg(dir),
                 spawnTo     : {
-                    top  : cell[0] * MapsData.squareSize + move * dtop,
-                    left : cell[1] * MapsData.squareSize + move * dleft
+                    top  : cell.row * Data.squareSize + move * dtop,
+                    left : cell.col * Data.squareSize + move * dleft
                 },
                 gameLevel : this.parent.gameLevel,
-                boardSize : MapsData.squareSize
+                boardSize : Data.squareSize
             });
 
             this.parent.manager.add(mob);
             this.monsters.appendChild(mob.createElement());
             childs.push(mob);
             i += 1;
-        } while (mob.getAmount() > i);
+        } while (mob.getAmount(false) > i);
 
         this.parent.manager.addSpawn(childs);
     }
@@ -156,10 +164,10 @@ class Create {
      * Returns a random list with all the cells around the given Mob
      * with nothing on them
      * @param {Mob} mob
-     * @returns {Void}
+     * @returns {{row: Number, col: Number}[]}
      */
     getCloseCells(mob) {
-        const nothing = MapsData.nothing;
+        const nothing = Data.nothing;
         const cells   = [];
 
         this.moveDirs.forEach((dir) => {
@@ -168,7 +176,7 @@ class Create {
 
             if (this.parent.board.inMatrix(row, col) &&
                     this.parent.board.getContent(row, col) <= nothing) {
-                cells.push([ row, col ]);
+                cells.push({ row, col });
             }
         });
 

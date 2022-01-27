@@ -1,11 +1,16 @@
+import Mob          from "./Mob.js";
+import Factory      from "../Factory.js";
+
+
+
 /**
- * The Morph Mob Class
+ * Defender Morph Mob
  * @extends {Mob}
  */
-class MorphMob extends Mob {
+export default class MorphMob extends Mob {
 
     /**
-     * The Morph Mob constructor
+     * Defender Morph Mob constructor
      * @param {Object} data
      */
     constructor(data) {
@@ -45,7 +50,8 @@ class MorphMob extends Mob {
         if (this.timer > this.morphTime) {
             this.counter     = (this.counter + 1) % this.morph.length;
             this.type        = this.morph[this.counter];
-            const mob        = Mob.create(this.type, {});
+
+            const mob        = Factory.createMob(this.type, {});
             this.actualSpeed = mob.speed;
             this.isInmune    = !!mob.isInmune;
             this.defense     = mob.defense || 0;

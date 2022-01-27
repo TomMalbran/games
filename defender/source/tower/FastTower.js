@@ -1,11 +1,17 @@
+import Tower        from "./Tower.js";
+import FastAmmo     from "../ammo/FastAmmo.js";
+import Mob          from "../mob/Mob.js";
+
+
+
 /**
- * The Fast Tower Class
+ * Defender Fast Tower
  * @extends {Tower}
  */
-class FastTower extends Tower {
+export default class FastTower extends Tower {
 
     /**
-     * The Fast Tower constructor
+     * Defender Fast Tower constructor
      * @param {Number} id
      * @param {Number} row
      * @param {Number} col
@@ -32,7 +38,7 @@ class FastTower extends Tower {
 
     /**
      * Creates a new Ammo
-     * @param {Array.<Mob>} targets
+     * @param {Mob[]} targets
      * @returns {FastAmmo}
      */
     createAmmo(targets) {

@@ -1,10 +1,18 @@
+import Mob          from "../mob/Mob.js";
+
+// Utils
+import List         from "../../../utils/List.js";
+import Utils        from "../../../utils/Utils.js";
+
+
+
 /**
- * The Mobs Alerts Class
+ * Defender Mobs Alerts
  */
-class Alerts {
+export default class Alerts {
 
     /**
-     * The Mobs Alerts constructor
+     * Defender Mobs Alerts constructor
      */
     constructor() {
         this.moveX  = [  0, -1, -1, -1, -1,  0,  0,  0 ];
@@ -59,7 +67,7 @@ class Alerts {
      * @param {Mob}    mob
      * @param {String} className
      * @param {String} text
-     * @returns {Void}
+     * @returns {HTMLElement}
      */
     create(mob, className, text) {
         const element = document.createElement("DIV");

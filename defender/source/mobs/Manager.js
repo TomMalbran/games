@@ -1,7 +1,16 @@
+import Mobs         from "./Mobs.js";
+import Mob          from "../mob/Mob.js";
+import Tower        from "../tower/Tower.js";
+
+// Utils
+import List         from "../../../utils/List.js";
+
+
+
 /**
- * The Mobs Manager Class
+ * Defender Mobs Manager
  */
-class MobsManager {
+export default class Manager {
 
     /**
      * The Mobs Manager constructor
@@ -41,7 +50,7 @@ class MobsManager {
     get(id) {
         let result = null;
         if (!this.list.isEmpty) {
-            this.list.some(function (mob) {
+            this.list.some((mob) => {
                 if (mob.id === Number(id)) {
                     result = mob;
                     return true;
@@ -60,6 +69,7 @@ class MobsManager {
     moveMobs(time, speed) {
         if (!this.moving.isEmpty) {
             this.moving.forEach((it) => {
+                /** @type {Mob} */
                 const mob = it.getPrev();
                 mob.move(speed);
 
@@ -100,7 +110,7 @@ class MobsManager {
     turnMob(mob) {
         let result = false;
         if (mob.passedCenter) {
-            if (this.parent.board.isEqualTo(mob.row, mob.col, mob.targetValue)) {
+            if (this.parent.board.isEqualTo(mob.row, mob.col, mob.target.value)) {
                 this.mobExits(mob);
             } else if (!mob.isFlyer) {
                 const dir = this.parent.paths.getMobDir(mob.path, mob.pointer, mob.isFlyer);
@@ -124,7 +134,7 @@ class MobsManager {
         this.parent.alerts.life(mob);
         this.parent.panel.destroyMob(mob);
         this.parent.waves.reduceMob(mob.wave);
-        this.parent.sounds.exit();
+        this.parent.sounds.play("exit");
         mob.destroy();
     }
 
@@ -149,10 +159,10 @@ class MobsManager {
         this.parent.board.removeMob(mob.row, mob.col);
         this.parent.panel.destroyMob(mob);
         this.parent.waves.reduceMob(mob.wave);
-        this.parent.sounds.death();
+        this.parent.sounds.play("death");
         mob.destroy();
 
-        if (this.parent.waves.isLastWave() && this.isEmpty()) {
+        if (this.parent.waves.isLastWave() && this.isEmpty) {
             this.parent.score.gameOver();
         }
     }
@@ -161,7 +171,7 @@ class MobsManager {
 
     /**
      * Adds all the mobs in the array to the create list
-     * @param {Array.<Mob>} mobs
+     * @param {Mob[]} mobs
      * @returns {Void}
      */
     addCreate(mobs) {
@@ -180,6 +190,7 @@ class MobsManager {
         if (!this.creating.isEmpty) {
             const it = this.creating.iterate();
             while (it.hasNext()) {
+                /** @type {Mob} */
                 const mob = it.getNext();
                 if (mob.decTimer(time)) {
                     const itm = this.moving.addLast(mob.iterator);
@@ -196,7 +207,7 @@ class MobsManager {
 
     /**
      * Adds all the mobs in the array to the spawn list
-     * @param {Array.<Mob>} mobs
+     * @param {Mob[]} mobs
      * @returns {Void}
      */
     addSpawn(mobs) {
@@ -234,7 +245,7 @@ class MobsManager {
 
     /**
      * Adds all the mobs in the array to the slow list, to slow them for a short period
-     * @param {Array.<Mob>} mobs
+     * @param {Mob[]} mobs
      * @returns {Void}
      */
     addSlow(mobs) {
@@ -258,6 +269,7 @@ class MobsManager {
         if (!this.slowed.isEmpty) {
             const it = this.slowed.iterate();
             while (it.hasNext()) {
+                /** @type {Mob} */
                 const mob = it.getNext();
                 if (mob.decSlow(time)) {
                     mob.endSlow();
@@ -273,7 +285,7 @@ class MobsManager {
 
     /**
      * Adds all the mobs in the array to the stun list, to stun them for a short period
-     * @param {Array.<Mob>} mobs
+     * @param {Mob[]} mobs
      * @param {Tower}       tower
      * @returns {Void}
      */
@@ -297,6 +309,7 @@ class MobsManager {
         if (!this.stunned.isEmpty) {
             const it = this.stunned.iterate();
             while (it.hasNext()) {
+                /** @type {Mob} */
                 const mob = it.getNext();
                 if (mob.decStun(time)) {
                     mob.endStun();
@@ -312,7 +325,7 @@ class MobsManager {
 
     /**
      * Adds all the mobs in the array to the bleed list, to make them bleed for a short period
-     * @param {Array.<Mob>} mobs
+     * @param {Mob[]} mobs
      * @param {Number}      damage
      * @returns {Void}
      */
@@ -338,6 +351,7 @@ class MobsManager {
         if (!this.bleeding.isEmpty) {
             const it = this.bleeding.iterate();
             while (it.hasNext()) {
+                /** @type {Mob} */
                 const mob = it.getNext();
                 mob.decBleed(time);
 

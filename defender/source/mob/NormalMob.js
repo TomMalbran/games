@@ -1,11 +1,15 @@
+import Mob          from "./Mob.js";
+
+
+
 /**
- * The Normal Mob Class
+ * Defender Normal Mob
  * @extends {Mob}
  */
-class NormalMob extends Mob {
+export default class NormalMob extends Mob {
 
     /**
-     * The Normal Mob constructor
+     * Defender Normal Mob constructor
      * @param {Object} data
      */
     constructor(data) {

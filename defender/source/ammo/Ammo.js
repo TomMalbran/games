@@ -1,12 +1,32 @@
+import Tower        from "../tower/Tower.js";
+import Mob          from "../mob/Mob.js";
+
+// Utils
+import { Iterator } from "../../../utils/List.js";
+import Utils        from "../../../utils/Utils.js";
+
+
+
 /**
- * The Ammo Base Class
+ * Defender Ammo
  */
-class Ammo {
+export default class Ammo {
+
+    /**
+     * Defender Ammo constructor
+     */
+    constructor() {
+        this.content     = "";
+        this.className   = "";
+        this.center      = 0;
+        this.rotateTower = false;
+        this.rotateAmmo  = false;
+    }
 
     /**
      * Initializes the Ammo
      * @param {Tower}  tower
-     * @param {Array}  targets
+     * @param {Mob[]}  targets
      * @param {Number} boardSize
      * @returns {Void}
      */
@@ -25,15 +45,15 @@ class Ammo {
 
     /**
      * Creates the element for the Ammo
-     * @returns {DOMElement}
+     * @returns {HTMLElement}
      */
     createElement() {
         this.element              = document.createElement("DIV");
         this.element.className    = this.className;
         this.element.style.top    = Utils.toPX(this.top);
         this.element.style.left   = Utils.toPX(this.left);
-        this.element.style.zIndex = 2;
-        this.element.innerHTML    = this.content || "";
+        this.element.style.zIndex = String(2);
+        this.element.innerHTML    = this.content;
 
         return this.element;
     }
@@ -49,7 +69,7 @@ class Ammo {
 
     /**
      * Sets the iterator pointing to the Ammos list
-     * @param {Iterator}
+     * @param {Iterator} it
      * @returns {Void}
      */
     setIterator(it) {

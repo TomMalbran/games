@@ -1,10 +1,15 @@
+import Tower        from "./tower/Tower.js";
+import Mob          from "./mob/Mob.js";
+
+
+
 /**
- * The Panel Class
+ * Defender Panel
  */
-class Panel {
+export default class Panel {
 
     /**
-     * The Panel constructor
+     * Defender Panel constructor
      */
     constructor() {
         this.hasStarted = false;
@@ -71,7 +76,7 @@ class Panel {
      */
     showLoad(tower) {
         this.create(
-            tower.getName(),
+            tower.getName(false),
             tower.text,
             this.towerLoading(tower.loadValue)
         );
@@ -85,7 +90,7 @@ class Panel {
      */
     showInfo(tower, gold) {
         this.create(
-            tower.getName(),
+            tower.getName(false),
             tower.text,
 
             this.towerInfo({
@@ -132,10 +137,10 @@ class Panel {
 
     /**
      * Creates the Description HTML
-     * @param {String} name
-     * @param {String} text
-     * @param {String} information
-     * @param {String} buttons
+     * @param {String}  name
+     * @param {String}  text
+     * @param {String}  information
+     * @param {String=} buttons
      * @returns {Void}
      */
     create(name, text, information, buttons) {
@@ -216,7 +221,7 @@ class Panel {
 
     /**
      * Creates the Tower Loading HTML
-     * @param {Number} data
+     * @param {Number} loaded
      * @returns {String}
      */
     towerLoading(loaded) {

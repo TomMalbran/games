@@ -1,11 +1,15 @@
+import Mob          from "./Mob.js";
+
+
+
 /**
- * The Fast Mob Class
+ * Defender Fast Mob
  * @extends {Mob}
  */
-class FastMob extends Mob {
+export default class FastMob extends Mob {
 
     /**
-     * The Fast Mob constructor
+     * Defender Fast Mob constructor
      * @param {Object} data
      */
     constructor(data) {

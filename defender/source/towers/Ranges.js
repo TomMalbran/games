@@ -1,16 +1,30 @@
+import Towers       from "./Towers.js";
+import Tower        from "../tower/Tower.js";
+
+// Utils
+import List, { Iterator } from "../../../utils/List.js";
+
+
+
 /**
- * The Towers Ranges Class
+ * Defender Towers Ranges
  */
-class Ranges {
+export default class Ranges {
 
     /**
-     * The Towers Ranges Class
+     * Defender Towers Ranges constructor
      * @param {Towers} parent
      */
     constructor(parent) {
         this.parent   = parent;
+
+        /** @type {Object.<String, List>} */
         this.reduced  = {};
+
+        /** @type {Object.<String, List>} */
         this.complete = {};
+
+        /** @type {Object.<String, List>} */
         this.boosts   = {};
     }
 
@@ -18,70 +32,69 @@ class Ranges {
 
     /**
      * It adds the Tower to the diferent cells in the matrices of Iterators where its range reaches it
-     * @returns {({boosts: Array.<Iterator>, towers: Array.<Iterator>} | {complete: Array.<Iterator>, reduced: Array.<Iterator>})}
+     * @returns {{boosts: Iterator[], towers: Number[], complete: Iterator[], reduced: Iterator[]}}
      */
     add(tower) {
-        const matrix = tower.rangeMatrix;
-        const reduce = (matrix.length - tower.size) / 2;
-        const list1  = [];
-        const list2  = [];
+        const matrix   = tower.rangeMatrix;
+        const reduce   = (matrix.length - tower.size) / 2;
+        const boosts   = [];
+        const towers   = [];
+        const complete = [];
+        const reduced  = [];
 
-        matrix.forEach((line, i) => {
-            line.forEach((cell, j) => {
-                const row = tower.row - reduce + i;
-                const col = tower.col - reduce + j;
+        for (let i = 0; i < matrix.length; i++) {
+            for (let j = 0; j < matrix[i].length; j++) {
+                const row  = tower.row - reduce + i;
+                const col  = tower.col - reduce + j;
+                const cell = matrix[i][j];
 
                 if (cell === 1 && this.parent.board.inBoard(row, col)) {
                     if (tower.isBoost) {
-                        this.addBoost(list1, list2, tower.id, row, col);
+                        this.addBoost(boosts, towers, tower.id, row, col);
                     } else if (!tower.canFire) {
-                        this.addNormal(list1, list2, tower.id, row, col);
+                        this.addNormal(complete, reduced, tower.id, row, col);
                     }
                 }
-            });
-        });
-
-        if (tower.isBoost) {
-            return { boosts: list1, towers: list2 };
+            }
         }
-        return { complete: list1, reduced: list2 };
+        return { boosts, towers, complete, reduced };
     }
 
     /**
      * Adds the boost Tower to the "boost" list and if there is a tower in the given position,
      * it adds it's id to the second given array
-     * @param {Array.<Iterator>} list1
-     * @param {Array.<Number>}   list2
-     * @param {Number}           id
-     * @param {Number}           row
-     * @param {Number}           col
+     * @param {Iterator[]} boosts
+     * @param {Number[]}   towers
+     * @param {Number}     id
+     * @param {Number}     row
+     * @param {Number}     col
      * @returns {Void}
      */
-    addBoost(list1, list2, id, row, col) {
+    addBoost(boosts, towers, id, row, col) {
         const cell    = this.getCell(row, col);
         const towerID = this.parent.board.getContent(row, col);
         const tower   = this.parent.manager.get(towerID);
 
-        list1.push(this.addTower("boosts", cell, id));
-        if (tower && !tower.isBoost && !list2.includes(towerID)) {
-            list2.push(towerID);
+        boosts.push(this.addTower("boosts", cell, id));
+        if (tower && !tower.isBoost && !towers.includes(towerID)) {
+            towers.push(towerID);
         }
     }
 
     /**
      * Adds a non-boost Tower to the "complete" and "reduced" lists in the given position,
      * updating the given arrays
-     * @param {Array.<Iterator>} list1
-     * @param {Array.<Iterator>} list2
-     * @param {Number}           id
-     * @param {Number}           row
-     * @param {Number}           col
+     * @param {Iterator[]} complete
+     * @param {Iterator[]} reduced
+     * @param {Number}     id
+     * @param {Number}     row
+     * @param {Number}     col
      * @returns {Void}
      */
-    addNormal(list1, list2, id, row, col) {
+    addNormal(complete, reduced, id, row, col) {
         const cell = this.getCell(row, col);
-        list1.push(this.addTower("complete", cell, id));
-        list2.push(this.addTower("reduced",  cell, id));
+        complete.push(this.addTower("complete", cell, id));
+        reduced.push(this.addTower("reduced", cell, id));
     }
 
     /**
@@ -95,7 +108,7 @@ class Ranges {
         if (!this[list][cell]) {
             this[list][cell] = new List();
         }
-        return this[list][cell].addLast({ id: id, cell: cell });
+        return this[list][cell].addLast({ id, cell });
     }
 
     /**
@@ -105,7 +118,7 @@ class Ranges {
      */
     remove(tower) {
         Object.keys(tower.lists).forEach((name) => {
-            lists[name].forEach((it) => {
+            tower.lists[name].forEach((it) => {
                 if (this[name]) {
                     it.removePrev();
                 }
@@ -136,7 +149,8 @@ class Ranges {
     endShoot(tower) {
         const list = [];
         tower.lists.complete.forEach((it) => {
-            list.push(this.addTower("reduced", it.getPrev().cell, it.getPrev().id));
+            const { id, cell } = it.getPrev();
+            list.push(this.addTower("reduced", cell, id));
         });
         tower.setList("reduced", list);
     }
@@ -146,15 +160,15 @@ class Ranges {
     /**
      * Returns all the Boost Towers where it's range reaches the given Tower
      * @param {Tower} tower
-     * @returns {Array.<Number>}
+     * @returns {Number[]}
      */
     getBoostsList(tower) {
         const list = [];
         for (let i = tower.row; i < tower.endRow; i += 1) {
             for (let j = tower.col; j < tower.endCol; j += 1) {
-                const pos = this.getCell(i, j);
-                if (this.boosts[pos] && !this.boosts[pos].isEmpty) {
-                    const it = this.boosts[pos].iterate();
+                const cell = this.getCell(i, j);
+                if (this.boosts[cell] && !this.boosts[cell].isEmpty) {
+                    const it = this.boosts[cell].iterate();
                     while (it.hasNext()) {
                         if (list.includes(it.getNext())) {
                             list.push(it.getNext());
@@ -178,21 +192,11 @@ class Ranges {
     }
 
     /**
-     * Returns true if there is a Tower in the "reduced" list in the given position
-     * @param {Number} row
-     * @param {Number} col
-     * @returns {Boolean}
-     */
-    hasTowers(row, col) {
-        const pos = this.getCell(row, col);
-        return this.reduced[pos] && !this.reduced[pos].isEmpty;
-    }
-
-    /**
      * Returns all the Towers in the "reduced" list in the given position
-     * @returns {?Array.<Iterator>}
+     * @returns {?List}
      */
     getReducedList(row, col) {
-        return this.reduced[this.getCell(row, col)];
+        const cell = this.getCell(row, col);
+        return this.reduced[cell];
     }
 }

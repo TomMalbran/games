@@ -1,11 +1,15 @@
+import Mob          from "./Mob.js";
+
+
+
 /**
- * The Decoy Child Class
+ * Defender Decoy Child
  * @extends {Mob}
  */
-class DecoyChild extends Mob {
+export default class DecoyChild extends Mob {
 
     /**
-     * The Decoy Child Class
+     * Defender Decoy Child constructor
      * @param {Object} data
      */
     constructor(data) {

@@ -1,11 +1,15 @@
+import Tower        from "./Tower.js";
+
+
+
 /**
- * The Boost Tower Class
+ * Defender Boost Tower
  * @extends {Tower}
  */
-class BoostTower extends Tower {
+export default class BoostTower extends Tower {
 
     /**
-     * The Boost Tower constructor
+     * Defender Boost Tower constructor
      * @param {Number} id
      * @param {Number} row
      * @param {Number} col

@@ -1,23 +1,63 @@
+import Ammo               from "../ammo/Ammo.js";
+import Data               from "../maps/Data.js";
+import Mob                from "../mob/Mob.js";
+
+// Utils
+import List, { Iterator } from "../../../utils/List.js";
+import Utils              from "../../../utils/Utils.js";
+
+
+
 /**
- * The Tower Base Class
+ * Defender Tower
  */
-class Tower {
+export default class Tower {
 
     /**
-     * The Tower Base constructor
+     * Defender Tower constructor
+     */
+    constructor() {
+        this.name      = "";
+        this.text      = "";
+        this.type      = "";
+        this.special   = "";
+        this.sound     = "";
+
+        this.levels    = 0;
+        this.size      = 0;
+        this.ammoRange = 0;
+        this.costs     = [];
+        this.damages   = [];
+        this.ranges    = [];
+        this.speeds    = [];
+        this.bleeds    = false;
+        this.slows     = false;
+        this.boosts    = false;
+        this.lock      = false;
+        this.fire      = false;
+    }
+
+    /**
+     * Defender Tower initializer
      * @param {Number} id
      * @param {Number} row
      * @param {Number} col
      * @param {Number} boardSize
+     * @returns {Void}
      */
     init(id, row, col, boardSize) {
         this.id         = id;
         this.element    = null;
+        this.lists      = {
+            boosts   : [],
+            towers   : [],
+            complete : [],
+            reduced  : [],
+        };
 
         this.level      = 1;
         this.speed      = this.actualSpeed;
         this.width      = 0;
-        this.lists      = { boosts: [], towers: [], complete: [], reduced: [] };
         this.angle      = 0;
         this.isLocked   = false;
 
@@ -41,11 +81,11 @@ class Tower {
      * @returns {HTMLElement}
      */
     createElement() {
-        const content = document.querySelector(`.towersPanel .towerBuild[data-type="${this.type}"]`).parentNode.innerHTML;
+        const content = document.querySelector(`.towersPanel .towerBuild[data-type="${this.type}"]`).parentElement.innerHTML;
         this.element  = document.createElement("DIV");
 
         this.element.dataset.type   = "tower";
-        this.element.dataset.id     = this.id;
+        this.element.dataset.id     = String(this.id);
         this.element.style.position = "absolute";
         this.element.style.top      = Utils.toPX((this.row + this.size / 2) * this.boardSize);
         this.element.style.left     = Utils.toPX((this.col + this.size / 2) * this.boardSize);
@@ -59,15 +99,28 @@ class Tower {
 
         this.element.querySelector(".towerBuild").classList.remove("selected");
 
-        this.width    = this.size * this.boardSize - 10;
+        /** @type {HTMLElement} */
         this.loader   = this.element.querySelector(".towerLoader");
+
+        /** @type {HTMLElement} */
         this.rotate   = this.element.querySelector(`.towerRotate${this.size}`);
         this.shadow   = this.element.querySelector(".towerShadow");
         this.levelers = this.element.querySelectorAll(".towerLevels div");
         this.number   = this.element.querySelector(".towerNumber");
+        this.width    = this.size * this.boardSize - 10;
         this.setRangeClasses();
 
         return this.element;
+    }
+
+    /**
+     * Creates a new Ammo
+     * @param {Mob[]}  targets
+     * @param {Number} index
+     * @returns {Ammo}
+     */
+    createAmmo(targets, index) {
+        return undefined;
     }
 
 
@@ -107,7 +160,7 @@ class Tower {
 
     /**
      * Does the actual Tower Upgrade. If the level is given it sets that level
-     * @param {?Number} level
+     * @param {Number=} level
      * @returns {Void}
      */
     upgrade(level) {
@@ -121,7 +174,7 @@ class Tower {
             this.levelers[i].classList.remove(`type${this.level - 1}`);
             this.levelers[i].classList.add(`type${this.level}`);
         }
-        this.number.innerHTML = this.level;
+        this.number.innerHTML = String(this.level);
         this.setRangeClasses();
     }
 
@@ -227,7 +280,7 @@ class Tower {
     /**
      * Decreases the shooting timer
      * @param {Number} time
-     * @returns {Void}
+     * @returns {Boolean}
      */
     decTimer(time) {
         this.timer -= time;
@@ -252,10 +305,19 @@ class Tower {
     }
 
     /**
+     * Toggles the attacking class for a single Missile
+     * @param {Number} index
+     * @returns {Void}
+     */
+    toggleMissile(index) {
+        return undefined;
+    }
+
+    /**
      * Returns a list of targets. Extended by the Tower classes
-     * @param {List.<Iterator>} mobs
-     * @param {Mob}             mob
-     * @returns {Array.<Array.<Mob>>}
+     * @param {List} mobs
+     * @param {Mob}  mob
+     * @returns {Mob[][]}
      */
     getTargets(mobs, mob) {
         return [[ mob ]];
@@ -285,14 +347,15 @@ class Tower {
 
     /**
      * Returns a list with the targets close enough to the given Mob
-     * @param {Array.<Mob>} mobs
-     * @param {Mob}         mob
-     * @returns {Array.<Mob>}
+     * @param {List} mobs
+     * @param {Mob}  mob
+     * @returns {Mob[]}
      */
     getCloseTargets(mobs, mob) {
         const list = [];
 
         mobs.forEach((it) => {
+            /** @type {Mob} */
             const nmob     = it.getPrev();
             const isClose  = this.isClose(nmob, mob);
             const canShoot = this.canShoot(nmob);
@@ -306,13 +369,14 @@ class Tower {
 
     /**
      * Returns a list with the targets in the range of the tower
-     * @param {Array.<Mob>} mobs
-     * @returns {Array.<Mob>}
+     * @param {List} mobs
+     * @returns {Mob[]}
      */
     getRangeTargets(mobs) {
         const list = [];
 
         mobs.forEach((it) => {
+            /** @type {Mob} */
             const mob      = it.getPrev();
             const inRange  = this.inRange(mob, 1);
             const canShoot = this.canShoot(mob);
@@ -416,6 +480,22 @@ class Tower {
         this.rotate.style.transform = Utils.rotate(angle);
     }
 
+    /**
+     * Rotates the Tower and Ammo right after it starts shooting
+     * @param {Mob}  mob
+     * @param {Ammo} ammo
+     * @returns {Void}
+     */
+    setAngle(mob, ammo) {
+        let angle = this.getMobAngle(mob);
+        if (this.isLocked) {
+            angle = this.angle;
+        } else {
+            this.rotateCanon(angle);
+        }
+        ammo.rotate(angle);
+    }
+
 
 
     /**
@@ -444,7 +524,7 @@ class Tower {
 
     /**
      * If a tower can be destroyed, it returns true after all the ammos reached its target
-     * @returns {Void}
+     * @returns {Boolean}
      */
     get canDestroy() {
         return this.ammos <= 0;
@@ -471,7 +551,7 @@ class Tower {
 
     /**
      * Sets the Iterator lists that points to different cells in the Ranges matrixs
-     * @param {{boosts: Array.<Iterator>, towers: Array.<Iterator>, complete: Array.<Iterator>, reduced: Array.<Iterator>}} lists
+     * @param {{boosts: Iterator[], towers: Number[], complete: Iterator[], reduced: Iterator[]}} lists
      * @returns {Void}
      */
     setLists(lists) {
@@ -480,8 +560,8 @@ class Tower {
 
     /**
      * Sets just one list of Iterators
-     * @param {String}           name
-     * @param {Array.<Iterator>} list
+     * @param {String}     name
+     * @param {Iterator[]} list
      * @returns {Void}
      */
     setList(name, list) {
@@ -589,10 +669,10 @@ class Tower {
 
     /**
      * Returns the matrix that corresponds to the range of the Tower
-     * @returns {Array.<Array.<Number>>}
+     * @returns {Number[][]}
      */
     get rangeMatrix() {
-        return RangesData[this.getActualRange()];
+        return Data.ranges[this.getActualRange()];
     }
 
     /**
@@ -681,27 +761,11 @@ class Tower {
         return this.fire ? true : false;
     }
 
-
-
     /**
-     * Creates a new Tower
-     * @param {String} type
-     * @param {...}    params
-     * @returns {Tower}
+     * Returns true if it will stun a mob
+     * @returns {Boolean}
      */
-    static create(type, ...params) {
-        const Tower = {
-            Shoot      : ShootTower,
-            Fast       : FastTower,
-            Missile    : MissileTower,
-            AntiAir    : AntiAirTower,
-            Frost      : FrostTower,
-            Earthquake : EarthquakeTower,
-            Ink        : InkTower,
-            Snap       : SnapTower,
-            Laser      : LaserTower,
-            Boost      : BoostTower
-        };
-        return new Tower[type](...params);
+    get shouldStun() {
+        return false;
     }
 }

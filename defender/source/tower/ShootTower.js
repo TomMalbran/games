@@ -1,11 +1,17 @@
+import Tower        from "./Tower.js";
+import ShootAmmo    from "../ammo/ShootAmmo.js";
+import Mob          from "../mob/Mob.js";
+
+
+
 /**
- * The Shoot Tower Class
+ * Defender Shoot Tower
  * @extends {Tower}
  */
-class ShootTower extends Tower {
+export default class ShootTower extends Tower {
 
     /**
-     * The Shoot Tower constructor
+     * Defender Shoot Tower constructor
      * @param {Number} id
      * @param {Number} row
      * @param {Number} col
@@ -32,7 +38,7 @@ class ShootTower extends Tower {
 
     /**
      * Creates a new Ammo
-     * @param {Array.<Mob>} targets
+     * @param {Mob[]} targets
      * @returns {ShootAmmo}
      */
     createAmmo(targets) {

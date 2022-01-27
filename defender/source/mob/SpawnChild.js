@@ -1,11 +1,15 @@
+import Mob          from "./Mob.js";
+
+
+
 /**
- * The Spawn Child Class
+ * Defender Spawn Child
  * @extends {Mob}
  */
-class SpawnChild extends Mob {
+export default class SpawnChild extends Mob {
 
     /**
-     * The Spawn Child constructor
+     * Defender Spawn Child constructor
      * @param {Object} data
      */
     constructor(data) {

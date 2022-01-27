@@ -1,14 +1,16 @@
 /**
- * The Display Class
+ * Defender Display
  */
-class Display {
+export default class Display {
 
     /**
-     * The Display constructor
+     * Defender Display constructor
      */
     constructor() {
-        this.container = document.querySelector("#container");
         this.current   = "mainScreen";
+
+        /** @type {HTMLElement} */
+        this.container = document.querySelector("#container");
     }
 
     /**

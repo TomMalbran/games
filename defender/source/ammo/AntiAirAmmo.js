@@ -1,13 +1,19 @@
+import Ammo         from "./Ammo.js";
+import Tower        from "../tower/Tower.js";
+import Mob          from "../mob/Mob.js";
+
+
+
 /**
- * The Anti-Air Ammo Class
+ * Defender Anti-Air Ammo
  * @extends {Ammo}
  */
-class AntiAirAmmo extends Ammo {
+export default class AntiAirAmmo extends Ammo {
 
     /**
-     * The Anti-Air Ammo constructor
-     * @param {Tower} tower
-     * @param {Array} targets
+     * Defender Anti-Air Ammo constructor
+     * @param {Tower}  tower
+     * @param {Mob[]}  targets
      * @param {Number} boardSize
      * @param {Number} index
      */

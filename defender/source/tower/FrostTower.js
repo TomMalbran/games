@@ -1,11 +1,20 @@
+import Tower        from "./Tower.js";
+import FrostAmmo    from "../ammo/FrostAmmo.js";
+import Mob          from "../mob/Mob.js";
+
+// Utils
+import List         from "../../../utils/List.js";
+
+
+
 /**
- * The Frost Tower Class
+ * Defender Frost Tower
  * @extends {Tower}
  */
-class FrostTower extends Tower {
+export default class FrostTower extends Tower {
 
     /**
-     * The Frost Tower constructor
+     * Defender Frost Tower constructor
      * @param {Number} id
      * @param {Number} row
      * @param {Number} col
@@ -34,7 +43,7 @@ class FrostTower extends Tower {
 
     /**
      * Creates a new Ammo
-     * @param {Array.<Mob>} targets
+     * @param {Mob[]} targets
      * @returns {FrostAmmo}
      */
     createAmmo(targets) {
@@ -45,9 +54,9 @@ class FrostTower extends Tower {
 
     /**
      * Returns a list of Mobs close to the given one
-     * @param {List.<Iterator>} mobs
-     * @param {Mob}             mob
-     * @returns {Array.<Array.<Mob>>}
+     * @param {List} mobs
+     * @param {Mob}  mob
+     * @returns {Mob[][]}
      */
     getTargets(mobs, mob) {
         return [ this.getCloseTargets(mobs, mob) ];

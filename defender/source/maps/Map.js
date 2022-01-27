@@ -1,14 +1,23 @@
+import Wall         from "./Wall.js";
+import Data         from "./Data.js";
+import Tower        from "../tower/Tower.js";
+
+// Utils
+import Storage      from "../../../utils/Storage.js";
+
+
+
 /**
- * The Map Class
+ * Defender Map
  */
-class Map {
+export default class Map {
 
     /**
-     * The Map Class
+     * Defender Map constructor
      * @param {String} gameMap
      */
     constructor(gameMap) {
-        this.mapData = MapsData.maps[gameMap];
+        this.mapData = Data.maps[gameMap];
         this.storage = new Storage(`defender.maps.${gameMap}`);
     }
 
@@ -38,7 +47,7 @@ class Map {
      * @returns {Boolean}
      */
     isStart1(value) {
-        return value === MapsData.start1;
+        return value === Data.start1;
     }
 
     /**
@@ -47,7 +56,7 @@ class Map {
      * @returns {Boolean}
      */
     isStart2(value) {
-        return value === MapsData.start2;
+        return value === Data.start2;
     }
 
     /**
@@ -56,7 +65,7 @@ class Map {
      * @returns {Boolean}
      */
     isTarget(value) {
-        return value === MapsData.target1 || value === MapsData.target2;
+        return value === Data.target1 || value === Data.target2;
     }
 
     /**
@@ -65,7 +74,7 @@ class Map {
      * @returns {Boolean}
      */
     isTarget1(value) {
-        return value === MapsData.target1;
+        return value === Data.target1;
     }
 
     /**
@@ -74,33 +83,33 @@ class Map {
      * @returns {Boolean}
      */
     isTarget2(value) {
-        return value === MapsData.target2;
+        return value === Data.target2;
     }
 
 
 
     /**
      * Returns all the map Walls
-     * @returns {Array.<Object>}
+     * @returns {Wall[]}
      */
     getWalls() {
         const walls  = [ null ];
         const matrix = [];
         let   className;
 
-        for (let i = 0; i < this.mapData.matrix.length; i += 1) {
-            matrix[i] = [];
-            for (let j = 0; j < this.mapData.matrix[i].length; j += 1) {
-                switch (this.mapData.matrix[i][j]) {
-                case MapsData.start1:
-                case MapsData.start2:
+        for (let row = 0; row < this.mapData.matrix.length; row += 1) {
+            matrix[row] = [];
+            for (let col = 0; col < this.mapData.matrix[row].length; col += 1) {
+                switch (this.mapData.matrix[row][col]) {
+                case Data.start1:
+                case Data.start2:
                     className = "start";
                     break;
-                case MapsData.target1:
-                case MapsData.target2:
+                case Data.target1:
+                case Data.target2:
                     className = "target";
                     break;
-                case MapsData.wall:
+                case Data.wall:
                     className = "wall";
                     break;
                 default:
@@ -108,7 +117,7 @@ class Map {
                 }
 
                 if (className) {
-                    this.processWall(walls, matrix, i, j, className);
+                    this.processWall(walls, matrix, row, col, className);
                 }
             }
         }
@@ -118,20 +127,20 @@ class Map {
 
     /**
      * Process the walls to reduce the amount of diva
-     * @param {Array.<Object>}         walls
-     * @param {Array.<Array.<Number>>} matrix
-     * @param {Number}                 i
-     * @param {Number}                 j
-     * @param {String}                 cl
+     * @param {Wall[]}     walls
+     * @param {Number[][]} matrix
+     * @param {Number}     row
+     * @param {Number}     col
+     * @param {String}     className
      * @returns {Void}
      */
-    processWall(walls, matrix, i, j, cl) {
+    processWall(walls, matrix, row, col, className) {
         let id, type;
-        if (this.expandHorizontal(walls, matrix, i, j, cl)) {
-            id   = matrix[i - 1][j];
+        if (this.canExpandHorizontal(walls, matrix, row, col, className)) {
+            id   = matrix[row - 1][col];
             type = "horizontal";
-        } else if (this.expandVertical(walls, matrix, i, j, cl)) {
-            id   = matrix[i][j - 1];
+        } else if (this.canExpandVertical(walls, matrix, row, col, className)) {
+            id   = matrix[row][col - 1];
             type = "vertical";
         }
 
@@ -145,36 +154,29 @@ class Map {
             if (walls[id].type === "vertical") {
                 walls[id].width += 1;
             }
-            matrix[i][j] = id;
+            matrix[row][col] = id;
 
         } else {
-            walls.push({
-                cl:     cl,
-                type:   null,
-                top:    i,
-                left:   j,
-                width:  1,
-                height: 1
-            });
-            matrix[i][j] = walls.length - 1;
+            walls.push(new Wall(className, row, col));
+            matrix[row][col] = walls.length - 1;
         }
     }
 
     /**
      * Process the walls to reduce the amount of diva
-     * @param {Array.<Object>} walls
+     * @param {Wall[]} walls
      * @returns {Void}
      */
     compressWalls(walls) {
         for (let i = 1; i < walls.length; i += 1) {
             let j;
             for (j = 1; j < walls.length; j += 1) {
-                if (this.canIncreaseHeight(walls[i], walls[j])) {
+                if (walls[i].canIncreaseHeight(walls[j])) {
                     walls[i].height += walls[j].height;
                     walls.splice(j, 1);
                     j -= 1;
 
-                } else if (this.canIncreaseWidth(walls[i], walls[j])) {
+                } else if (walls[i].canIncreaseWidth(walls[j])) {
                     walls[i].width += walls[j].width;
                     walls.splice(j, 1);
                     j -= 1;
@@ -183,71 +185,49 @@ class Map {
         }
     }
 
-
-
     /**
      * Expands a Wall Horizontally
-     * @param {Array.<Object>}         walls
-     * @param {Array.<Array.<Number>>} matrix
-     * @param {Number}                 i
-     * @param {Number}                 j
-     * @param {String}                 cl
+     * @param {Wall[]}     walls
+     * @param {Number[][]} matrix
+     * @param {Number}     row
+     * @param {Number}     col
+     * @param {String}     className
      * @returns {Boolean}
      */
-    expandHorizontal(walls, matrix, i, j, cl) {
-        if (matrix[i - 1]) {
-            const id = matrix[i - 1][j];
-            return id && (!walls[id].type || walls[id].type === "horizontal") && walls[id].cl === cl;
+    canExpandHorizontal(walls, matrix, row, col, className) {
+        if (matrix[row - 1]) {
+            const id = matrix[row - 1][col];
+            return id && (!walls[id].type || walls[id].type === "horizontal") && walls[id].className === className;
         }
         return false;
     }
 
     /**
      * Expands a Wall Vertically
-     * @param {Array.<Object>} walls
-     * @param {Array.<Array.<Number>>} matrix
-     * @param {Number} i
-     * @param {Number} j
-     * @param {String} cl
+     * @param {Wall[]}     walls
+     * @param {Number[][]} matrix
+     * @param {Number}     row
+     * @param {Number}     col
+     * @param {String}     className
      * @returns {Boolean}
      */
-    expandVertical(walls, matrix, i, j, cl) {
-        const id = matrix[i][j - 1];
-        return id && (!walls[id].type || walls[id].type === "vertical") && walls[id].cl === cl;
-    }
-
-    /**
-     * Checks if it can increase the height of the wall
-     * @param {Array.<Object>} w1
-     * @param {Array.<Object>} w2
-     * @returns {Boolean}
-     */
-    canIncreaseHeight(w1, w2) {
-        return w1.cl === w2.cl && w1.width === w2.width && w1.left === w2.left && w1.top + w1.height === w2.top;
-    }
-
-    /**
-     * Checks if it can increase the width of the wall
-     * @param {Array.<Object>} w1
-     * @param {Array.<Object>} w2
-     * @returns {Boolean}
-     */
-    canIncreaseWidth(w1, w2) {
-        return w1.cl === w2.cl && w1.height === w2.height && w1.top === w2.top && w1.left + w1.width === w2.left;
+    canExpandVertical(walls, matrix, row, col, className) {
+        const id = matrix[row][col - 1];
+        return id && (!walls[id].type || walls[id].type === "vertical") && walls[id].className === className;
     }
 
 
 
     /**
      * Returns the Towers that will be built when starting this map
-     * @returns {Array.<{type: String, col: Number, row: Number, level: Number}>}
+     * @returns {{type: String, col: Number, row: Number, level: Number}[]}
      */
     getInitialSetup() {
         const amount = this.storage.get("towers");
         const list   = [];
 
         if (amount) {
-            for (let i = MapsData.towerStart; i <= amount; i += 1) {
+            for (let i = Data.towerStart; i <= amount; i += 1) {
                 const data = this.storage.get(`tower.${i}`);
                 if (data) {
                     this.storage.remove(`tower.${i}`);

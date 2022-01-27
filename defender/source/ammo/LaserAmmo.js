@@ -1,13 +1,19 @@
+import Ammo         from "./Ammo.js";
+import Tower        from "../tower/Tower.js";
+import Mob          from "../mob/Mob.js";
+
+
+
 /**
- * The Laser Ammo Class
+ * Defender Laser Ammo
  * @extends {Ammo}
  */
-class LaserAmmo extends Ammo {
+export default class LaserAmmo extends Ammo {
 
     /**
-     * The Laser Ammo constructor
-     * @param {Tower} tower
-     * @param {Array} targets
+     * Defender Laser Ammo constructor
+     * @param {Tower}  tower
+     * @param {Mob[]}  targets
      * @param {Number} boardSize
      */
     constructor(tower, targets, boardSize) {

@@ -1,11 +1,15 @@
+import Mob          from "./Mob.js";
+
+
+
 /**
- * The Dark Mob Class
+ * Defender Dark Mob
  * @extends {Mob}
  */
-class DarkMob extends Mob {
+export default class DarkMob extends Mob {
 
     /**
-     * The Dark Mob Class
+     * Defender Dark Mob constructor
      * @param {Object} data
      */
     constructor(data) {

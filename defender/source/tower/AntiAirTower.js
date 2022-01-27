@@ -1,11 +1,20 @@
+import Tower        from "./Tower.js";
+import AntiAirAmmo  from "../ammo/AntiAirAmmo.js";
+import Mob          from "../mob/Mob.js";
+
+// Utils
+import List         from "../../../utils/List.js";
+
+
+
 /**
- * The Anti-Air Tower Class
+ * Defender Anti-Air Tower
  * @extends {Tower}
  */
-class AntiAirTower extends Tower {
+export default class AntiAirTower extends Tower {
 
     /**
-     * The Anti-Air Tower constructor
+     * Defender Anti-Air Tower constructor
      * @param {Number} id
      * @param {Number} row
      * @param {Number} col
@@ -33,8 +42,8 @@ class AntiAirTower extends Tower {
 
     /**
      * Creates a new Ammo
-     * @param {Array.<Mob>} targets
-     * @param {Number}      index
+     * @param {Mob[]}  targets
+     * @param {Number} index
      * @returns {AntiAirAmmo}
      */
     createAmmo(targets, index) {
@@ -45,9 +54,9 @@ class AntiAirTower extends Tower {
 
     /**
      * Returns a list of Mobs close to the given one. Maximum of 4
-     * @param {List.<Iterator>} mobs
-     * @param {Mob}             mob
-     * @returns {Array.<Array.<Mob>>}
+     * @param {List} mobs
+     * @param {Mob}  mob
+     * @returns {Mob[][]}
      */
     getTargets(mobs, mob) {
         const targets = this.getCloseTargets(mobs, mob);
@@ -73,7 +82,7 @@ class AntiAirTower extends Tower {
 
     /**
      * Toggles the attacking class for a single Missile
-     * @param {Number} amount
+     * @param {Number} index
      * @returns {Void}
      */
     toggleMissile(index) {

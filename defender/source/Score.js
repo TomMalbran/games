@@ -1,10 +1,10 @@
 /**
- * The Score Panel Class
+ * Defender Score
  */
-class Score {
+export default class Score {
 
     /**
-     * The Score Panel constructor
+     * Defender Score constructor
      * @param {Number}   level
      * @param {Function} onGameOver
      */
@@ -51,8 +51,8 @@ class Score {
      * @returns {Void}
      */
     setFunctions(enable, disable) {
-        this.enable  = enable;
-        this.disable = disable;
+        this.enable  = () => enable();
+        this.disable = () => disable();
     }
 
     /**
@@ -124,7 +124,7 @@ class Score {
      * @returns {Void}
      */
     removeTimer() {
-        this.timer = "";
+        this.timer = 0;
         this.showScores();
     }
 

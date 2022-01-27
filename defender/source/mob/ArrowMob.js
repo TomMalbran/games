@@ -1,11 +1,15 @@
+import Mob          from "./Mob.js";
+
+
+
 /**
- * The Arrow Mob Class
+ * Defender Arrow Mob
  * @extends {Mob}
  */
-class ArrowMob extends Mob {
+export default class ArrowMob extends Mob {
 
     /**
-     * The Arrow Mob constructor
+     * Defender Arrow Mob constructor
      * @param {Object} data
      */
     constructor(data) {
@@ -44,13 +48,13 @@ class ArrowMob extends Mob {
     specialPower(time, newCell, turned) {
         if (newCell) {
             this.counter += 1;
-            if (this.count > 1) {
-                this.actualSpeed = this.speed;
+            if (this.counter > 1) {
+                this.actualSpeed = this.baseSpeed;
             }
         }
         if (turned) {
             this.counter = 0;
-            this.actualSpeed = this.speed / 2;
+            this.actualSpeed = this.baseSpeed / 2;
         }
     }
 }

@@ -1,26 +1,46 @@
+import Data         from "./maps/Data.js";
+import Map          from "./maps/Map.js";
+import Tower        from "./tower/Tower.js";
+
+// Utils
+import Utils        from "../../utils/Utils.js";
+
+
+
 /**
- * The Board Class
+ * Defender Board
  */
-class Board {
+export default class Board {
 
     /**
-     * The Board constructor
+     * Defender Board constructor
      * @param {String} gameMap
      */
     constructor(gameMap) {
+        this.map        = new Map(gameMap);
+        this.hasStarted = false;
+
+        /** @type {Number[][]} */
+        this.matrix     = [];
+
+        /** @type {{col: Number, row: Number, value: Number}[][]} */
+        this.starts     = [];
+
+        /** @type {{col: Number, row: Number, value: Number}[][]} */
+        this.targets    = [];
+
+        this.listeners  = {};
+        this.defaults   = [];
+
+        /** @type {HTMLElement} */
         this.board      = document.querySelector(".board");
+
+        /** @type {HTMLElement} */
         this.walls      = document.querySelector(".walls");
+
         this.pos        = Utils.getPosition(this.board);
         this.width      = this.board.offsetWidth;
         this.height     = this.board.offsetHeight;
-
-        this.map        = new Map(gameMap);
-        this.matrix     = [];
-        this.starts     = [];
-        this.targets    = [];
-        this.listeners  = {};
-        this.defaults   = [];
-        this.hasStarted = false;
 
         this.board.addEventListener("click", (e) => this.onClick(e));
         this.create();
@@ -46,7 +66,7 @@ class Board {
 
     /**
      * Returns the Towers that will be built when starting this map
-     * @returns {Array.<{type: String, col: Number, row: Number, level: Number}>}
+     * @returns {{type: String, col: Number, row: Number, level: Number}[]}
      */
     getInitialSetup() {
         return this.map.getInitialSetup();
@@ -54,8 +74,8 @@ class Board {
 
     /**
      * Adds a new function for the board event listener
-     * @param {String}                      name
-     * @param {Function(Event, DOMElement)} callback
+     * @param {String}   name
+     * @param {Function} callback
      * @returns {Void}
      */
     addListener(name, callback) {
@@ -75,15 +95,16 @@ class Board {
      * @returns {Void}
      */
     onClick(event) {
+        // @ts-ignore
         const target = event.target.parentNode;
         const type   = target.dataset.type;
 
         if (this.listeners[type]) {
-            this.listeners[type].forEach(function (callback) {
+            this.listeners[type].forEach((callback) => {
                 callback(event, target);
             });
         } else {
-            this.defaults.forEach(function (callback) {
+            this.defaults.forEach((callback) => {
                 callback(event, target);
             });
         }
@@ -101,11 +122,11 @@ class Board {
             this.targets[i] = [];
         }
 
-        for (let i = 0; i < MapsData.rowsAmount; i += 1) {
-            this.matrix[i] = [];
-            for (let j = 0; j < MapsData.colsAmount; j += 1) {
-                this.matrix[i][j] = this.map.getMatrixXY(i, j);
-                this.addPaths(this.matrix[i][j], j, i);
+        for (let row = 0; row < Data.rowsAmount; row += 1) {
+            this.matrix[row] = [];
+            for (let col = 0; col < Data.colsAmount; col += 1) {
+                this.matrix[row][col] = this.map.getMatrixXY(row, col);
+                this.addPaths(this.matrix[row][col], col, row);
             }
         }
 
@@ -116,22 +137,22 @@ class Board {
     /**
      * Adds the paths starts and targets
      * @param {Number} value
-     * @param {Number} row
      * @param {Number} col
+     * @param {Number} row
      * @returns {Void}
      */
     addPaths(value, col, row) {
         if (this.map.isStart1(value)) {
-            this.starts[0].push({ pos: [ col, row ], value: value });
+            this.starts[0].push({ col, row, value });
 
         } else if (this.map.isStart2(value)) {
-            this.starts[1].push({ pos: [ col, row ], value: value });
+            this.starts[1].push({ col, row, value });
 
         } else if (this.map.isTarget1(value)) {
-            this.targets[0].push({ pos: [ col, row ], value: value });
+            this.targets[0].push({ col, row, value });
 
         } else if (this.map.isTarget2(value)) {
-            this.targets[1].push({ pos: [ col, row ], value: value });
+            this.targets[1].push({ col, row, value });
         }
     }
 
@@ -162,12 +183,7 @@ class Board {
         this.walls.innerHTML = "";
 
         for (let i = 1; i < walls.length; i += 1) {
-            const el = document.createElement("div");
-            el.className    = walls[i].cl;
-            el.style.top    = Utils.toPX(walls[i].top    * MapsData.squareSize);
-            el.style.left   = Utils.toPX(walls[i].left   * MapsData.squareSize);
-            el.style.width  = Utils.toPX(walls[i].width  * MapsData.squareSize);
-            el.style.height = Utils.toPX(walls[i].height * MapsData.squareSize);
+            const el = walls[i].createElement();
             this.walls.appendChild(el);
         }
     }
@@ -180,9 +196,9 @@ class Board {
      * @returns {Void}
      */
     buildTower(tower) {
-        for (let i = tower.row; i < tower.endRow; i += 1) {
-            for (let j = tower.col; j < tower.endCol; j += 1) {
-                this.matrix[i][j] = tower.id;
+        for (let row = tower.row; row < tower.endRow; row += 1) {
+            for (let col = tower.col; col < tower.endCol; col += 1) {
+                this.matrix[row][col] = tower.id;
             }
         }
 
@@ -210,7 +226,7 @@ class Board {
     sellTower(tower) {
         for (let i = tower.row; i < tower.endRow; i += 1) {
             for (let j = tower.col; j < tower.endCol; j += 1) {
-                this.matrix[i][j] = MapsData.nothing;
+                this.matrix[i][j] = Data.nothing;
             }
         }
 
@@ -229,7 +245,7 @@ class Board {
     canBuild(row, col, size) {
         for (let i = row; i < row + size; i += 1) {
             for (let j = col; j < col + size; j += 1) {
-                if (this.matrix[i] && this.matrix[i][j] !== MapsData.nothing) {
+                if (this.matrix[i] && this.matrix[i][j] !== Data.nothing) {
                     return false;
                 }
             }
@@ -246,7 +262,7 @@ class Board {
      * @returns {Void}
      */
     addMob(row, col) {
-        if (this.matrix[row] && this.matrix[row][col] <= MapsData.nothing) {
+        if (this.matrix[row] && this.matrix[row][col] <= Data.nothing) {
             this.matrix[row][col] -= 1;
         }
     }
@@ -258,7 +274,7 @@ class Board {
      * @returns {Void}
      */
     removeMob(row, col) {
-        if (this.matrix[row] && this.matrix[row][col] < MapsData.nothing) {
+        if (this.matrix[row] && this.matrix[row][col] < Data.nothing) {
             this.matrix[row][col] += 1;
         }
     }
@@ -272,7 +288,7 @@ class Board {
      * @returns {Boolean}
      */
     isBorder(row, col) {
-        return row < 1 || col < 1 || row > MapsData.rowsAmount - 2 || col > MapsData.colsAmount - 2;
+        return row < 1 || col < 1 || row > Data.rowsAmount - 2 || col > Data.colsAmount - 2;
     }
 
     /**
@@ -292,7 +308,7 @@ class Board {
      * @returns {Boolean}
      */
     inBoard(row, col) {
-        return row >= 0 && col >= 0 && row < MapsData.rowsAmount && col < MapsData.colsAmount;
+        return row >= 0 && col >= 0 && row < Data.rowsAmount && col < Data.colsAmount;
     }
 
     /**

@@ -1,13 +1,22 @@
+import Ammo         from "./Ammo.js";
+import Tower        from "../tower/Tower.js";
+import Mob          from "../mob/Mob.js";
+
+// Utils
+import Utils        from "../../../utils/Utils.js";
+
+
+
 /**
- * The Fast Ammo Class
+ * Defender Fast Ammo
  * @extends {Ammo}
  */
-class FastAmmo extends Ammo {
+export default class FastAmmo extends Ammo {
 
     /**
-     * The Fast Ammo constructor
+     * Defender Fast Ammo constructor
      * @param {Tower}  tower
-     * @param {Array}  targets
+     * @param {Mob[]}  targets
      * @param {Number} boardSize
      */
     constructor(tower, targets, boardSize) {

@@ -1,8 +1,18 @@
+import Tower        from "./Tower.js";
+import SnapAmmo     from "../ammo/SnapAmmo.js";
+import Mob          from "../mob/Mob.js";
+
+// Utils
+import List         from "../../../utils/List.js";
+import Utils        from "../../../utils/Utils.js";
+
+
+
 /**
  * The Snap Tower Class
  * @extends {Tower}
  */
-class SnapTower extends Tower {
+export default class SnapTower extends Tower {
 
     /**
      * The Snap Tower constructor
@@ -34,7 +44,7 @@ class SnapTower extends Tower {
 
     /**
      * Creates a new Ammo
-     * @param {Array.<Mob>} targets
+     * @param {Mob[]} targets
      * @returns {SnapAmmo}
      */
     createAmmo(targets) {
@@ -45,16 +55,16 @@ class SnapTower extends Tower {
 
     /**
      * Returns a list of Mobs in the range of the tower
-     * @param {List.<Iterator>} mobs
-     * @param {Mob}             mob
-     * @returns {Array.<Array.<Mob>>}
+     * @param {List} mobs
+     * @param {Mob}  mob
+     * @returns {Mob[][]}
      */
     getTargets(mobs, mob) {
         const targets = this.getRangeTargets(mobs);
         const result  = [];
 
         for (let i = 0; i < targets.length; i += 1) {
-            result.push([targets[i]]);
+            result.push([ targets[i] ]);
         }
         return result;
     }

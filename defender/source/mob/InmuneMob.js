@@ -1,11 +1,15 @@
+import Mob          from "./Mob.js";
+
+
+
 /**
- * The Inmune Mob Class
+ * Defender Inmune Mob
  * @extends {Mob}
  */
-class InmuneMob extends Mob {
+export default class InmuneMob extends Mob {
 
     /**
-     * The Inmune Mob constructor
+     * Defender Inmune Mob constructor
      * @param {Object} data
      */
     constructor(data) {

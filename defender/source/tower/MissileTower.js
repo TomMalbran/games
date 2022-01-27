@@ -1,11 +1,20 @@
+import Tower        from "./Tower.js";
+import MissileAmmo  from "../ammo/MissileAmmo.js";
+import Mob          from "../mob/Mob.js";
+
+// Utils
+import List         from "../../../utils/List.js";
+
+
+
 /**
- * The Missile Tower Class
+ * Defender Missile Tower
  * @extends {Tower}
  */
-class MissileTower extends Tower {
+export default class MissileTower extends Tower {
 
     /**
-     * The Missile Tower constructor
+     * Defender Missile Tower constructor
      * @param {Number} id
      * @param {Number} row
      * @param {Number} col
@@ -33,7 +42,7 @@ class MissileTower extends Tower {
 
     /**
      * Creates a new Ammo
-     * @param {Array.<Mob>} targets
+     * @param {Mob[]} targets
      * @returns {MissileAmmo}
      */
     createAmmo(targets) {
@@ -44,9 +53,9 @@ class MissileTower extends Tower {
 
     /**
      * Returns a list of Mobs close to the given one
-     * @param {List.<Iterator>} mobs
-     * @param {Mob}             mob
-     * @returns {Array.<Array.<Mob>>}
+     * @param {List} mobs
+     * @param {Mob}  mob
+     * @returns {Mob[][]}
      */
     getTargets(mobs, mob) {
         return [ this.getCloseTargets(mobs, mob) ];

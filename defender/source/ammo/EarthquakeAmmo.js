@@ -1,13 +1,19 @@
+import Ammo         from "./Ammo.js";
+import Tower        from "../tower/Tower.js";
+import Mob          from "../mob/Mob.js";
+
+
+
 /**
- * The Earthquake Ammo Class
+ * Defender Earthquake Ammo
  * @extends {Ammo}
  */
-class EarthquakeAmmo extends Ammo {
+export default class EarthquakeAmmo extends Ammo {
 
     /**
-     * The Earthquake Ammo constructor
-     * @param {Tower} tower
-     * @param {Array} targets
+     * Defender Earthquake Ammo constructor
+     * @param {Tower}  tower
+     * @param {Mob[]}  targets
      * @param {Number} boardSize
      */
     constructor(tower, targets, boardSize) {
@@ -43,6 +49,6 @@ class EarthquakeAmmo extends Ammo {
      */
     fadeIn() {
         this.opacity += 0.1;
-        this.element.style.opacity = this.opacity;
+        this.element.style.opacity = String(this.opacity);
     }
 }

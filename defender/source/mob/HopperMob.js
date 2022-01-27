@@ -1,11 +1,15 @@
+import Mob          from "./Mob.js";
+
+
+
 /**
- * The Hopper Mob Class
+ * Defender Hopper Mob
  * @extends {Mob}
  */
-class HopperMob extends Mob {
+export default class HopperMob extends Mob {
 
     /**
-     * The Hopper Mob constructor
+     * Defender Hopper Mob constructor
      * @param {Object} data
      */
     constructor(data) {
@@ -26,6 +30,7 @@ class HopperMob extends Mob {
         this.isHopper  = true;
         this.content   = `<div class="hopperMob"></div>`;
 
+        this.hopTimer   = 0;
         this.minHopTime = 300;
         this.maxHopTime = 600;
 
@@ -42,12 +47,12 @@ class HopperMob extends Mob {
      * @returns {Void}
      */
     specialPower(time, newCell, turned) {
-        this.timer += time;
-        if (this.timer > this.minHopTime && this.timer < this.maxHopTime) {
+        this.hopTimer += time;
+        if (this.hopTimer > this.minHopTime && this.hopTimer < this.maxHopTime) {
             this.actualSpeed = 0;
-        } else if (this.timer > this.maxHopTime) {
-            this.actualSpeed = this.speed;
-            this.timer = 0;
+        } else if (this.hopTimer > this.maxHopTime) {
+            this.actualSpeed = this.baseSpeed;
+            this.hopTimer = 0;
         }
     }
 }
