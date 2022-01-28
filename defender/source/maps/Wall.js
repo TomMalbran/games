@@ -1,4 +1,4 @@
-import Data         from "../maps/Data.js";
+import Data         from "../Data.js";
 
 // Utils
 import Utils        from "../../../utils/Utils.js";

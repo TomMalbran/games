@@ -1,4 +1,4 @@
-import Data         from "./maps/Data.js";
+import Data         from "./Data.js";
 import Map          from "./maps/Map.js";
 import Tower        from "./tower/Tower.js";
 

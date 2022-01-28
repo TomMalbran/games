@@ -1,5 +1,5 @@
 import Wall         from "./Wall.js";
-import Data         from "./Data.js";
+import Data         from "../Data.js";
 import Tower        from "../tower/Tower.js";
 
 // Utils

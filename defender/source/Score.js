@@ -1,3 +1,7 @@
+import Data         from "./Data.js";
+
+
+
 /**
  * Defender Score
  */
@@ -9,27 +13,23 @@ export default class Score {
      * @param {Function} onGameOver
      */
     constructor(level, onGameOver) {
-        this.level        = Number(level) + 1;
-        this.onGameOver   = onGameOver;
-        this.enable       = () => {};
-        this.disable      = () => {};
+        this.level      = Number(level) + 1;
+        this.onGameOver = onGameOver;
+        this.enable     = () => {};
+        this.disable    = () => {};
 
-
-        this.initialTimer = 25;
-        this.initialSecs  = 800;
-
-        this.gold         = 100;
-        this.lives        = 20;
-        this.timer        = this.initialTimer;
-        this.score        = 0;
-        this.bonus        = 0;
-        this.seconds      = this.initialSecs;
-        this.livesMult    = 25;
         this.goldElem   = document.querySelector(".gold-score");
         this.livesElem  = document.querySelector(".lives-score");
         this.timeElem   = document.querySelector(".time-score");
         this.scoreElem  = document.querySelector(".score-score");
         this.finalElem  = document.querySelector(".final-score");
+
+        this.gold       = Data.gold;
+        this.lives      = Data.lives;
+        this.timer      = Data.timer;
+        this.score      = 0;
+        this.bonus      = 0;
+        this.seconds    = Data.seconds;
 
         this.showScores();
     }
@@ -99,7 +99,7 @@ export default class Score {
      */
     startTimer() {
         this.addBonus();
-        this.timer = this.initialTimer;
+        this.timer = Data.timer;
         this.showScores();
     }
 
@@ -112,7 +112,7 @@ export default class Score {
         this.seconds -= time;
         if (this.seconds <= 0) {
             this.timer   -= 1;
-            this.seconds += this.initialSecs;
+            this.seconds += Data.seconds;
             this.showScores();
             return true;
         }
@@ -147,10 +147,10 @@ export default class Score {
     }
 
     /**
-     * Returns the final Bonus for the Final Score
+     * Returns the final Time Bonus for the Final Score
      * @returns {Number}
      */
-    calcBonus() {
+    get timeBonus() {
         return this.bonus * (this.lives <= 0 ? 0 : 1);
     }
 
@@ -159,7 +159,7 @@ export default class Score {
      * @returns {Number}
      */
     get total() {
-        return (this.score + this.lives * this.livesMult + this.calcBonus()) * this.level;
+        return (this.score + this.lives * Data.livesMult + this.timeBonus) * this.level;
     }
 
 
@@ -183,10 +183,10 @@ export default class Score {
         this.finalElem.innerHTML = `
             <dt>Score</dt>
             <dd>${this.score}</dd>
-            <dt>${this.lives} lives x${this.livesMult}</dt>
-            <dd>${this.lives * this.livesMult}</dd>
+            <dt>${this.lives} lives x${Data.livesMult}</dt>
+            <dd>${this.lives * Data.livesMult}</dd>
             <dt>+ Time Bonus</dt>
-            <dd>${this.calcBonus()}</dd>
+            <dd>${this.timeBonus}</dd>
             <dt>x Multiplier</dt>
             <dd>${this.level}</dd>
             <dt>Total Score</dt>

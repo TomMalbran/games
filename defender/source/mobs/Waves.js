@@ -1,4 +1,5 @@
 import Mobs         from "./Mobs.js";
+import Data         from "../Data.js";
 import Factory      from "../Factory.js";
 
 // Utils
@@ -16,30 +17,11 @@ export default class Waves {
      * @param {Mobs} parent
      */
     constructor(parent) {
-        this.waves = [
-            "Arrow",    "Inmune", "Group",  "Fast",   "Normal", "Spawn",  "Flying", "NormalBoss",
-            "Inmune",    "Group",  "Arrow",  "Normal", "Spawn",  "Flying", "Normal", "InmuneBoss",
-            "Group",     "Arrow",  "Dark",   "Spawn",  "Flying", "Normal", "Inmune", "GroupBoss",
-            "Arrow",     "Dark",   "Spawn",  "Flying", "Decoy",  "Hopper", "Morph",  "FastBoss",
-            "Dark",      "Spawn",  "Flying", "Decoy",  "Hopper", "Morph",  "Fast",   "DarkBoss",
-            "Spawn",     "Flying", "Decoy",  "Hopper", "Morph",  "Fast",   "Dark",   "FlyingBoss",
-            "SpawnBoss", "Normal",
-        ];
-
         this.parent    = parent;
-        this.container = document.querySelector(".waves");
-        this.waver     = document.querySelector(".currentWave");
-        this.total     = document.querySelector(".totalWaves");
-
-        /** @type {HTMLElement} */
-        this.button    = document.querySelector(".nextButton");
-
-        this.maxWaves  = 3;
-        this.elemWidth = 79;
         this.elements  = [];
         this.wave      = 0;
-        this.count     = Math.min(8, this.waves.length);
-        this.simWaves  = this.maxWaves - 1;
+        this.count     = Math.min(Data.initWaves, Data.waves.length);
+        this.simWaves  = Data.maxWaves - 1;
         this.mobCount  = [];
 
         this.waver     = document.querySelector(".current-wave");
@@ -59,7 +41,7 @@ export default class Waves {
         }
 
         this.button.style.display = "";
-        this.total.innerHTML      = String(this.waves.length);
+        this.total.innerHTML      = String(Data.waves.length);
     }
 
 
@@ -100,7 +82,7 @@ export default class Waves {
     reduceMob(wave) {
         this.mobCount[wave] -= 1;
         if (this.mobCount[wave] <= 0) {
-            this.simWaves = Math.min(this.maxWaves, this.simWaves + 1);
+            this.simWaves = Math.min(Data.maxWaves, this.simWaves + 1);
             this.showButton();
         }
     }
@@ -118,7 +100,7 @@ export default class Waves {
         } else {
             if (this.parent.score.timer === 0) {
                 this.newWave();
-                this.simWaves = Math.min(this.simWaves + 1, this.maxWaves);
+                this.simWaves = Math.min(this.simWaves + 1, Data.maxWaves);
                 this.showButton();
             }
             this.setLeft();
@@ -130,7 +112,7 @@ export default class Waves {
      * @returns {Void}
      */
     newWave() {
-        if (this.wave + this.count < this.waves.length) {
+        if (this.wave + this.count < Data.waves.length) {
             this.createElement(this.count);
         }
 
@@ -176,7 +158,7 @@ export default class Waves {
      */
     setLeft() {
         const timer = this.parent.score.timer;
-        const start = (timer - 25) * this.elemWidth / 25;
+        const start = (timer - 25) * Data.waveSize / 25;
 
         this.container.style.left = Utils.toPX(start);
     }
@@ -197,7 +179,7 @@ export default class Waves {
      * @returns {String}
      */
     getType(add = 0) {
-        return this.waves[this.wave + add].replace("Boss", "");
+        return Data.waves[this.wave + add].replace("Boss", "");
     }
 
     /**
@@ -206,7 +188,7 @@ export default class Waves {
      * @returns {Boolean}
      */
     isBossWave(add = 0) {
-        return this.waves[this.wave + add].includes("Boss");
+        return Data.waves[this.wave + add].includes("Boss");
     }
 
     /**
@@ -214,7 +196,7 @@ export default class Waves {
      * @returns {Boolean}
      */
     isLastWave() {
-        return this.wave + 1 === this.waves.length;
+        return this.wave + 1 === Data.waves.length;
     }
 
     /**

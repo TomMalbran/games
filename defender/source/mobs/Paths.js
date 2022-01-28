@@ -1,6 +1,6 @@
 import Mobs         from "./Mobs.js";
+import Data         from "../Data.js";
 import Mob          from "../mob/Mob.js";
-import Data         from "../maps/Data.js";
 
 // Utils
 import AStar        from "../../../utils/AStar.js";

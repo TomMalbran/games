@@ -1,4 +1,4 @@
-import Data         from "./Data.js";
+import Data         from "../Data.js";
 
 // Utils
 import Storage      from "../../../utils/Storage.js";

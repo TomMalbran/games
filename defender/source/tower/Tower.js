@@ -1,5 +1,5 @@
+import Data               from "../Data.js";
 import Ammo               from "../ammo/Ammo.js";
-import Data               from "../maps/Data.js";
 import Mob                from "../mob/Mob.js";
 
 // Utils

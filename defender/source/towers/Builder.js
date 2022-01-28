@@ -1,6 +1,6 @@
 import Towers       from "./Towers.js";
+import Data         from "../Data.js";
 import Factory      from "../Factory.js";
-import Data         from "../maps/Data.js";
 
 // Utils
 import Utils        from "../../../utils/Utils.js";

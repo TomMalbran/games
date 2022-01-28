@@ -1,5 +1,34 @@
 export default {
 
+    // Score
+    timer     : 25,
+    gold      : 200,
+    lives     : 20,
+    seconds   : 800,
+    livesMult : 25,
+
+    // The Waves
+    waveSize  : 80 * 1.4,
+    initWaves : 8,
+    maxWaves  : 3,
+    waves     : [
+        "Normal",    "Inmune", "Group",  "Fast",   "Normal", "Spawn",  "Flying", "NormalBoss",
+        "Inmune",    "Group",  "Arrow",  "Normal", "Spawn",  "Flying", "Normal", "InmuneBoss",
+        "Group",     "Arrow",  "Dark",   "Spawn",  "Flying", "Normal", "Inmune", "GroupBoss",
+        "Arrow",     "Dark",   "Spawn",  "Flying", "Decoy",  "Hopper", "Morph",  "FastBoss",
+        "Dark",      "Spawn",  "Flying", "Decoy",  "Hopper", "Morph",  "Fast",   "DarkBoss",
+        "Spawn",     "Flying", "Decoy",  "Hopper", "Morph",  "Fast",   "Dark",   "FlyingBoss",
+        "SpawnBoss", "Normal",
+    ],
+
+
+    // Map Data
+    scale      : 1.4,
+    squareSize : 15 * 1.4,
+    colsAmount : 28,
+    rowsAmount : 24,
+
+    // Map Types
     nothing    : 0,
     start1     : 1,     // Start  for path 1
     start2     : 2,     // Start  for path 2
@@ -7,13 +36,6 @@ export default {
     target2    : 4,     // Target for path 2
     wall       : 5,
     towerStart : 6,     // Starting tower id
-
-    // Map Data
-    squareSize : 15,
-    colsAmount : 28,
-    rowsAmount : 24,
-
-
 
     // The Maps
     maps : {
