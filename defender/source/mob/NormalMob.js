@@ -27,7 +27,7 @@ export default class NormalMob extends Mob {
         this.baseSpeed = 1;
         this.money     = 1;
         this.defense   = 0;
-        this.content   = `<div class="normalMob"></div>`;
+        this.content   = `<div class="normal-mob"></div>`;
 
         this.init(data);
     }

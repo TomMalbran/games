@@ -28,8 +28,8 @@ export default class DarkMob extends Mob {
         this.money     = 1.5;
         this.defense   = 10;
         this.content   = `
-            <div class="darkHead"></div>
-            <div class="darkTail"></div>
+            <div class="dark-head"></div>
+            <div class="dark-tail"></div>
         `;
 
         this.init(data);

@@ -1,0 +1,232 @@
+/**
+ * Sidebar
+ */
+.sidebar {
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 21rem;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+
+
+/**
+ * Scores Panel
+ */
+.scores-panel {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+.scores-panel div {
+    display: flex;
+    align-items: center;
+}
+.gold-score {
+    color: rgb(255, 255, 0);
+}
+.lives-score {
+    justify-content: flex-end;
+    color: rgb(153, 0, 0);
+}
+.time-score {
+    color: white;
+}
+.score-score {
+    justify-content: flex-end;
+    color: rgb(0, 102, 0);
+}
+
+
+
+/**
+ * Towers Panel
+ */
+.towers-panel {
+    background-color: rgba(0, 0, 0, 0.6);
+    margin-bottom: 1rem;
+}
+.towers-panel .panel-content {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 0.5rem;
+    margin: 0;
+    padding: 1rem;
+}
+
+.towers-panel .tower {
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+}
+.towers-panel .selected {
+    box-shadow: 0 0 1rem 0.2rem rgb(0, 153, 0);
+}
+.towers-panel .disabled {
+    background-color: rgba(0, 0, 0, 0.8);
+    cursor: not-allowed;
+}
+
+
+
+/**
+ * Info Panel
+ */
+.info-panel {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+}
+.info-panel.fade-in {
+    opacity: 1;
+    transition: opacity 1s;
+}
+.info-panel.delayed-fade-out {
+    opacity: 0;
+    transition: opacity 1s .5s;
+}
+.info-panel.fade-out {
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.info-panel .panel-content {
+    padding: 1rem;
+}
+.info-panel p {
+    margin-top: 0;
+    font-size: 12px;
+}
+
+.info-panel .information {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    grid-gap: 0.2rem 1rem;
+}
+.info-panel .text {
+    text-align: right;
+}
+.info-panel .actual {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.info-panel .next {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.tower-cost {
+    color: yellow;
+}
+.tower-damage {
+    color: rgb(255, 0, 0);
+}
+.tower-distance {
+    color: rgb(168, 194, 255);
+}
+.tower-speed {
+    color: white
+}
+.tower-boost-value {
+    grid-column-end: span 3;
+    text-align: right;
+    font-size: 12px;
+    color: rgb(255, 0, 0);
+}
+
+
+.info-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.3rem;
+    margin-top: 0.5rem;
+    justify-content: space-between;
+    width: 100%;
+}
+.extra-button {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.info-buttons button {
+    padding: 0.4rem 0.3rem;
+    font-size: 12px;
+    width: 100%;
+}
+
+.action-button {
+    display: none;
+}
+.extra-button .action-button {
+    display: block;
+}
+.hide-buttons .upgrade-button {
+    display: none;
+}
+.cant-upgrade .upgrade-button {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+.mob-points {
+    color: rgb(255, 0, 0);
+}
+.mob-gold {
+    color: yellow;
+}
+.mob-speed {
+    color: white;
+}
+
+
+.info-loading {
+    box-sizing: border-box;
+    position: relative;
+    grid-column-end: span 3;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    height: 2rem;
+    border: 0.2rem solid rgb(41, 41, 41);
+    overflow: hidden;
+}
+.info-loading-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    background: linear-gradient(to right, rgb(255, 153, 0), rgb(255, 201, 0));
+}
+
+
+
+/**
+ * Sidebar Buttons
+ */
+.sidebar-buttons {
+    position: absolute;
+    bottom: 5.5rem;
+    width: calc(100% - 2rem);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.3rem;
+}
+.sidebar-buttons button {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.4rem 0.3rem;
+    border-radius: 0.3rem;
+}

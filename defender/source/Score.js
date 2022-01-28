@@ -14,11 +14,6 @@ export default class Score {
         this.enable       = () => {};
         this.disable      = () => {};
 
-        this.goldElem     = document.querySelector(".goldScore");
-        this.livesElem    = document.querySelector(".livesScore");
-        this.timeElem     = document.querySelector(".timeScore");
-        this.scoreElem    = document.querySelector(".scoreScore");
-        this.finalElem    = document.querySelector(".finalScore");
 
         this.initialTimer = 25;
         this.initialSecs  = 800;
@@ -30,6 +25,11 @@ export default class Score {
         this.bonus        = 0;
         this.seconds      = this.initialSecs;
         this.livesMult    = 25;
+        this.goldElem   = document.querySelector(".gold-score");
+        this.livesElem  = document.querySelector(".lives-score");
+        this.timeElem   = document.querySelector(".time-score");
+        this.scoreElem  = document.querySelector(".score-score");
+        this.finalElem  = document.querySelector(".final-score");
 
         this.showScores();
     }

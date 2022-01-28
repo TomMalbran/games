@@ -5,59 +5,60 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 15px;
-    height: 15px;
+    width: 1.5rem;
+    height: 1.5rem;
     cursor: pointer;
     z-index: 1;
+    pointer-events: all;
 }
-    .mobDeath {
-        display: none;
-        position: absolute;
-        top: -1px;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background-color: rgb(218, 48, 24);
-        border: 1px solid black;
-        z-index: 1;
-    }
-    .mobLife {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 13px;
-        height: 2px;
-        background-color: green;
-    }
-    .mobSlow {
-        position: absolute;
-        display: none;
-        top: 7px;
-        left: 7px;
-        height: 1px;
-        width: 1px;
-        box-shadow: 0 0 3px 6px rgb(72, 125, 108);
-    }
-    .mobBleed {
-        position: absolute;
-        display: none;
-        top: 7px;
-        left: 7px;
-        height: 1px;
-        width: 1px;
-        box-shadow: 0 0 3px 6px black;
-    }
-    .mobBody {
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-    }
+.mob-death {
+    display: none;
+    position: absolute;
+    top: -0.1rem;
+    left: 0;
+    right: 0;
+    height: 0.2rem;
+    background-color: rgb(218, 48, 24);
+    border: 0.1rem solid black;
+    z-index: 1;
+}
+.mob-life {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1.3rem;
+    height: 0.2rem;
+    background-color: green;
+}
+.mob-slow {
+    position: absolute;
+    display: none;
+    top: 0.7rem;
+    left: 0.7rem;
+    height: 0.1rem;
+    width: 0.1rem;
+    box-shadow: 0 0 0.3rem 0.6rem rgb(72, 125, 108);
+}
+.mob-bleed {
+    position: absolute;
+    display: none;
+    top: 0.7rem;
+    left: 0.7rem;
+    height: 0.1rem;
+    width: 0.1rem;
+    box-shadow: 0 0 0.3rem 0.6rem black;
+}
+.mob-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
 
-.hit      .mobDeath,
-.slowed   .mobSlow,
-.bleeding .mobBleed {
+.hit      .mob-death,
+.slowed   .mob-slow,
+.bleeding .mob-bleed {
     display: block;
 }
 
@@ -66,477 +67,485 @@
 /**
  * Normal Mob
  */
-.normalMob {
+.normal-mob {
     position: absolute;
-    top: 1px;
-    left: 1px;
-    width: 11px;
-    height: 11px;
-    border: 1px solid rgb(29, 29, 29);
-    border-radius: 10px;
+    top: 0.1rem;
+    left: 0.1rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    border: 0.1rem solid rgb(29, 29, 29);
+    border-radius: 50%;
     background: radial-gradient(closest-side, rgb(220, 220, 220), rgb(120, 120, 120));
 }
-    .normalMob:after {
-        content: "";
-        position: absolute;
-        top: 3px;
-        left: 8px;
-        width: 2px;
-        height: 1px;
-        border-top: 2px solid rgba(29, 29, 29, 0.7);
-        border-bottom: 2px solid rgba(29, 29, 29, 0.7);
-    }
+.normal-mob:after {
+    content: "";
+    position: absolute;
+    top: 0.3rem;
+    left: 0.8rem;
+    width: 0.2rem;
+    height: 0.1rem;
+    border-top: 0.2rem solid rgba(29, 29, 29, 0.7);
+    border-bottom: 0.2rem solid rgba(29, 29, 29, 0.7);
+}
 
 
 
 /**
  * Inmune Mob
  */
-.inmuneBody {
+.inmune-body {
     position: absolute;
-    top: 1px;
-    left: 1px;
-    width: 11px;
-    height: 11px;
-    border: 1px solid rgb(59, 0, 59);
-    border-radius: 10px;
+    top: 0.1rem;
+    left: 0.1rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    border: 0.1rem solid rgb(59, 0, 59);
+    border-radius: 50%;
     background: radial-gradient(closest-side, rgb(230, 170, 250), rgb(180, 75, 248));
 }
-    .inmuneBody:after {
-        content: "";
-        position: absolute;
-        top: 3px;
-        left: 8px;
-        width: 2px;
-        height: 1px;
-        border-top: 2px solid rgba(59, 0, 59, 0.7);
-        border-bottom: 2px solid rgba(59, 0, 59, 0.7);
-    }
-
-.inmuneLine1,
-.inmuneLine2,
-.inmuneLine3,
-.inmuneLine4 {
+.inmune-body:after {
+    content: "";
     position: absolute;
-    top: 7px;
-    left: -1px;
-    width: 17px;
-    height: 1px;
+    top: 0.3rem;
+    left: 0.8rem;
+    width: 0.2rem;
+    height: 0.1rem;
+    border-top: 0.2rem solid rgba(59, 0, 59, 0.7);
+    border-bottom: 0.2rem solid rgba(59, 0, 59, 0.7);
+}
+
+.inmune-line1,
+.inmune-line2,
+.inmune-line3,
+.inmune-line4 {
+    position: absolute;
+    top: 0.7rem;
+    left: -0.1rem;
+    width: 1.7rem;
+    height: 0.1rem;
     background-color: rgb(59, 0, 59);
 }
-    .inmuneLine2 {
-        transform: rotate(45deg);
-    }
-    .inmuneLine3 {
-        transform: rotate(90deg);
-    }
-    .inmuneLine4 {
-        transform: rotate(135deg);
-    }
+.inmune-line2 {
+    transform: rotate(45deg);
+}
+.inmune-line3 {
+    transform: rotate(90deg);
+}
+.inmune-line4 {
+    transform: rotate(135deg);
+}
 
 
 
 /**
  * Group Mob
  */
-.groupMob {
+.group-mob {
     position: absolute;
-    top: 1px;
-    left: 1px;
-    width: 11px;
-    height: 11px;
-    border: 1px solid rgb(0, 29, 59);
-    border-radius: 10px;
+    top: 0.1rem;
+    left: 0.1rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    border: 0.1rem solid rgb(0, 29, 59);
+    border-radius: 50%;
     background: radial-gradient(closest-side, rgb(157, 174, 239), rgb(76, 76, 179));
 }
-    .groupMob:after {
-        content: "";
-        position: absolute;
-        top: 3px;
-        left: 8px;
-        width: 2px;
-        height: 1px;
-        border-top: 2px solid rgba(0, 29, 59, 0.7);
-        border-bottom: 2px solid rgba(0, 29, 59, 0.7);
-    }
+.group-mob:after {
+    content: "";
+    position: absolute;
+    top: 0.3rem;
+    left: 0.8rem;
+    width: 0.2rem;
+    height: 0.1rem;
+    border-top: 0.2rem solid rgba(0, 29, 59, 0.7);
+    border-bottom: 0.2rem solid rgba(0, 29, 59, 0.7);
+}
 
 
 
 /**
  * Fast Mob
  */
-.fastHead {
+.fast-head {
     position: absolute;
-    top: 1px;
-    left: 10px;
-    width: 6px;
-    height: 11px;
-    border: 1px solid rgb(65, 9, 6);
+    top: 0.1rem;
+    left: 1rem;
+    width: 0.6rem;
+    height: 1.1rem;
+    border: 0.1rem solid rgb(65, 9, 6);
     border-left: none;
-    border-radius: 0 10px 10px 0;
+    border-radius: 0 1rem 1rem 0;
     background: radial-gradient(farthest-side at 0% 50%, rgb(255, 199, 202), rgb(180, 76, 105));
 }
-    .fastHead:after {
-        content: "";
-        position: absolute;
-        top: 3px;
-        left: 2px;
-        width: 2px;
-        height: 1px;
-        border-top: 2px solid rgba(65, 9, 6, 0.7);
-        border-bottom: 2px solid rgba(65, 9, 6, 0.7);
-    }
-
-.fastTail {
+.fast-head:after {
+    content: "";
     position: absolute;
-    top: 1px;
-    left: -4px;
-    width: 14px;
-    height: 13px;
+    top: 0.3rem;
+    left: 0.2rem;
+    width: 0.2rem;
+    height: 0.1rem;
+    border-top: 0.2rem solid rgba(65, 9, 6, 0.7);
+    border-bottom: 0.2rem solid rgba(65, 9, 6, 0.7);
+}
+
+.fast-tail {
+    position: absolute;
+    top: 0.1rem;
+    left: -0.4rem;
+    width: 1.4rem;
+    height: 1.3rem;
     overflow: hidden;
 }
-    .fastTail:after {
-        content: "";
-        position: absolute;
-        top: -1px;
-        left: 7px;
-        width: 13px;
-        height: 13px;
-        border: 1px solid rgb(65, 9, 6);
-        background: radial-gradient(closest-corner, rgb(255, 199, 202), rgb(180, 76, 105));
-        transform: rotate(135deg) skew(20deg, 20deg);
-    }
+.fast-tail:after {
+    content: "";
+    position: absolute;
+    top: -0.1rem;
+    left: 0.7rem;
+    width: 1.3rem;
+    height: 1.3rem;
+    border: 0.1rem solid rgb(65, 9, 6);
+    background: radial-gradient(closest-corner, rgb(255, 199, 202), rgb(180, 76, 105));
+    transform: rotate(135deg) skew(20deg, 20deg);
+}
 
 
 
 /**
  * Spawn Mob
  */
-.spawnHead,
-.spawnTail {
+.spawn-head,
+.spawn-tail {
     position: absolute;
-    width: 10px;
-    height: 13px;
+    width: 1rem;
+    height: 1.3rem;
     overflow: hidden;
 }
-    .spawnHead { top: 0; left:  7px; }
-    .spawnTail { top: 0; left: -3px; }
+.spawn-head {
+    top: 0;
+    left: 0.7rem;
+}
+.spawn-tail {
+    top: 0;
+    left: -0.3rem;
+}
 
-    .spawnHead:after {
-        content: "";
-        position: absolute;
-        top: 4px;
-        left: 6px;
-        width: 2px;
-        height: 1px;
-        border-top: 2px solid rgba(28, 38, 9, 0.7);
-        border-bottom: 2px solid rgba(28, 38, 9, 0.7);
-    }
-    .spawnHead:before,
-    .spawnTail:before {
-        content: "";
-        position: absolute;
-        width: 11px;
-        height: 11px;
-        border: 1px solid rgb(28, 38, 9);
-        border-radius: 10px;
-        background: radial-gradient(closest-side, rgb(184, 246, 184), rgb(31, 142, 30));
-    }
-    .spawnHead:before { left: -3px; }
-
-
-.spawnChild {
+.spawn-head:after {
+    content: "";
     position: absolute;
-    top: 1px;
-    left: 1px;
-    width: 11px;
-    height: 11px;
-    border: 1px solid rgb(28, 38, 9);
-    border-radius: 10px;
+    top: 0.4rem;
+    left: 0.6rem;
+    width: 0.2rem;
+    height: 0.1rem;
+    border-top: 0.2rem solid rgba(28, 38, 9, 0.7);
+    border-bottom: 0.2rem solid rgba(28, 38, 9, 0.7);
+}
+.spawn-head:before,
+.spawn-tail:before {
+    content: "";
+    position: absolute;
+    width: 1.1rem;
+    height: 1.1rem;
+    border: 0.1rem solid rgb(28, 38, 9);
+    border-radius: 50%;
     background: radial-gradient(closest-side, rgb(184, 246, 184), rgb(31, 142, 30));
 }
-    .spawnChild:after {
-        content: "";
-        position: absolute;
-        top: 3px;
-        left: 8px;
-        width: 2px;
-        height: 1px;
-        border-top: 2px solid rgba(28, 38, 9, 0.7);
-        border-bottom: 2px solid rgba(28, 38, 9, 0.7);
-    }
+.spawn-head:before {
+    left: -0.3rem;
+}
+
+
+.spawn-child {
+    position: absolute;
+    top: 0.1rem;
+    left: 0.1rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    border: 0.1rem solid rgb(28, 38, 9);
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgb(184, 246, 184), rgb(31, 142, 30));
+}
+.spawn-child:after {
+    content: "";
+    position: absolute;
+    top: 0.3rem;
+    left: 0.8rem;
+    width: 0.2rem;
+    height: 0.1rem;
+    border-top: 0.2rem solid rgba(28, 38, 9, 0.7);
+    border-bottom: 0.2rem solid rgba(28, 38, 9, 0.7);
+}
 
 
 
 /**
  * Flying Mob
  */
-.flyingMob {
+.flying-mob {
     position: absolute;
-    top: 2px;
-    left: -1px;
-    width: 16px;
-    height: 13px;
-    border-left: 1px solid black;
+    top: 0.2rem;
+    left: -0.1rem;
+    width: 1.6rem;
+    height: 1.3rem;
+    border-left: 0.1rem solid black;
     overflow: hidden;
     z-index: 2;
 }
-    .flyingMob:after {
-        content: "";
-        position: absolute;
-        top: 4px;
-        left: 7px;
-        width: 2px;
-        height: 1px;
-        border-top: 2px solid rgba(0, 0, 0, 0.7);
-        border-bottom: 2px solid rgba(0, 0, 0, 0.7);
-    }
-    .flyingMob:before {
-        content: "";
-        position: absolute;
-        top: -2px;
-        left: -10px;
-        height: 15px;
-        width: 15px;
-        border: 1px solid black;
-        background: linear-gradient(45deg, rgb(236, 228, 155), rgb(231, 227, 157) 35%, rgb(192, 169, 46) 65%, rgb(206, 188, 66));
-        transform: rotate(135deg) skew(24deg, 24deg);
-    }
-
-.flyingShadow {
+.flying-mob:after {
+    content: "";
     position: absolute;
-    top: 6px;
-    left: -4px;
-    width: 16px;
-    height: 13px;
+    top: 0.4rem;
+    left: 0.7rem;
+    width: 0.2rem;
+    height: 0.1rem;
+    border-top: 0.2rem solid rgba(0, 0, 0, 0.7);
+    border-bottom: 0.2rem solid rgba(0, 0, 0, 0.7);
+}
+.flying-mob:before {
+    content: "";
+    position: absolute;
+    top: -0.2rem;
+    left: -1rem;
+    height: 1.5rem;
+    width: 1.5rem;
+    border: 0.1rem solid black;
+    background: linear-gradient(45deg, rgb(236, 228, 155), rgb(231, 227, 157) 35%, rgb(192, 169, 46) 65%, rgb(206, 188, 66));
+    transform: rotate(135deg) skew(24deg, 24deg);
+}
+
+.flying-shadow {
+    position: absolute;
+    top: 0.6rem;
+    left: -0.4rem;
+    width: 1.6rem;
+    height: 1.3rem;
     overflow: hidden;
     z-index: 1;
 }
-    .flyingShadow:before {
-        content: "";
-        position: absolute;
-        top: -2px;
-        left: -10px;
-        height: 17px;
-        width: 17px;
-        background: rgba(0, 0, 0, 0.3);
-        transform: rotate(135deg) skew(24deg, 24deg);
-    }
+.flying-shadow:before {
+    content: "";
+    position: absolute;
+    top: -0.2rem;
+    left: -1rem;
+    height: 1.7rem;
+    width: 1.7rem;
+    background: rgba(0, 0, 0, 0.3);
+    transform: rotate(135deg) skew(24deg, 24deg);
+}
 
 
 
 /**
  * Arrow Mob
  */
-.arrowHead {
+.arrow-head {
     position: absolute;
     top: 0;
-    left: 10px;
-    width: 7px;
-    height: 15px;
+    left: 1rem;
+    width: 0.7rem;
+    height: 1.5rem;
     overflow: hidden;
 }
-    .arrowHead:after {
-        content: "";
-        position: absolute;
-        top: 5px;
-        left: 2px;
-        width: 2px;
-        height: 1px;
-        border-top: 2px solid rgba(89, 11, 11, 0.7);
-        border-bottom: 2px solid rgba(89, 11, 11, 0.7);
-    }
-    .arrowHead:before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -11px;
-        width: 13px;
-        height: 13px;
-        border: 1px solid rgb(89, 11, 11);
-        background: radial-gradient(farthest-side, rgb(232, 176, 176), rgb(195, 60, 60));
-        transform: rotate(135deg);
-    }
-
-.arrowTail {
+.arrow-head:after {
+    content: "";
     position: absolute;
-    top: 1px;
-    left: -4px;
-    width: 14px;
-    height: 13px;
+    top: 0.5rem;
+    left: 0.2rem;
+    width: 0.2rem;
+    height: 0.1rem;
+    border-top: 0.2rem solid rgba(89, 11, 11, 0.7);
+    border-bottom: 0.2rem solid rgba(89, 11, 11, 0.7);
+}
+.arrow-head:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -1.1rem;
+    width: 1.3rem;
+    height: 1.3rem;
+    border: 0.1rem solid rgb(89, 11, 11);
+    background: radial-gradient(farthest-side, rgb(232, 176, 176), rgb(195, 60, 60));
+    transform: rotate(135deg);
+}
+
+.arrow-tail {
+    position: absolute;
+    top: 0.1rem;
+    left: -0.4rem;
+    width: 1.4rem;
+    height: 1.3rem;
     overflow: hidden;
 }
-    .arrowTail:after {
-        content: "";
-        position: absolute;
-        top: -1px;
-        left: 7px;
-        width: 13px;
-        height: 13px;
-        border: 1px solid rgb(89, 11, 11);
-        background: radial-gradient(closest-corner, rgb(231, 177, 177), rgb(195, 60, 60));
-        transform: rotate(135deg) skew(20deg, 20deg);
-    }
+.arrow-tail:after {
+    content: "";
+    position: absolute;
+    top: -0.1rem;
+    left: 0.7rem;
+    width: 1.3rem;
+    height: 1.3rem;
+    border: 0.1rem solid rgb(89, 11, 11);
+    background: radial-gradient(closest-corner, rgb(231, 177, 177), rgb(195, 60, 60));
+    transform: rotate(135deg) skew(20deg, 20deg);
+}
 
 
 
 /**
  * Dark Mob
  */
-.darkHead {
+.dark-head {
     position: absolute;
-    top: 2px;
-    left: 5px;
-    width: 10px;
-    height: 13px;
+    top: 0.2rem;
+    left: 0.5rem;
+    width: 1rem;
+    height: 1.3rem;
     overflow: hidden;
 }
-    .darkHead:after {
-        content: "";
-        position: absolute;
-        top: 4px;
-        left: 5px;
-        width: 2px;
-        height: 1px;
-        border-top: 2px solid rgba(154, 154, 154, 0.7);
-        border-bottom: 2px solid rgba(154, 154, 154, 0.7);
-    }
-    .darkHead:before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -3px;
-        width: 11px;
-        height: 11px;
-        border: 1px solid rgb(40,40,40);
-        border-radius: 10px;
-        background: radial-gradient(farthest-side at 30% 50%, rgb(100, 100, 100), rgb(30, 30, 30));
-    }
+.dark-head:after {
+    content: "";
+    position: absolute;
+    top: 0.4rem;
+    left: 0.5rem;
+    width: 0.2rem;
+    height: 0.1rem;
+    border-top: 0.2rem solid rgba(154, 154, 154, 0.7);
+    border-bottom: 0.2rem solid rgba(154, 154, 154, 0.7);
+}
+.dark-head:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -0.3rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    border: 0.1rem solid rgb(40,40,40);
+    border-radius: 50%;
+    background: radial-gradient(farthest-side at 30% 50%, rgb(100, 100, 100), rgb(30, 30, 30));
+}
 
-.darkTail {
+.dark-tail {
     position: absolute;
-    top: 3px;
-    left: 2px;
-    height: 11px;
-    width: 5px;
+    top: 0.3rem;
+    left: 0.2rem;
+    height: 1.1rem;
+    width: 0.5rem;
     overflow: hidden;
 }
-    .darkTail:after {
-        content: "";
-        top: 1px;
-        left: -9px;
-        position: absolute;
-        height: 9px;
-        width: 12px;
-        border-radius: 5px;
-        box-shadow: 0 0 0 3px rgb(40, 40, 40);
-    }
+.dark-tail:after {
+    content: "";
+    top: 0.1rem;
+    left: -0.9rem;
+    position: absolute;
+    height: 0.9rem;
+    width: 1.2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 0 0.3rem rgb(40, 40, 40);
+}
 
 
 
 /**
  * Decoy Mob
  */
-.decoyHead {
+.decoy-head {
     position: absolute;
     top: 0;
-    left: 9px;
-    height: 13px;
-    width: 7px;
-    border: 1px solid rgb(63, 81, 59);
+    left: 0.9rem;
+    height: 1.3rem;
+    width: 0.7rem;
+    border: 0.1rem solid rgb(63, 81, 59);
     border-left: none;
-    border-radius: 0 10px 10px 0;
+    border-radius: 0 1rem 1rem 0;
     background-color: rgb(141, 171, 135);
 }
-    .decoyHead:after {
-        content: "";
-        position: absolute;
-        top: 4px;
-        left: 4px;
-        width: 2px;
-        height: 1px;
-        border-top: 2px solid rgba(63, 81, 59, 0.7);
-        border-bottom: 2px solid rgba(63, 81, 59, 0.7);
-    }
-
-.decoyBody {
+.decoy-head:after {
+    content: "";
     position: absolute;
-    top: -3px;
-    left: 3px;
-    height: 19px;
-    width: 8px;
-    border-radius: 5px;
-    border: 1px solid rgb(63, 81, 59);
+    top: 0.4rem;
+    left: 0.4rem;
+    width: 0.2rem;
+    height: 0.1rem;
+    border-top: 0.2rem solid rgba(63, 81, 59, 0.7);
+    border-bottom: 0.2rem solid rgba(63, 81, 59, 0.7);
+}
+
+.decoy-body {
+    position: absolute;
+    top: -0.3rem;
+    left: 0.3rem;
+    height: 1.9rem;
+    width: 0.8rem;
+    border-radius: 0.5rem;
+    border: 0.1rem solid rgb(63, 81, 59);
     border-right: none;
     background: radial-gradient(rgb(227, 234, 225), rgb(113, 150, 105));
 }
-    .decoyBody:before,
-    .decoyBody:after {
-        content: "";
-        position: absolute;
-        left: -7px;
-        width: 7px;
-        height: 5px;
-        border: 1px solid rgb(63, 81, 59);
-        border-right: none;
-        background-color: rgb(170, 192, 165);
-    }
-    .decoyBody:before {
-        top: 2px;
-        transform: skew(20deg, 20deg);
-    }
-    .decoyBody:after {
-        top: 10px;
-        transform: skew(-20deg, -20deg);
-    }
-
-
-.decoyChild {
+.decoy-body:before,
+.decoy-body:after {
+    content: "";
     position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 9px;
-    height: 9px;
-    border: 1px solid rgb(63, 81, 59);
-    border-radius: 10px;
+    left: -0.7rem;
+    width: 0.7rem;
+    height: 0.5rem;
+    border: 0.1rem solid rgb(63, 81, 59);
+    border-right: none;
+    background-color: rgb(170, 192, 165);
+}
+.decoy-body:before {
+    top: 0.2rem;
+    transform: skew(20deg, 20deg);
+}
+.decoy-body:after {
+    top: 1rem;
+    transform: skew(-20deg, -20deg);
+}
+
+
+.decoy-child {
+    position: absolute;
+    top: 0.2rem;
+    left: 0.2rem;
+    width: 0.9rem;
+    height: 0.9rem;
+    border: 0.1rem solid rgb(63, 81, 59);
+    border-radius: 1rem;
     background: radial-gradient(closest-side, rgb(227, 234, 225), rgb(113, 150, 105));
 }
-    .decoyChild:after {
-        content: "";
-        position: absolute;
-        top: 2px;
-        left: 6px;
-        width: 2px;
-        height: 1px;
-        border-top: 2px solid rgba(63, 81, 59, 0.7);
-        border-bottom: 2px solid rgba(63, 81, 59, 0.7);
-    }
+.decoy-child:after {
+    content: "";
+    position: absolute;
+    top: 0.2rem;
+    left: 0.6rem;
+    width: 0.2rem;
+    height: 0.1rem;
+    border-top: 0.2rem solid rgba(63, 81, 59, 0.7);
+    border-bottom: 0.2rem solid rgba(63, 81, 59, 0.7);
+}
 
 
 
 /**
  * Hopper Mob
  */
-.hopperMob {
+.hopper-mob {
     position: absolute;
-    top: 1px;
-    left: 1px;
-    width: 11px;
-    height: 11px;
-    border: 1px solid rgb(92, 19, 83);
-    border-radius: 10px;
+    top: 0.1rem;
+    left: 0.1rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    border: 0.1rem solid rgb(92, 19, 83);
+    border-radius: 1rem;
     background: radial-gradient(closest-side, rgb(237, 196, 237), rgb(207, 99, 207));
 }
-    .hopperMob:after {
-        content: "";
-        position: absolute;
-        top: 3px;
-        left: 8px;
-        width: 2px;
-        height: 1px;
-        border-top: 2px solid rgba(92, 19, 83, 0.7);
-        border-bottom: 2px solid rgba(92, 19, 83, 0.7);
-    }
+.hopper-mob:after {
+    content: "";
+    position: absolute;
+    top: 0.3rem;
+    left: 0.8rem;
+    width: 0.2rem;
+    height: 0.1rem;
+    border-top: 0.2rem solid rgba(92, 19, 83, 0.7);
+    border-bottom: 0.2rem solid rgba(92, 19, 83, 0.7);
+}
 
 
 
@@ -545,16 +554,20 @@
  */
 .alert {
     position: absolute;
-    width: 15px;
-    height: 10px;
-    margin-top: -5px;
-    margin-left: -5px;
+    width: 1.5rem;
+    height: 1rem;
+    margin-top: -0.5rem;
+    margin-left: -0.5rem;
     text-align: center;
     font-weight: bold;
     z-index: 3;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 11px;
-    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+    font-size: 1.1rem;
+    text-shadow: -0.1rem -0.1rem 0 black, 0.1rem -0.1rem 0 black, -0.1rem 0.1rem 0 black, 0.1rem 0.1rem 0 black;
 }
-    .alertRed    { color: rgb(153, 0, 0);   }
-    .alertYellow { color: rgb(255, 255, 0); }
+.alert-red {
+    color: rgb(153, 0, 0);
+}
+.alert-yellow {
+    color: rgb(255, 255, 0);
+}

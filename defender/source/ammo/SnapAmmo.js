@@ -22,7 +22,7 @@ export default class SnapAmmo extends Ammo {
         this.center      = 0;
         this.rotateTower = false;
         this.rotateAmmo  = true;
-        this.className   = "snapAmmo";
+        this.className   = "snap-ammo";
 
         this.init(tower, targets, boardSize);
     }

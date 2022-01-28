@@ -31,7 +31,7 @@ export default class Alerts {
      * @returns {Void}
      */
     life(mob) {
-        this.add(mob, "alertRed", "-1");
+        this.add(mob, "alert-red", "-1");
     }
 
     /**
@@ -40,7 +40,7 @@ export default class Alerts {
      * @returns {Void}
      */
     gold(mob) {
-        this.add(mob, "alertYellow", `+${mob.gold}`);
+        this.add(mob, "alert-yellow", `+${mob.gold}`);
     }
 
 

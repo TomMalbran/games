@@ -29,8 +29,8 @@ export default class FlyingMob extends Mob {
         this.defense   = 0;
         this.isFlyer   = true;
         this.content   = `
-            <div class="flyingMob"></div>
-            <div class="flyingShadow"></div>
+            <div class="flying-mob"></div>
+            <div class="flying-shadow"></div>
         `;
 
         this.init(data);

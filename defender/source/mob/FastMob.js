@@ -28,8 +28,8 @@ export default class FastMob extends Mob {
         this.money     = 1;
         this.defense   = 0;
         this.content   = `
-            <div class="fastHead"></div>
-            <div class="fastTail"></div>
+            <div class="fast-head"></div>
+            <div class="fast-tail"></div>
         `;
 
         this.init(data);

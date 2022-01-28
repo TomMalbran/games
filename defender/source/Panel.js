@@ -13,10 +13,9 @@ export default class Panel {
      */
     constructor() {
         this.hasStarted = false;
-        this.container  = document.querySelector(".description");
+        this.container  = document.querySelector(".info-panel");
         this.towerSel   = null;
         this.mobSel     = null;
-        this.width      = 161;
     }
 
 
@@ -136,7 +135,7 @@ export default class Panel {
 
 
     /**
-     * Creates the Description HTML
+     * Creates the Information Panel
      * @param {String}  name
      * @param {String}  text
      * @param {String}  information
@@ -146,94 +145,90 @@ export default class Panel {
     create(name, text, information, buttons) {
         this.container.innerHTML = `
             <h2>${name}</h2>
-            <div class="content">
+            <div class="panel-content">
                 <p>${text}</p>
-                <div class="information">${information}</div>${buttons || ""}
+                <div class="information">${information}</div>
+                ${buttons || ""}
             </div>
         `;
-        this.container.className = "description fadeIn";
+        this.container.className = "info-panel fade-in";
     }
 
     /**
-     * Creates the Tower Information HTML
+     * Returns the Tower Information HTML
      * @param {Object} data
      * @returns {String}
      */
     towerInfo(data) {
         return `
-            <div class="towerCost">
-                <div class="text">Cost:</div>
-                <div class="actual">${data.aCost}</div>
-                <div class="next">${data.uCost ? `+${data.uCost}` : ""}</div>
-            </div>
-            <div class="towerDamage">
-                <div class="text">Damage:</div>
-                <div class="actual">${data.aDamage}${data.isBoost ? "%" : ""}</div>
-                <div class="next">${data.uDamage ? `+${data.uDamage}${data.isBoost ? "%" : ""}` : ""}</div>
-            </div>
-            <div class="towerDistance">
-                <div class="text">Range:</div>
-                <div class="actual">${data.aRange}</div>
-                <div class="next">${data.uRange ? `+ ${data.uRange}` : ""}</div>
-            </div>
-            <div class="towerSpeed">
-                <div class="text">Speed:</div>
-                <div class="actual">${data.aSpeed}</div>
-                <div class="next">${data.uSpeed || ""}</div>
-            </div>
-            <div class="towerBoost">${data.boost ? `Boost: ${data.boost} %` : ""}</div>
+            <div class="tower-cost text">Cost:</div>
+            <div class="tower-cost actual">${data.aCost}</div>
+            <div class="tower-cost next">${data.uCost ? `+${data.uCost}` : ""}</div>
+
+            <div class="tower-damage text">Damage:</div>
+            <div class="tower-damage actual">${data.aDamage}${data.isBoost ? "%" : ""}</div>
+            <div class="tower-damage next">${data.uDamage ? `+${data.uDamage}${data.isBoost ? "%" : ""}` : ""}</div>
+
+            <div class="tower-distance text">Range:</div>
+            <div class="tower-distance actual">${data.aRange}</div>
+            <div class="tower-distance next">${data.uRange ? `+ ${data.uRange}` : ""}</div>
+
+            <div class="tower-speed text">Speed:</div>
+            <div class="tower-speed actual">${data.aSpeed}</div>
+            <div class="tower-speed next">${data.uSpeed || ""}</div>
+
+            <div class="tower-boost-value">${data.boost ? `Boost: ${data.boost} %` : ""}</div>
         `;
     }
 
     /**
-     * Creates the Tower Buttons HTML
+     * Returns the Tower Buttons HTML
      * @param {Object} data
      * @returns {String}
      */
     towerButtons(data) {
-        const classes = [];
+        const classes = [ "info-buttons" ];
         let   button  = "";
 
         if (data.isMaxed) {
-            classes.push("hideButtons");
+            classes.push("hide-buttons");
         }
         if (data.cantUpgrade) {
-            classes.push("cantUpgrade");
-        }
-        if (data.canFire) {
-            classes.push("extraButton");
+            classes.push("cant-upgrade");
         }
 
         if (data.canFire) {
-            button = `<button class="actionButton menuButton" data-action="fire">Fire!</button>`;
+            classes.push("extra-button");
+            button = `<button class="action-button menu-button" data-action="fire">Fire!</button>`;
         } else if (data.canLock) {
-            button = `<button class="actionButton menuButton" data-action="lock">${data.isLocked ? "Unlock" : "Lock"}</button>`;
+            classes.push("extra-button");
+            button = `<button class="action-button menu-button" data-action="lock">${data.isLocked ? "Unlock" : "Lock"}</button>`;
         }
 
         return `
             <div class="${classes.join(" ")}">
-                <button class="upgradeButton menuButton" data-action="upgrade">Upgrade</button>
+                <button class="upgrade-button menu-button" data-action="upgrade">Upgrade</button>
                 ${button}
-                <button class="sellButton menuButton" data-action="sell">Sell &#36; ${data.price}</button>
+                <button class="menu-button" data-action="sell">Sell &#36;${data.price}</button>
             </div>
         `;
     }
 
     /**
-     * Creates the Tower Loading HTML
+     * Returns the Tower Loading HTML
      * @param {Number} loaded
      * @returns {String}
      */
     towerLoading(loaded) {
         return `
-            <div class="descLoad">
-                <div class="descLoadBar" style="width: ${loaded * this.width}px"></div>
+            <div class="info-loading">
+                <div class="info-loading-bar" style="width: ${loaded * 100}%"></div>
             </div>
         `;
     }
 
     /**
-     * Creates the Mob Information HTML
+     * Returns the Mob Information HTML
      * @param {Number} life
      * @param {Number} gold
      * @param {Number} speed
@@ -241,41 +236,40 @@ export default class Panel {
      */
     mobInfo(life, gold, speed) {
         return `
-            <div class="mobPoints">
-                <div class="text">Life:</div>
-               <div class="actual">${Math.round(life)}</div>
-            </div>
-            <div class="mobGold">
-                <div class="text">Gold:</div>
-                <div class="actual">${gold}</div>
-            </div>
-            <div class="mobSpeed">
-                <div class="text">Speed:</div>
-                <div class="actual">${speed}</div>
-            </div>
+            <div class="mob-points text">Life:</div>
+            <div class="mob-points actual">${Math.round(life)}</div>
+            <div></div>
+
+            <div class="mob-gold text">Gold:</div>
+            <div class="mob-gold actual">${gold}</div>
+            <div></div>
+
+            <div class="mob-speed text">Speed:</div>
+            <div class="mob-speed actual">${speed}</div>
+            <div></div>
         `;
     }
 
 
 
     /**
-     * Hides the Panel after a few seconds
+     * Hides the Information Panel after a few seconds
      * @returns {Void}
      */
     disappear() {
         this.towerSel = null;
         this.mobSel   = null;
-        this.container.className = "description delayedFadeOut";
+        this.container.className = "info-panel delayed-fade-out";
     }
 
     /**
-     * Hides the Panel inmediatelly
+     * Hides the Information Panel inmediatelly
      * @returns {Void}
      */
     hide() {
         this.towerSel = null;
         this.mobSel   = null;
-        this.container.className = "description fadeOut";
+        this.container.className = "info-panel fade-out";
     }
 
 

@@ -28,7 +28,7 @@ export default class DecoyChild extends Mob {
         this.baseSpeed = 0.5;
         this.money     = 1;
         this.defense   = 0;
-        this.content   = `<div class="decoyChild"></div>`;
+        this.content   = `<div class="decoy-child"></div>`;
 
         this.init(data);
     }

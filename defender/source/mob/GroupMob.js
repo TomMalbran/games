@@ -27,7 +27,7 @@ export default class GroupMob extends Mob {
         this.baseSpeed = 1;
         this.money     = 1;
         this.defense   = 0;
-        this.content   = `<div class="groupMob"></div>`;
+        this.content   = `<div class="group-mob"></div>`;
 
         this.init(data);
     }

@@ -29,7 +29,7 @@ export default class MorphMob extends Mob {
         this.money     = 1;
         this.defense   = 0;
         this.morph     = [ "Normal", "Dark", "Inmune", "Fast" ];
-        this.content   = `<div class="normalMob"></div>`;
+        this.content   = `<div class="normal-mob"></div>`;
 
         this.morphTime = 5000;
 

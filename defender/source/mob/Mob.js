@@ -102,20 +102,20 @@ export default class Mob {
         this.element.style.zIndex  = String(this.isFlyer ? 2 : 1);
 
         const mobDeath = document.createElement("DIV");
-        mobDeath.className = "mobDeath";
+        mobDeath.className = "mob-death";
 
         this.lifeElem = document.createElement("DIV");
-        this.lifeElem.className = "mobLife";
+        this.lifeElem.className = "mob-life";
         mobDeath.appendChild(this.lifeElem);
 
         const mobSlow = document.createElement("DIV");
-        mobSlow.className = "mobSlow";
+        mobSlow.className = "mob-slow";
 
         const mobBleed = document.createElement("DIV");
-        mobBleed.className = "mobBleed";
+        mobBleed.className = "mob-bleed";
 
         this.mbody = document.createElement("DIV");
-        this.mbody.className    = "mobBody";
+        this.mbody.className    = "mob-body";
         this.mbody.dataset.type = "mob";
         this.mbody.innerHTML    = this.content;
 

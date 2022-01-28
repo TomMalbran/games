@@ -28,7 +28,7 @@ export default class HopperMob extends Mob {
         this.money     = 1;
         this.defense   = 0;
         this.isHopper  = true;
-        this.content   = `<div class="hopperMob"></div>`;
+        this.content   = `<div class="hopper-mob"></div>`;
 
         this.hopTimer   = 0;
         this.minHopTime = 300;

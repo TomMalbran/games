@@ -22,7 +22,7 @@ export default class LaserAmmo extends Ammo {
         this.center      = 0;
         this.rotateTower = true;
         this.rotateAmmo  = false;
-        this.className   = "laserAmmo";
+        this.className   = "laser-ammo";
 
         this.init(tower, targets, boardSize);
     }

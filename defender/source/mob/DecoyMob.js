@@ -29,8 +29,8 @@ export default class DecoyMob extends Mob {
         this.defense   = 0;
         this.childName = "DecoyChild";
         this.content   = `
-            <div class="decoyHead"></div>
-            <div class="decoyBody"></div>
+            <div class="decoy-head"></div>
+            <div class="decoy-body"></div>
         `;
 
         this.init(data);

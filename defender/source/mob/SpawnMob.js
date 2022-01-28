@@ -29,8 +29,8 @@ export default class SpawnMob extends Mob {
         this.defense   = 0;
         this.childName = "SpawnChild";
         this.content   = `
-            <div class="spawnHead"></div>
-            <div class="spawnTail"></div>
+            <div class="spawn-head"></div>
+            <div class="spawn-tail"></div>
         `;
 
         this.init(data);

@@ -29,8 +29,8 @@ export default class ArrowMob extends Mob {
         this.defense   = 0;
         this.isArrow   = true;
         this.content   = `
-            <div class="arrowHead"></div>
-            <div class="arrowTail"></div>
+            <div class="arrow-head"></div>
+            <div class="arrow-tail"></div>
         `;
 
         this.init(data);

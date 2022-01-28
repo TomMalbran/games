@@ -22,11 +22,11 @@ export default class MissileAmmo extends Ammo {
         this.center      = 11;
         this.rotateTower = true;
         this.rotateAmmo  = true;
-        this.className   = "missileAmmo";
+        this.className   = "missile-ammo";
         this.content     = `
-            <div class="missileTail"></div>
-            <div class="missileBody"></div>
-            <div class="missileHead"></div>
+            <div class="missile-tail"></div>
+            <div class="missile-body"></div>
+            <div class="missile-head"></div>
         `;
 
         this.init(tower, targets, boardSize);

@@ -233,7 +233,7 @@ function toggleSound() {
 }
 
 /**
- * Ends the tower selections and hides the descriptions
+ * Ends the tower selections and hides the info panel
  * @returns {Void}
  */
 function endSelection() {

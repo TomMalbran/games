@@ -15,7 +15,7 @@ export default class Maps {
      */
     constructor() {
         this.maps    = document.querySelector(".maps");
-        this.total   = document.querySelector(".totalScore");
+        this.total   = document.querySelector(".total-score");
         this.storage = new Storage("defender.maps");
         this.mapData = null;
         this.gameMap = null;
@@ -91,7 +91,7 @@ export default class Maps {
             element.dataset.data   = id;
             element.dataset.name   = Data.maps[id].name;
             element.dataset.score  = score;
-            element.className      = won ? "navButton" : "menuButton";
+            element.className      = won ? "nav-button" : "menu-button";
             element.innerHTML      = Data.maps[id].index;
 
             this.maps.appendChild(element);

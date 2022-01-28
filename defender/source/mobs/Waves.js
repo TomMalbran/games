@@ -42,6 +42,15 @@ export default class Waves {
         this.simWaves  = this.maxWaves - 1;
         this.mobCount  = [];
 
+        this.waver     = document.querySelector(".current-wave");
+        this.total     = document.querySelector(".total-waves");
+
+        /** @type {HTMLElement} */
+        this.container = document.querySelector(".waves-content");
+
+        /** @type {HTMLElement} */
+        this.button    = document.querySelector(".next-button");
+
         this.setWave();
 
         this.container.innerHTML = "";
@@ -142,9 +151,8 @@ export default class Waves {
         const div = document.createElement("DIV");
 
         div.style.backgroundColor = mob.color;
-        div.style.left = Utils.toPX(this.getLeft(this.wave + add, 0));
-        div.className  = "wave";
-        div.innerHTML  = `
+        div.className = "wave";
+        div.innerHTML = `
             <h3>${this.wave + add + 1}. ${mob.waveName}</h3>
             <p>${mob.slogan}</p>
         `;
@@ -170,9 +178,7 @@ export default class Waves {
         const timer = this.parent.score.timer;
         const start = (timer - 25) * this.elemWidth / 25;
 
-        this.elements.forEach((element, index) => {
-            element.style.left = Utils.toPX(this.getLeft(index, start));
-        });
+        this.container.style.left = Utils.toPX(start);
     }
 
     /**
@@ -201,16 +207,6 @@ export default class Waves {
      */
     isBossWave(add = 0) {
         return this.waves[this.wave + add].includes("Boss");
-    }
-
-    /**
-     * Returns the left property for the element at the given index
-     * @param {Number} index
-     * @param {Number} start
-     * @returns {Number}
-     */
-    getLeft(index, start) {
-        return Math.round(start + index * this.elemWidth);
     }
 
     /**

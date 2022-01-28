@@ -22,7 +22,7 @@ export default class InkAmmo extends Ammo {
         this.center      = 0.5;
         this.rotateTower = true;
         this.rotateAmmo  = false;
-        this.className   = "inkAmmo";
+        this.className   = "ink-ammo";
 
         this.init(tower, targets, boardSize);
     }

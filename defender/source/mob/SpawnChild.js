@@ -28,7 +28,7 @@ export default class SpawnChild extends Mob {
         this.baseSpeed = 1;
         this.money     = 1;
         this.defense   = 0;
-        this.content   = `<div class="spawnChild"></div>`;
+        this.content   = `<div class="spawn-child"></div>`;
 
         this.init(data);
     }

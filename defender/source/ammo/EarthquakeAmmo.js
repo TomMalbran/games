@@ -22,7 +22,7 @@ export default class EarthquakeAmmo extends Ammo {
         this.center      = 40;
         this.rotateTower = false;
         this.rotateAmmo  = false;
-        this.className   = "earthAmmo";
+        this.className   = "earth-ammo";
         this.opacity     = 0;
 
         this.init(tower, targets, boardSize);

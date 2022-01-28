@@ -23,8 +23,8 @@ export default class AntiAirAmmo extends Ammo {
         this.center      = 5;
         this.rotateTower = false;
         this.rotateAmmo  = true;
-        this.className   = "airAmmo";
-        this.content     = `<div class="airMissile1"></div>`;
+        this.className   = "air-ammo";
+        this.content     = `<div class="air-missile1"></div>`;
 
         this.init(tower, targets, boardSize);
         this.setMissile(index);

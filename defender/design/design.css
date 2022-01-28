@@ -13,6 +13,9 @@
 /**
  * Main Styles
  */
+:root {
+    font-size: 14px;
+}
 html, body {
     margin: 0;
     padding: 0;
@@ -22,11 +25,11 @@ html, body {
     overflow: hidden;
     background-color: transparent;
     color: white;
-    font: 10px Verdana, Arial, Helvetica, sans-serif;
-
-    -webkit-font-smoothing: antialiased;
-    backface-visibility: hidden;
 }
+html, body, button {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
 
 a {
     color: black;
@@ -39,13 +42,16 @@ button {
     display: block;
     border: 1px solid black;
     color: black;
-    font: bold 10px Verdana, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 12px;
     text-align: center;
-    border-radius: 3px;
+    border-radius: 6px;
     cursor: pointer;
 }
 
-dl { margin: 10px 0; }
+dl {
+    margin: 1rem 0;
+}
 dt, dd {
     display: inline-block;
     margin: 0;
@@ -58,43 +64,44 @@ dt, dd {
     bottom: 50%;
     left: 50%;
     right: 50%;
-    width: 660px;
-    height: 440px;
-    margin-top: -220px;
-    margin-left: -330px;
+    width: 66rem;
+    height: 44rem;
+    margin-top: -22rem;
+    margin-left: -33rem;
 }
-    h1 {
-        position: absolute;
-        left: 425px;
-        top: -55px;
-        margin: 0;
-        font: 75px "Battle Beasts";
-        line-height: 1;
-        color: white;
-        z-index: 1001;
-    }
+h1 {
+    position: absolute;
+    right: 0;
+    top: -4.2rem;
+    margin: 0;
+    font: 85px "Battle Beasts";
+    line-height: 1;
+    color: white;
+    z-index: 1001;
+}
+
 
 
 /**
  * Main Content
  */
-.mainContent {
+.main {
     position: absolute;
     top: 0;
     left: 0;
-    right: 210px;
-    bottom: 45px;
+    right: 21rem;
+    bottom: 4.5rem;
 }
-    .sellAll {
-        display: none;
-        position: absolute;
-        top: -4px;
-        left: 20px;
-        padding: 2px 5px;
-    }
-    .planning .sellAll {
-        display: block;
-    }
+.sell-all {
+    display: none;
+    position: absolute;
+    top: -0.4rem;
+    left: 2rem;
+    padding: 0.2rem 1rem;
+}
+.planning .sell-all {
+    display: block;
+}
 
 
 
@@ -102,35 +109,48 @@ dt, dd {
  * Board Section
  */
 .board {
+    box-sizing: border-box;
     position: absolute;
-    top: 18px;
-    left: 13px;
-    right: 13px;
-    bottom: 13px;
+    top: 1.8rem;
+    left: 1.3rem;
+    width: calc(28 * 15 * 1.4px);
+    height: calc(24 * 15 * 1.4px);
     border: 2px solid rgb(18, 18, 18);
     background-color: rgb(244, 244, 244);
     background-image: linear-gradient(90deg,  rgb(207, 207, 207) 1px, transparent 1px),
                       linear-gradient(180deg, rgb(207, 207, 207) 1px, transparent 1px),
                       linear-gradient(135deg, rgb(219, 219, 219) 25%, transparent 25%, transparent 75%, rgb(219, 219, 219) 75%, rgb(219, 219, 219)),
                       linear-gradient(135deg, rgb(219, 219, 219) 25%, transparent 25%, transparent 75%, rgb(219, 219, 219) 75%, rgb(219, 219, 219));
-    background-size: 6px 6px, 6px 6px, 12px 12px, 12px 12px;
-    background-position: 0 0, 0 0, 0 0, 6px 6px;
+    background-size: 0.6rem 0.6rem, 0.6rem 0.6rem, 1.2rem 1.2rem, 1.2rem 1.2rem;
+    background-position: 0 0, 0 0, 0 0, 0.6rem 0.6rem;
 }
-    .players > div {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        overflow: hidden;
-    }
-    .defenses { overflow: visible !important; }
+.players > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+.defenses {
+    overflow: visible !important;
+}
 
 
-.walls div { position: absolute; }
-.start  { background: rgba(0,  51, 0, 0.85); }
-.target { background: rgba(140, 0, 0, 0.85); }
-.wall   { background: rgba(0,   0, 0, 0.85); }
+.walls div {
+    position: absolute;
+}
+.start {
+    background: rgba(0,  51, 0, 0.85);
+}
+.target {
+    background: rgba(140, 0, 0, 0.85);
+}
+.wall {
+    background: rgba(0, 0, 0, 0.85);
+}
+
 
 .path div {
     position: absolute;
@@ -138,7 +158,7 @@ dt, dd {
     height: 0;
     border-color: transparent transparent transparent rgba(0, 0, 0, 0.3);
     border-style: solid;
-    border-width: 7px 14px;
+    border-width: 0.7rem 1.4rem;
     transform-origin: 23% 52%;
 }
 
@@ -146,54 +166,55 @@ dt, dd {
     position: absolute;
     height: 0;
     width: 0;
-    margin-top: 8px;
-    margin-left: 8px;
-    box-shadow: 0 0 25px 2px rgb(98, 138, 52);
+    margin-top: 0.8rem;
+    margin-left: 0.8rem;
+    box-shadow: 0 0 2.5rem 2px rgb(98, 138, 52);
 }
 
 .building {
     position: absolute;
     display: none;
+    transform: translate(-50%, -50%);
 }
-.building .towerRange {
+.building .tower-range {
     display: block;
 }
 
-.building.dim3 .towerPlaceholder2,
-.building.dim2 .towerPlaceholder3 {
+.building.dim3 .tower-placeholder2,
+.building.dim2 .tower-placeholder3 {
     display: none;
 }
 
-    .valid .towerPlaceholder2,
-    .valid .towerPlaceholder3 {
-        padding: 0;
-        border: 1px solid rgb(0, 204, 0);
-        background-color: rgb(0, 255, 0);
-        opacity: .6;
-    }
-    .invalid .towerPlaceholder2,
-    .invalid .towerPlaceholder3 {
-        padding: 0;
-        border: 1px solid rgb(204, 0, 0);
-        background-color: rgb(255, 0, 0);
-        opacity: .6;
-    }
+.valid .tower-placeholder2,
+.valid .tower-placeholder3 {
+    padding: 0;
+    border: 1px solid rgb(0, 204, 0);
+    background-color: rgb(0, 255, 0);
+    opacity: .6;
+}
+.invalid .tower-placeholder2,
+.invalid .tower-placeholder3 {
+    padding: 0;
+    border: 1px solid rgb(204, 0, 0);
+    background-color: rgb(255, 0, 0);
+    opacity: .6;
+}
 
 .blocking {
     display: none;
     position: absolute;
     top: 50%;
     left: 50%;
-    height: 18px;
-    width: 62px;
-    margin-top: -21px;
-    margin-left: -44px;
-    padding: 10px;
+    height: 1.8rem;
+    width: 6.2rem;
+    margin-top: -2.1rem;
+    margin-left: -4.4rem;
+    padding: 1rem;
     background-color: rgb(225, 136, 9);
     border: 2px solid black;
-    border-radius: 5px;
+    border-radius: 6px;
     color: black;
-    font-size: 15px;
+    font-size: 20px;
     opacity: 0.8;
     z-index: 1;
 }
@@ -203,20 +224,20 @@ dt, dd {
 /**
  * Game Menu
  */
-.mainScreen     .overlay, .mainScreen     .mainScreenMenu,
-.selectMap      .overlay, .selectMap      .selectMapMenu,
-.selectLevel    .overlay, .selectLevel    .selectLevelMenu,
-.planningPaused .overlay, .planningPaused .pauseMenu,
-.playingPaused  .overlay, .playingPaused  .pauseMenu,
-.gameOver       .overlay, .gameOver       .gameOverMenu,
-.controls       .overlay, .controls       .controlsMenu {
+.mainScreen     .overlay, .mainScreen     .main-menu,
+.selectMap      .overlay, .selectMap      .map-menu,
+.selectLevel    .overlay, .selectLevel    .level-menu,
+.planningPaused .overlay, .planningPaused .pause-menu,
+.playingPaused  .overlay, .playingPaused  .pause-menu,
+.gameOver       .overlay, .gameOver       .gameover-menu,
+.controls       .overlay, .controls       .controls-menu {
     display: block;
 }
 
 .overlay {
     display: none;
     position: absolute;
-    top: -10px;
+    top: -1rem;
     left: 0;
     bottom: 0;
     right: 0;
@@ -230,129 +251,116 @@ dt, dd {
     position: absolute;
     top: 50%;
     left: 50%;
-    border: 5px solid rgba(0, 0, 0, 0.4);
+    transform: translate(-50%, -50%);
+    border: 0.5rem solid rgba(0, 0, 0, 0.4);
     box-shadow: inset 0 0 0 999px rgba(0, 0, 0, 0.8);
     z-index: 1001;
 }
-    .mainScreenMenu,
-    .pauseMenu {
-        height: 170px;
-        width: 190px;
-        margin-top: -85px;
-        margin-left: -95px;
-    }
-    .selectMapMenu {
-        height: 216px;
-        width: 246px;
-        margin-top: -108px;
-        margin-left: -123px;
-    }
-    .selectLevelMenu {
-        height: 210px;
-        width: 190px;
-        margin-top: -105px;
-        margin-left: -95px;
-    }
-    .gameOverMenu {
-        height: 216px;
-        width: 240px;
-        margin-top: -108px;
-        margin-left: -120px;
-    }
-    .controlsMenu {
-        height: 322px;
-        width: 310px;
-        margin-top: -162px;
-        margin-left: -155px;
-    }
+.main-menu,
+.pause-menu,
+.level-menu {
+    width: 19rem;
+}
+.map-menu {
+    width: 24.6rem;
+}
+.gameover-menu {
+    width: 24rem;
+}
+.controls-menu {
+    width: 31rem;
+}
 
-    .menu button {
-        font-size: 18px;
-        line-height: 1.5;
-        margin-bottom: 8px;
-    }
+.menu button {
+    font-size: 18px;
+    line-height: 2;
+    margin-bottom: 0.8rem;
+}
 
 
 .maps button {
     position: relative;
     display: inline-block;
-    width: 39px;
-    border-radius: 0;
-    margin: 3px;
+    width: 3.9rem;
+    margin: 0.3rem;
 }
-    .maps button:hover::before {
-        content: attr(data-name) '\A' attr(data-score);
-        position: absolute;
-        top: -37px;
-        left: -22px;
-        width: 80px;
-        height: 33px;
-        font-size: 10px;
-        border: 1px solid black;
-        border-radius: 3px;
-        background: rgb(233, 209, 0);
-        white-space: pre;
-        z-index: 2;
-    }
-    .maps button:hover::after {
-        content: "";
-        position: absolute;
-        top: -1px;
-        left: 14px;
-        width: 0;
-        height: 0;
-        border-color: black transparent transparent transparent;
-        border-style: solid;
-        border-width: 4px 5px;
-    }
+.maps button:hover::before {
+    content: attr(data-name) '\A' attr(data-score);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: -3.7rem;
+    left: -2.2rem;
+    width: 8rem;
+    height: 3.3rem;
+    font-size: 14px;
+    line-height: 1.5;
+    border: 1px solid black;
+    border-radius: 0.3rem;
+    background: rgb(233, 209, 0);
+    white-space: pre;
+    z-index: 2;
+    pointer-events: none;
+}
+.maps button:hover::after {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 1.4rem;
+    width: 0;
+    height: 0;
+    border-color: black transparent transparent transparent;
+    border-style: solid;
+    border-width: 0.4rem 0.5rem;
+}
 
-.selectMapMenu > div > button {
+.map-menu > div > button {
     display: inline-block;
     width: auto;
-    padding: 0 10px;
-    margin-top: 18px;
-    margin-left: -4px;
+    padding: 0 1rem;
+    margin-top: 1.8rem;
+    margin-bottom: 0;
 }
-    .totalScore {
-        display: inline-block;
-        width: 150px;
-        text-align: right;
-        font-size: 15px;
-        color: rgb(1, 255, 1);
-    }
+.total-score {
+    display: inline-block;
+    width: 15rem;
+    text-align: right;
+    font-size: 20px;
+    color: rgb(1, 255, 1);
+}
 
 
-.finalScore dt,
-.finalScore dd {
+.final-score {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 0.3rem 1rem;
     font-size: 17px;
     color: rgb(255, 0, 0);
 }
-    .finalScore dt {
-        width: 120px;
-        text-align: right;
-    }
-    .finalScore dd {
-        width: 80px;
-        padding-left: 10px;
-        font-weight: bold;
-    }
-
-    .finalScore dt:nth-of-type(3),
-    .finalScore dd:nth-of-type(3) {
-        color: rgb(235, 95, 2);
-    }
-    .finalScore dt:last-of-type,
-    .finalScore dd:last-of-type {
-        padding-top: 30px;
-        color: rgb(1, 255, 1);
-    }
+.final-score dt {
+    text-align: right;
+}
+.final-score dd {
+    font-weight: bold;
+}
+.final-score dt:nth-of-type(3),
+.final-score dd:nth-of-type(3) {
+    color: rgb(235, 95, 2);
+}
+.final-score dt:last-of-type,
+.final-score dd:last-of-type {
+    padding-top: 1.5rem;
+    color: rgb(1, 255, 1);
+}
 
 
 .controls dt {
-    width: 100px;
-    padding-right: 5px;
+    width: 10rem;
+    padding-right: 0.5rem;
     text-align: right;
-    line-height: 1.4em;
+    line-height: 1.4rem;
     color: yellow;
 }
 .controls dt:after {
@@ -360,356 +368,105 @@ dt, dd {
     color: white;
 }
 .controls dd {
-    width: 180px;
+    width: 18rem;
 }
 
 
 
 /**
- * Sidebar Section
+ * Bottom Bar
  */
-.sideBar {
+.bottombar {
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 210px;
+    bottom: 0.5rem;
+    left: 0.5rem;
+    right: 0.5rem;
+    height: 4rem;
+    border: 1px solid black;
+    border-radius: 6px;
     background-color: rgba(0, 0, 0, 0.4);
 }
-    .pauseButton,
-    .audioButton {
-        position: absolute;
-        bottom: 55px;
-        height: 22px;
-        width: 93px;
-        padding: 3px;
-        border-radius: 3px;
-    }
-    .pauseButton { left:  10px; }
-    .audioButton { right: 10px; }
-
-
-
-/**
- * Scores Design
- */
-.scoresPanel {
+.waves-count {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    right: 10px;
-    height: 40px;
-    font-weight: bold;
-    background-color: rgba(0, 0, 0, 0.6);
-}
-    .scoresPanel div {
-        position: absolute;
-        left: 5px;
-        right: 5px;
-        height: 14px;
-    }
-    .goldScore {
-        top: 5px;
-        text-align: left;
-        color: rgb(255, 255, 0);
-    }
-    .livesScore {
-        top: 5px;
-        text-align: right;
-        color: rgb(153, 0, 0);
-    }
-    .timeScore {
-        bottom: 5px;
-        text-align: left;
-        color: white;
-    }
-    .scoreScore {
-        bottom: 5px;
-        text-align: right;
-        color: rgb(0, 102, 0);
-    }
-
-
-
-/**
- * Towers Container
- */
-.towersPanel {
-    position: absolute;
-    top: 60px;
-    left: 10px;
-    right: 10px;
-    height: 110px;
-    background-color: rgba(0, 0, 0, 0.6);
-}
-    .towersPanel .tower {
-        position: absolute;
-        width: 30px;
-        height: 30px;
-    }
-
-    .towersPanel .row1 { top:  10px;  }
-    .towersPanel .row2 { top:  45px;  }
-
-    .towersPanel .col1 { left: 0;     }
-    .towersPanel .col2 { left: 35px;  }
-    .towersPanel .col3 { left: 70px;  }
-    .towersPanel .col4 { left: 105px; }
-    .towersPanel .col5 { left: 140px; }
-
-    .towersPanel .selected { box-shadow: 0 0 10px 2px rgb(0, 153, 0); }
-    .towersPanel .disabled {
-        background-color: rgba(0, 0, 0, 0.8);
-        cursor: not-allowed;
-    }
-
-
-
-/**
- * Description Design
- */
-.description {
-    position: absolute;
-    top: 180px;
-    left: 10px;
-    right: 10px;
-    bottom: 85px;
-    background-color: rgba(0, 0, 0, 0.6);
-    opacity: 0;
-}
-    .description.fadeIn {
-        opacity: 1;
-        transition: opacity 1s;
-    }
-    .description.delayedFadeOut {
-        opacity: 0;
-        transition: opacity 1s .5s;
-    }
-    .description.fadeOut {
-        opacity: 0;
-        transition: opacity 1s;
-    }
-
-    .description p { margin-top: 5px; }
-    .description .information {
-        position: absolute;
-        top: 35px;
-        right: 0;
-        left: 10px;
-        bottom: 25px;
-    }
-    .description .text {
-        position: absolute;
-        top: 3px;
-        text-align: right;
-        width: 50px;
-    }
-    .description .actual {
-        position: absolute;
-        left: 60px;
-        width: 20px;
-        font-size: 15px;
-        font-weight: bold;
-        font-family: Arial, Helvetica, sans-serif;
-    }
-    .description .next {
-        position: absolute;
-        left: 100px;
-        width: 30px;
-        font-size: 15px;
-        font-weight: bold;
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-
-.towerCost {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    color: yellow;
-}
-.towerDamage {
-    position: absolute;
-    top: 20px;
-    left: 0;
-    right: 0;
-    color: rgb(255, 0, 0);
-}
-.towerDistance {
-    position: absolute;
-    top: 40px;
-    left: 0;
-    right: 0;
-    color: rgb(168, 194, 255);
-}
-.towerSpeed {
-    position: absolute;
-    top: 60px;
-    left: 0;
-    right: 0;
-}
-.towerBoost {
-    position: absolute;
-    bottom: 5px;
-    right: 0;
+    top: 50%;
+    left: 1rem;
+    width: 4rem;
     text-align: right;
-    color: rgb(255, 0, 0);
+    font-size: 13px;
+    font-weight: bold;
+    transform: translateY(-41%);
 }
-
-
-.sellButton.sellButton,
-.upgradeButton.upgradeButton,
-.actionButton.actionButton {
-    position: absolute;
-    bottom: 0;
-    height: 22px;
-    width: 83px;
-    padding: 3px;
-    font-size: 10px;
-}
-    .sellButton.sellButton       { right: 0; }
-    .upgradeButton.upgradeButton { left:  0; }
-    .actionButton.actionButton   {
-        display: none;
-        left: 62px;
-        width: 46px;
-    }
-    .extraButton .sellButton,
-    .extraButton .upgradeButton { width:   59px;  }
-    .extraButton .actionButton  { display: block; }
-    .hideButtons .upgradeButton { display: none;  }
-    .cantUpgrade .upgradeButton { opacity: 0.5; cursor: not-allowed; }
-
-
-.mobPoints {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    right: 0;
-    color: rgb(255, 0, 0);
-}
-.mobGold {
-    position: absolute;
-    top: 30px;
-    left: 10px;
-    right: 0;
-    color: yellow;
-}
-.mobSpeed {
-    position: absolute;
-    top: 50px;
-    left: 10px;
-    right: 0;
-}
-
-
-.descLoad {
-    position: absolute;
-    top: 35px;
-    left: -5px;
-    right: 3px;
-    height: 14px;
-    border: 2px solid rgb(41, 41, 41);
-    overflow: hidden;
-}
-.descLoadBar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 0;
-    background: linear-gradient(to right, rgb(255, 153, 0), rgb(255, 201, 0));
-}
-
-
-
-/**
- * Bottom Section
- */
-.bottomSection {
-    position: absolute;
-    bottom: 5px;
-    left: 5px;
-    right: 5px;
-    height: 40px;
-    border: 1px solid black;
-    border-radius: 20px 5px 5px 20px;
-    background: linear-gradient(to bottom, rgb(41, 41, 41), rgb(8, 8, 8));
-}
-    .wavesCount {
-        position: absolute;
-        top: 13px;
-        left: 10px;
-        width: 50px;
-        text-align: right;
-        font-size: 11px;
-        font-weight: bold;
-    }
 
 .waves {
     position: absolute;
-    top: 5px;
-    bottom: 5px;
-    left: 70px;
-    right: 90px;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    left: 6rem;
+    right: 9rem;
     border: 1px solid black;
     background-color: rgb(102, 102, 102);
     overflow: hidden;
 }
-    .waves:after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 13px;
-        opacity: .8;
-        background: linear-gradient(to bottom, black, transparent);
-    }
-
-    .wave {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 72px;
-        padding: 3px;
-        border-right: 1px solid black;
-        border-left: 1px solid black;
-        color: black;
-        font-family: Arial, Helvetica, sans-serif;
-    }
-    .wave h3 {
-        margin: 0;
-        font-size: 11px;
-        text-transform: uppercase;
-    }
-    .wave p {
-        margin: 0;
-        font-size: 8px;
-        line-height: 9px;
-    }
-
-.startButton,
-.nextButton {
+.waves:after {
+    content: "";
     position: absolute;
-    top: 3px;
-    bottom: 3px;
-    right: 5px;
-    width: 80px;
-    padding: 3px;
-    font-size: 18px;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1.3rem;
+    opacity: 0.8;
+    background: linear-gradient(to bottom, black, transparent);
 }
-.nextButton {
+.waves-content {
+    display: flex;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.wave {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 8rem;
+    padding: 0 0.5rem;
+    border-right: 1px solid black;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.wave h3 {
+    margin: 0;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+.wave p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1em;
+}
+
+.start-button,
+.next-button {
+    position: absolute;
+    top: 0.3rem;
+    bottom: 0.3rem;
+    right: 0.5rem;
+    width: 8rem;
+    padding: 0.3rem;
+    font-size: 1.8rem;
+}
+.next-button {
     display: none;
 }
 
-.playing       .startButton,
-.playingPaused .startButton {
+.playing       .start-button,
+.playingPaused .start-button {
     display: none;
 }
-.playing       .nextButton,
-.playingPaused .nextButton {
+.playing       .next-button,
+.playingPaused .next-button {
     display: block;
 }
 
@@ -719,41 +476,35 @@ dt, dd {
  * General Classes
  */
 h2 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 13px;
+    height: 1.3rem;
     margin: 0;
-    padding: 5px;
-    border: 1px solid black;
-    font-size: 10px;
+    padding: 0.5rem;
+    font-size: 14px;
     color: black;
     font-weight: bold;
     background: linear-gradient(to bottom, rgb(252, 213, 36), rgb(249, 187, 33));
 }
 .content {
-    position: absolute;
-    top: 25px;
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
+    position: relative;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
 }
 
-.navButton {
+.nav-button {
     background: linear-gradient(to bottom, rgb(252, 213, 36), rgb(249, 187, 33));
 }
-.navButton:hover {
+.nav-button:hover {
     background: linear-gradient(to bottom, rgb(250, 199, 34), rgb(215, 158, 27));
 }
-.navButton:focus {
+.nav-button:focus {
     outline: none;
 }
 
-.menuButton {
+.menu-button {
     width: 100%;
     background: linear-gradient(to bottom, rgb(134, 132, 130), rgb(107, 106, 105));
 }
-.menuButton:hover {
+.menu-button:hover {
     background: linear-gradient(to bottom, rgb(204, 202, 202), rgb(134, 132, 130));
 }

@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <title>Defender</title>
     <link rel="stylesheet" href="design/design.css" />
+    <link rel="stylesheet" href="design/sidebar.css" />
     <link rel="stylesheet" href="design/towers.css" />
     <link rel="stylesheet" href="design/mobs.css" />
     <script type="module" src="source/Main.js"></script>
@@ -14,8 +15,8 @@
         <h1>Defender</h1>
 
         <div class="overlay"></div>
-        <div class="mainContent">
-            <button class="sellAll navButton" data-action="sellAll">Sell All</button>
+        <div class="main">
+            <button class="sell-all nav-button" data-action="sellAll">Sell All</button>
 
             <div class="board">
                 <div class="players">
@@ -28,63 +29,63 @@
                     <div class="alerts"></div>
                 </div>
                 <div class="building" data-type="build">
-                    <div class="towerRange"></div>
-                    <div class="towerPlaceholder2 green"></div>
-                    <div class="towerPlaceholder3 green"></div>
+                    <div class="tower-range"></div>
+                    <div class="tower-placeholder2 green"></div>
+                    <div class="tower-placeholder3 green"></div>
                 </div>
                 <div class="blocking">Blocking</div>
             </div>
 
-            <div class="mainScreenMenu menu">
-                <h2>Denfender</h2>
+            <div class="main-menu menu">
+                <h2>Defender</h2>
                 <div class="content">
                     <p>Select an option</p>
-                    <button class="menuButton" data-action="selectMap"><u>N</u>ew Game</button>
-                    <button class="menuButton" data-action="lastMap"><u>L</u>ast Map</button>
-                    <button class="menuButton" data-action="controls"><u>C</u>ontrols</button>
+                    <button class="menu-button" data-action="selectMap"><u>N</u>ew Game</button>
+                    <button class="menu-button" data-action="lastMap"><u>L</u>ast Map</button>
+                    <button class="menu-button" data-action="controls"><u>C</u>ontrols</button>
                 </div>
             </div>
 
-            <div class="selectMapMenu menu">
+            <div class="map-menu menu">
                 <h2>New Game</h2>
                 <div class="content">
                     <p>Select a Map</p>
                     <div class="maps"></div>
-                    <button class="menuButton" data-action="mainScreen">Back</button>
-                    <div class="totalScore"></div>
+                    <button class="menu-button" data-action="mainScreen">Back</button>
+                    <div class="total-score"></div>
                 </div>
             </div>
 
-            <div class="selectLevelMenu menu">
+            <div class="level-menu menu">
                 <h2>Difficulty</h2>
                 <div class="content">
                     <p>Select the level difficulty</p>
-                    <button class="menuButton" data-action="newGame" data-data="0"><u>E</u>asy</button>
-                    <button class="menuButton" data-action="newGame" data-data="1"><u>N</u>ormal</button>
-                    <button class="menuButton" data-action="newGame" data-data="2"><u>H</u>ard</button>
-                    <button class="menuButton" data-action="selectMap"><u>B</u>ack</button>
+                    <button class="menu-button" data-action="newGame" data-data="0"><u>E</u>asy</button>
+                    <button class="menu-button" data-action="newGame" data-data="1"><u>N</u>ormal</button>
+                    <button class="menu-button" data-action="newGame" data-data="2"><u>H</u>ard</button>
+                    <button class="menu-button" data-action="selectMap"><u>B</u>ack</button>
                 </div>
             </div>
 
-            <div class="pauseMenu menu">
+            <div class="pause-menu menu">
                 <h2>Pause</h2>
                 <div class="content">
                     <p>Select an option</p>
-                    <button class="menuButton" data-action="pause"><u>C</u>ontinue</button>
-                    <button class="menuButton" data-action="restart"><u>R</u>estart</button>
-                    <button class="menuButton" data-action="endGame"><u>Q</u>uit</button>
+                    <button class="menu-button" data-action="pause"><u>C</u>ontinue</button>
+                    <button class="menu-button" data-action="restart"><u>R</u>estart</button>
+                    <button class="menu-button" data-action="endGame"><u>Q</u>uit</button>
                 </div>
             </div>
 
-            <div class="gameOverMenu menu">
+            <div class="gameover-menu menu">
                 <h2>Game Over</h2>
                 <div class="content">
-                    <dl class="finalScore"></dl>
-                    <button class="menuButton" data-action="mainScreen"><u>N</u>ew Game</button>
+                    <dl class="final-score"></dl>
+                    <button class="menu-button" data-action="mainScreen"><u>N</u>ew Game</button>
                 </div>
             </div>
 
-            <div class="controlsMenu menu">
+            <div class="controls-menu menu">
                 <h2>Game Controls</h2>
                 <div class="content">
                     <dl>
@@ -106,26 +107,26 @@
                         <dt>F</dt><dd>Fire selected tower</dd>
                         <dt>&lt;Esc&gt;</dt><dd>End selection</dd>
                     </dl>
-                    <button class="menuButton" data-action="mainScreen">Back</button>
+                    <button class="menu-button" data-action="mainScreen">Back</button>
                 </div>
             </div>
         </div>
 
 
-        <div class="sideBar">
-            <div class="scoresPanel">
-                <div class="goldScore">Gold: 0</div>
-                <div class="livesScore">Lives: 0</div>
-                <div class="timeScore">Time: 0</div>
-                <div class="scoreScore">Score: 0</div>
-            </div>
+        <aside class="sidebar">
+            <section class="scores-panel">
+                <div class="gold-score">Gold: 0</div>
+                <div class="lives-score">Lives: 0</div>
+                <div class="time-score">Time: 0</div>
+                <div class="score-score">Score: 0</div>
+            </section>
 
-            <div class="towersPanel">
+            <section class="towers-panel">
                 <h2>Towers</h2>
-                <div class="content">
-                    <div class="tower row1 col1">
-                        <div class="towerContent">
-                            <div class="towerLevels">
+                <div class="panel-content">
+                    <div class="tower">
+                        <div class="tower-content">
+                            <div class="tower-levels">
                                 <div class="type1"></div>
                                 <div></div>
                                 <div></div>
@@ -133,19 +134,19 @@
                                 <div></div>
                                 <div></div>
                             </div>
-                            <div class="towerNumber">1</div>
-                            <div class="towerRotate2">
-                                <div class="shootBody"></div>
-                                <div class="shootTank"></div>
+                            <div class="tower-number">1</div>
+                            <div class="tower-rotate2">
+                                <div class="shoot-body"></div>
+                                <div class="shoot-tank"></div>
                             </div>
-                            <div class="towerLoader"></div>
+                            <div class="tower-loader"></div>
                         </div>
-                        <div class="towerBuild" data-type="Shoot"></div>
+                        <div class="tower-build" data-type="Shoot"></div>
                     </div>
 
-                    <div class="tower row1 col2">
-                        <div class="towerContent">
-                            <div class="towerLevels">
+                    <div class="tower">
+                        <div class="tower-content">
+                            <div class="tower-levels">
                                 <div class="type1"></div>
                                 <div></div>
                                 <div></div>
@@ -153,19 +154,19 @@
                                 <div></div>
                                 <div></div>
                             </div>
-                            <div class="towerNumber">1</div>
-                            <div class="towerRotate2">
-                                <div class="fastBody"></div>
-                                <div class="fastTank"></div>
+                            <div class="tower-number">1</div>
+                            <div class="tower-rotate2">
+                                <div class="fast-body"></div>
+                                <div class="fast-tank"></div>
                             </div>
-                            <div class="towerLoader"></div>
+                            <div class="tower-loader"></div>
                         </div>
-                        <div class="towerBuild" data-type="Fast"></div>
+                        <div class="tower-build" data-type="Fast"></div>
                     </div>
 
-                    <div class="tower row1 col3">
-                        <div class="towerContent">
-                            <div class="towerLevels">
+                    <div class="tower">
+                        <div class="tower-content">
+                            <div class="tower-levels">
                                 <div class="type1"></div>
                                 <div></div>
                                 <div></div>
@@ -173,21 +174,21 @@
                                 <div></div>
                                 <div></div>
                             </div>
-                            <div class="towerNumber">1</div>
-                            <div class="towerRotate2">
-                                <div class="missileBase"></div>
-                                <div class="missileTail"></div>
-                                <div class="missileBody"></div>
-                                <div class="missileHead"></div>
+                            <div class="tower-number">1</div>
+                            <div class="tower-rotate2">
+                                <div class="missile-base"></div>
+                                <div class="missile-tail"></div>
+                                <div class="missile-body"></div>
+                                <div class="missile-head"></div>
                             </div>
-                            <div class="towerLoader"></div>
+                            <div class="tower-loader"></div>
                         </div>
-                        <div class="towerBuild" data-type="Missile"></div>
+                        <div class="tower-build" data-type="Missile"></div>
                     </div>
 
-                    <div class="tower row1 col4">
-                        <div class="towerContent">
-                            <div class="towerLevels">
+                    <div class="tower">
+                        <div class="tower-content">
+                            <div class="tower-levels">
                                 <div class="type1"></div>
                                 <div></div>
                                 <div></div>
@@ -195,21 +196,21 @@
                                 <div></div>
                                 <div></div>
                             </div>
-                            <div class="towerNumber">1</div>
-                            <div class="towerRotate2">
-                                <div class="airMissile1"></div>
-                                <div class="airMissile2"></div>
-                                <div class="airMissile3"></div>
-                                <div class="airMissile4"></div>
+                            <div class="tower-number">1</div>
+                            <div class="tower-rotate2">
+                                <div class="air-missile1"></div>
+                                <div class="air-missile2"></div>
+                                <div class="air-missile3"></div>
+                                <div class="air-missile4"></div>
                             </div>
-                            <div class="towerLoader"></div>
+                            <div class="tower-loader"></div>
                         </div>
-                        <div class="towerBuild" data-type="AntiAir"></div>
+                        <div class="tower-build" data-type="AntiAir"></div>
                     </div>
 
-                    <div class="tower row1 col5">
-                        <div class="towerContent">
-                            <div class="towerLevels">
+                    <div class="tower">
+                        <div class="tower-content">
+                            <div class="tower-levels">
                                 <div class="type1"></div>
                                 <div></div>
                                 <div></div>
@@ -217,19 +218,19 @@
                                 <div></div>
                                 <div></div>
                             </div>
-                            <div class="towerNumber">1</div>
-                            <div class="towerRotate2">
-                                <div class="frostBody"></div>
-                                <div class="frostTank"></div>
+                            <div class="tower-number">1</div>
+                            <div class="tower-rotate2">
+                                <div class="frost-body"></div>
+                                <div class="frost-tank"></div>
                             </div>
-                            <div class="towerLoader"></div>
+                            <div class="tower-loader"></div>
                         </div>
-                        <div class="towerBuild" data-type="Frost"></div>
+                        <div class="tower-build" data-type="Frost"></div>
                     </div>
 
-                    <div class="tower row2 col1">
-                        <div class="towerContent">
-                            <div class="towerLevels">
+                    <div class="tower">
+                        <div class="tower-content">
+                            <div class="tower-levels">
                                 <div class="type1"></div>
                                 <div></div>
                                 <div></div>
@@ -237,19 +238,19 @@
                                 <div></div>
                                 <div></div>
                             </div>
-                            <div class="towerNumber">1</div>
-                            <div class="towerRotate2">
-                                <div class="earthBody"></div>
-                                <div class="earthTower"></div>
+                            <div class="tower-number">1</div>
+                            <div class="tower-rotate2">
+                                <div class="earth-body"></div>
+                                <div class="earth-tower"></div>
                             </div>
-                            <div class="towerLoader"></div>
+                            <div class="tower-loader"></div>
                         </div>
-                        <div class="towerBuild" data-type="Earthquake"></div>
+                        <div class="tower-build" data-type="Earthquake"></div>
                     </div>
 
-                    <div class="tower row2 col2">
-                        <div class="towerContent">
-                            <div class="towerLevels">
+                    <div class="tower">
+                        <div class="tower-content">
+                            <div class="tower-levels">
                                 <div class="type1"></div>
                                 <div></div>
                                 <div></div>
@@ -257,21 +258,21 @@
                                 <div></div>
                                 <div></div>
                             </div>
-                            <div class="towerNumber">1</div>
-                            <div class="towerRotate2">
-                                <div class="inkBase"></div>
-                                <div class="inkTank"></div>
-                                <div class="inkBody"></div>
+                            <div class="tower-number">1</div>
+                            <div class="tower-rotate2">
+                                <div class="ink-base"></div>
+                                <div class="ink-tank"></div>
+                                <div class="ink-body"></div>
                             </div>
-                            <div class="towerLoader"></div>
+                            <div class="tower-loader"></div>
                         </div>
-                        <div class="towerBuild" data-type="Ink"></div>
+                        <div class="tower-build" data-type="Ink"></div>
                     </div>
 
-                    <div class="tower row2 col3">
-                        <div class="towerContent">
-                            <div class="towerCorner"></div>
-                            <div class="towerLevels">
+                    <div class="tower">
+                        <div class="tower-content">
+                            <div class="tower-corner"></div>
+                            <div class="tower-levels">
                                 <div class="type1"></div>
                                 <div></div>
                                 <div></div>
@@ -279,22 +280,22 @@
                                 <div></div>
                                 <div></div>
                             </div>
-                            <div class="towerNumber">1</div>
-                            <div class="towerRotate2">
-                                <div class="snapTL"></div>
-                                <div class="snapTR"></div>
-                                <div class="snapBL"></div>
-                                <div class="snapBR"></div>
+                            <div class="tower-number">1</div>
+                            <div class="tower-rotate2">
+                                <div class="snap-tl"></div>
+                                <div class="snap-tr"></div>
+                                <div class="snap-bl"></div>
+                                <div class="snap-br"></div>
                             </div>
-                            <div class="towerLoader"></div>
+                            <div class="tower-loader"></div>
                         </div>
-                        <div class="towerBuild" data-type="Snap"></div>
+                        <div class="tower-build" data-type="Snap"></div>
                     </div>
 
-                    <div class="tower row2 col4">
-                        <div class="towerContent">
-                            <div class="towerCorner"></div>
-                            <div class="towerLevels">
+                    <div class="tower">
+                        <div class="tower-content">
+                            <div class="tower-corner"></div>
+                            <div class="tower-levels">
                                 <div class="type1"></div>
                                 <div></div>
                                 <div></div>
@@ -302,26 +303,26 @@
                                 <div></div>
                                 <div></div>
                             </div>
-                            <div class="towerNumber">1</div>
-                            <div class="towerScale">
-                                <div class="towerRotate3">
-                                    <div class="laserTank"></div>
-                                    <div class="laserHead"></div>
-                                    <div class="laserBody"></div>
-                                    <div class="laserTail"></div>
+                            <div class="tower-number">1</div>
+                            <div class="tower-scale">
+                                <div class="tower-rotate3">
+                                    <div class="laser-tank"></div>
+                                    <div class="laser-head"></div>
+                                    <div class="laser-body"></div>
+                                    <div class="laser-tail"></div>
                                 </div>
                             </div>
-                            <div class="towerLoader"></div>
-                            <div class="towerLock"></div>
+                            <div class="tower-loader"></div>
+                            <div class="tower-lock"></div>
                         </div>
-                        <div class="towerBuild" data-type="Laser"></div>
+                        <div class="tower-build" data-type="Laser"></div>
                     </div>
 
-                    <div class="tower row2 col5">
-                        <div class="towerContent">
+                    <div class="tower">
+                        <div class="tower-content">
                             <div class="cornerLeft"></div>
                             <div class="cornerRight"></div>
-                            <div class="towerLevels">
+                            <div class="tower-levels">
                                 <div class="type1"></div>
                                 <div></div>
                                 <div></div>
@@ -329,32 +330,36 @@
                                 <div></div>
                                 <div></div>
                             </div>
-                            <div class="towerNumber">1</div>
-                            <div class="towerRotate2">
-                                <div class="boostZ"></div>
-                                <div class="boostX"></div>
-                                <div class="boostY"></div>
+                            <div class="tower-number">1</div>
+                            <div class="tower-rotate2">
+                                <div class="boost-z"></div>
+                                <div class="boost-x"></div>
+                                <div class="boost-y"></div>
                             </div>
-                            <div class="towerLoader"></div>
+                            <div class="tower-loader"></div>
                         </div>
-                        <div class="towerBuild" data-type="Boost"></div>
+                        <div class="tower-build" data-type="Boost"></div>
                     </div>
                 </div>
+            </section>
+
+            <section class="info-panel"></section>
+
+            <section class="sidebar-buttons">
+                <button class="pause-button nav-button" data-action="pause">Pause</button>
+                <button class="audio-button nav-button mute" data-action="mute">Mute</button>
+            </section>
+        </aside>
+
+        <div class="bottombar">
+            <div class="waves-count">
+                <span class="current-wave">0</span>/<span class="total-waves">0</span>
             </div>
-
-            <div class="description"></div>
-
-            <button class="pauseButton navButton" data-action="pause">Pause</button>
-            <button class="audioButton navButton mute" data-action="mute">Mute</button>
-        </div>
-
-        <div class="bottomSection">
-            <div class="wavesCount">
-                <span class="currentWave">0</span>/<span class="totalWaves">0</span>
+            <div class="waves">
+                <div class="waves-content"></div>
             </div>
-            <div class="waves"></div>
-            <button class="startButton navButton" data-action="next">Start</button>
-            <button class="nextButton navButton" data-action="next">Next</button>
+            <button class="start-button nav-button" data-action="next">Start</button>
+            <button class="next-button nav-button" data-action="next">Next</button>
         </div>
     </div>
 </body>

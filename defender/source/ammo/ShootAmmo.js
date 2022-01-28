@@ -22,7 +22,7 @@ export default class ShootAmmo extends Ammo {
         this.center      = 3;
         this.rotateTower = true;
         this.rotateAmmo  = false;
-        this.className   = "shootAmmo";
+        this.className   = "shoot-ammo";
         this.hitSound    = "hit";
 
         this.init(tower, targets, boardSize);

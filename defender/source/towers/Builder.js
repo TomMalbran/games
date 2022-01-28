@@ -30,7 +30,7 @@ export default class Builder {
         this.canBuild = true;
 
         /** @type {HTMLElement} */
-        this.towers   = document.querySelector(".towersPanel");
+        this.towers   = document.querySelector(".towers-panel");
 
         /** @type {HTMLElement} */
         this.building = document.querySelector(".building");
@@ -70,7 +70,7 @@ export default class Builder {
      */
     select(event) {
         const element = Utils.getElement(event);
-        if (element.classList.contains("towerBuild")) {
+        if (element.classList.contains("tower-build")) {
             this.selectByElement(element);
         }
     }
@@ -82,7 +82,7 @@ export default class Builder {
      */
     preview(event) {
         const element = Utils.getElement(event);
-        if (element.classList.contains("towerBuild")) {
+        if (element.classList.contains("tower-build")) {
             this.showPreview(element);
         }
     }
@@ -94,7 +94,7 @@ export default class Builder {
      */
     hide(event) {
         const element = Utils.getElement(event);
-        if (element.classList.contains("towerBuild")) {
+        if (element.classList.contains("tower-build")) {
             this.hidePreview();
         }
     }
@@ -356,13 +356,13 @@ export default class Builder {
      * @returns {Void}
      */
     initBuildingElem() {
-        this.building.classList.remove(`towerRange${Math.floor(this.range)}`);
+        this.building.classList.remove(`tower-range${Math.floor(this.range)}`);
         this.building.classList.remove(`dim${this.size}`);
 
         this.range = this.tower.realRange;
         this.size  = this.tower.size;
 
-        this.building.classList.add(`towerRange${Math.floor(this.range)}`);
+        this.building.classList.add(`tower-range${Math.floor(this.range)}`);
         this.building.classList.add(`dim${this.size}`);
     }
 
@@ -383,7 +383,7 @@ export default class Builder {
      * @returns {HTMLElement[]}
      */
     get towersElems() {
-        return Array.from(this.towers.querySelectorAll(".towerBuild"));
+        return Array.from(this.towers.querySelectorAll(".tower-build"));
     }
 
     /**

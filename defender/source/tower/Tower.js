@@ -81,32 +81,33 @@ export default class Tower {
      * @returns {HTMLElement}
      */
     createElement() {
-        const content = document.querySelector(`.towersPanel .towerBuild[data-type="${this.type}"]`).parentElement.innerHTML;
+        const content = document.querySelector(`.towers-panel .tower-build[data-type="${this.type}"]`).parentElement.innerHTML;
         this.element  = document.createElement("DIV");
 
-        this.element.dataset.type   = "tower";
-        this.element.dataset.id     = String(this.id);
-        this.element.style.position = "absolute";
-        this.element.style.top      = Utils.toPX((this.row + this.size / 2) * this.boardSize);
-        this.element.style.left     = Utils.toPX((this.col + this.size / 2) * this.boardSize);
+        this.element.className    = "tower";
+        this.element.dataset.type = "tower";
+        this.element.dataset.id   = String(this.id);
+        this.element.style.top    = Utils.toPX((this.row + this.size / 2) * this.boardSize);
+        this.element.style.left   = Utils.toPX((this.col + this.size / 2) * this.boardSize);
+        this.element.style.zIndex = String(this.row + this.col);
 
         this.element.innerHTML = `
-            <div class="towerCenter${this.size} towerShadow"></div>
-            <div class="towerCenter${this.size} towerSelect"></div>
-            <div class="towerRange"></div>
-            <div class="towerPlaceholder${this.size}">${content}</div>
+            <div class="tower-center${this.size} tower-shadow"></div>
+            <div class="tower-center${this.size} tower-select"></div>
+            <div class="tower-range"></div>
+            <div class="tower-placeholder${this.size}">${content}</div>
         `;
 
-        this.element.querySelector(".towerBuild").classList.remove("selected");
+        this.element.querySelector(".tower-build").classList.remove("selected");
 
         /** @type {HTMLElement} */
-        this.loader   = this.element.querySelector(".towerLoader");
+        this.loader   = this.element.querySelector(".tower-loader");
 
         /** @type {HTMLElement} */
-        this.rotate   = this.element.querySelector(`.towerRotate${this.size}`);
-        this.shadow   = this.element.querySelector(".towerShadow");
-        this.levelers = this.element.querySelectorAll(".towerLevels div");
-        this.number   = this.element.querySelector(".towerNumber");
+        this.rotate   = this.element.querySelector(`.tower-rotate${this.size}`);
+        this.shadow   = this.element.querySelector(".tower-shadow");
+        this.levelers = this.element.querySelectorAll(".tower-levels div");
+        this.number   = this.element.querySelector(".tower-number");
         this.width    = this.size * this.boardSize - 10;
         this.setRangeClasses();
 
@@ -133,9 +134,9 @@ export default class Tower {
     addBoost(amount) {
         this.boost += amount;
         if (this.boost > 0) {
-            this.shadow.classList.add("withBoost");
+            this.shadow.classList.add("tower-boost");
         } else {
-            this.shadow.classList.remove("withBoost");
+            this.shadow.classList.remove("tower-boost");
         }
     }
 
@@ -465,8 +466,8 @@ export default class Tower {
      */
     setRangeClasses() {
         if (this.level === 1 || this.getActualRange() !== this.getActualRange(-1)) {
-            this.element.classList.remove(`towerRange${Math.floor(this.getActualRange(-1))}`);
-            this.element.classList.add(`towerRange${Math.floor(this.getActualRange())}`);
+            this.element.classList.remove(`tower-range${Math.floor(this.getActualRange(-1))}`);
+            this.element.classList.add(`tower-range${Math.floor(this.getActualRange())}`);
         }
     }
 

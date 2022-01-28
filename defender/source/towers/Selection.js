@@ -33,7 +33,7 @@ export default class Selection {
      */
     select(event, element) {
         const target = Utils.getElement(event);
-        if (target.classList.contains("towerRange")) {
+        if (target.classList.contains("tower-range")) {
             this.drop();
         } else {
             const id    = Number(element.dataset.id);

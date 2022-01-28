@@ -22,7 +22,7 @@ export default class FrostAmmo extends Ammo {
         this.center      = 0.5;
         this.rotateTower = true;
         this.rotateAmmo  = false;
-        this.className   = "frostAmmo";
+        this.className   = "frost-ammo";
 
         this.init(tower, targets, boardSize);
     }

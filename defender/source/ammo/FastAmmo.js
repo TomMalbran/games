@@ -25,7 +25,7 @@ export default class FastAmmo extends Ammo {
         this.center      = 3.5;
         this.rotateTower = true;
         this.rotateAmmo  = false;
-        this.className   = "fastAmmo";
+        this.className   = "fast-ammo";
         this.spinAngle   = 0;
 
         this.init(tower, targets, boardSize);
