@@ -25,6 +25,7 @@ export default class Puzzle {
      */
     constructor(sounds, imageName, pieceCount) {
         this.sounds       = sounds;
+        this.display      = "game";
 
         /** @type {HTMLElement} */
         this.congrats     = document.querySelector(".congrats");
@@ -72,6 +73,7 @@ export default class Puzzle {
         this.board.destroy();
         this.table.destroy();
 
+        this.display  = "game";
         this.congrats = null;
         this.preview  = null;
         this.image    = null;
@@ -87,17 +89,25 @@ export default class Puzzle {
 
     /**
      * Toggles the Preview
-     * @param {MouseEvent} event
+     * @param {MouseEvent=} event
      * @returns {Void}
      */
     togglePreview(event) {
+        if (this.display !== "game" && this.display !== "preview") {
+            return;
+        }
         if (this.preview.style.display !== "flex") {
             this.preview.style.display = "flex";
-        } else {
+            this.display = "preview";
+        } else if (event) {
             const pos = Utils.getMousePos(event);
             if (!Utils.inElement(pos, this.image)) {
                 this.preview.style.display = "none";
+                this.display = "game";
             }
+        } else {
+            this.preview.style.display = "none";
+            this.display = "game";
         }
     }
 
@@ -106,12 +116,17 @@ export default class Puzzle {
      * @returns {Void}
      */
     togglePause() {
+        if (this.display !== "game" && this.display !== "pause") {
+            return;
+        }
         if (this.pause.style.display !== "block") {
             this.pause.style.display = "block";
             window.clearInterval(this.interval);
+            this.display = "pause";
         } else {
             this.pause.style.display = "none";
             this.startTimer();
+            this.display = "game";
         }
     }
 
@@ -273,6 +288,7 @@ export default class Puzzle {
      */
     complete() {
         if (this.metrics.isComplete) {
+            this.display = "congrats";
             this.congrats.style.display = "block";
             this.sounds.play("fireworks");
             if (this.interval) {

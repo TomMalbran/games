@@ -2,6 +2,7 @@ import Puzzle       from "./Puzzle.js";
 import Selection    from "./Selection.js";
 
 // Utils
+import KeyCode      from "../../utils/KeyCode.js";
 import Sounds       from "../../utils/Sounds.js";
 import Utils        from "../../utils/Utils.js";
 
@@ -9,8 +10,37 @@ import Utils        from "../../utils/Utils.js";
 let sounds    = null;
 let selection = null;
 let puzzle    = null;
+let shortcuts = null;
 
 
+
+/**
+ * Creates a shortcut object
+ * @returns {Void}
+ */
+function createShortcuts() {
+    const preview = () => puzzle.togglePreview();
+    const pause   = () => puzzle.togglePause();
+    const mute    = () => sounds.toggle();
+    const borders = () => puzzle.drawer.toggleBorders();
+    const exit    = () => {
+        if (puzzle.display === "game") {
+            puzzle.destroy();
+            selection.show();
+            puzzle = null;
+        }
+    };
+
+    shortcuts = {
+        V      : preview,
+        P      : pause,
+        Escape : pause,
+        M      : mute,
+        Q      : exit,
+        E      : exit,
+        B      : borders,
+    };
+}
 
 /**
  * Stores the used DOM elements and initializes the Event Handlers
@@ -95,6 +125,14 @@ function initDomListeners() {
         }
         e.preventDefault();
     });
+
+    document.addEventListener("keydown", (e) => {
+        const code = KeyCode.keyToCode(e.keyCode, false);
+        if (puzzle && shortcuts[code]) {
+            shortcuts[code]();
+            e.preventDefault();
+        }
+    });
 }
 
 /**
@@ -102,13 +140,14 @@ function initDomListeners() {
  * @returns {Void}
  */
 function main() {
-    initDomListeners();
-
     sounds    = new Sounds("puzzle.sound");
     selection = new Selection();
     selection.onStart = (image, pieces) => {
         puzzle = new Puzzle(sounds, image, pieces);
     };
+
+    createShortcuts();
+    initDomListeners();
 }
 
 // Load the game

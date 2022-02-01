@@ -72,7 +72,7 @@ export default class Drawer {
      * @returns {Void}
      */
     toggleBorders() {
-        this.button.innerHTML = this.onlyBorders ? "Only Borders" : "All Pieces";
+        this.button.innerHTML = this.onlyBorders ? "Only <u>B</u>orders" : "All Pieces";
         this.grid.classList.toggle("drawer-borders");
         this.onlyBorders = !this.onlyBorders;
     }
