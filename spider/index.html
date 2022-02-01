@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Spider</title>
+    <link rel="stylesheet" href="design/style.css" />
+    <script type="module" src="source/Main.js"></script>
+</head>
+
+<body>
+    <div class="dialog selection">
+        <h1>Spider</h1>
+        <p>Select a game</p>
+        <ul class="games">
+            <li data-action="play" data-suits="1">
+                <div class="cards">
+                    <img src="images/AS.svg" name="Spades" />
+                </div>
+                <i>1</i> Suit
+            </li>
+            <li data-action="play" data-suits="2">
+                <div class="cards">
+                    <img src="images/AS.svg" name="Spades" />
+                    <img src="images/AH.svg" name="Hearts" />
+                </div>
+                <i>2</i> Suits
+            </li>
+            <li data-action="play" data-suits="4">
+                <div class="cards">
+                    <img src="images/AS.svg" name="Spades" />
+                    <img src="images/AH.svg" name="Hearts" />
+                    <img src="images/AC.svg" name="Clubs" />
+                    <img src="images/AD.svg" name="Diamonds" />
+                </div>
+                <i>4</i> Suits
+            </li>
+        </ul>
+    </div>
+
+    <main class="container">
+        <header>
+            <h1>Spider</h1>
+            <ul class="menu">
+                <li><button data-action="pause"><i>P</i>ause</button></li>
+                <li><button data-action="undo"><i>U</i>ndo</button></li>
+                <li><button data-action="redo"><i>R</i>edo</button></li>
+                <li><button data-action="hint"><i>H</i>int</button></li>
+                <li><button data-action="scores"><i>S</i>cores</button></li>
+                <li><button data-action="mute" class="mute"><i>M</i>ute</button></li>
+            </ul>
+            <ul class="scores">
+                <li><b>Score:</b> <span class="score">0</span></li>
+                <li><b>Moves:</b> <span class="moves">0</span></li>
+                <li><b>Time:</b> <span class="timer">00<span>:</span>00</span></li>
+            </ul>
+        </header>
+        <section class="top">
+            <div class="stock">
+                <div class="slot slot-empty"></div>
+            </div>
+            <div class="foundations"></div>
+        </section>
+        <section class="tableau"></section>
+    </main>
+
+    <div class="pause backdrop">
+        <div class="dialog">
+            <h2>Pause</h2>
+            <p>The game is currently paused</p>
+            <button data-action="continue"><i>C</i>ontinue playing</button>
+            <button data-action="restart"><i>R</i>estart this game</button>
+            <button data-action="start"><i>S</i>tart a new game</button>
+            <button data-action="select">Select a <i>d</i>ifferent game</button>
+        </div>
+    </div>
+
+    <div class="high-scores backdrop">
+        <div class="dialog">
+            <h2>Scores</h2>
+            <section class="graph">
+                <div class="chart"></div>
+                <ul class="legend">
+                    <li>Won <span class="won"></span></li>
+                    <li>Lost <span class="lost"></span></li>
+                </ul>
+            </section>
+            <ul class="stats">
+                <li><dt>Longest winning streak:</dt><dd class="winning-streak"></dd></li>
+                <li><dt>Longest losing streak:</dt><dd class="losing-streak"></dd></li>
+                <li><dt>Current streak:</dt><dd class="current-streak"></dd></li>
+                <li><dt>Best score:</dt><dd class="best-score"></dd></li>
+                <li><dt>Best time:</dt><dd class="best-time"></dd></li>
+                <li><dt>Best moves:</dt><dd class="best-moves"></dd></li>
+            </ul>
+            <button data-action="continue"><i>C</i>ontinue playing</button>
+            <button data-action="reset"><i>R</i>eset scores</button>
+        </div>
+    </div>
+
+    <div class="deals-error backdrop">
+        <div class="dialog">
+            <h2>Error</h2>
+            <p>There must be at least one card in each tableau column before you can deal a new row of cards.</p>
+            <button data-action="continue"><i>C</i>ontinue playing</button>
+        </div>
+    </div>
+
+    <div class="moves-error backdrop">
+        <div class="dialog">
+            <h2>No movements</h2>
+            <p>There are no more movements to do. Try to undo some movements or start again.</p>
+            <button data-action="continue"><i>C</i>ontinue playing</button>
+        </div>
+    </div>
+
+    <div class="congrats backdrop">
+        <div class="dialog">
+            <h2>Congratulations!</h2>
+            <p>You won the game in 0 seconds and 0 moves with a score of 0.</p>
+            <button data-action="start"><i>S</i>tart a new game</button>
+            <button data-action="select">Select a <i>d</i>ifferent game</button>
+        </div>
+    </div>
+</body>

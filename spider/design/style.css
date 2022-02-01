@@ -1,0 +1,437 @@
+/**
+ * Game Fonts
+ */
+@font-face {
+    font-family: "Comfortaa";
+    font-style: normal;
+    font-weight: normal;
+    src: local("Comfortaa"), url("../fonts/comfortaa.ttf") format("truetype");
+}
+
+
+
+/**
+ * Properties
+ */
+:root {
+    --main-color: #e22729;
+    --hint-color: #0588b2;
+
+    --main-font: "Helvetica Nueue", Helvetica, Arial, sans-serif;
+    --title-font: "Comfortaa", Georgia, serif;
+
+    --card-width: min(100px, 11vh);
+    --card-height: calc(var(--card-width) * 1.4);
+    --card-gap: calc(var(--card-width) * 0.15);
+
+    --slot-color: rgba(255, 255, 255, 0.4);
+
+    --z-dialog: 100;
+}
+
+
+
+/**
+ * Main Styles
+ */
+html, body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    font-family: var(--main-font);
+    background-color: transparent;
+    backface-visibility: hidden;
+}
+h2 {
+    margin: 0;
+    color: var(--main-color);
+    font-size: 32px;
+    font-family: var(--title-font);
+    text-align: center;
+}
+button {
+    padding: 0;
+    display: block;
+    padding: 4px 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2), inset 0 0 0 1px black;
+    border-radius: 4px;
+    color: white;
+    font-family: var(--main-font);
+    font-size: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+button:hover {
+    box-shadow: 0 0 0 2px white, inset 0 0 0 1px black;
+}
+i {
+    font-style: normal;
+    text-decoration: underline;
+}
+
+
+
+/**
+ * The Game
+ */
+.container {
+    display: none;
+    width: calc(var(--card-width) * 10 + var(--card-gap) * 9);
+    margin: 0 auto;
+}
+
+header {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: flex-end;
+    padding-top: 52px;
+    padding-bottom: var(--card-gap);
+    gap: 16px;
+}
+h1 {
+    margin: 0;
+    font-family: var(--title-font);
+    font-size: 44px;
+    line-height: 1;
+    color: var(--main-color);
+}
+.menu,
+.scores {
+    align-items: center;
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0 0 8px 0;
+    color: rgba(255, 255, 255, 0.9);
+}
+.menu {
+    justify-content: center;
+    gap: 12px;
+}
+.scores {
+    justify-content: flex-end;
+    gap: 16px;
+    font-size: 14px;
+}
+.scores li {
+    text-align: right;
+}
+.timer > span {
+    opacity: 0.5;
+}
+
+
+
+/**
+ * The Game Top
+ */
+.top {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--card-gap);
+    height: var(--card-height);
+    margin-bottom: var(--card-gap);
+}
+
+.stock {
+    position: relative;
+}
+.stock > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--card-width);
+    height: var(--card-height);
+}
+.stock > img:nth-child(3) {
+    left: calc(var(--card-gap) * 1);
+}
+.stock > img:nth-child(4) {
+    left: calc(var(--card-gap) * 2);
+}
+.stock > img:nth-child(5) {
+    left: calc(var(--card-gap) * 3);
+}
+.stock > img:nth-child(6) {
+    left: calc(var(--card-gap) * 4);
+}
+.stock > img:last-child {
+    cursor: pointer;
+}
+
+.foundations {
+    display: flex;
+    gap: var(--card-gap);
+}
+.foundations img {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: var(--card-width);
+}
+
+
+
+/**
+ * The Game Body
+ */
+.tableau {
+    display: flex;
+    justify-content: center;
+    gap: var(--card-gap);
+}
+.tableau > div {
+    position: relative;
+}
+
+.card {
+    position: absolute;
+    width: var(--card-width);
+    height: var(--card-height);
+    perspective: 1000px;
+}
+.card:not(.card-show-back) {
+    cursor: grab;
+}
+.card img {
+    width: var(--card-width);
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.2s;
+    transform-style: preserve-3d;
+}
+.card-show-back .card-inner {
+    transform: rotateY(180deg);
+}
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+.card-back {
+    transform: rotateY(180deg);
+}
+body > .card.card {
+    cursor: grabbing;
+}
+
+.card-hint {
+    box-shadow: 0 0 8px 3px var(--hint-color);
+}
+
+.chain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: grabbing;
+}
+
+
+
+/**
+ * Slots
+ */
+.slot {
+    box-sizing: border-box;
+    position: relative;
+    border: 2px solid var(--slot-color);
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+    width: var(--card-width);
+    height: var(--card-height);
+}
+.card-slot::after,
+.slot-empty::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(var(--card-width) / 2);
+    height: calc(var(--card-width) / 2);
+    transform: translate(-50%, -50%);
+    border: 4px solid var(--slot-color);
+    border-radius: 100%;
+}
+.slot-empty::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(var(--card-width) / 2);
+    height: 4px;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    background-color: var(--slot-color);
+}
+
+
+
+/**
+ * The Dialogs
+ */
+.backdrop {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: var(--z-dialog);
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    padding: 32px;
+    transform: translate(-50%, -50%);
+    background-color: rgba(10, 10, 10, 0.9);
+    border-radius: 8px;
+    font-size: 16px;
+}
+.dialog p {
+    margin: 16px 0 24px;
+    color: white;
+    text-align: center;
+}
+.dialog button {
+    font-size: 18px;
+    margin: 16px auto;
+    padding: 8px 16px;
+    min-width: 240px;
+}
+
+
+
+/**
+ * The Selection
+ */
+.selection {
+    display: block;
+    width: 500px;
+    color: white;
+    text-align: center;
+}
+.selection p {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.games {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+.games li {
+    position: relative;
+    width: 33.33%;
+    height: calc(100px * 1.4 + 64px);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.cards img {
+    position: absolute;
+    top: 32px;
+    left: 50%;
+    width: 100px;
+    transform: translateX(-50%);
+    transform-origin: bottom center;
+    transition: all 0.2s;
+}
+.games li:hover {
+    color: var(--main-color);
+}
+.games li:hover img {
+    box-shadow: 0 0 8px var(--main-color);
+}
+
+.games li:nth-child(2) img:nth-child(1) {
+    transform: translateX(-50%) rotate(-10deg);
+}
+.games li:nth-child(2) img:nth-child(2) {
+    transform: translateX(-50%) rotate(10deg);
+}
+
+.games li:nth-child(3) img:nth-child(1) {
+    transform: translateX(-50%) rotate(-5deg);
+}
+.games li:nth-child(3) img:nth-child(2) {
+    transform: translateX(-50%) rotate(5deg);
+}
+.games li:nth-child(3) img:nth-child(3) {
+    transform: translateX(-50%) rotate(15deg);
+}
+.games li:nth-child(3) img:nth-child(4) {
+    transform: translateX(-50%) rotate(25deg);
+}
+
+
+
+/**
+ * The High Scores
+ */
+.high-scores {
+    color: white;
+}
+.high-scores ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.graph {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 16px 0;
+}
+.chart {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+}
+.legend.legend {
+    margin-left: 16px;
+    line-height: 2;
+}
+.legend li::before {
+    content: "●";
+    margin-right: 8px;
+}
+.legend li:first-child::before {
+    color: #a2e100;
+}
+.legend li:last-child::before {
+    color: #e12b1e;
+}
+
+.stats li {
+    display: flex;
+    line-height: 1.8;
+}
+.stats li:nth-child(3) {
+    margin-bottom: 16px;
+}
+.stats dt {
+    box-sizing: border-box;
+    width: 50%;
+    padding-right: 4px;
+    text-align: right;
+    opacity: 0.5;
+}
+.stats dd {
+    box-sizing: border-box;
+    width: 50%;
+    margin: 0;
+    padding-left: 4px;
+    font-weight: bold;
+}
