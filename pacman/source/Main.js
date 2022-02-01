@@ -351,7 +351,7 @@ function main() {
     display    = new Display(onShow);
     demo       = new Demo(board);
     animations = new Animations(board);
-    sounds     = new Sounds([ "start", "death", "eat1", "eat2", "kill" ], "pacman.sound");
+    sounds     = new Sounds("pacman.sound");
     scores     = new HighScores();
 
     createActionsShortcuts();

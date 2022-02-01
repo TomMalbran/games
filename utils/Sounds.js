@@ -1,25 +1,6 @@
 import Storage from "./Storage.js";
 
 
-/**
- * Returns true if the browser supports MP3 Audio
- * @returns {Boolean}
- */
-function supportsMP3() {
-    const a = document.createElement("audio");
-    return !!(a.canPlayType && a.canPlayType("audio/mpeg;").replace(/no/, ""));
-}
-
-/**
- * Returns true if the browser supports OGG Audio
- * @returns {Boolean}
- */
-function supportsOGG() {
-    const a = document.createElement("audio");
-    return !!(a.canPlayType && a.canPlayType("audio/ogg; codecs='vorbis'").replace(/no/, ""));
-}
-
-
 
 /**
  * Sound Controller
@@ -28,15 +9,12 @@ export default class Sounds {
     /**
      * Sound Controller Constructor
      * @constructor
-     * @param {String[]} soundFiles  - An array of sound names to use
-     * @param {String}   storageName - The name of the storage
-     * @param {String=}  format      - Format of the files
+     * @param {String} storageName
      */
-    constructor(soundFiles, storageName, format) {
-        this.data   = new Storage(storageName, true);
-        this.format = format || (supportsOGG() ? ".ogg" : (supportsMP3() ? ".mp3" : null));
-        this.mute   = !!this.data.get();
-        this.old    = this.mute;
+    constructor(storageName) {
+        this.data    = new Storage(storageName, true);
+        this.mute    = !!this.data.get();
+        this.old     = this.mute;
 
         /** @type {HTMLElement} */
         this.audio   = document.querySelector(".audio");
@@ -47,28 +25,7 @@ export default class Sounds {
         /** @type {HTMLElement} */
         this.element = document.querySelector(".mute");
 
-        if (this.format) {
-            this.setSounds(soundFiles);
-            this.setDisplay();
-        } else {
-            if (this.audio) {
-                this.audio.style.display = "none";
-            }
-            if (this.element) {
-                this.element.style.display = "none";
-            }
-        }
-    }
-
-    /**
-     * Create all the Sound Functions
-     * @param {String[]} soundFiles
-     * @returns {Void}
-     */
-    setSounds(soundFiles) {
-        soundFiles.forEach((sound) => {
-            this[sound] = () => this.play(sound);
-        });
+        this.setDisplay();
     }
 
     /**
@@ -77,8 +34,8 @@ export default class Sounds {
      * @returns {Void}
      */
     play(sound) {
-        const audio = new Audio(`audio/${sound}${this.format}`);
-        if (this.format && !this.mute) {
+        if (!this.mute) {
+            const audio = new Audio(`audio/${sound}.mp3`);
             audio.play();
         }
     }
@@ -128,7 +85,7 @@ export default class Sounds {
             this.waves.style.display = this.mute ? "none" : "block";
         }
         if (this.element) {
-            this.element.innerText = this.mute ? "Unmute" : "Mute";
+            this.element.innerHTML = this.mute ? "Un<u>m</u>ute" : "<u>M</u>ute";
         }
     }
 }

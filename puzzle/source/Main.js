@@ -104,7 +104,7 @@ function initDomListeners() {
 function main() {
     initDomListeners();
 
-    sounds    = new Sounds([ "drop", "piece", "set", "fireworks" ], "puzzle.sound", ".mp3");
+    sounds    = new Sounds("puzzle.sound");
     selection = new Selection();
     selection.onStart = (image, pieces) => {
         puzzle = new Puzzle(sounds, image, pieces);

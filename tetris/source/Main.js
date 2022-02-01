@@ -267,7 +267,7 @@ function main() {
 
     display  = new Display();
     level    = new Level(maxInitialLevel);
-    sounds   = new Sounds([ "pause", "crash", "drop", "line", "rotate", "end" ], "tetris.sound");
+    sounds   = new Sounds("tetris.sound");
     scores   = new HighScores();
     keyboard = new Keyboard(display, scores, getShortcuts());
 }

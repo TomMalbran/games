@@ -340,7 +340,7 @@ function main() {
     display  = new Display();
     mode     = new Mode();
     score    = new Score();
-    sounds   = new Sounds([ "bounce", "brick", "end" ], "bounce.sound");
+    sounds   = new Sounds("bounce.sound");
     board    = new Board(onBoardClick);
     scores   = new HighScores();
     keyboard = new Keyboard(display, scores, getShortcuts());

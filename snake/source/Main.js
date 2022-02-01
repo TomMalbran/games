@@ -358,7 +358,7 @@ function main() {
     board    = new Board();
     demo     = new Demo(board);
     instance = new Instance(board);
-    sounds   = new Sounds([ "start", "eat", "end" ], "snake.sound");
+    sounds   = new Sounds("snake.sound");
     scores   = new HighScores();
 
     new Keyboard(display, scores, getShortcuts());

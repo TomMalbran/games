@@ -192,7 +192,7 @@ function initDomListeners() {
 function main() {
     instance = new Instance();
     display  = new Display();
-    sounds   = new Sounds([ "deal", "drop", "flip", "foundation", "redo", "restart", "start", "stock", "flip", "undo", "win" ], "spider.sound", ".mp3");
+    sounds   = new Sounds("spider.sound");
 
     createActionsShortcuts();
     initDomListeners();

@@ -385,10 +385,7 @@ function main() {
 
     display = new Display();
     maps    = new Maps();
-    sounds  = new Sounds([
-        "build", "upgrade", "sell", "blocking", "enter", "exit", "death", "shoot", "hit",
-        "fast", "missile", "antiair", "frost", "earth", "ink", "snap", "laser"
-    ], "defender.sound");
+    sounds  = new Sounds("defender.sound");
 }
 
 // Load the game
