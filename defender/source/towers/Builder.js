@@ -192,7 +192,7 @@ export default class Builder {
     drag(event) {
         if (this.selected) {
             const mouse = Utils.getMousePos(event);
-            const board = this.parent.board.pos;
+            const board = this.parent.board.bounds;
             const size  = Data.squareSize;
             const top   = mouse.top  - board.top;
             const left  = mouse.left - board.left;

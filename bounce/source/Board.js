@@ -1,7 +1,3 @@
-import Utils        from "../../utils/Utils.js";
-
-
-
 /**
  * Bounce Board
  */
@@ -13,11 +9,11 @@ export default class Board {
      */
     constructor(callback) {
         /** @type {HTMLElement} */
-        this.element  = document.querySelector(".board");
-        this.width    = this.element.offsetWidth;
-        this.height   = this.element.offsetHeight;
-        this.position = Utils.getPosition(this.element);
-        this.border   = 1;
+        this.element = document.querySelector(".board");
+        this.width   = this.element.offsetWidth;
+        this.height  = this.element.offsetHeight;
+        this.bounds  = this.element.getBoundingClientRect();
+        this.border  = 1;
 
         this.element.addEventListener("click", () => callback());
     }
@@ -47,6 +43,6 @@ export default class Board {
      * @returns {Number}
      */
     get left() {
-        return this.position.left;
+        return this.bounds.left;
     }
 }

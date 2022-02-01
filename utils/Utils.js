@@ -205,6 +205,7 @@ function translate(x, y) {
  * @returns {HTMLElement}
  */
 function getElement(event) {
+    // @ts-ignore
     return event.target;
 }
 
@@ -240,30 +241,8 @@ function getTarget(event, ...actions) {
  * @returns {HTMLElement}
  */
 function getCloseTarget(event) {
+    // @ts-ignore
     return event.target.dataset.action ? event.target : event.target.parentElement;
-}
-
-/**
- * Returns the position of an Element in the document
- * @param {HTMLElement} startElement
- * @returns {{top: Number, left: Number}}
- */
-function getPosition(startElement) {
-    let element = startElement;
-    let top     = 0;
-    let left    = 0;
-
-    if (element.offsetParent !== undefined) {
-        top  = element.offsetTop;
-        left = element.offsetLeft;
-
-        while (element.offsetParent && typeof element.offsetParent === "object") {
-            element = element.offsetParent;
-            top  += element.offsetTop;
-            left += element.offsetLeft;
-        }
-    }
-    return { top, left };
 }
 
 /**
@@ -350,11 +329,7 @@ function getMousePos(event, withScroll = true) {
  * @returns {Void}
  */
 function unselect() {
-    if (window.getSelection) {
-        window.getSelection().removeAllRanges();
-    } else if (document.selection) {
-        document.selection.empty();
-    }
+    window.getSelection().removeAllRanges();
 }
 
 
@@ -381,7 +356,6 @@ export default {
     getElement,
     getTarget,
     getCloseTarget,
-    getPosition,
     setPosition,
     removeElement,
     inBounds,

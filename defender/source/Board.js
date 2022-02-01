@@ -38,9 +38,9 @@ export default class Board {
         /** @type {HTMLElement} */
         this.walls      = document.querySelector(".walls");
 
-        this.pos        = Utils.getPosition(this.board);
-        this.width      = this.board.offsetWidth;
-        this.height     = this.board.offsetHeight;
+        this.bounds     = this.board.getBoundingClientRect();
+        this.width      = this.bounds.width;
+        this.height     = this.bounds.height;
 
         this.board.addEventListener("click", (e) => this.onClick(e));
         this.create();

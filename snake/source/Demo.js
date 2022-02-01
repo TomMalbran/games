@@ -23,7 +23,6 @@ export default class Demo {
 
         /** @type {HTMLElement} */
         this.container    = document.querySelector(".demo");
-        this.left         = Utils.getPosition(document.querySelector(".messages")).left;
         this.width        = this.container.offsetWidth;
 
         for (let i = 0; i < this.rows; i += 1) {
