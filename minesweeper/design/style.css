@@ -1,0 +1,142 @@
+/**
+ * Game Fonts
+ */
+ @font-face {
+    font-family: "Comfortaa";
+    font-style: normal;
+    font-weight: normal;
+    src: local("Comfortaa"), url("../fonts/comfortaa.ttf") format("truetype");
+}
+
+
+
+/**
+ * Properties
+ */
+:root {
+    --main-color: #e22729;
+    --hint-color: #0588b2;
+
+    --main-font: "Helvetica Nueue", Helvetica, Arial, sans-serif;
+    --title-font: "Comfortaa", Georgia, serif;
+
+    --border-radius: 6px;
+    --cell-size: 40px;
+    --cell-spacing: 12px;
+
+    --z-dialog: 100;
+}
+
+
+
+/**
+ * Main Styles
+ */
+html, body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    font-family: var(--main-font);
+    background-color: transparent;
+    backface-visibility: hidden;
+}
+
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.board {
+    display: grid;
+    grid-template-columns: repeat(var(--board-cols, 1), 1fr);
+    grid-gap: var(--cell-spacing);
+}
+
+
+
+/**
+ * Cell Styles
+ */
+@keyframes front {
+    from {
+        background-color: white;
+    }
+}
+
+@keyframes back {
+    to {
+        transform: translate(-50%, -50%) rotate(calc(var(--cell-rotate) + 180deg)) scale(1.2);
+    }
+}
+
+.cell {
+    box-sizing: border-box;
+    position: relative;
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border: 2px solid white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+
+.cell.back {
+    cursor: pointer;
+}
+.cell.back > div:first-child,
+.cell.back > div:before,
+.cell.back > div:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(var(--cell-size) * var(--cell-mult));
+    height: calc(var(--cell-size) * var(--cell-mult));
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: var(--border-radius);
+    transform: translate(-50%, -50%) rotate(var(--cell-rotate));
+    animation-name: back;
+    animation-duration: 2s;
+    animation-delay: var(--cell-delay);
+    animation-direction: alternate-reverse;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+.cell.back > div:first-child {
+    border: 2px solid white;
+    --cell-mult: 0.1;
+    --cell-rotate: 0deg;
+}
+.cell.back > div:first-child:before {
+    --cell-mult: 0.4;
+    --cell-rotate: 45deg;
+}
+.cell.back > div:first-child:after {
+    --cell-mult: 0.55;
+    --cell-rotate: 35deg;
+}
+.cell.back > div:last-child:before {
+    --cell-mult: 0.7;
+    --cell-rotate: 25deg;
+}
+.cell.back > div:last-child:after {
+    --cell-mult: 0.85;
+    --cell-rotate: 15deg;
+}
+
+
+.cell.front {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 18px;
+    animation-name: front;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-in-out;
+}
