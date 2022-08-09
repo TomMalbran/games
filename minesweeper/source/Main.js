@@ -25,6 +25,16 @@ function initDomListeners() {
             break;
         }
     });
+
+    document.body.addEventListener("contextmenu", (e) => {
+        const element = Utils.getTarget(e);
+        if (element.dataset.action === "reveal") {
+            e.preventDefault();
+            const row = Number(element.dataset.row);
+            const col = Number(element.dataset.col);
+            board.flag(row, col);
+        }
+    });
 }
 
 /**

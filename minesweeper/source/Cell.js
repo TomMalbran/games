@@ -14,13 +14,36 @@ export default class Cell {
         this.col        = col;
 
         this.isBorder   = isBorder;
+        this.number     = 0;
+        this.flags      = 0;
+
         this.hasBomb    = false;
         this.isRevealed = false;
-        this.number     = 0;
+        this.isFlagged  = false;
     }
 
+    /**
+     * Returns true if the Cell is Empty
+     * @returns {Boolean}
+     */
     get isEmpty() {
         return this.number === 0;
+    }
+
+    /**
+     * Returns true if the Cell can be Revealed
+     * @returns {Boolean}
+     */
+    get canReveal() {
+        return !this.isRevealed && !this.isFlagged;
+    }
+
+    /**
+     * Returns true if the Cell can be Flagged
+     * @returns {Boolean}
+     */
+    get canFlag() {
+        return !this.isRevealed;
     }
 
 
@@ -69,16 +92,71 @@ export default class Cell {
 
     /**
      * Reveals the Cell
+     * @returns {Void}
      */
     reveal() {
-        if (this.isRevealed) {
+        if (!this.canReveal) {
             return;
         }
-        this.element.className = "cell front";
-        this.element.innerHTML = "";
-        if (this.number > 0) {
-            this.element.innerHTML = String(this.number);
-        }
         this.isRevealed = true;
+
+        this.element.classList.remove("back");
+        this.element.classList.add("front");
+
+        if (this.hasBomb) {
+            this.element.classList.add("bomb");
+            this.element.innerHTML = "";
+        } else if (this.number > 0) {
+            this.element.classList.add("fill");
+            this.element.innerHTML = String(this.number);
+        } else {
+            this.element.classList.add("empty");
+            this.element.innerHTML = "";
+        }
+
+        this.addNumberFlag();
+    }
+
+    /**
+     * Reveals the Cell
+     * @returns {Number}
+     */
+    flag() {
+        if (!this.canFlag) {
+            return;
+        }
+
+        this.isFlagged = !this.isFlagged;
+        if (this.isFlagged) {
+            this.element.classList.add("flag");
+            return 1;
+        }
+        this.element.classList.remove("flag");
+        return -1;
+    }
+
+    /**
+     * Updates the flags that surround the cell
+     * @param {Number} value
+     * @returns {Void}
+     */
+    addFlag(value) {
+        this.flags += value;
+        this.addNumberFlag();
+    }
+
+    /**
+     * Updates the flag class when the cell is a number
+     * @returns {Void}
+     */
+    addNumberFlag() {
+        if (!this.isRevealed) {
+            return;
+        }
+        if (this.number === this.flags) {
+            this.element.classList.add("flag");
+        } else {
+            this.element.classList.remove("flag");
+        }
     }
 }

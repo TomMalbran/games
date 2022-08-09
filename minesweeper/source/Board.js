@@ -19,21 +19,25 @@ export default class Board {
      * @param {Number} bombs
      */
     constructor(rows, cols, bombs) {
-        this.rows     = rows;
-        this.cols     = cols;
-        this.bombs    = bombs;
+        this.rows      = rows;
+        this.cols      = cols;
+        this.bombs     = bombs;
 
-        this.startRow = 1;
-        this.endRow   = this.startRow + rows
-        this.startCol = 1;
-        this.endCol   = this.startCol + cols
+        this.startRow  = 1;
+        this.endRow    = this.startRow + rows
+        this.startCol  = 1;
+        this.endCol    = this.startCol + cols
 
         /** @type {HTMLElement} */
-        this.element = document.querySelector(".board");
-        this.element.style.setProperty("--board-cols", String(this.cols));
+        this.element   = document.querySelector(".board");
+        document.querySelector("body").style.setProperty("--board-cols", String(this.cols));
 
         /** @type {Cell[][]} */
-        this.matrix  = [];
+        this.matrix    = [];
+
+        /** @type {Cell[]} */
+        this.bombCells = [];
+
         this.createMatrix();
     }
 
@@ -51,14 +55,13 @@ export default class Board {
             }
         }
 
-        let placedBombs = 0;
-        while (placedBombs < this.bombs) {
-            const row  = Utils.rand(this.startRow, this.endRow);
-            const col  = Utils.rand(this.startCol, this.endCol);
+        while (this.bombCells.length < this.bombs) {
+            const row  = Utils.rand(this.startRow, this.endRow - 1);
+            const col  = Utils.rand(this.startCol, this.endCol - 1);
             const cell = this.matrix[row][col];
             if (!cell.hasBomb) {
                 cell.placeBomb();
-                placedBombs += 1;
+                this.bombCells.push(cell);
             }
         }
 
@@ -78,11 +81,28 @@ export default class Board {
         }
     }
 
+    /**
+     * Reveals the Cell
+     * @param {Number} row
+     * @param {Number} col
+     * @returns {Void}
+     */
     reveal(row, col) {
         const cell = this.matrix[row][col];
-        if (cell.isRevealed) {
+        if (!cell.canReveal) {
             return;
         }
+
+        if (cell.hasBomb) {
+            for (const bomb of this.bombCells) {
+                if (!bomb.element) {
+                    console.log(this.bombCells);
+                }
+                bomb.reveal();
+            }
+            return;
+        }
+
         if (cell.isEmpty) {
             cell.reveal();
             for (let dir of DIRECTIONS) {
@@ -93,8 +113,30 @@ export default class Board {
                     this.reveal(newRow, newCol);
                 }
             }
-        } else {
-            cell.reveal();
+            return;
+        }
+
+        cell.reveal();
+    }
+
+    /**
+     * Flags the Cell
+     * @param {Number} row
+     * @param {Number} col
+     * @returns {Void}
+     */
+    flag(row, col) {
+        const cell = this.matrix[row][col];
+        if (!cell.canFlag) {
+            return;
+        }
+        const value = cell.flag();
+
+        for (const dir of DIRECTIONS) {
+            const newRow = row + dir[0];
+            const newCol = col + dir[1];
+            const cell   = this.matrix[newRow][newCol];
+            cell.addFlag(value);
         }
     }
 }
