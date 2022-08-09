@@ -1,11 +1,11 @@
 /**
  * Game Fonts
  */
- @font-face {
-    font-family: "Comfortaa";
+@font-face {
+    font-family: "Major Mono Display";
     font-style: normal;
     font-weight: normal;
-    src: local("Comfortaa"), url("../fonts/comfortaa.ttf") format("truetype");
+    src: local("Major Mono Display"), url("../fonts/majormonodisplay.ttf") format("truetype");
 }
 
 
@@ -15,12 +15,13 @@
  */
 :root {
     --main-color: #e22729;
-    --hint-color: #0588b2;
 
-    --main-font: "Helvetica Nueue", Helvetica, Arial, sans-serif;
+    --main-font: "Major Mono Display", Courier, monospace;
     --title-font: "Comfortaa", Georgia, serif;
 
     --border-radius: 6px;
+
+    --board-cols: 10;
     --cell-size: 40px;
     --cell-spacing: 12px;
 
@@ -46,15 +47,75 @@ html, body {
 
 .container {
     display: flex;
-    width: 100%;
-    height: 100%;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 100%;
+    gap: 24px;
+    font-family: var(--main-font);
 }
+
+.header,
+.footer {
+    width: calc((var(--board-cols) * var(--cell-size)) + ((var(--board-cols) - 1) * var(--cell-spacing)));
+}
+.header {
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    align-items: baseline;
+    justify-content: space-between;
+    color: white;
+}
+h1 {
+    margin: 0;
+    text-align: center;
+    font-size: 40px;
+    text-shadow: 0 0 12px rgb(255 255 255);
+}
+.header > div {
+    text-shadow: 0 0 6px rgb(255 255 255);
+}
+.header > div:last-child {
+    text-align: right;
+}
+.footer {
+    display: flex;
+    gap: 24px;
+}
+
 .board {
     display: grid;
     grid-template-columns: repeat(var(--board-cols, 1), 1fr);
     grid-gap: var(--cell-spacing);
+}
+
+
+
+/**
+ * Buttons
+ */
+.btn {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    padding: 16px 32px;
+    color: white;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    text-transform: lowercase;
+    background-image: linear-gradient(to right, #1A2980 0%, #26D0CE 51%, #1A2980 100%);
+    background-size: 200% auto;
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: 0.2s;
+}
+.btn:hover {
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
 }
 
 
@@ -75,13 +136,36 @@ html, body {
 }
 
 .cell {
+    --cell-color: white;
+    --cell-inner: rgba(255, 255, 255, 0.3);
+
     box-sizing: border-box;
     position: relative;
     width: var(--cell-size);
     height: var(--cell-size);
-    border: 2px solid white;
+    border: 2px solid var(--cell-color);
     border-radius: var(--border-radius);
     overflow: hidden;
+}
+.cell.back > div:first-child,
+.cell.back > div::before,
+.cell.back > div::after,
+.cell.fill::after,
+.cell.fill::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(var(--cell-size) * var(--cell-mult));
+    height: calc(var(--cell-size) * var(--cell-mult));
+    border: 1px solid var(--cell-inner);
+    border-radius: var(--border-radius);
+    transform: translate(-50%, -50%) rotate(var(--cell-rotate));
+}
+
+.cell.flag {
+    --cell-color: rgb(6 173 229);
+    --cell-inner: rgba(6 173 229 / 50%);
 }
 
 
@@ -89,26 +173,18 @@ html, body {
     cursor: pointer;
 }
 .cell.back > div:first-child,
-.cell.back > div:before,
-.cell.back > div:after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: calc(var(--cell-size) * var(--cell-mult));
-    height: calc(var(--cell-size) * var(--cell-mult));
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: var(--border-radius);
-    transform: translate(-50%, -50%) rotate(var(--cell-rotate));
+.cell.back > div::before,
+.cell.back > div::after {
+    will-change: transform;
     animation-name: back;
-    animation-duration: 2s;
+    animation-duration: 4s;
     animation-delay: var(--cell-delay);
     animation-direction: alternate-reverse;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
 }
 .cell.back > div:first-child {
-    border: 2px solid white;
+    border: 2px solid var(--cell-color);
     --cell-mult: 0.1;
     --cell-rotate: 0deg;
 }
@@ -139,4 +215,23 @@ html, body {
     animation-name: front;
     animation-duration: 0.2s;
     animation-timing-function: ease-in-out;
+}
+.cell.empty {
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+.cell.fill::after {
+    --cell-mult: 0.85;
+    --cell-rotate: 15deg;
+}
+.cell.fill::before {
+    --cell-mult: 0.7;
+    --cell-rotate: 25deg;
+}
+
+.cell.bomb {
+    border-color: #e11d5e;
+    border-radius: 50%;
+    background-color: black;
+    box-shadow: inset 0 0 0 2px black, inset 0 0 0 4px #5f0f1d;
 }
