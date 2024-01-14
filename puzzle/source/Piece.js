@@ -50,9 +50,9 @@ export default class Piece {
      */
     initInTable(top, left) {
         this.inDrawer = false;
-        this.top      = top;
-        this.left     = left;
         this.canvas.style.transform = Utils.translate(this.left, this.top);
+        this.top      = Math.max(top, 100);
+        this.left     = Math.max(left, 100);
     }
 
     /**

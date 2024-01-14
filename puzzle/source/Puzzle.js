@@ -183,6 +183,9 @@ export default class Puzzle {
      */
     dropPiece(event, piece) {
         const pos = Utils.getMousePos(event, false);
+        if (pos.left < 0 || pos.top < 0) {
+            return;
+        }
 
         // Drops the Piece in the Drawer
         if (this.drawer.inBounds(pos)) {
