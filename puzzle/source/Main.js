@@ -7,10 +7,17 @@ import Sounds       from "../../utils/Sounds.js";
 import Utils        from "../../utils/Utils.js";
 
 // Variables
-let sounds    = null;
-let selection = null;
-let puzzle    = null;
 let shortcuts = null;
+
+/** @type {Sounds} */
+let sounds    = null;
+
+/** @type {Selection} */
+let selection = null;
+
+/** @type {Puzzle} */
+let puzzle    = null;
+
 
 
 
@@ -65,7 +72,7 @@ function initDomListeners() {
             selection.select(element);
             break;
         case "start":
-            selection.start(element);
+            selection.start();
             break;
         case "restart":
             puzzle.destroy();
