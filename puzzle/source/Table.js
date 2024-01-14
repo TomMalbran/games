@@ -74,7 +74,7 @@ export default class Table {
 
     /**
      * Finds the Piece or Set with the given ID
-     * @param {Number} id
+     * @param {String} id
      * @returns {?(Piece|Set)}
      */
     findAny(id) {
@@ -87,7 +87,7 @@ export default class Table {
 
     /**
      * Finds a Set in the Table
-     * @param {Number} id
+     * @param {String} id
      * @returns {?Set}
      */
     findSet(id) {

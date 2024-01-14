@@ -146,7 +146,7 @@ export default class Puzzle {
     /**
      * Finds a Piece or Set in the Drawer or Table to pick
      * @param {MouseEvent} event
-     * @param {Number}     id
+     * @param {String}     id
      * @returns {?(Piece|Set)}
      */
     pickAny(event, id) {

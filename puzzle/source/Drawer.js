@@ -129,7 +129,7 @@ export default class Drawer {
 
     /**
      * Finds the Piece with the given ID
-     * @param {Number} id
+     * @param {String} id
      * @returns {?Piece}
      */
     findPiece(id) {
