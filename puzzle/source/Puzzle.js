@@ -192,12 +192,12 @@ export default class Puzzle {
             return;
         }
 
-        // Drops the Piece in the Table and tryes to fit it with another
+        // Drops the Piece in the Table and tries to fit it with another
         if (this.table.inBounds(pos)) {
             this.drawer.removePiece(piece);
             this.table.dropPiece(piece, pos);
 
-            // Drops the Piece in the Board and tryes to fit it
+            // Drops the Piece in the Board and tries to fit it
             if (this.board.canFit(piece, this.table.scroll)) {
                 this.board.addPiece(piece);
                 this.table.removePiece(piece);
@@ -206,22 +206,22 @@ export default class Puzzle {
                 return;
             }
 
-            // Find a neighbour Piece in the Table
-            const neighbourPieces = this.table.findNeighbourPieces(piece);
-            for (const neighbourPiece of neighbourPieces) {
-                if (neighbourPiece && neighbourPiece.canFit(piece)) {
-                    const set = new Set(neighbourPiece, piece);
+            // Find a neighbors Piece in the Table
+            const neighborPieces = this.table.findNeighborPieces(piece);
+            for (const neighborPiece of neighborPieces) {
+                if (neighborPiece && neighborPiece.canFit(piece)) {
+                    const set = new Set(neighborPiece, piece);
                     this.table.dropSet(set);
                     this.sounds.play("piece");
                     return;
                 }
             }
 
-            // Find a neighbour Set in the Table
-            const neighbourSets = this.table.findNeighbourSets(piece);
-            for (const neighbourSet of neighbourSets) {
-                if (neighbourSet.canFit(piece)) {
-                    neighbourSet.addPiece(piece);
+            // Find a neighbor Set in the Table
+            const neighborSets = this.table.findNeighborSets(piece);
+            for (const neighborSet of neighborSets) {
+                if (neighborSet.canFit(piece)) {
+                    neighborSet.addPiece(piece);
                     this.table.removePiece(piece);
                     this.sounds.play("piece");
                     return;
@@ -238,9 +238,9 @@ export default class Puzzle {
      * @returns {Void}
      */
     dropSet(set) {
-        let foundNeighbour = false;
+        let foundNeighbor = false;
 
-        // Drops the Set in the Board and tryes to fit it
+        // Drops the Set in the Board and tries to fit it
         if (this.board.canFit(set, this.table.scroll)) {
             this.table.removeSet(set);
             this.board.addSet(set);
@@ -250,34 +250,34 @@ export default class Puzzle {
             return;
         }
 
-        // Find a neighbour Piece in the Table
-        const neighbourPieces = this.table.findNeighbourPieces(set);
-        for (const neighbourPiece of neighbourPieces) {
-            if (set.canFit(neighbourPiece)) {
-                this.table.removePiece(neighbourPiece);
-                set.addPiece(neighbourPiece);
+        // Find a neighbor Piece in the Table
+        const neighborPieces = this.table.findNeighborPieces(set);
+        for (const neighborPiece of neighborPieces) {
+            if (set.canFit(neighborPiece)) {
+                this.table.removePiece(neighborPiece);
+                set.addPiece(neighborPiece);
                 this.sounds.play("piece");
-                foundNeighbour = true;
+                foundNeighbor = true;
                 break;
             }
         }
 
-        // Find a neighbour Set in the Table
-        const neighbourSets = this.table.findNeighbourSets(set);
-        for (const neighbourSet of neighbourSets) {
-            if (set.canFit(neighbourSet)) {
-                set.addSet(neighbourSet);
-                neighbourSet.destroy();
-                this.table.removeSet(neighbourSet);
+        // Find a neighbor Set in the Table
+        const neighborSets = this.table.findNeighborSets(set);
+        for (const neighborSet of neighborSets) {
+            if (set.canFit(neighborSet)) {
+                set.addSet(neighborSet);
+                neighborSet.destroy();
+                this.table.removeSet(neighborSet);
                 this.sounds.play("set");
-                foundNeighbour = true;
+                foundNeighbor = true;
                 break;
             }
         }
 
         set.drop();
         this.table.saveSets();
-        if (!foundNeighbour) {
+        if (!foundNeighbor) {
             this.sounds.play("drop");
         }
     }

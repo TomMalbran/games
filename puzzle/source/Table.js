@@ -99,8 +99,8 @@ export default class Table {
      * @param {(Piece|Set)} other
      * @returns {Piece[]}
      */
-    findNeighbourPieces(other) {
-        return this.pieces.findAll((piece) => piece.id !== other.id && other.isNeighbour(piece));
+    findNeighborPieces(other) {
+        return this.pieces.findAll((piece) => piece.id !== other.id && other.isNeighbor(piece));
     }
 
     /**
@@ -108,8 +108,8 @@ export default class Table {
      * @param {(Piece|Set)} other
      * @returns {Set[]}
      */
-    findNeighbourSets(other) {
-        return this.sets.findAll((set) => set.id !== other.id && set.isNeighbour(other));
+    findNeighborSets(other) {
+        return this.sets.findAll((set) => set.id !== other.id && set.isNeighbor(other));
     }
 
 

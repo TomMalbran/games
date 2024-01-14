@@ -118,7 +118,7 @@ export default class Piece {
      * @returns {Void}
      */
     drawSide(x, y, rotation, border) {
-        const beziers = [
+        const curves = [
             { cx1 : 0,  cy1 :   0, cx2 : 35, cy2 :  15, ex :  37, ey :   5 }, // left shoulder
             { cx1 : 37, cy1 :   5, cx2 : 40, cy2 :   0, ex :  38, ey :  -5 }, // left neck
             { cx1 : 38, cy1 :  -5, cx2 : 20, cy2 : -20, ex :  50, ey : -20 }, // left head
@@ -130,13 +130,13 @@ export default class Piece {
         this.ctx.save();
         this.ctx.translate(x, y);
         this.ctx.rotate(Math.PI * rotation);
-        for (const b of beziers) {
+        for (const curve of curves) {
             if (border === -1) {
-                b.cy1 = b.cy1 * -1;
-                b.cy2 = b.cy2 * -1;
-                b.ey  = b.ey  * -1;
+                curve.cy1 = curve.cy1 * -1;
+                curve.cy2 = curve.cy2 * -1;
+                curve.ey  = curve.ey  * -1;
             }
-            this.ctx.bezierCurveTo(b.cx1, b.cy1, b.cx2, b.cy2, b.ex, b.ey);
+            this.ctx.bezierCurveTo(curve.cx1, curve.cy1, curve.cx2, curve.cy2, curve.ex, curve.ey);
         }
         this.ctx.restore();
     }
@@ -158,11 +158,11 @@ export default class Piece {
 
 
     /**
-     * Returns true if the given Piece is neighbour of this one
+     * Returns true if the given Piece is neighbor of this one
      * @param {Piece} piece
      * @returns {Boolean}
      */
-    isNeighbour(piece) {
+    isNeighbor(piece) {
         return (
             (this.row === piece.row && Math.abs(this.col - piece.col) === 1) ||
             (this.col === piece.col && Math.abs(this.row - piece.row) === 1)
@@ -170,7 +170,7 @@ export default class Piece {
     }
 
     /**
-     * Returns true if the position of the given Piece is close enought to fit
+     * Returns true if the position of the given Piece is close enough to fit
      * @param {Piece} piece
      * @returns {Boolean}
      */

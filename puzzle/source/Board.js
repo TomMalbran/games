@@ -74,7 +74,7 @@ export default class Board {
     }
 
     /**
-     * Returns true if the position of the given Piece or Set is close enought to fit
+     * Returns true if the position of the given Piece or Set is close enough to fit
      * @param {(Piece|Set)}                 other
      * @param {{top: Number, left: Number}} scroll
      * @returns {Boolean}

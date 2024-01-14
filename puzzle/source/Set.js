@@ -175,7 +175,7 @@ export default class Set {
             }
         }
 
-        // Add the pieces from the original matrixs
+        // Add the pieces from the original matrixes
         for (const item of [ this, set ]) {
             for (let row = 0; row < item.matrix.length; row += 1) {
                 for (let col = 0; col < item.matrix[0].length; col += 1) {
@@ -239,11 +239,11 @@ export default class Set {
 
 
     /**
-     * Returns true if the given Piece is neighbour of the Set
+     * Returns true if the given Piece is neighbor of the Set
      * @param {(Piece|Set)} other
      * @returns {Boolean}
      */
-    isNeighbour(other) {
+    isNeighbor(other) {
         if (other instanceof Piece) {
             const row = other.row - this.startRow;
             const col = other.col - this.startCol;
@@ -258,7 +258,7 @@ export default class Set {
             );
         }
         for (const piece of other.list) {
-            if (this.isNeighbour(piece)) {
+            if (this.isNeighbor(piece)) {
                 return true;
             }
         }
@@ -282,7 +282,7 @@ export default class Set {
     }
 
     /**
-     * Returns true if the position of the given Piece or Set is close enought to fit
+     * Returns true if the position of the given Piece or Set is close enough to fit
      * @param {(Piece|Set)} other
      * @returns {Boolean}
      */
