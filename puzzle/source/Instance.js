@@ -14,23 +14,33 @@ import Utils        from "../../utils/Utils.js";
  */
 export default class Instance {
 
+    /** @type {Metrics} */
+    #metrics;
+    /** @type {Storage} */
+    #storage;
+    /** @type {HTMLImageElement} */
+    #image;
+    /** @type {Object.<String, Piece>} */
+    #pieces;
+
+
     /**
      * Puzzle Instance constructor
      * @param {HTMLImageElement} image
      * @param {Metrics}          metrics
      */
     constructor(image, metrics) {
-        this.image   = image;
-        this.metrics = metrics;
-        this.storage = new Storage(`puzzle.${image.alt}.${metrics.pieceCount}`);
+        this.#image   = image;
+        this.#metrics = metrics;
+        this.#storage = new Storage(`puzzle.${image.alt}.${metrics.pieceCount}`);
 
-        const score = this.storage.get("score");
+        const score = this.#storage.get("score");
         if (score) {
             if (score.placed === score.total) {
                 this.destroy();
             } else {
-                this.metrics.setPlacedPieces(score.placed);
-                this.metrics.setTime(this.storage.get("time"));
+                this.#metrics.setPlacedPieces(score.placed);
+                this.#metrics.setTime(this.#storage.get("time"));
             }
         }
         this.createPieces();
@@ -41,13 +51,13 @@ export default class Instance {
      * @returns {Void}
      */
     destroy() {
-        this.storage.remove("time");
-        this.storage.remove("score");
-        this.storage.remove("pieces");
-        this.storage.remove("drawer");
-        this.storage.remove("board");
-        this.storage.remove("tablePieces");
-        this.storage.remove("tableSets");
+        this.#storage.remove("time");
+        this.#storage.remove("score");
+        this.#storage.remove("pieces");
+        this.#storage.remove("drawer");
+        this.#storage.remove("board");
+        this.#storage.remove("tablePieces");
+        this.#storage.remove("tableSets");
     }
 
     /**
@@ -55,13 +65,14 @@ export default class Instance {
      * @returns {Void}
      */
     createPieces() {
-        const data   = this.storage.get("pieces");
+        const data   = this.#storage.get("pieces");
         const values = [];
-        this.pieces  = {};
+
+        this.#pieces = {};
 
         if (data) {
             for (const { id, col, row, borders } of data) {
-                this.pieces[id] = new Piece(this.metrics, this.image, id, col, row, borders);
+                this.#pieces[id] = new Piece(this.#metrics, this.#image, id, col, row, borders);
             }
             return;
         }
@@ -69,19 +80,19 @@ export default class Instance {
         // Generate the Matrix and Pieces
         const matrix  = [];
         const options = [ -1, 1 ];
-        for (let row = 0; row < this.metrics.rows; row += 1) {
+        for (let row = 0; row < this.#metrics.rows; row += 1) {
             matrix[row] = [];
-            for (let col = 0; col < this.metrics.cols; col += 1) {
+            for (let col = 0; col < this.#metrics.cols; col += 1) {
                 /** @type {{top: Number, right: Number, bottom: Number, left: Number}} */
                 const borders = { top : 0, right : 0, bottom : 0, left : 0 };
                 if (row > 0) {
                     // @ts-ignore
                     borders.top = matrix[row - 1][col].bottom * -1;
                 }
-                if (col < this.metrics.cols - 1) {
+                if (col < this.#metrics.cols - 1) {
                     borders.right = Utils.randArray(options);
                 }
-                if (row < this.metrics.rows - 1) {
+                if (row < this.#metrics.rows - 1) {
                     borders.bottom = Utils.randArray(options);
                 }
                 if (col > 0) {
@@ -92,8 +103,8 @@ export default class Instance {
                 let id;
                 do {
                     id = `p${Utils.rand(0, 999999)}`;
-                } while (this.pieces[id]);
-                this.pieces[id]  = new Piece(this.metrics, this.image, id, col, row, borders);
+                } while (this.#pieces[id]);
+                this.#pieces[id]  = new Piece(this.#metrics, this.#image, id, col, row, borders);
                 matrix[row][col] = borders;
                 values.push({ id, col, row, borders });
             }
@@ -107,9 +118,9 @@ export default class Instance {
             values[i]   = aux;
         }
 
-        this.storage.set("pieces", values);
-        this.storage.set("drawer", values.map((elem) => elem.id));
-        this.storage.set("score",  { placed : 0, total : this.metrics.totalPieces });
+        this.#storage.set("pieces", values);
+        this.#storage.set("drawer", values.map((elem) => elem.id));
+        this.#storage.set("score",  { placed : 0, total : this.#metrics.totalPieces });
     }
 
     /**
@@ -118,7 +129,7 @@ export default class Instance {
      * @returns {Void}
      */
     saveTime(time) {
-        this.storage.set("time", time);
+        this.#storage.set("time", time);
     }
 
     /**
@@ -127,11 +138,11 @@ export default class Instance {
      * @returns {Piece[]}
      */
     getPieces(name) {
-        const pieces = this.storage.get(name);
+        const pieces = this.#storage.get(name);
         const result = [];
         if (pieces) {
             for (const pieceID of pieces) {
-                result.push(this.pieces[pieceID]);
+                result.push(this.#pieces[pieceID]);
             }
         }
         return result;
@@ -145,7 +156,7 @@ export default class Instance {
      */
     savePieces(name, list) {
         const pieces = list.toArray((elem) => elem.id);
-        this.storage.set(name, pieces);
+        this.#storage.set(name, pieces);
     }
 
 
@@ -182,7 +193,7 @@ export default class Instance {
      */
     saveBoardPieces(list) {
         this.savePieces("board", list);
-        this.storage.set("score", { placed : list.length, total : this.metrics.totalPieces });
+        this.#storage.set("score", { placed : list.length, total : this.#metrics.totalPieces });
     }
 
 
@@ -192,13 +203,13 @@ export default class Instance {
      * @returns {Piece[]}
      */
     getTablePieces() {
-        const pieces = this.storage.get("tablePieces");
+        const pieces = this.#storage.get("tablePieces");
         const result = [];
         if (pieces) {
             for (const { id, top, left } of pieces) {
-                if (this.pieces[id]) {
-                    result.push(this.pieces[id]);
-                    this.pieces[id].initInTable(top, left);
+                if (this.#pieces[id]) {
+                    result.push(this.#pieces[id]);
+                    this.#pieces[id].initInTable(top, left);
                 }
             }
         }
@@ -212,7 +223,7 @@ export default class Instance {
      */
     saveTablePieces(list) {
         const pieces = list.toArray(({ id, top, left }) => ({ id, top, left }));
-        this.storage.set("tablePieces", pieces);
+        this.#storage.set("tablePieces", pieces);
     }
 
     /**
@@ -220,22 +231,22 @@ export default class Instance {
      * @returns {Set[]}
      */
     getTableSets() {
-        const sets = this.storage.get("tableSets");
+        const sets = this.#storage.get("tableSets");
         const result = [];
         if (sets) {
             for (const { top, left, pieces } of sets) {
                 let   firstPiece  = null;
                 const otherPieces = [];
                 for (const pieceID of pieces) {
-                    if (this.pieces[pieceID]) {
+                    if (this.#pieces[pieceID]) {
                         if (!firstPiece) {
-                            firstPiece = this.pieces[pieceID];
+                            firstPiece = this.#pieces[pieceID];
                         } else {
-                            otherPieces.push(this.pieces[pieceID]);
+                            otherPieces.push(this.#pieces[pieceID]);
                         }
                     }
                 }
-                const set = new Set(firstPiece, ...otherPieces);
+                const set = new Set(this.#metrics, firstPiece, ...otherPieces);
                 set.initInTable(top, left);
                 result.push(set);
             }
@@ -253,6 +264,6 @@ export default class Instance {
             const pieces = list.map((elem) => elem.id);
             return { top, left, pieces };
         });
-        this.storage.set("tableSets", sets);
+        this.#storage.set("tableSets", sets);
     }
 }

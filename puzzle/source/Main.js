@@ -29,9 +29,9 @@ function createShortcuts() {
     const preview = () => puzzle.togglePreview();
     const pause   = () => puzzle.togglePause();
     const mute    = () => sounds.toggle();
-    const borders = () => puzzle.drawer.toggleBorders();
+    const borders = () => puzzle.toggleBorders();
     const exit    = () => {
-        if (puzzle.display === "game") {
+        if (puzzle.isGame) {
             puzzle.destroy();
             selection.show();
             puzzle = null;
@@ -83,7 +83,7 @@ function initDomListeners() {
 
         case "borders":
             if (puzzle) {
-                puzzle.drawer.toggleBorders();
+                puzzle.toggleBorders();
             }
             break;
         case "preview":
@@ -148,10 +148,9 @@ function initDomListeners() {
  */
 function main() {
     sounds    = new Sounds("puzzle.sound");
-    selection = new Selection();
-    selection.onStart = (image, pieces) => {
+    selection = new Selection((image, pieces) => {
         puzzle = new Puzzle(sounds, image, pieces);
-    };
+    });
 
     createShortcuts();
     initDomListeners();

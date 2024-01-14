@@ -14,37 +14,48 @@ import Utils        from "../../utils/Utils.js";
  */
 export default class Board {
 
+    /** @type {Metrics} */
+    #metrics;
+    /** @type {Instance} */
+    #instance;
+    /** @type {List} */
+    #list;
+    /** @type {Piece[][]} */
+    #matrix;
+
+    /** @type {?HTMLElement} */
+    #contentElem;
+    /** @type {?HTMLElement} */
+    #boardElem;
+
+
     /**
      * Puzzle Board constructor
      * @param {Metrics}  metrics
      * @param {Instance} instance
      */
     constructor(metrics, instance) {
-        this.metrics  = metrics;
-        this.instance = instance;
+        this.#metrics  = metrics;
+        this.#instance = instance;
+        this.#list     = new List(instance.getBoardPieces());
 
-        this.list     = new List(instance.getBoardPieces());
+        this.#contentElem = document.querySelector(".content");
+        this.#contentElem.style.display = "block";
+        this.#contentElem.style.width   = Utils.toPX(metrics.boardWidth);
+        this.#contentElem.style.padding = Utils.toPX(metrics.boardPadding);
 
-        /** @type {HTMLElement} */
-        this.content  = document.querySelector(".content");
+        this.#boardElem = document.querySelector(".board");
+        this.#boardElem.style.width  = Utils.toPX(metrics.boardWidth);
+        this.#boardElem.style.height = Utils.toPX(metrics.boardHeight);
 
-        /** @type {HTMLElement} */
-        this.element  = document.querySelector(".board");
-
-        this.content.style.display = "block";
-        this.content.style.width   = Utils.toPX(metrics.boardWidth);
-        this.content.style.padding = Utils.toPX(metrics.boardPadding);
-        this.element.style.width   = Utils.toPX(metrics.boardWidth);
-        this.element.style.height  = Utils.toPX(metrics.boardHeight);
-
-        this.matrix = [];
+        this.#matrix = [];
         for (let row = 0; row < metrics.rows; row += 1) {
-            this.matrix[row] = [];
+            this.#matrix[row] = [];
             for (let col = 0; col < metrics.cols; col += 1) {
-                this.matrix[row][col] = null;
+                this.#matrix[row][col] = null;
             }
         }
-        this.list.forEach((elem) => this.insertPiece(elem));
+        this.#list.forEach((elem) => this.insertPiece(elem));
     }
 
     /**
@@ -52,14 +63,13 @@ export default class Board {
      * @returns {Void}
      */
     destroy() {
-        this.content.style.display = "none";
-        this.element.innerHTML     = "";
-        this.list.empty();
+        this.#contentElem.style.display = "none";
+        this.#boardElem.innerHTML       = "";
+        this.#list.empty();
 
-        this.list    = null;
-        this.matrix  = null;
-        this.content = null;
-        this.element = null;
+        this.#matrix  = [];
+        this.#contentElem = null;
+        this.#boardElem = null;
     }
 
 
@@ -70,7 +80,7 @@ export default class Board {
      * @returns {Boolean}
      */
     inBounds(pos) {
-        return Utils.inElement(pos, this.element);
+        return Utils.inElement(pos, this.#boardElem);
     }
 
     /**
@@ -80,13 +90,13 @@ export default class Board {
      * @returns {Boolean}
      */
     canFit(other, scroll) {
-        const bounds = this.element.getBoundingClientRect();
+        const bounds = this.#boardElem.getBoundingClientRect();
         const fitPos = {
-            top  : bounds.top  + scroll.top  + this.metrics.scaleSize * other.row - 8,
-            left : bounds.left + scroll.left + this.metrics.scaleSize * other.col - 8,
+            top  : bounds.top  + scroll.top  + this.#metrics.scaleSize * other.row - 8,
+            left : bounds.left + scroll.left + this.#metrics.scaleSize * other.col - 8,
         }
         const dist = Utils.dist(fitPos, other.pos);
-        return dist < this.metrics.delta;
+        return dist < this.#metrics.delta;
     }
 
     /**
@@ -94,14 +104,14 @@ export default class Board {
      * @param {Piece} piece
      */
     insertPiece(piece) {
-        this.matrix[piece.row][piece.col] = piece;
+        this.#matrix[piece.row][piece.col] = piece;
 
-        const top  = this.metrics.scaleSize * piece.row - this.metrics.scalePadding;
-        const left = this.metrics.scaleSize * piece.col - this.metrics.scalePadding;
+        const top  = this.#metrics.scaleSize * piece.row - this.#metrics.scalePadding;
+        const left = this.#metrics.scaleSize * piece.col - this.#metrics.scalePadding;
+
+        piece.setActionID();
         piece.position(top, left);
-        piece.canvas.dataset.action = "";
-        piece.canvas.dataset.id     = "";
-        this.element.appendChild(piece.canvas);
+        piece.appendTo(this.#boardElem);
     }
 
     /**
@@ -111,9 +121,9 @@ export default class Board {
      */
     addPiece(piece) {
         this.insertPiece(piece);
-        this.metrics.incPlacedPiece();
-        this.list.addLast(piece);
-        this.instance.saveBoardPieces(this.list);
+        this.#metrics.incPlacedPiece();
+        this.#list.addLast(piece);
+        this.#instance.saveBoardPieces(this.#list);
     }
 
     /**
@@ -124,9 +134,9 @@ export default class Board {
     addSet(set) {
         for (const piece of set.list) {
             this.insertPiece(piece);
-            this.metrics.incPlacedPiece();
-            this.list.addLast(piece);
+            this.#metrics.incPlacedPiece();
+            this.#list.addLast(piece);
         }
-        this.instance.saveBoardPieces(this.list);
+        this.#instance.saveBoardPieces(this.#list);
     }
 }

@@ -1,4 +1,5 @@
 import Piece        from "./Piece.js";
+import Metrics      from "./Metrics.js";
 
 // Utils
 import Utils        from "../../utils/Utils.js";
@@ -10,12 +11,21 @@ import Utils        from "../../utils/Utils.js";
  */
 export default class Set {
 
+    /** @type {Metrics} */
+    #metrics;
+    /** @type {HTMLElement} */
+    #element;
+
+
     /**
      * Puzzle Puzzle constructor
+     * @param {Metrics}  metrics
      * @param {Piece}    piece
      * @param {...Piece} otherPieces
      */
-    constructor(piece, ...otherPieces) {
+    constructor(metrics, piece, ...otherPieces) {
+        this.#metrics = metrics;
+
         this.id       = `s${Utils.rand(0, 999999)}`;
         this.list     = [];
         this.matrix   = [[ piece ]];
@@ -30,10 +40,9 @@ export default class Set {
 
         this.top      = piece.top;
         this.left     = piece.left;
-        this.metrics  = piece.metrics;
 
-        this.element           = document.createElement("div");
-        this.element.className = "set";
+        this.#element           = document.createElement("div");
+        this.#element.className = "set";
 
         this.insertPiece(piece);
         for (const otherPiece of otherPieces) {
@@ -58,10 +67,10 @@ export default class Set {
      * @returns {Void}
      */
     destroy() {
-        Utils.removeElement(this.element);
-        this.list    = null;
-        this.matrix  = null;
-        this.element = null;
+        this.removeElement();
+        this.list     = null;
+        this.matrix   = null;
+        this.#element = null;
     }
 
     /**
@@ -101,6 +110,23 @@ export default class Set {
 
 
     /**
+     * Appends the Element to the given Container
+     * @param {HTMLElement} container
+     * @returns {Void}
+     */
+    appendTo(container) {
+        container.appendChild(this.#element);
+    }
+
+    /**
+     * Removes the Element from the Container
+     * @returns {Void}
+     */
+    removeElement() {
+        Utils.removeElement(this.#element);
+    }
+
+    /**
      * Adds a Piece to the Set
      * @param {Piece} piece
      * @returns {Void}
@@ -117,7 +143,7 @@ export default class Set {
                 this.matrix.unshift(Array(this.colCount).fill(null));
                 this.rowCount += 1;
                 this.startRow -= 1;
-                this.top      -= this.metrics.scaleSize;
+                this.top      -= this.#metrics.scaleSize;
                 row  += 1;
                 added = true;
 
@@ -132,7 +158,7 @@ export default class Set {
                 }
                 this.colCount += 1;
                 this.startCol -= 1;
-                this.left     -= this.metrics.scaleSize;
+                this.left     -= this.#metrics.scaleSize;
                 col  += 1;
                 added = true;
 
@@ -211,9 +237,8 @@ export default class Set {
      */
     insertPiece(piece) {
         this.list.push(piece);
-        this.element.appendChild(piece.canvas);
-        piece.canvas.dataset.action = "set";
-        piece.canvas.dataset.id     = this.id;
+        piece.setActionID("set", this.id);
+        piece.appendTo(this.#element);
     }
 
     /**
@@ -225,14 +250,14 @@ export default class Set {
             for (let col = 0; col < this.colCount; col++) {
                 const piece = this.matrix[row][col];
                 if (piece) {
-                    const top  = this.metrics.scaleSize * row;
-                    const left = this.metrics.scaleSize * col;
+                    const top  = this.#metrics.scaleSize * row;
+                    const left = this.#metrics.scaleSize * col;
                     piece.position(top, left);
                 }
             }
         }
-        this.element.style.width  = this.metrics.getSizePX(this.colCount);
-        this.element.style.height = this.metrics.getSizePX(this.rowCount);
+        this.#element.style.width  = this.#metrics.getSizePX(this.colCount);
+        this.#element.style.height = this.#metrics.getSizePX(this.rowCount);
         this.translate();
     }
 
@@ -288,15 +313,15 @@ export default class Set {
      */
     canFit(other) {
         if (other instanceof Piece) {
-            const fitPos = this.metrics.calcPiecePos(other, this.top, this.left, this.startRow, this.startCol);
+            const fitPos = this.#metrics.calcPiecePos(other, this.top, this.left, this.startRow, this.startCol);
             const dist   = Utils.dist(fitPos, other.pos);
-            return dist < this.metrics.delta;
+            return dist < this.#metrics.delta;
         }
         for (const piece of other.list) {
-            const fitPos  = this.metrics.calcPiecePos(piece, this.top, this.left, this.startRow, this.startCol);
+            const fitPos  = this.#metrics.calcPiecePos(piece, this.top, this.left, this.startRow, this.startCol);
             const realPos = { top : other.top + piece.top, left : other.left + piece.left };
             const dist    = Utils.dist(fitPos, realPos);
-            if (dist < this.metrics.delta) {
+            if (dist < this.#metrics.delta) {
                 return true;
             }
         }
@@ -310,7 +335,7 @@ export default class Set {
      * @returns {Void}
      */
     translate() {
-        this.element.style.transform = Utils.translate(this.left, this.top);
+        this.#element.style.transform = Utils.translate(this.left, this.top);
     }
 
     /**
@@ -323,7 +348,7 @@ export default class Set {
         this.startPos = { top : pos.top - this.top, left : pos.left - this.left };
         this.pos      = pos;
 
-        this.element.classList.add("dragging");
+        this.#element.classList.add("dragging");
         this.translate();
     }
 
@@ -343,6 +368,6 @@ export default class Set {
      * @returns {Void}
      */
     drop() {
-        this.element.classList.remove("dragging");
+        this.#element.classList.remove("dragging");
     }
 }

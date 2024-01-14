@@ -10,6 +10,20 @@ import Utils        from "../../utils/Utils.js";
  */
 export default class Metrics {
 
+    /** @type {HTMLElement} */
+    #menuElem;
+    /** @type {HTMLElement} */
+    #scoreElem;
+    /** @type {HTMLElement} */
+    #placedElem;
+    /** @type {HTMLElement} */
+    #percentElem;
+    /** @type {HTMLElement} */
+    #timerElem;
+    /** @type {HTMLElement} */
+    #totalElem;
+
+
     /**
      * Puzzle Metrics constructor
      * @param {HTMLImageElement} image
@@ -42,28 +56,17 @@ export default class Metrics {
         this.placedPieces = 0;
         this.elapsedTime  = 0;
 
-        /** @type {HTMLElement} */
-        this.menuElem     = document.querySelector(".menu");
+        this.#menuElem    = document.querySelector(".menu");
+        this.#scoreElem   = document.querySelector(".score");
+        this.#placedElem  = document.querySelector(".placed");
+        this.#percentElem = document.querySelector(".percent");
+        this.#timerElem   = document.querySelector(".timer");
+        this.#totalElem   = document.querySelector(".total");
 
-        /** @type {HTMLElement} */
-        this.scoreElem    = document.querySelector(".score");
-
-        /** @type {HTMLElement} */
-        this.placedElem   = document.querySelector(".placed");
-
-        /** @type {HTMLElement} */
-        this.percentElem  = document.querySelector(".percent");
-
-        /** @type {HTMLElement} */
-        this.timerElem    = document.querySelector(".timer");
-
-        /** @type {HTMLElement} */
-        this.totalElem    = document.querySelector(".total");
-
-        this.menuElem.style.display  = "flex";
-        this.scoreElem.style.display = "flex";
-        this.timerElem.innerHTML     = "00<span>:</span>00";
-        this.totalElem.innerHTML     = String(this.totalPieces);
+        this.#menuElem.style.display  = "flex";
+        this.#scoreElem.style.display = "flex";
+        this.#timerElem.innerHTML     = "00<span>:</span>00";
+        this.#totalElem.innerHTML     = String(this.totalPieces);
         this.drawScore();
     }
 
@@ -90,8 +93,8 @@ export default class Metrics {
      * @returns {Void}
      */
     destroy() {
-        this.menuElem.style.display  = "none";
-        this.scoreElem.style.display = "none";
+        this.#menuElem.style.display  = "none";
+        this.#scoreElem.style.display = "none";
     }
 
 
@@ -128,8 +131,8 @@ export default class Metrics {
      * @returns {Void}
      */
     drawScore() {
-        this.placedElem.innerHTML  = String(this.placedPieces);
-        this.percentElem.innerHTML = String(Math.floor(this.placedPieces * 100 / this.totalPieces));
+        this.#placedElem.innerHTML  = String(this.placedPieces);
+        this.#percentElem.innerHTML = String(Math.floor(this.placedPieces * 100 / this.totalPieces));
     }
 
 
@@ -159,7 +162,7 @@ export default class Metrics {
      */
     drawTime() {
         const parts = Utils.parseTime(this.elapsedTime);
-        this.timerElem.innerHTML = parts.join("<span>:</span>");
+        this.#timerElem.innerHTML = parts.join("<span>:</span>");
     }
 
 

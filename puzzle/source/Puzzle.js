@@ -17,6 +17,31 @@ import Utils        from "../../utils/Utils.js";
  */
 export default class Puzzle {
 
+    /** @type {String} */
+    #display;
+    /** @type {Sounds} */
+    #sounds;
+    /** @type {?Metrics} */
+    #metrics;
+    /** @type {?Instance} */
+    #instance;
+    /** @type {?Drawer} */
+    #drawer;
+    /** @type {?Board} */
+    #board;
+    /** @type {?Table} */
+    #table;
+
+    /** @type {HTMLElement} */
+    #congratsElem;
+    /** @type {HTMLElement} */
+    #pauseElem;
+    /** @type {HTMLElement} */
+    #previewElem;
+    /** @type {HTMLImageElement} */
+    #imageElem;
+
+
     /**
      * Puzzle Puzzle constructor
      * @param {Sounds} sounds
@@ -24,23 +49,17 @@ export default class Puzzle {
      * @param {Number} pieceCount
      */
     constructor(sounds, imageName, pieceCount) {
-        this.sounds       = sounds;
-        this.display      = "game";
+        this.#display          = "game";
+        this.#sounds           = sounds;
 
-        /** @type {HTMLElement} */
-        this.congrats     = document.querySelector(".congrats");
+        this.#congratsElem     = document.querySelector(".congrats");
+        this.#pauseElem        = document.querySelector(".pause");
+        this.#previewElem      = document.querySelector(".preview");
 
-        /** @type {HTMLElement} */
-        this.pause        = document.querySelector(".pause");
-
-        /** @type {HTMLElement} */
-        this.preview      = document.querySelector(".preview");
-
-        /** @type {HTMLImageElement} */
-        this.image        = this.preview.querySelector("img");
-        this.image.src    = `images/${imageName}.jpg`;
-        this.image.alt    = imageName;
-        this.image.onload = () => this.build(pieceCount);
+        this.#imageElem        = this.#previewElem.querySelector("img");
+        this.#imageElem.src    = `images/${imageName}.jpg`;
+        this.#imageElem.alt    = imageName;
+        this.#imageElem.onload = () => this.build(pieceCount);
     }
 
     /**
@@ -49,11 +68,11 @@ export default class Puzzle {
      * @returns {Void}
      */
     build(pieceCount) {
-        this.metrics  = new Metrics(this.image, pieceCount);
-        this.instance = new Instance(this.image, this.metrics);
-        this.drawer   = new Drawer(this.metrics, this.instance);
-        this.board    = new Board(this.metrics, this.instance);
-        this.table    = new Table(this.metrics, this.instance);
+        this.#metrics  = new Metrics(this.#imageElem, pieceCount);
+        this.#instance = new Instance(this.#imageElem, this.#metrics);
+        this.#drawer   = new Drawer(this.#metrics, this.#instance);
+        this.#board    = new Board(this.#metrics, this.#instance);
+        this.#table    = new Table(this.#metrics, this.#instance);
 
         this.startTimer();
     }
@@ -63,29 +82,37 @@ export default class Puzzle {
      * @returns {Void}
      */
     destroy() {
-        this.congrats.style.display = "none";
+        this.#congratsElem.style.display = "none";
         if (this.interval) {
             window.clearInterval(this.interval);
         }
 
-        this.metrics.destroy();
-        this.drawer.destroy();
-        this.board.destroy();
-        this.table.destroy();
+        this.#metrics.destroy();
+        this.#drawer.destroy();
+        this.#board.destroy();
+        this.#table.destroy();
 
-        this.display  = "game";
-        this.congrats = null;
-        this.preview  = null;
-        this.image    = null;
+        this.#display  = "game";
+        this.#congratsElem = null;
+        this.#previewElem  = null;
+        this.#imageElem    = null;
 
-        this.metrics  = null;
-        this.instance = null;
-        this.drawer   = null;
-        this.board    = null;
-        this.table    = null;
+        this.#metrics  = null;
+        this.#instance = null;
+        this.#drawer   = null;
+        this.#board    = null;
+        this.#table    = null;
     }
 
 
+
+    /**
+     * Returns true if the Display is Game
+     * @returns {Boolean}
+     */
+    get isGame() {
+        return this.#display === "game";
+    }
 
     /**
      * Toggles the Preview
@@ -93,21 +120,21 @@ export default class Puzzle {
      * @returns {Void}
      */
     togglePreview(event) {
-        if (this.display !== "game" && this.display !== "preview") {
+        if (this.#display !== "game" && this.#display !== "preview") {
             return;
         }
-        if (this.preview.style.display !== "flex") {
-            this.preview.style.display = "flex";
-            this.display = "preview";
+        if (this.#previewElem.style.display !== "flex") {
+            this.#previewElem.style.display = "flex";
+            this.#display = "preview";
         } else if (event) {
             const pos = Utils.getMousePos(event);
-            if (!Utils.inElement(pos, this.image)) {
-                this.preview.style.display = "none";
-                this.display = "game";
+            if (!Utils.inElement(pos, this.#imageElem)) {
+                this.#previewElem.style.display = "none";
+                this.#display = "game";
             }
         } else {
-            this.preview.style.display = "none";
-            this.display = "game";
+            this.#previewElem.style.display = "none";
+            this.#display = "game";
         }
     }
 
@@ -116,17 +143,17 @@ export default class Puzzle {
      * @returns {Void}
      */
     togglePause() {
-        if (this.display !== "game" && this.display !== "pause") {
+        if (this.#display !== "game" && this.#display !== "pause") {
             return;
         }
-        if (this.pause.style.display !== "block") {
-            this.pause.style.display = "block";
+        if (this.#pauseElem.style.display !== "block") {
+            this.#pauseElem.style.display = "block";
             window.clearInterval(this.interval);
-            this.display = "pause";
+            this.#display = "pause";
         } else {
-            this.pause.style.display = "none";
+            this.#pauseElem.style.display = "none";
             this.startTimer();
-            this.display = "game";
+            this.#display = "game";
         }
     }
 
@@ -136,9 +163,17 @@ export default class Puzzle {
      */
     startTimer() {
         this.interval = window.setInterval(() => {
-            this.metrics.incTime();
-            this.instance.saveTime(this.metrics.elapsedTime);
+            this.#metrics.incTime();
+            this.#instance.saveTime(this.#metrics.elapsedTime);
         }, 1000);
+    }
+
+    /**
+     * Toggles between showing only border pieces or all
+     * @returns {Void}
+     */
+    toggleBorders() {
+        this.#drawer.toggleBorders();
     }
 
 
@@ -151,9 +186,9 @@ export default class Puzzle {
      */
     pickAny(event, id) {
         /** @type {(Piece|Set)} */
-        let partial = this.drawer.findPiece(id);
+        let partial = this.#drawer.findPiece(id);
         if (!partial) {
-            partial = this.table.findAny(id);
+            partial = this.#table.findAny(id);
         }
         if (partial) {
             partial.pick(event);
@@ -188,50 +223,50 @@ export default class Puzzle {
         }
 
         // Drops the Piece in the Drawer
-        if (this.drawer.inBounds(pos)) {
-            this.table.removePiece(piece);
-            this.drawer.dropPiece(piece, pos);
-            this.sounds.play("drop");
+        if (this.#drawer.inBounds(pos)) {
+            this.#table.removePiece(piece);
+            this.#drawer.dropPiece(piece, pos);
+            this.#sounds.play("drop");
             return;
         }
 
         // Drops the Piece in the Table and tries to fit it with another
-        if (this.table.inBounds(pos)) {
-            this.drawer.removePiece(piece);
-            this.table.dropPiece(piece, pos);
+        if (this.#table.inBounds(pos)) {
+            this.#drawer.removePiece(piece);
+            this.#table.dropPiece(piece, pos);
 
             // Drops the Piece in the Board and tries to fit it
-            if (this.board.canFit(piece, this.table.scroll)) {
-                this.board.addPiece(piece);
-                this.table.removePiece(piece);
-                this.sounds.play("piece");
+            if (this.#board.canFit(piece, this.#table.scroll)) {
+                this.#board.addPiece(piece);
+                this.#table.removePiece(piece);
+                this.#sounds.play("piece");
                 this.complete();
                 return;
             }
 
             // Find a neighbors Piece in the Table
-            const neighborPieces = this.table.findNeighborPieces(piece);
+            const neighborPieces = this.#table.findNeighborPieces(piece);
             for (const neighborPiece of neighborPieces) {
                 if (neighborPiece && neighborPiece.canFit(piece)) {
-                    const set = new Set(neighborPiece, piece);
-                    this.table.dropSet(set);
-                    this.sounds.play("piece");
+                    const set = new Set(this.#metrics, neighborPiece, piece);
+                    this.#table.dropSet(set);
+                    this.#sounds.play("piece");
                     return;
                 }
             }
 
             // Find a neighbor Set in the Table
-            const neighborSets = this.table.findNeighborSets(piece);
+            const neighborSets = this.#table.findNeighborSets(piece);
             for (const neighborSet of neighborSets) {
                 if (neighborSet.canFit(piece)) {
                     neighborSet.addPiece(piece);
-                    this.table.removePiece(piece);
-                    this.sounds.play("piece");
+                    this.#table.removePiece(piece);
+                    this.#sounds.play("piece");
                     return;
                 }
             }
 
-            this.sounds.play("drop");
+            this.#sounds.play("drop");
         }
     }
 
@@ -244,44 +279,44 @@ export default class Puzzle {
         let foundNeighbor = false;
 
         // Drops the Set in the Board and tries to fit it
-        if (this.board.canFit(set, this.table.scroll)) {
-            this.table.removeSet(set);
-            this.board.addSet(set);
-            this.sounds.play("set");
+        if (this.#board.canFit(set, this.#table.scroll)) {
+            this.#table.removeSet(set);
+            this.#board.addSet(set);
+            this.#sounds.play("set");
             set.destroy();
             this.complete();
             return;
         }
 
         // Find a neighbor Piece in the Table
-        const neighborPieces = this.table.findNeighborPieces(set);
+        const neighborPieces = this.#table.findNeighborPieces(set);
         for (const neighborPiece of neighborPieces) {
             if (set.canFit(neighborPiece)) {
-                this.table.removePiece(neighborPiece);
+                this.#table.removePiece(neighborPiece);
                 set.addPiece(neighborPiece);
-                this.sounds.play("piece");
+                this.#sounds.play("piece");
                 foundNeighbor = true;
                 break;
             }
         }
 
         // Find a neighbor Set in the Table
-        const neighborSets = this.table.findNeighborSets(set);
+        const neighborSets = this.#table.findNeighborSets(set);
         for (const neighborSet of neighborSets) {
             if (set.canFit(neighborSet)) {
                 set.addSet(neighborSet);
                 neighborSet.destroy();
-                this.table.removeSet(neighborSet);
-                this.sounds.play("set");
+                this.#table.removeSet(neighborSet);
+                this.#sounds.play("set");
                 foundNeighbor = true;
                 break;
             }
         }
 
         set.drop();
-        this.table.saveSets();
+        this.#table.saveSets();
         if (!foundNeighbor) {
-            this.sounds.play("drop");
+            this.#sounds.play("drop");
         }
     }
 
@@ -290,10 +325,10 @@ export default class Puzzle {
      * @returns {Void}
      */
     complete() {
-        if (this.metrics.isComplete) {
-            this.display = "congrats";
-            this.congrats.style.display = "block";
-            this.sounds.play("fireworks");
+        if (this.#metrics.isComplete) {
+            this.#display = "congrats";
+            this.#congratsElem.style.display = "block";
+            this.#sounds.play("fireworks");
             if (this.interval) {
                 window.clearInterval(this.interval);
             }

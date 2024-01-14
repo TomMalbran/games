@@ -14,27 +14,37 @@ import Utils        from "../../utils/Utils.js";
  */
 export default class Table {
 
+    /** @type {Instance} */
+    #instance;
+    /** @type {List} */
+    #pieces;
+    /** @type {List} */
+    #sets;
+
+    /** @type {?HTMLElement} */
+    #element;
+
+
     /**
      * Puzzle Table constructor
      * @param {Metrics}  metrics
      * @param {Instance} instance
      */
     constructor(metrics, instance) {
-        this.instance = instance;
+        this.#instance = instance;
 
-        this.pieces   = new List(instance.getTablePieces());
-        this.sets     = new List(instance.getTableSets());
+        this.#pieces   = new List(instance.getTablePieces());
+        this.#sets     = new List(instance.getTableSets());
 
-        /** @type {HTMLElement} */
-        this.element  = document.querySelector(".table");
+        this.#element  = document.querySelector(".table");
 
-        const bounds  = this.element.getBoundingClientRect();
-        const top     = ((metrics.boardHeight + metrics.boardPadding * 2 - bounds.height) / 2) - 20;
-        const left    = (metrics.boardWidth + metrics.boardPadding * 2 - bounds.width)  / 2;
-        this.element.scrollTo(left, top);
+        const bounds   = this.#element.getBoundingClientRect();
+        const top      = ((metrics.boardHeight + metrics.boardPadding * 2 - bounds.height) / 2) - 20;
+        const left     = (metrics.boardWidth + metrics.boardPadding * 2 - bounds.width)  / 2;
+        this.#element.scrollTo(left, top);
 
-        this.pieces.forEach((elem) => this.element.appendChild(elem.canvas));
-        this.sets.forEach((elem) => this.element.appendChild(elem.element));
+        this.#pieces.forEach((piece) => piece.appendTo(this.#element));
+        this.#sets.forEach((set) => set.appendTo(this.#element));
     }
 
     /**
@@ -42,15 +52,13 @@ export default class Table {
      * @returns {Void}
      */
     destroy() {
-        this.pieces.forEach((elem) => Utils.removeElement(elem.canvas));
-        this.sets.forEach((elem) => Utils.removeElement(elem.element));
+        this.#pieces.forEach((piece) => piece.removeElement());
+        this.#sets.forEach((set) => set.removeElement());
 
-        this.pieces.empty();
-        this.sets.empty();
+        this.#pieces.empty();
+        this.#sets.empty();
 
-        this.pieces  = null;
-        this.sets    = null;
-        this.element = null;
+        this.#element = null;
     }
 
     /**
@@ -58,7 +66,10 @@ export default class Table {
      * @return {{top: Number, left: Number}}
      */
     get scroll() {
-        return { top : this.element.scrollTop, left : this.element.scrollLeft };
+        return {
+            top  : this.#element.scrollTop,
+            left : this.#element.scrollLeft,
+        };
     }
 
 
@@ -69,7 +80,7 @@ export default class Table {
      * @returns {Boolean}
      */
     inBounds(pos) {
-        return Utils.inElement(pos, this.element);
+        return Utils.inElement(pos, this.#element);
     }
 
     /**
@@ -78,9 +89,9 @@ export default class Table {
      * @returns {?(Piece|Set)}
      */
     findAny(id) {
-        let result = this.pieces.find((elem) => elem.id === id);
+        let result = this.#pieces.find((elem) => elem.id === id);
         if (!result) {
-            result = this.sets.find((elem) => elem.id === id);
+            result = this.#sets.find((elem) => elem.id === id);
         }
         return result;
     }
@@ -91,7 +102,7 @@ export default class Table {
      * @returns {?Set}
      */
     findSet(id) {
-        return this.sets.find((elem) => elem.id === id);
+        return this.#sets.find((elem) => elem.id === id);
     }
 
     /**
@@ -100,7 +111,7 @@ export default class Table {
      * @returns {Piece[]}
      */
     findNeighborPieces(other) {
-        return this.pieces.findAll((piece) => piece.id !== other.id && other.isNeighbor(piece));
+        return this.#pieces.findAll((piece) => piece.id !== other.id && other.isNeighbor(piece));
     }
 
     /**
@@ -109,7 +120,7 @@ export default class Table {
      * @returns {Set[]}
      */
     findNeighborSets(other) {
-        return this.sets.findAll((set) => set.id !== other.id && set.isNeighbor(other));
+        return this.#sets.findAll((set) => set.id !== other.id && set.isNeighbor(other));
     }
 
 
@@ -122,13 +133,13 @@ export default class Table {
      */
     dropPiece(piece, pos) {
         if (piece.inDrawer) {
-            this.pieces.addLast(piece);
+            this.#pieces.addLast(piece);
         }
-        pos.top  += this.element.scrollTop;
-        pos.left += this.element.scrollLeft;
+        pos.top  += this.#element.scrollTop;
+        pos.left += this.#element.scrollLeft;
         piece.dropInTable(pos);
 
-        this.element.appendChild(piece.canvas);
+        piece.appendTo(this.#element);
         this.savePieces();
     }
 
@@ -138,11 +149,11 @@ export default class Table {
      * @returns {Void}
      */
     dropSet(set) {
-        this.sets.addLast(set);
+        this.#sets.addLast(set);
         for (const piece of set.list) {
             this.removePiece(piece);
         }
-        this.element.appendChild(set.element);
+        set.appendTo(this.#element);
         this.saveSets();
     }
 
@@ -153,7 +164,7 @@ export default class Table {
      */
     removePiece(piece) {
         if (!piece.inDrawer) {
-            this.pieces.remove((elem) => elem.id === piece.id);
+            this.#pieces.remove((elem) => elem.id === piece.id);
             this.savePieces();
         }
     }
@@ -164,7 +175,7 @@ export default class Table {
      * @returns {Void}
      */
     removeSet(set) {
-        this.sets.remove((elem) => elem.id === set.id);
+        this.#sets.remove((elem) => elem.id === set.id);
         this.saveSets();
     }
 
@@ -175,7 +186,7 @@ export default class Table {
      * @returns {Void}
      */
     savePieces() {
-        this.instance.saveTablePieces(this.pieces);
+        this.#instance.saveTablePieces(this.#pieces);
     }
 
     /**
@@ -183,6 +194,6 @@ export default class Table {
      * @returns {Void}
      */
     saveSets() {
-        this.instance.saveTableSets(this.sets);
+        this.#instance.saveTableSets(this.#sets);
     }
 }

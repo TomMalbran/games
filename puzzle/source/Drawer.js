@@ -13,25 +13,35 @@ import Utils        from "../../utils/Utils.js";
  */
 export default class Drawer {
 
+    /** @type {Instance} */
+    #instance;
+    /** @type {List} */
+    #list;
+    /** @type {Boolean} */
+    #onlyBorders;
+
+    /** @type {?HTMLElement} */
+    #drawerElem;
+    /** @type {?HTMLElement} */
+    #gridElem;
+    /** @type {?HTMLElement} */
+    #buttonElem;
+
+
     /**
      * Puzzle Drawer constructor
      * @param {Metrics}  metrics
      * @param {Instance} instance
      */
     constructor(metrics, instance) {
-        this.instance     = instance;
+        this.#instance    = instance;
 
-        this.list         = new List(instance.getDrawerPieces());
-        this.onlyBorders  = false;
+        this.#list        = new List(instance.getDrawerPieces());
+        this.#onlyBorders = false;
 
-        /** @type {HTMLElement} */
-        this.element      = document.querySelector(".drawer");
-
-        /** @type {HTMLElement} */
-        this.grid         = document.querySelector(".grid");
-
-        /** @type {HTMLElement} */
-        this.button       = document.querySelector(".drawer button");
+        this.#drawerElem  = document.querySelector(".drawer");
+        this.#gridElem    = document.querySelector(".grid");
+        this.#buttonElem  = document.querySelector(".drawer button");
 
         const optimalSize = 210;
         const minAmount   = Math.floor(optimalSize / metrics.fullSize);
@@ -40,11 +50,11 @@ export default class Drawer {
         const cols        = Math.abs(minSize - optimalSize) < Math.abs(maxSize - optimalSize) ? minAmount : minAmount + 1;
         const finalSize   = (cols * metrics.fullSize) + (cols - 1) * 8;
 
-        this.element.style.display          = "block";
-        this.element.style.width            = Utils.toPX(finalSize);
-        this.grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+        this.#drawerElem.style.display           = "block";
+        this.#drawerElem.style.width             = Utils.toPX(finalSize);
+        this.#gridElem.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
 
-        this.list.forEach((elem) => this.grid.appendChild(elem.canvas));
+        this.#list.forEach((piece) => piece.appendTo(this.#gridElem));
     }
 
     /**
@@ -52,17 +62,16 @@ export default class Drawer {
      * @returns {Void}
      */
     destroy() {
-        if (this.onlyBorders) {
+        if (this.#onlyBorders) {
             this.toggleBorders();
         }
-        this.grid.innerHTML        = "";
-        this.element.style.display = "none";
-        this.list.empty();
+        this.#gridElem.innerHTML       = "";
+        this.#drawerElem.style.display = "none";
+        this.#list.empty();
 
-        this.list    = null;
-        this.element = null;
-        this.grid    = null;
-        this.button  = null;
+        this.#drawerElem = null;
+        this.#gridElem   = null;
+        this.#buttonElem = null;
     }
 
 
@@ -72,9 +81,9 @@ export default class Drawer {
      * @returns {Void}
      */
     toggleBorders() {
-        this.button.innerHTML = this.onlyBorders ? "Only <u>B</u>orders" : "All Pieces";
-        this.grid.classList.toggle("drawer-borders");
-        this.onlyBorders = !this.onlyBorders;
+        this.#buttonElem.innerHTML = this.#onlyBorders ? "Only <u>B</u>orders" : "All Pieces";
+        this.#gridElem.classList.toggle("drawer-borders");
+        this.#onlyBorders = !this.#onlyBorders;
     }
 
     /**
@@ -83,7 +92,7 @@ export default class Drawer {
      * @returns {Boolean}
      */
     inBounds(pos) {
-        return Utils.inElement(pos, this.element);
+        return Utils.inElement(pos, this.#drawerElem);
     }
 
     /**
@@ -95,20 +104,20 @@ export default class Drawer {
     dropPiece(piece, pos) {
         const closestPiece = this.findClosest(pos, piece.id);
         if (closestPiece) {
-            this.grid.insertBefore(piece.canvas, closestPiece.canvas);
+            this.#gridElem.insertBefore(piece.element, closestPiece.element);
         } else {
-            this.grid.appendChild(piece.canvas);
+            piece.appendTo(this.#gridElem);
         }
 
         if (piece.inDrawer) {
-            this.list.remove((item) => item.id === piece.id);
+            this.#list.remove((item) => item.id === piece.id);
         }
         if (closestPiece) {
-            this.list.addBefore(piece, (item) => item.id === closestPiece.id);
+            this.#list.addBefore(piece, (item) => item.id === closestPiece.id);
         } else {
-            this.list.addLast(piece);
+            this.#list.addLast(piece);
         }
-        this.instance.saveDrawerPieces(this.list);
+        this.#instance.saveDrawerPieces(this.#list);
 
         piece.dropInDrawer();
     }
@@ -120,8 +129,8 @@ export default class Drawer {
      */
     removePiece(piece) {
         if (piece.inDrawer) {
-            this.list.remove((elem) => elem.id === piece.id);
-            this.instance.saveDrawerPieces(this.list);
+            this.#list.remove((elem) => elem.id === piece.id);
+            this.#instance.saveDrawerPieces(this.#list);
         }
     }
 
@@ -133,7 +142,7 @@ export default class Drawer {
      * @returns {?Piece}
      */
     findPiece(id) {
-        return this.list.find((elem) => elem.id === id);
+        return this.#list.find((elem) => elem.id === id);
     }
 
     /**
@@ -146,20 +155,26 @@ export default class Drawer {
         let minDist = Number.POSITIVE_INFINITY;
         let result  = null;
 
-        this.list.some((elem) => {
-            if (elem.id === skipID) {
+        this.#list.some((piece) => {
+            if (piece.id === skipID) {
                 return false;
             }
-            const bounds = elem.canvas.getBoundingClientRect();
+
+            const bounds = piece.bounds;
             if (Utils.inBounds(pos, bounds)) {
-                result = elem;
+                result = piece;
                 return true;
             }
-            const center = { top : bounds.top + bounds.height / 2, left : bounds.left + bounds.width / 2 };
-            const dist   = Utils.dist(pos, center);
+
+            const center = {
+                top  : bounds.top + bounds.height / 2,
+                left : bounds.left + bounds.width / 2,
+            };
+
+            const dist = Utils.dist(pos, center);
             if (dist < minDist) {
                 minDist = dist;
-                result  = elem;
+                result  = piece;
             }
         });
         return result;
