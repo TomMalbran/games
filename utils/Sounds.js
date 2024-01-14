@@ -42,7 +42,7 @@ export default class Sounds {
 
     /**
      * Mute/Unmute the sound
-     * @param {Boolean} mute
+     * @param {Boolean=} mute
      * @returns {Void}
      */
     toggle(mute) {
