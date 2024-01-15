@@ -22,9 +22,9 @@
 
     --z-dragging: 10;
     --z-selection: 100;
-    --z-dialog: 100;
     --z-header: 200;
     --z-preview: 300;
+    --z-dialog: 400;
 }
 
 
