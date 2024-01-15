@@ -29,7 +29,8 @@ function createShortcuts() {
     const preview = () => puzzle.togglePreview();
     const pause   = () => puzzle.togglePause();
     const mute    = () => sounds.toggle();
-    const borders = () => puzzle.toggleBorders();
+    const borders = () => puzzle.toggleOnlyBorders();
+    const split   = () => puzzle.toggleDrawerSplit();
     const exit    = () => {
         if (puzzle.isGame) {
             puzzle.destroy();
@@ -47,6 +48,8 @@ function createShortcuts() {
         E      : exit,
         B      : borders,
         A      : borders,
+        S      : split,
+        J      : split,
     };
 }
 
@@ -84,7 +87,12 @@ function initDomListeners() {
 
         case "borders":
             if (puzzle) {
-                puzzle.toggleBorders();
+                puzzle.toggleOnlyBorders();
+            }
+            break;
+        case "split":
+            if (puzzle) {
+                puzzle.toggleDrawerSplit();
             }
             break;
         case "preview":

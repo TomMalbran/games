@@ -54,8 +54,10 @@ export default class Instance {
         this.#storage.remove("time");
         this.#storage.remove("score");
         this.#storage.remove("pieces");
-        this.#storage.remove("drawer");
         this.#storage.remove("drawerBorders");
+        this.#storage.remove("drawerSplit");
+        this.#storage.remove("drawerPrimary");
+        this.#storage.remove("drawerSecondary");
         this.#storage.remove("board");
         this.#storage.remove("tablePieces");
         this.#storage.remove("tableSets");
@@ -79,15 +81,16 @@ export default class Instance {
         }
 
         // Generate the Matrix and Pieces
+        /** @type {Object[][]} */
         const matrix  = [];
         const options = [ -1, 1 ];
+
         for (let row = 0; row < this.#metrics.rows; row += 1) {
             matrix[row] = [];
             for (let col = 0; col < this.#metrics.cols; col += 1) {
                 /** @type {{top: Number, right: Number, bottom: Number, left: Number}} */
                 const borders = { top : 0, right : 0, bottom : 0, left : 0 };
                 if (row > 0) {
-                    // @ts-ignore
                     borders.top = matrix[row - 1][col].bottom * -1;
                 }
                 if (col < this.#metrics.cols - 1) {
@@ -97,7 +100,6 @@ export default class Instance {
                     borders.bottom = Utils.randArray(options);
                 }
                 if (col > 0) {
-                    // @ts-ignore
                     borders.left = matrix[row][col - 1].right * -1;
                 }
 
@@ -105,7 +107,7 @@ export default class Instance {
                 do {
                     id = `p${Utils.rand(0, 999999)}`;
                 } while (this.#pieces[id]);
-                this.#pieces[id]  = new Piece(this.#metrics, this.#image, id, col, row, borders);
+                this.#pieces[id] = new Piece(this.#metrics, this.#image, id, col, row, borders);
                 matrix[row][col] = borders;
                 values.push({ id, col, row, borders });
             }
@@ -120,8 +122,8 @@ export default class Instance {
         }
 
         this.#storage.set("pieces", values);
-        this.#storage.set("drawer", values.map((elem) => elem.id));
         this.#storage.set("score",  { placed : 0, total : this.#metrics.totalPieces });
+        this.#storage.set("drawerPrimary", values.map((elem) => elem.id));
     }
 
     /**
@@ -180,21 +182,57 @@ export default class Instance {
     }
 
     /**
-     * Returns the Drawer Pieces
-     * @returns {Piece[]}
+     * Returns the Drawer Split
+     * @returns {Boolean}
      */
-    getDrawerPieces() {
-        return this.getPieces("drawer");
+    getDrawerSplit() {
+        return this.#storage.get("drawerSplit");
     }
 
     /**
-     * Saves the Drawer Pieces
+     * Returns the Drawer Split
+     * @param {Boolean} value
+     * @returns {Void}
+     */
+    saveDrawerSplit(value) {
+        return this.#storage.set("drawerSplit", value);
+    }
+
+    /**
+     * Returns the Drawer Primary Pieces
+     * @returns {Piece[]}
+     */
+    getDrawerPrimaries() {
+        return this.getPieces("drawerPrimary");
+    }
+
+    /**
+     * Saves the Drawer Primary Pieces
      * @param {List} list
      * @returns {Void}
      */
-    saveDrawerPieces(list) {
-        this.savePieces("drawer", list);
+    saveDrawerPrimaries(list) {
+        this.savePieces("drawerPrimary", list);
     }
+
+    /**
+     * Returns the Drawer Secondary Pieces
+     * @returns {Piece[]}
+     */
+    getDrawerSecondaries() {
+        return this.getPieces("drawerSecondary");
+    }
+
+    /**
+     * Saves the Drawer Secondary Pieces
+     * @param {List} list
+     * @returns {Void}
+     */
+    saveDrawerSecondaries(list) {
+        this.savePieces("drawerSecondary", list);
+    }
+
+
 
     /**
      * Returns the Board Pieces

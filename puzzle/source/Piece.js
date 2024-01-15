@@ -40,7 +40,7 @@ export default class Piece {
         this.left     = 0;
         this.borders  = borders;
         this.isBorder = !this.borders.top || !this.borders.right || !this.borders.bottom || !this.borders.left;
-        this.inDrawer = true;
+        this.inDrawer = "primary";
 
         this.#canvas                = document.createElement("canvas");
         this.#ctx                   = this.#canvas.getContext("2d");
@@ -60,7 +60,7 @@ export default class Piece {
      * @returns {Void}
      */
     initInTable(top, left) {
-        this.inDrawer = false;
+        this.inDrawer = "";
         this.top      = Math.max(top, 100);
         this.left     = Math.max(left, 100);
         this.#canvas.style.transform = Utils.translate(this.left, this.top);
@@ -276,10 +276,11 @@ export default class Piece {
 
     /**
      * Drops the Piece in the Drawer
+     * @param {String} drawer
      * @returns {Void}
      */
-    dropInDrawer() {
-        this.inDrawer = true;
+    dropInDrawer(drawer) {
+        this.inDrawer = drawer;
         this.#canvas.style.transform = "";
     }
 
@@ -289,7 +290,7 @@ export default class Piece {
      * @returns {Void}
      */
     dropInTable(pos) {
-        this.inDrawer = false;
+        this.inDrawer = "";
         this.translate(pos);
     }
 }

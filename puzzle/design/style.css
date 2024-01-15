@@ -41,6 +41,7 @@ html, body {
     font-family: var(--main-font);
     background-color: transparent;
     backface-visibility: hidden;
+    overflow: hidden;
 }
 button {
     padding: 0;
@@ -81,7 +82,8 @@ h1 {
     color: var(--main-color);
 }
 .menu,
-.score {
+.score,
+.actions {
     box-sizing: border-box;
     display: none;
     align-items: center;
@@ -419,25 +421,63 @@ h2 {
     border: 5px solid rgba(21, 26, 33);
 }
 
+
+
+/**
+ * The Drawer
+ */
 .drawer {
     display: none;
+    flex-direction: column;
     flex-shrink: 0;
     width: 218px;
-    padding: 64px 16px 16px 16px;
+    padding: 54px 0 0 0;
     border-left: 10px solid rgba(11, 16, 23);
     background-color: rgba(220, 220, 220, 0.3);
-    overflow-y: scroll;
 }
-.drawer button {
+.actions {
+    display: flex;
+    gap: 16px;
+    justify-content: stretch;
+    width: calc(100% - 32px);
+    margin: 0 16px;
+}
+.actions li {
+    flex: 1;
+}
+.actions li button {
     width: 100%;
-    margin-bottom: 16px;
-}
-.grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 8px;
 }
 
+.primary,
+.secondary {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: min-content;
+    grid-gap: 8px;
+    padding: 16px;
+    height: calc(100vh - 54px - 48px);
+    overflow: auto;
+}
+.secondary {
+    display: none;
+    border-top: 10px solid rgba(11, 16, 23);
+}
+
+.drawer-split .secondary {
+    display: grid;
+}
+.drawer-split .primary,
+.drawer-split .secondary {
+    height: calc((100vh - 54px - 48px) / 2);
+}
+
+
+
+/**
+ * The Preview
+ */
 .preview {
     display: none;
     justify-content: center;
@@ -519,7 +559,7 @@ body > .piece {
     cursor: auto;
     pointer-events: none;
 }
-.drawer-borders > :not(.border) {
+.drawer-borders > div > :not(.border) {
     opacity: 0.1;
 }
 

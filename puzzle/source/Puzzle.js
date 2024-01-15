@@ -92,16 +92,16 @@ export default class Puzzle {
         this.#board.destroy();
         this.#table.destroy();
 
-        this.#display  = "game";
+        this.#display      = "game";
         this.#congratsElem = null;
         this.#previewElem  = null;
         this.#imageElem    = null;
 
-        this.#metrics  = null;
-        this.#instance = null;
-        this.#drawer   = null;
-        this.#board    = null;
-        this.#table    = null;
+        this.#metrics      = null;
+        this.#instance     = null;
+        this.#drawer       = null;
+        this.#board        = null;
+        this.#table        = null;
     }
 
 
@@ -172,8 +172,16 @@ export default class Puzzle {
      * Toggles between showing only border pieces or all
      * @returns {Void}
      */
-    toggleBorders() {
-        this.#drawer.toggleBorders();
+    toggleOnlyBorders() {
+        this.#drawer.toggleOnlyBorders();
+    }
+
+    /**
+     * Toggles between showing one or two pieces places
+     * @returns {Void}
+     */
+    toggleDrawerSplit() {
+        this.#drawer.toggleSplit();
     }
 
 
