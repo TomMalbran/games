@@ -68,6 +68,9 @@ header {
     left: 32px;
     display: flex;
     align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 16px 32px;
+    max-width: calc(100vw - 300px - 64px);
     z-index: var(--z-header);
 }
 h1 {
@@ -83,7 +86,7 @@ h1 {
     display: none;
     align-items: center;
     list-style: none;
-    margin: 0 0 0 32px;
+    margin: 0;
     padding: 12px;
     min-height: 48px;
     color: rgba(255, 255, 255, 0.8);
