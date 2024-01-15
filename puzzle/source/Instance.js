@@ -55,6 +55,7 @@ export default class Instance {
         this.#storage.remove("score");
         this.#storage.remove("pieces");
         this.#storage.remove("drawer");
+        this.#storage.remove("drawerBorders");
         this.#storage.remove("board");
         this.#storage.remove("tablePieces");
         this.#storage.remove("tableSets");
@@ -160,6 +161,23 @@ export default class Instance {
     }
 
 
+
+    /**
+     * Returns the Drawer Only Borders
+     * @returns {Boolean}
+     */
+    getDrawerOnlyBorders() {
+        return this.#storage.get("drawerBorders");
+    }
+
+    /**
+     * Returns the Drawer Only Borders
+     * @param {Boolean} value
+     * @returns {Void}
+     */
+    saveDrawerOnlyBorders(value) {
+        return this.#storage.set("drawerBorders", value);
+    }
 
     /**
      * Returns the Drawer Pieces

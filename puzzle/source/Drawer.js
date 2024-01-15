@@ -36,13 +36,6 @@ export default class Drawer {
     constructor(metrics, instance) {
         this.#instance    = instance;
 
-        this.#list        = new List(instance.getDrawerPieces());
-        this.#onlyBorders = false;
-
-        this.#drawerElem  = document.querySelector(".drawer");
-        this.#gridElem    = document.querySelector(".grid");
-        this.#buttonElem  = document.querySelector(".drawer button");
-
         const optimalSize = 210;
         const minAmount   = Math.floor(optimalSize / metrics.fullSize);
         const minSize     = minAmount * metrics.fullSize;
@@ -50,11 +43,21 @@ export default class Drawer {
         const cols        = Math.abs(minSize - optimalSize) < Math.abs(maxSize - optimalSize) ? minAmount : minAmount + 1;
         const finalSize   = (cols * metrics.fullSize) + (cols - 1) * 8;
 
+        this.#drawerElem  = document.querySelector(".drawer");
+        this.#gridElem    = document.querySelector(".grid");
+        this.#buttonElem  = document.querySelector(".drawer button");
+
         this.#drawerElem.style.display           = "block";
         this.#drawerElem.style.width             = Utils.toPX(finalSize);
         this.#gridElem.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
 
+        this.#list = new List(instance.getDrawerPieces());
         this.#list.forEach((piece) => piece.appendTo(this.#gridElem));
+
+        this.#onlyBorders = instance.getDrawerOnlyBorders();
+        if (this.#onlyBorders) {
+            this.toggleBorders();
+        }
     }
 
     /**
@@ -65,6 +68,7 @@ export default class Drawer {
         if (this.#onlyBorders) {
             this.toggleBorders();
         }
+
         this.#gridElem.innerHTML       = "";
         this.#drawerElem.style.display = "none";
         this.#list.empty();
@@ -81,9 +85,10 @@ export default class Drawer {
      * @returns {Void}
      */
     toggleBorders() {
-        this.#buttonElem.innerHTML = this.#onlyBorders ? "Only <u>B</u>orders" : "All Pieces";
-        this.#gridElem.classList.toggle("drawer-borders");
         this.#onlyBorders = !this.#onlyBorders;
+        this.#bordersElem.innerHTML = this.#onlyBorders ? "<u>A</u>ll Pieces" : "Only <u>B</u>orders";
+        this.#drawerElem.classList.toggle("drawer-borders");
+        this.#instance.saveDrawerOnlyBorders(this.#onlyBorders);
     }
 
     /**

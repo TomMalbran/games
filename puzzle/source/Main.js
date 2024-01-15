@@ -46,6 +46,7 @@ function createShortcuts() {
         Q      : exit,
         E      : exit,
         B      : borders,
+        A      : borders,
     };
 }
 
