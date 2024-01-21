@@ -93,7 +93,7 @@ export default class Selection {
             li.innerHTML = `
                 <div class="slider-image">
                     <h3>${i}</h3>
-                    <img src="images/${this.#tab}${i}.jpg" />
+                    <img src="images/${this.#tab}/${i}.jpg" />
                     ${completed > 0 ? `<h4 ${(completed === pieces.length) ? "class='done'" : ""}>
                         ${completed}/${pieces.length}
                     </h4>` : ""}
