@@ -1,3 +1,4 @@
+import Data         from "./Data.js";
 import Storage      from "../../utils/Storage.js";
 import Utils        from "../../utils/Utils.js";
 
@@ -20,8 +21,6 @@ export default class Selection {
     #index;
     /** @type {Number} */
     #amount;
-    /** @type {Number} */
-    #total;
     /** @type {Number} */
     #last;
     /** @type {Number} */
@@ -52,11 +51,10 @@ export default class Selection {
         this.#onStart    = onStart;
 
         this.#image      = "";
-        this.#tab        = "art";
+        this.#tab        = Data.categories[0];
         this.#index      = 0;
         this.#amount     = 2;
-        this.#total      = 10;
-        this.#last       = this.#total - this.#amount + 1;
+        this.#last       = Data.puzzles - this.#amount + 1;
 
         this.#mainElem   = document.querySelector(".selection");
         this.#tabsElem   = document.querySelector(".selection-tabs");
@@ -65,22 +63,36 @@ export default class Selection {
         this.#descElem   = document.querySelector(".selection-desc");
         this.#buttonElem = document.querySelector(".selection button");
 
-        this.build();
+        this.buildTabs();
+        this.buildTab();
     }
 
     /**
-     * Builds the Slider
+     * Builds all the Tabs
      * @returns {Void}
      */
-    build() {
-        const pieces = [ "50", "100", "250", "500" ];
-        let   done   = 0;
+    buildTabs() {
+        for (const category of Data.categories) {
+            const li          = document.createElement("li");
+            li.className      = this.#tab === category ? "selected" : "";
+            li.dataset.action = "tab";
+            li.innerText      = category;
+            this.#tabsElem.appendChild(li);
+        }
+    }
+
+    /**
+     * Builds a single Tab
+     * @returns {Void}
+     */
+    buildTab() {
+        let done = 0;
 
         this.#listElem.innerHTML = "";
-        for (let i = 1; i <= this.#total; i += 1) {
+        for (let i = 1; i <= Data.puzzles; i += 1) {
             let completed = 0;
             let selects   = "";
-            for (const pieceCount of pieces) {
+            for (const pieceCount of Data.pieces) {
                 const score  = this.#storage.get(`${this.#tab}${i}.${pieceCount}.score`);
                 const isDone = score && score.placed === score.total
                 done      += isDone ? 1 : 0;
@@ -94,8 +106,8 @@ export default class Selection {
                 <div class="slider-image">
                     <h3>${i}</h3>
                     <img src="images/${this.#tab}/${i}.jpg" />
-                    ${completed > 0 ? `<h4 ${(completed === pieces.length) ? "class='done'" : ""}>
-                        ${completed}/${pieces.length}
+                    ${completed > 0 ? `<h4 ${(completed === Data.pieces.length) ? "class='done'" : ""}>
+                        ${completed}/${Data.pieces.length}
                     </h4>` : ""}
                 </div>
                 <ul data-image="${this.#tab}${i}">${selects}</ul>
@@ -103,12 +115,12 @@ export default class Selection {
             this.#listElem.appendChild(li);
         }
 
-        const total   = (this.#total * pieces.length);
+        const total   = Data.puzzles * Data.pieces.length;
         const percent = Math.floor(done * 100 / total);
         this.#packElem.innerHTML = `Completed <b>${done}/${total}</b> puzzles <i>(${percent}%)</i> of this pack.`;
 
         this.#listElem.style.setProperty("--slider-count", String(this.#amount));
-        this.#listElem.style.setProperty("--slider-total", String(this.#total));
+        this.#listElem.style.setProperty("--slider-total", String(Data.puzzles));
     }
 
     /**
@@ -130,7 +142,7 @@ export default class Selection {
 
         this.#tabsElem.querySelector(".selected").classList.remove("selected");
         element.classList.add("selected");
-        this.build();
+        this.buildTab();
 
         this.#descElem.style.display   = "none";
         this.#buttonElem.style.display = "none";
@@ -159,7 +171,7 @@ export default class Selection {
      * @returns {Void}
      */
     transform() {
-        this.#listElem.style.transform = `translateX(calc(-100%/${this.#total}*${this.#index}))`;
+        this.#listElem.style.transform = `translateX(calc(-100%/${Data.puzzles}*${this.#index}))`;
     }
 
     /**
