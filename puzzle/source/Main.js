@@ -80,7 +80,7 @@ function initDomListeners() {
             break;
         case "restart":
             puzzle.destroy();
-            selection.build();
+            selection.buildTab();
             selection.show();
             puzzle = null;
             break;
