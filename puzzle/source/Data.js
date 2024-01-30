@@ -7,6 +7,7 @@ export default {
         "Car",
         "City",
         "Street",
+        "Wally",
     ],
 
     // Puzzles por Categories
