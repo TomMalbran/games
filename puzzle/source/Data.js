@@ -6,6 +6,7 @@ export default {
         "Apple",
         "Car",
         "City",
+        "Gradient",
         "Street",
         "Wally",
     ],
