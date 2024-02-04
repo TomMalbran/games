@@ -64,6 +64,21 @@ export default class Instance {
     }
 
     /**
+     * Destroys some of the Storage data after completed
+     * @returns {Void}
+     */
+    complete() {
+        this.#storage.remove("pieces");
+        this.#storage.remove("drawerBorders");
+        this.#storage.remove("drawerSplit");
+        this.#storage.remove("drawerPrimary");
+        this.#storage.remove("drawerSecondary");
+        this.#storage.remove("board");
+        this.#storage.remove("tablePieces");
+        this.#storage.remove("tableSets");
+    }
+
+    /**
      * Creates all the Pieces
      * @returns {Void}
      */
@@ -249,7 +264,10 @@ export default class Instance {
      */
     saveBoardPieces(list) {
         this.savePieces("board", list);
-        this.#storage.set("score", { placed : list.length, total : this.#metrics.totalPieces });
+        this.#storage.set("score", {
+            placed : list.length,
+            total  : this.#metrics.totalPieces,
+        });
     }
 
 

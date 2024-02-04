@@ -334,13 +334,16 @@ export default class Puzzle {
      * @returns {Void}
      */
     complete() {
-        if (this.#metrics.isComplete) {
-            this.#display = "congrats";
-            this.#congratsElem.style.display = "block";
-            this.#sounds.play("fireworks");
-            if (this.interval) {
-                window.clearInterval(this.interval);
-            }
+        if (!this.#metrics.isComplete) {
+            return;
         }
+
+        if (this.interval) {
+            window.clearInterval(this.interval);
+        }
+        this.#display = "congrats";
+        this.#congratsElem.style.display = "block";
+        this.#sounds.play("fireworks");
+        this.#instance.complete();
     }
 }

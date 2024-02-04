@@ -94,7 +94,8 @@ export default class Selection {
             let completed = 0;
             let selects   = "";
             for (const pieceCount of Data.pieces) {
-                const score  = this.#storage.get(`${this.#tab}${i}.${pieceCount}.score`);
+                const prefix = `${this.#tab}${i}.${pieceCount}.`;
+                const score  = this.#storage.get(`${prefix}score`);
                 const isDone = score && score.placed === score.total
                 done      += isDone ? 1 : 0;
                 completed += isDone ? 1 : 0;
