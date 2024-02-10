@@ -8,7 +8,6 @@ export default {
         "City",
         "Gradient",
         "Street",
-        "Wally",
     ],
 
     // Puzzles por Categories
