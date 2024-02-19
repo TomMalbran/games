@@ -4,6 +4,7 @@ export default {
     categories : [
         "Art",
         "Apple",
+        "Animal",
         "Car",
         "City",
         "Gradient",
