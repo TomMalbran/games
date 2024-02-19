@@ -136,14 +136,14 @@ h1 {
  */
 .selection {
     position: absolute;
-    top: 50%;
+    top: calc(50% + 24px);
     left: 50%;
     max-width: calc((300px + 32px) * 2);
     max-height: calc(100vh - 140px);
-    padding: 16px 32px;
+    padding: 24px 48px;
     transform: translate(-50%, -50%);
     background-color: var(--dialog-color);
-    border-radius: var(--border-radius);
+    border-radius: calc(var(--border-radius) * 1.5);
     overflow: auto;
     z-index: var(--z-selection);
 }
@@ -174,12 +174,13 @@ h2 {
     list-style: none;
     display: flex;
     justify-content: center;
-    margin: 16px 0 8px 0;
+    flex-wrap: wrap;
+    margin: 8px 0;
     padding: 0;
+    gap: 12px 8px;
 }
 .selection-tabs li {
     display: block;
-    margin: 0 8px;
     padding: 6px 20px;
     color: white;
     border: 1px solid white;
